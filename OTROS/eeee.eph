@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--EasyPattern Helper 3.0 from http://www.DataMystic.com-->
+<settings>
+  <Version>5</Version>
+  <EasyPattern>  First Name: [ capture( longest 1 to 21 letters or whitespace ) ]Name: [ capture( longest 1 to 13 letters or whitespace ) ]  Profession: [ capture( longest 1 to 21 letters or whitespace ) ]Hair: Unkempt     </EasyPattern>
+  <Perl>(?:  First Name: )(?:((?:(?:[[:alpha:][:space:]\x0b\xCA]{1,21}?))))(?:Name: )(?:((?:(?:[[:alpha:][:space:]\x0b\xCA]{1,13}?))))(?:  Profession: )(?:((?:(?:[[:alpha:][:space:]\x0b\xCA]{1,21}?))))(?:Hair: Unkempt     )</Perl>
+  <Test/>
+  <Flags>7</Flags>
+  <Source>{\rtf1\ansi\ansicpg1252\deff0\deflang2058{\fonttbl{\f0\fnil Courier New;}}
+{\colortbl ;\red255\green0\blue0;}
+\viewkind4\uc1\pard\f0\fs16   First Name: \cf1\ul Albert          Last \cf0\ulnone Name: \cf1\ul Einstein   \cf0\ulnone 
+\par   Profession: \cf1\ul Patent Clerk         \cf0\ulnone Hair: Unkempt     
+\par 
+\par }
+</Source>
+  <TestString/>
+</settings>

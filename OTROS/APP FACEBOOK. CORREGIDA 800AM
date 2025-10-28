@@ -1,0 +1,57 @@
+import react from 'react';
+import { useState } from 'react';
+import { button } from './components/ui/button';
+import { input } from './components/ui/input';
+import { textarea } from './components/ui/textarea';
+
+export default function app() {
+  const [preguntas, setPreguntas] = useState([
+    { pregunta: "¿Qué servicios ofrece el Centro de Tratamientos en Adicciones Sentido de Vida?", respuesta: "Ofrecemos tratamientos para la rehabilitación de adicciones como alcohol, drogas, tabaco, y también brindamos apoyo emocional para trastornos como ansiedad, depresión y estrés." },
+    { pregunta: "¿Qué tipo de adicciones tratan?", respuesta: "Tratamos adicciones al alcohol, cannabis, cocaína, cristal y tabaco, entre otras." },
+    { pregunta: "¿También ayudan con problemas emocionales?", respuesta: "Sí, trabajamos con problemas emocionales como ansiedad, depresión, fobias y trastornos obsesivo-compulsivos." },
+    { pregunta: "¿Es necesario internarse en la clínica?", respuesta: "Dependiendo de cada caso, ofrecemos opciones de tratamiento residencial y ambulatorio." },
+    { pregunta: "¿Qué es un tratamiento residencial?", respuesta: "Es un tratamiento donde el paciente permanece en nuestras instalaciones durante todo el proceso de rehabilitación para recibir atención intensiva." },
+  ]);
+
+  const [mostrarRespuesta, setMostrarRespuesta] = useState(false);
+  const [preguntaActual, setPreguntaActual] = useState(0);
+  const [respuestaActual, setRespuestaActual] = useState("");
+
+  const handlePregunta = (pregunta, respuesta) => {
+    setMostrarRespuesta(true);
+    setRespuestaActual(respuesta);
+  };
+
+  const handleSiguiente = () => {
+    setMostrarRespuesta(false);
+    setPreguntaActual(preguntaActual + 1);
+  };
+
+  return (
+    <div className="bg-gray-900 text-white p-4">
+      <h1 className="text-3xl font-bold text-center mb-4">Clinica de Adicciones Sentido de Vida, Salvando vidas; Una a la vez;</h1>
+      <div className="flex flex-col justify-center mb-4">
+        {preguntas.map((pregunta, index) => (
+          <div key={index} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mb-2 text-center cursor-pointer" onClick={() => handlePregunta(pregunta.pregunta, pregunta.respuesta)}>
+            <p className="text-lg">{pregunta.pregunta}</p>
+          </div>
+        ))}
+      </div>
+      {mostrarRespuesta && (
+        <div className="bg-white p-4 mb-4">
+          <p className="text-lg font-bold">{respuestaActual}</p>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSiguiente}>Siguiente</button>
+        </div>
+      )}
+      <hr className="my-4" />
+      <div className="flex flex-wrap justify-center mb-4">
+        <p className="text-lg font-bold">¿Necesitas ayuda? ¡Contáctanos!</p>
+      </div>
+      <div className="flex flex-wrap justify-center mb-4">
+        <p className="text-lg font-bold">Psic. Tere Hdz.</p>
+        <p className="text-lg font-bold">3331962135</p>
+        <p className="text-lg font-bold">psic.tere.hdz@clinicasentidodevida.com.mx</p>
+      </div>
+    </div>
+  );
+}

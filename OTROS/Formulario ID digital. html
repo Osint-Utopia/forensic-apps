@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Archivo+Black&family=Bebas+Neue&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lilita+One&family=Noto+Color+Emoji&family=Outfit:wght@100..900&family=Playwrite+AU+SA+Guides&family=Playwrite+AU+VIC+Guides&family=Playwrite+CO+Guides&family=Playwrite+DE+Grund+Guides&family=Playwrite+ES+Deco+Guides&family=Playwrite+MX+Guides&family=Playwrite+NG+Modern+Guides&family=Quicksand:wght@300..700&family=Satisfy&family=Shadows+Into+Light&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formato de llenado de información para identificaciones digitales responsivas con funciones avanzadas">
+    <meta name="keywords" content="identificaciones digitales, tarjetas digitales, contacto inmediato, QR, mapa interactivo, redes sociales, profesional">
+    <meta name="author" content="Forensic Abogadosforenses.org">
+    <title>Formulario de Identificaciones Digitales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+            min-width: 250px;
+        }
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            margin-top: 5px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            width: 100%;
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45A049;
+        }
+        .note {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .note {
+            font-size: 14px;
+            color: #56f9dc;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Identificaciones Digitales</h1>
+        <form action="/submit" method="post">
+            <div class="columns">
+                <div class="column">
+                    <label for="profile-photo">Foto de Perfil</label>
+                    <input type="file" id="profile-photo" name="profile-photo" accept="image/*">
+
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" placeholder="Escribe tu nombre completo">
+
+                    <label for="company">Empresa</label>
+                    <input type="text" id="company" name="company" placeholder="Nombre de tu empresa">
+
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
+
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Número de contacto">
+
+                    <label for="whatsapp">WhatsApp</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Número de WhatsApp">
+                </div>
+
+                <div class="column">
+                    <label for="website">Sitio Web</label>
+                    <input type="url" id="website" name="website" placeholder="https://tusitio.com">
+
+                    <label for="social-media">Redes Sociales</label>
+                    <textarea id="social-media" name="social-media" rows="3" placeholder="Enlaces a tus perfiles de redes sociales"></textarea>
+
+                    <label for="skype">Usuario de Video Conferencia</label>
+                    <input type="text" id="skype" name="skype" placeholder="Usuario de Video Conferencia">
+
+                    <label for="bio">Biografía Resumida</label>
+                    <textarea id="bio" name="bio" rows="3" placeholder="Describe brevemente sobre ti"></textarea>
+
+                    <label for="business-info">Acerca del Negocio o Profesión</label>
+                    <textarea id="business-info" name="business-info" rows="4" placeholder="Describe tu negocio o profesión"></textarea>
+                </div>
+
+                <div class="column">
+                    <label for="video">Video de Trabajo</label>
+                    <input type="url" id="video" name="video" placeholder="Enlace a tu video de trabajo">
+
+                    <label for="gallery">Galería (Hasta 3 imágenes)</label>
+                    <input type="file" id="gallery" name="gallery" accept="image/*" multiple>
+
+                    <label for="map">Ubicación (Google Maps)</label>
+                    <input type="text" id="map" name="map" placeholder="Enlace a tu ubicación en Google Maps">
+
+                    <div class="note">Nota: Los campos marcados son obligatorios para procesar tu identificación digital.</div>
+                    <div class="note">Developer: Uli Azua Forensic abogadosforenses.org.</div>
+                </div>
+            </div>
+            <button type="submit">Enviar Información</button>
+        </form>
+    </div>
+</body>
+</html>

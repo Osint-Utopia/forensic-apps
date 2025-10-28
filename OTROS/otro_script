@@ -1,0 +1,70 @@
+const preguntasRespuestas = [
+    "pregunta": "¿Qué Servicios Ofrece El Centro De Tratamientos En Adicciones Sentido De Vida?",
+        "respuesta": "Ofrecemos Tratamientos Para La Rehabilitación De Adicciones Como Alcohol, Drogas, Tabaco, Y También Brindamos Apoyo Emocional Para Trastornos Como Ansiedad, Depresión Y Estrés.",
+        "refuerzo": "¿Te gustaría conocer más sobre nuestros programas específicos?",
+        "boton": {
+            "si": "Perfecto. Te proporciono el número donde te pueden dar la información necesaria: Llama al 3331962135, Psic. Tere Hernández, te atenderá con gusto.",
+            "no": "Entiendo, pero si te surge alguna duda, aquí está el número: 33 3196 2135, Psic. Tere Hernández. - Gracias -"
+        }
+    },
+    {
+        "pregunta": "¿Qué tipo de adicciones tratan?",
+        "respuesta": "Tratamos Adicciones Al Alcohol, Cannabis, Cocaína, Cristal Y Tabaco, Entre Otras.",
+        "refuerzo": "¿Te gustaría saber más sobre cómo abordamos cada tipo de adicción?",
+        "boton": {
+            "si": "Perfecto. Te proporciono el número donde te pueden dar la información necesaria: Llama al 3331962135, Psic. Tere Hernández, te atenderá con gusto.",
+            "no": "Entiendo, pero si cambias de opinión, recuerda que puedes contactarnos al: 33 3196 2135. - Gracias -"
+        }
+    },
+    {
+        "pregunta": "¿También Ayudan Con Problemas Emocionales?",
+        "respuesta": "Sí, Trabajamos Con Problemas Emocionales Como Ansiedad, Depresión, Fobias Y Trastornos Obsesivo-Compulsivos.",
+        "refuerzo": "¿Te gustaría hablar con un especialista sobre tus preocupaciones emocionales?",
+        "boton": {
+            "si": "Perfecto. Te proporciono el número donde te pueden dar la información necesaria: Llama al 3331962135, Psic. Tere Hernández, te atenderá con gusto.",
+            "no": "Entiendo, por si acaso, aquí está el número: 33 3196 2135, Psic. Tere Hernández. - Gracias -"
+    // Agrega hasta 300 preguntas aquí
+];
+
+function generarPreguntas() {
+    const gridContainer = document.querySelector(".grid-container");
+    gridContainer.innerHTML = ""; // Limpia el contenedor
+
+    // Genera 200 preguntas dinámicas
+    preguntasRespuestas.sort(() => Math.random() - 0.5); // Mezclar preguntas
+    preguntasRespuestas.slice(0, 200).forEach(({ pregunta, respuesta }, index) => {
+        const gridItem = document.createElement("div");
+        gridItem.classList.add("grid-item");
+        gridItem.textContent = pregunta;
+
+        gridItem.addEventListener("click", () => {
+            gridItem.textContent = respuesta;
+            setTimeout(() => mostrarPreguntaSeguimiento(gridItem, index), 5000);
+        });
+
+        gridContainer.appendChild(gridItem);
+    });
+}
+
+function mostrarPreguntaSeguimiento(elemento, index) {
+    elemento.innerHTML = `
+        <p>¿Deseas más información personalizada?</p>
+        <div class="buttons">
+            <button class="yes" onclick="mostrarInformacion(${index})">Sí</button>
+            <button class="no" onclick="mostrarGracias(${index})">No</button>
+        </div>
+    `;
+}
+
+function mostrarInformacion(index) {
+    const rect = document.querySelectorAll(".grid-item")[index];
+    rect.textContent = "Gracias por tu interés. Pronto recibirás más información.";
+}
+
+function mostrarGracias(index) {
+    const rect = document.querySelectorAll(".grid-item")[index];
+    rect.textContent = "Gracias. Para más preguntas, contacta al +123456789.";
+}
+
+// Generar preguntas al cargar la página
+document.addEventListener("DOMContentLoaded", generarPreguntas);
