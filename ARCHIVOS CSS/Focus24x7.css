@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus24x7 - Ecosistema Digital Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Partículas eléctricas de fondo */
+        .electric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .electric-line {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: electricPulse 3s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes electricPulse {
+            0%, 100% { opacity: 0; transform: scaleY(0); }
+            50% { opacity: 0.8; transform: scaleY(1); }
+        }
+
+        .status-container {
+            width: 400px;
+            height: 700px;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            border: 2px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 255, 0.3),
+                0 25px 50px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            position: relative;
+            z-index: 10;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-10px) rotateX(2deg); }
+        }
+
+        /* Efecto de brillo dinámico */
+        .status-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ffff, #0080ff, #00ffff, #0080ff);
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderGlow 4s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes borderGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Líneas eléctricas internas */
+        .status-container::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: 
+                linear-gradient(90deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%),
+                linear-gradient(0deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%);
+            border-radius: 25px;
+            pointer-events: none;
+            animation: gridPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes gridPulse {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .brand-title {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffffff, #00ffff, #ffffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            color: #888888;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 5;
+        }
+
+        .tagline {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .tagline-text {
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 1.4;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .tagline-sub {
+            font-size: 14px;
+            color: #00ffff;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .service-card {
+            background: rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            background: rgba(0, 255, 255, 0.15);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 10px 30px rgba(0, 255, 255, 0.2),
+                0 0 20px rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-title {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-desc {
+            font-size: 11px;
+            color: #b0b0b0;
+            line-height: 1.4;
+        }
+
+        .links-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            color: #00ffff;
+            font-weight: 600;#FF3B00
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .link-item {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 128, 255, 0.1));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 128, 255, 0.2));
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .link-text {
+            font-size: 10px;
+            color: #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+
+        .cta-text {
+            font-size: 12px;
+            color: #cccccc;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .main-website-link {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 128, 255, 0.2));
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-website-link:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.4), rgba(0, 128, 255, 0.4));
+            transform: translateY(-2px);
+            box-shadow: 
+                0 10px 25px rgba(0, 255, 255, 0.3),
+                0 0 30px rgba(0, 255, 255, 0.5);
+            border-color: rgba(0, 255, 255, 0.8);
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.8), transparent);
+            margin: 15px auto;
+            animation: linePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes linePulse {
+            0%, 100% { opacity: 0.3; transform: scaleX(1); }
+            50% { opacity: 1; transform: scaleX(1.2); }
+        }
+
+        /* Partículas eléctricas animadas */
+        .electric-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffff;
+            animation: particle 4s infinite linear;
+        }
+
+        @keyframes particle {
+            0% { 
+                transform: translateY(100vh) translateX(0); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-10vh) translateX(50px); 
+                opacity: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo eléctrico -->
+    <div class="electric-bg">
+        <div class="electric-line" style="left: 10%; height: 100px; top: 20%; animation-delay: 0s;"></div>
+        <div class="electric-line" style="right: 15%; height: 150px; top: 60%; animation-delay: 1s;"></div>
+        <div class="electric-line" style="left: 60%; height: 80px; top: 40%; animation-delay: 2s;"></div>
+        
+        <!-- Partículas eléctricas -->
+        <div class="electric-particle" style="left: 20%; animation-delay: 0s;"></div>
+        <div class="electric-particle" style="left: 70%; animation-delay: 2s;"></div>
+        <div class="electric-particle" style="left: 45%; animation-delay: 4s;"></div>
+    </div>
+
+    <div class="status-container">
+        <div class="brand-header">
+            <div class="brand-title">Focus24x7</div>
+            <div class="brand-subtitle">Ecosistema Digital Completo</div>
+        </div>
+
+        <div class="main-content">
+            <div class="tagline">
+                <div class="tagline-text">Ciberseguridad • Legal • Forense</div>
+                <div class="tagline-sub">Soluciones Integrales Profesionales</div>
+            </div>
+
+            <div class="accent-line"></div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-title">CIBERSEGURIDAD</div>
+                    <div class="service-desc">XIPHOS & AKONTIA • Análisis OSINT • Pentesting</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-title"> Lic AzuLEGAL FORENSE</div>
+                    <div class="service-desc">Peritajes • Evidencia Digital • 20+ años exp.</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-title">AJOLOTE NOMADA</div>
+                    <div class="service-desc">Blog Especializado • IA • Filosofía Digital</div>
+                </div>
+            </div>
+
+            <div class="links-section">
+                <div class="section-title">— SERVICIOS DISPONIBLES —</div>
+                
+                <a href="https://ziprespaldo-hub.github.io/Abogados_Forenses.org/index" class="link-item">
+                    <div class="link-text">🏛 SERVICIOS LEGALES FORENSES</div>
+                </a>
+                
+                <a href="https://ziprespaldo-hub.github.io/Abogados_Forenses.org/formulario.html" class="link-item">
+                    <div class="link-text">📋 CONSULTA GRATUITA</div>
+                </a>
+                
+                <a href="https://ziprespaldo-hub.github.io/Abogados_Forenses.org/nomada.html" class="link-item">
+                    <div class="link-text">🧠 BLOG AJOLOTE NOMADA</div>
+                </a>
+                
+                <a href="https://ziprespaldo-hub.github.io/Abogados_Forenses.org/lic_al_ulises.html" class="link-item">
+                    <div class="link-text">👨‍💼 PERFIL PROFESIONAL</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-text">Metodología empresarial • Resultados verificables</div>
+            <a href="https://ziprespaldo-hub.github.io/landing-page/" class="main-website-link">
+                Focus24x7 Principal
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Crear más partículas dinámicamente
+        function createElectricParticles() {
+            const bg = document.querySelector('.electric-bg');
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'electric-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = '0s';
+                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                
+                bg.appendChild(particle);
+                
+                // Remover partícula después de la animación
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 5000);
+            }, 1500);
+        }
+        
+        // Iniciar sistema de partículas
+        createElectricParticles();
+        
+        // Efecto de hover en las cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = '0 0 40px rgba(0, 255, 255, 0.4), 0 15px 35px rgba(0, 0, 0, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
