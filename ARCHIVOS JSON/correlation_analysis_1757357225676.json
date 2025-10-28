@@ -1,0 +1,276 @@
+{
+  "timestamp": "2025-09-08T18:47:05.674Z",
+  "persons": [
+    "GREGORIO RAFAEL TAMAYO",
+    "GREGORIO RAFAEL TAMAYO"
+  ],
+  "analysisLevel": "deep",
+  "overallConfidence": 1,
+  "connections": [
+    {
+      "type": "social_platform",
+      "platform": "Facebook",
+      "confidence": 0.9665066377503535,
+      "description": "Ambos usuarios activos en Facebook",
+      "strength": "high"
+    },
+    {
+      "type": "social_platform",
+      "platform": "LinkedIn",
+      "confidence": 0.6648655898400384,
+      "description": "Ambos usuarios activos en LinkedIn",
+      "strength": "high"
+    },
+    {
+      "type": "social_platform",
+      "platform": "Twitter",
+      "confidence": 0.7566210619246934,
+      "description": "Ambos usuarios activos en Twitter",
+      "strength": "high"
+    },
+    {
+      "type": "temporal",
+      "correlation": 0.6514285714285715,
+      "confidence": 0.6514285714285715,
+      "description": "Patrones de actividad similares (65% correlación)",
+      "strength": "medium"
+    },
+    {
+      "type": "device",
+      "similarity": 0.8,
+      "confidence": 0.8,
+      "description": "Dispositivos y configuraciones similares",
+      "strength": "high",
+      "details": [
+        "Dispositivo principal: Desconocido",
+        "Navegadores comunes: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+        "Rango de IP similar detectado"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "type": "high_correlation",
+      "title": "Correlación Alta Detectada",
+      "description": "Se encontraron 4 conexiones de alta confianza entre los sujetos",
+      "confidence": 0.9,
+      "priority": "high"
+    },
+    {
+      "type": "platform_overlap",
+      "title": "Superposición Significativa de Plataformas",
+      "description": "Ambos sujetos activos en 3 plataformas comunes",
+      "confidence": 0.75,
+      "priority": "medium"
+    },
+    {
+      "type": "temporal",
+      "title": "Sincronización Temporal",
+      "description": "Patrones de actividad moderadamente correlacionados",
+      "confidence": 0.6514285714285715,
+      "priority": "medium"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2025-09-03T02:17:07.055Z",
+      "type": "geolocation",
+      "description": "Coordenadas GPS similares registradas",
+      "confidence": 0.647475852129257,
+      "source": "Fuente Desconocida",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2025-08-09T22:27:37.236Z",
+      "type": "digital_trace",
+      "description": "Rastro digital común identificado",
+      "confidence": 0.46904333228842415,
+      "source": "Rastros Digitales",
+      "impact": "Alto"
+    },
+    {
+      "date": "2025-08-08T12:11:53.468Z",
+      "type": "geolocation",
+      "description": "Coordenadas GPS similares registradas",
+      "confidence": 0.6671465831576844,
+      "source": "Fuente Desconocida",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-06-15T19:06:11.782Z",
+      "type": "geolocation",
+      "description": "Coordenadas GPS similares registradas",
+      "confidence": 0.5961281320372264,
+      "source": "Fuente Desconocida",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2025-06-11T06:29:35.247Z",
+      "type": "social_platform",
+      "description": "Ambos usuarios activos en LinkedIn",
+      "confidence": 0.6648655898400384,
+      "source": "Análisis de Redes Sociales",
+      "impact": "Alto"
+    },
+    {
+      "date": "2025-05-21T11:20:58.322Z",
+      "type": "geolocation",
+      "description": "Coordenadas GPS similares registradas",
+      "confidence": 0.7209003390965109,
+      "source": "Fuente Desconocida",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2025-05-19T04:53:56.777Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.5886875202281896,
+      "source": "Metadatos de Archivos",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-05-10T04:41:18.209Z",
+      "type": "social_platform",
+      "description": "Ambos usuarios activos en Facebook",
+      "confidence": 0.9665066377503535,
+      "source": "Análisis de Redes Sociales",
+      "impact": "Alto"
+    },
+    {
+      "date": "2025-04-16T02:34:48.506Z",
+      "type": "geolocation",
+      "description": "Coordenadas GPS similares registradas",
+      "confidence": 0.6010606108702002,
+      "source": "Fuente Desconocida",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-02-22T09:58:22.893Z",
+      "type": "pattern_match",
+      "description": "Patrón de comportamiento coincidente",
+      "confidence": 0.7855647425528753,
+      "source": "Coincidencia de Patrones",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2025-01-29T20:19:19.295Z",
+      "type": "temporal",
+      "description": "Patrones de actividad similares (65% correlación)",
+      "confidence": 0.6514285714285715,
+      "source": "Análisis de Patrones Temporales",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-01-25T11:31:21.691Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.795585889924946,
+      "source": "Metadatos de Archivos",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-01-11T13:10:48.868Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.6919190027567058,
+      "source": "Metadatos de Archivos",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-01-08T03:35:48.016Z",
+      "type": "pattern_match",
+      "description": "Patrón de comportamiento coincidente",
+      "confidence": 0.4582667084290722,
+      "source": "Coincidencia de Patrones",
+      "impact": "Medio"
+    },
+    {
+      "date": "2025-01-05T08:32:45.927Z",
+      "type": "pattern_match",
+      "description": "Patrón de comportamiento coincidente",
+      "confidence": 0.567135007669263,
+      "source": "Coincidencia de Patrones",
+      "impact": "Alto"
+    },
+    {
+      "date": "2024-12-24T14:31:30.014Z",
+      "type": "social_platform",
+      "description": "Ambos usuarios activos en Twitter",
+      "confidence": 0.7566210619246934,
+      "source": "Análisis de Redes Sociales",
+      "impact": "Alto"
+    },
+    {
+      "date": "2024-12-14T14:39:47.896Z",
+      "type": "pattern_match",
+      "description": "Patrón de comportamiento coincidente",
+      "confidence": 0.7466596882761848,
+      "source": "Coincidencia de Patrones",
+      "impact": "Alto"
+    },
+    {
+      "date": "2024-12-12T01:35:13.816Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.4564018021471871,
+      "source": "Metadatos de Archivos",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2024-11-26T00:05:44.568Z",
+      "type": "pattern_match",
+      "description": "Patrón de comportamiento coincidente",
+      "confidence": 0.5225399667435839,
+      "source": "Coincidencia de Patrones",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2024-11-25T16:01:41.353Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.7486166556379642,
+      "source": "Metadatos de Archivos",
+      "impact": "Medio"
+    },
+    {
+      "date": "2024-11-19T23:33:23.966Z",
+      "type": "digital_trace",
+      "description": "Rastro digital común identificado",
+      "confidence": 0.7870641542451118,
+      "source": "Rastros Digitales",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2024-11-07T08:51:39.394Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.5742574500810218,
+      "source": "Metadatos de Archivos",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2024-10-31T11:27:37.157Z",
+      "type": "device",
+      "description": "Dispositivos y configuraciones similares",
+      "confidence": 0.8,
+      "source": "Huellas Digitales de Dispositivos",
+      "impact": "Alto"
+    },
+    {
+      "date": "2024-10-19T17:23:17.057Z",
+      "type": "digital_trace",
+      "description": "Rastro digital común identificado",
+      "confidence": 0.7542249927525457,
+      "source": "Rastros Digitales",
+      "impact": "Bajo"
+    },
+    {
+      "date": "2024-10-09T05:03:07.423Z",
+      "type": "metadata",
+      "description": "Metadatos de imagen coincidentes detectados",
+      "confidence": 0.5064580883762132,
+      "source": "Metadatos de Archivos",
+      "impact": "Bajo"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "resumen": {
+    "fechaAnalisis": "2025-09-25T15:38:24.638Z",
+    "conclusion": "NO JUDICIALIZABLE",
+    "scoreGlobal": null,
+    "nivelSuficiencia": "CARPETA INSUFICIENTE - No apta para proceso"
+  },
+  "indicadores": {
+    "forma": {
+      "promedio": null,
+      "nivel": "CRÍTICO",
+      "impacto": "Afecta validez procesal"
+    },
+    "fondo": {
+      "promedio": null,
+      "nivel": "CRÍTICO",
+      "impacto": "Determina teoría del caso"
+    },
+    "valorProbatorio": {
+      "promedio": null,
+      "nivel": "CRÍTICO",
+      "impacto": "Influye en vinculación"
+    },
+    "legalidad": {
+      "promedio": null,
+      "nivel": "CRÍTICO",
+      "impacto": "Garantiza debido proceso"
+    }
+  },
+  "documentos": [],
+  "recomendacionesPrioritarias": []
+}

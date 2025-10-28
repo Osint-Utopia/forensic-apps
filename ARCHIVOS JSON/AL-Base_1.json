@@ -1,0 +1,213 @@
+{
+  "asistente": {
+    "nombre": "Asistente Virtual para Adicciones",
+    "descripcion": "Asistente encargado de orientar sobre adicciones, tratamientos y prevención.",
+    "datos_clinica": {
+      "nombre_clinica": "Clínica Esperanza de Vida",
+      "direccion": "Av. San Javier #245, Guadalajara, Jalisco, México",
+      "telefono": "+52 33 1234 5678",
+      "email": "contacto@clinicaesperanza.com",
+      "horarios": "Lunes a Viernes de 8:00 AM a 6:00 PM",
+      "tratamientos": [
+        {
+          "nombre": "Tratamiento de Desintoxicación",
+          "descripcion": "Proceso supervisado médicamente para eliminar las sustancias adictivas del cuerpo."
+        },
+        {
+          "nombre": "Terapia Cognitivo-Conductual",
+          "descripcion": "Terapia psicológica para cambiar patrones de pensamiento y comportamiento relacionados con la adicción."
+        },
+        {
+          "nombre": "Rehabilitación Familiar",
+          "descripcion": "Programa enfocado en restaurar la relación entre el paciente y su entorno familiar."
+        }
+      ]
+    },
+    "variables": {
+      "nombre_usuario": "",
+      "edad_usuario": "",
+      "relacion_con_adiccion": "",
+      "adicion_preocupante": "",
+      "persona_cercana_en_situacion": "",
+      "preocupaciones_usuario": [],
+      "ayuda_solicitada": false,
+      "aceptacion_tratamiento": false,
+      "tratamiento_iniciado": false,
+      "recaida_reciente": false
+    },
+    "bloques": [
+      {
+        "id": 1,
+        "titulo": "¿Qué es un vicio?",
+        "descripcion": "Explicación sobre qué es un vicio y cómo se desarrolla.",
+        "preguntas": [
+          {
+            "pregunta": "¿Tú o alguien cercano está pasando por un vicio?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "relacion_con_adiccion"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "titulo": "¿Cómo empiezan los vicios?",
+        "descripcion": "Descripción de cómo se inician los vicios y las consecuencias de su inicio.",
+        "preguntas": [
+          {
+            "pregunta": "¿Has notado que alguien cercano haya comenzado con un vicio?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "titulo": "¿Solo las drogas causan adicción?",
+        "descripcion": "Clarificación sobre que no solo las drogas son causantes de adicciones, sino también otras conductas.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te preocupa algún tipo de adicción, más allá de las drogas?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "preocupaciones_usuario"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "titulo": "¿La adicción es una enfermedad?",
+        "descripcion": "Explicación de que la adicción es una enfermedad y no una simple debilidad de voluntad.",
+        "preguntas": [
+          {
+            "pregunta": "¿Quieres saber cómo puedes tratar la adicción?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "titulo": "¿Se puede dejar una adicción sin ayuda?",
+        "descripcion": "Explicación sobre la importancia de recibir ayuda para dejar una adicción.",
+        "preguntas": [
+          {
+            "pregunta": "¿Conoces a alguien que haya tratado de dejar una adicción por sí solo?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "titulo": "¿Cómo saber si alguien ya es adicto?",
+        "descripcion": "Descripción de señales de que alguien podría estar en una situación de adicción.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te preocupa que alguien cercano esté desarrollando una adicción?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "preocupaciones_usuario"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "titulo": "¿Es normal que un adicto se aísle?",
+        "descripcion": "Explicación sobre cómo la adicción a menudo lleva a la persona a aislarse.",
+        "preguntas": [
+          {
+            "pregunta": "¿Has notado que alguien cercano se ha aislado por su adicción?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "titulo": "¿Qué pasa si consumo solo un poco?",
+        "descripcion": "Advertencia sobre el peligro de iniciar con pequeñas dosis.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría saber cómo evitar caer en la adicción?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "titulo": "¿Cómo prevenir que un adolescente caiga en las adicciones?",
+        "descripcion": "Consejos para prevenir adicciones en adolescentes.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría saber más sobre prevención de adicciones en jóvenes?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "titulo": "¿Dónde puedo recibir ayuda?",
+        "descripcion": "Información sobre cómo acceder a los servicios de la clínica.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría conocer cómo puedes empezar con el tratamiento?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "titulo": "Evaluación inicial y contacto",
+        "descripcion": "Proceso para la evaluación inicial y la programación de una cita para recibir tratamiento.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría agendar una cita para la evaluación?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "aceptacion_tratamiento"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "titulo": "Tratamiento y seguimiento",
+        "descripcion": "Explicación sobre el proceso de tratamiento y seguimiento que ofrece la clínica.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría más información sobre los tratamientos?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "titulo": "Recaída reciente",
+        "descripcion": "Apoyo en caso de recaídas y cómo retomarlo de manera efectiva.",
+        "preguntas": [
+          {
+            "pregunta": "¿Has tenido una recaída recientemente?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "recaida_reciente"
+          }
+        ]
+      }
+    ],
+    "respuesta_automatica": {
+      "respuesta_general": "Parece que estás buscando orientación sobre cómo manejar una adicción. Podemos ofrecerte más información. ¿Te gustaría conocer más sobre los tratamientos disponibles?",
+      "respuestas_condicionales": {
+        "ayuda_solicitada": {
+          "si": "Te pondremos en contacto con un especialista que te proporcionará más detalles sobre el tratamiento.",
+          "no": "No te preocupes, siempre estamos aquí para ayudarte. Si en algún momento decides que necesitas apoyo, contáctanos."
+        },
+        "aceptacion_tratamiento": {
+          "si": "¡Excelente decisión! Un especialista te contactará pronto para programar tu cita de evaluación.",
+          "no": "Entendemos que puede ser un paso difícil. Si decides que estás listo, nosotros te apoyaremos en todo momento."
+        },
+        "recaida_reciente": {
+          "si": "Las recaídas son parte del proceso. Estamos aquí para ayudarte a volver al camino correcto. ¿Te gustaría hablar con un terapeuta?"
+        }
+      }
+    }
+  }
+}

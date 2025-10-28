@@ -1,0 +1,103 @@
+import json
+import requests
+import time
+import logging
+from typing import List, Dict
+from datetime import datetime
+
+# Configuración de logging para seguimiento de ejecución
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+# Lista de consultas basada en las búsquedas proporcionadas
+SEARCH_QUERIES = [
+    '"JULIO LEONARDO BLANCO QUINTANA" AND "JUKIISA S.A. de C.V." AND "Administrador Único" filetype:(pdf|doc|docx) -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info',
+    '"JUKIISA S.A. de C.V." AND "8179737599" AND "BANAMEX" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info',
+    '"JUKIISA S.A. de C.V." AND "002691701529678865" AND "Caribe Cancún" filetype:(doc|docx) -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info',
+    # ... (continúa con las 97 consultas restantes de la lista anterior)
+    '"JULIO LEONARDO BLANCO QUINTANA" AND "JUKIISA S.A. de C.V." AND "Cancún, Quintana Roo" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info'
+]
+
+# Configuración de la plantilla en JSON
+SEARCH_TEMPLATE = {
+    "metadata": {
+        "created_at": datetime.now().isoformat(),
+        "purpose": "Automatización de búsquedas forenses para JULIO LEONARDO BLANCO QUINTANA y JUKIISA S.A. de C.V.",
+        "author": "Grok 3",
+        "version": "1.0.0"
+    },
+    "search_config": {
+        "api_key": "YOUR_SERPAPI_KEY",  # Reemplazar con la clave de la API (e.g., SerpAPI)
+        "max_results_per_query": 10,
+        "delay_between_requests": 2,  # Segundos entre solicitudes para evitar límites
+        "output_file": "search_results.json",
+        "search_engine": "google",
+        "filters": {
+            "filetypes": ["pdf", "doc", "docx"],
+            "exclude_urls": ["jsp", "php", "html", "aspx", "htm", "cf", "shtml", "ebooks", "ebook"],
+            "exclude_domains": [".info"]
+        }
+    },
+    "queries": SEARCH_QUERIES
+}
+
+class SearchAutomator:
+    def __init__(self, config: Dict):
+        self.api_key = config["search_config"]["api_key"]
+        self.max_results = config["search_config"]["max_results_per_query"]
+        self.delay = config["search_config"]["delay_between_requests"]
+        self.output_file = config["search_config"]["output_file"]
+        self.search_engine = config["search_config"]["search_engine"]
+        self.queries = config["queries"]
+        self.results = []
+
+    def execute_search(self, query: str) -> List[Dict]:
+        """Ejecuta una búsqueda individual usando la API de SerpAPI."""
+        try:
+            url = f"https://serpapi.com/search.json?q={query}&api_key={self.api_key}&num={self.max_results}"
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+            return data.get("organic_results", [])
+        except requests.RequestException as e:
+            logger.error(f"Error en la búsqueda de la consulta '{query}': {e}")
+            return []
+
+    def run(self):
+        """Ejecuta todas las consultas y guarda los resultados."""
+        for query in self.queries:
+            logger.info(f"Procesando consulta: {query}")
+            results = self.execute_search(query)
+            self.results.append({
+                "query": query,
+                "timestamp": datetime.now().isoformat(),
+                "results": results
+            })
+            time.sleep(self.delay)  # Evita sobrecarga en la API
+
+        # Guardar resultados en un archivo JSON
+        with open(self.output_file, "w", encoding="utf-8") as f:
+            json.dump(self.results, f, ensure_ascii=False, indent=2)
+        logger.info(f"Resultados guardados en {self.output_file}")
+
+    def validate_results(self):
+        """Valida los resultados para asegurar relevancia y cumplimiento ético."""
+        for result_set in self.results:
+            for result in result_set["results"]:
+                if any(sensitive in result.get("link", "").lower() for sensitive in ["confidential", "pwd=", "password"]):
+                    logger.warning(f"Resultado potencialmente sensible detectado: {result.get('link')}")
+                    # Opcional: Filtrar o marcar resultados sensibles
+
+def main():
+    # Guardar la plantilla en un archivo JSON para referencia
+    with open("search_template.json", "w", encoding="utf-8") as f:
+        json.dump(SEARCH_TEMPLATE, f, ensure_ascii=False, indent=2)
+    logger.info("Plantilla guardada en search_template.json")
+
+    # Ejecutar la automatización
+    automator = SearchAutomator(SEARCH_TEMPLATE)
+    automator.run()
+    automator.validate_results()
+
+if __name__ == "__main__":
+    main()

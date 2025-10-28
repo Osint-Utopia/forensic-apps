@@ -1,0 +1,177 @@
+{
+  "asistente": {
+    "nombre": "Asistente de Adicciones",
+    "descripcion": "Asistente virtual para orientación sobre adicciones y apoyo emocional.",
+    "variables": {
+      "nombre_usuario": "",
+      "edad_usuario": "",
+      "relacion_con_adiccion": "",
+      "adicion_preocupante": "",
+      "persona_cercana_en_situacion": "",
+      "preocupaciones_usuarios": [],
+      "ayuda_solicitada": false,
+      "aceptacion_tratamiento": false,
+      "tratamiento_iniciado": false,
+      "recaida_reciente": false
+    },
+    "bloques": [
+      {
+        "id": 1,
+        "titulo": "¿Qué es un vicio?",
+        "descripcion": "Definición básica sobre vicios y cómo afectan a la persona.",
+        "preguntas": [
+          {
+            "pregunta": "¿Tú o alguien cercano está pasando por algo así?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "relacion_con_adiccion"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "titulo": "¿Cómo empiezan los vicios?",
+        "descripcion": "Causas comunes de inicio de vicios.",
+        "preguntas": [
+          {
+            "pregunta": "¿Has visto que alguien cercano esté en estas situaciones?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "titulo": "¿Solo las drogas causan adictos?",
+        "descripcion": "Explicación de que las adicciones pueden involucrar más sustancias o actividades.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te preocupa alguna de estas cosas en tu vida o la de alguien más?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "preocupaciones_usuarios"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "titulo": "¿La adicción es una enfermedad?",
+        "descripcion": "Explicación de que la adicción afecta el cerebro y es tratable.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría saber cómo se puede tratar?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "titulo": "¿Se puede dejar una adicción sin ayuda?",
+        "descripcion": "Explicación de la importancia de la ayuda profesional.",
+        "preguntas": [
+          {
+            "pregunta": "¿Conoces a alguien que necesite este apoyo?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "titulo": "¿Cómo saber si alguien ya es vicioso?",
+        "descripcion": "Cambios comunes en la conducta de una persona viciosa.",
+        "preguntas": [
+          {
+            "pregunta": "¿Conoces a alguien que haya cambiado así?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "persona_cercana_en_situacion"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "titulo": "¿Es normal que un vicioso se aísle?",
+        "descripcion": "Cómo el aislamiento es una característica común en personas con adicción.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te preocupa que alguien cercano se esté alejando de ti?",
+            "tipo_respuesta": "abierta",
+            "variable_asociada": "preocupaciones_usuarios"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "titulo": "¿Qué pasa si consumo “solo un poco”?",
+        "descripcion": "El peligro de empezar con pequeñas dosis y cómo puede evolucionar.",
+        "preguntas": [
+          {
+            "pregunta": "¿Quieres saber cómo evitar que eso pase?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "titulo": "¿Cómo prevenir que un adolescente caiga en las adicciones?",
+        "descripcion": "Consejos para padres sobre cómo prevenir adicciones en adolescentes.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te interesa información sobre talleres para padres?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "titulo": "¿Dónde puedo recibir ayuda para mí o un familiar?",
+        "descripcion": "Información sobre los servicios de la clínica y cómo acceder a ellos.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría que te expliquemos cómo llegar?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "titulo": "Evaluación y contacto inicial",
+        "descripcion": "Información sobre cómo comenzar con el tratamiento.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría agendar una cita esta semana?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "tratamiento_iniciado"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "titulo": "Tratamiento y seguimiento",
+        "descripcion": "Detallar el proceso de tratamiento y seguimiento.",
+        "preguntas": [
+          {
+            "pregunta": "¿Te gustaría saber más sobre los costos?",
+            "tipo_respuesta": "si_no",
+            "variable_asociada": "ayuda_solicitada"
+          }
+        ]
+      }
+    ],
+    "respuesta_automatica": {
+      "respuesta_general": "Lo que estás experimentando es común, pero puedes obtener ayuda profesional. ¿Te gustaría saber más sobre el tratamiento o cómo empezar?",
+      "respuestas_condicionales": {
+        "ayuda_solicitada": {
+          "si": "Vamos a ponerte en contacto con un especialista. ¿Puedes proporcionarnos tu número para enviarte más información?",
+          "no": "Recuerda que pedir ayuda es el primer paso para mejorar. Si necesitas más información, aquí estamos."
+        },
+        "tratamiento_iniciado": {
+          "si": "¡Felicidades por tomar el primer paso! El tratamiento comenzará pronto. ¿Te gustaría saber más sobre el proceso?",
+          "no": "Es importante que consideres empezar pronto. Si necesitas más información, podemos ayudarte."
+        }
+      }
+    }
+  }
+}

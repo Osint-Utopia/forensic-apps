@@ -1,0 +1,44 @@
+{
+  "preguntas_respuestas": [
+    {
+      "PREGUNTA": "¿Qué es la Clínica 'Sentido de Vida'?",
+      "RESPUESTA": "Es una clínica especializada en la rehabilitación de personas con adicciones y enfermedades emocionales, ofreciendo tratamientos integrales para abordar aspectos físicos, mentales, emocionales y sociales.",
+      "LLAMADA_A_LA_ACCION": "¿Te gustaría conocer más sobre nuestros tratamientos? Contáctanos para una consulta inicial."
+    },
+    {
+      "PREGUNTA": "¿Qué tipos de adicciones tratan en la clínica?",
+      "RESPUESTA": "Tratamos adicciones al alcohol, cannabis, cocaína, cristal y tabaco.",
+      "LLAMADA_A_LA_ACCION": "Si tú o alguien cercano necesita ayuda con alguna de estas adicciones, podemos orientarte."
+    },
+    {
+      "PREGUNTA": "¿Ofrecen tratamientos para trastornos emocionales?",
+      "RESPUESTA": "Sí, brindamos tratamientos para crisis de angustia, depresión, fobias, pánico y trastorno obsesivo-compulsivo.",
+      "LLAMADA_A_LA_ACCION": "Si experimentas alguno de estos trastornos, nuestro equipo puede ayudarte."
+    },
+    {
+      "PREGUNTA": "¿Qué profesionales conforman su equipo?",
+      "RESPUESTA": "Contamos con psicólogos, psiquiatras, médicos, terapeutas y consejeros especializados en el tratamiento de adicciones y trastornos emocionales.",
+      "LLAMADA_A_LA_ACCION": "Nuestro equipo está listo para brindarte la mejor atención."
+    },
+    {
+      "PREGUNTA": "¿Cuál es el enfoque del tratamiento en la clínica?",
+      "RESPUESTA": "Nuestro enfoque es integral, abordando las áreas física, mental, emocional y social del paciente para lograr una recuperación completa.",
+      "LLAMADA_A_LA_ACCION": "Si buscas un tratamiento efectivo y completo, contáctanos."
+    },
+    {
+      "PREGUNTA": "¿Qué implica el tratamiento en 'Sentido de Vida'?",
+      "RESPUESTA": "Incluye terapias individuales, grupales y familiares, además de actividades que promueven el autoconocimiento y el cambio de conciencia.",
+      "LLAMADA_A_LA_ACCION": "Descubre cómo nuestro tratamiento puede ayudarte a cambiar tu vida."
+    },
+    {
+      "PREGUNTA": "¿Qué es la terapia cognitivo-conductual?",
+      "RESPUESTA": "Es una terapia que se enfoca en identificar y modificar pensamientos y comportamientos disfuncionales relacionados con el consumo de sustancias.",
+      "LLAMADA_A_LA_ACCION": "Aprende más sobre cómo esta terapia puede ayudarte en tu proceso de rehabilitación."
+    },
+    {
+      "PREGUNTA": "¿Cómo puedo contactar a la clínica?",
+      "RESPUESTA": "Puede comunicarse con nosotros al teléfono 33 3196 2135 o a través de nuestro sitio web.",
+      "LLAMADA_A_LA_ACCION": "Llama ahora para recibir información detallada sobre nuestros servicios."
+    }
+  ]
+}

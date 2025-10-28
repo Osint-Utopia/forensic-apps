@@ -1,0 +1,139 @@
+{
+  "timestamp": "2025-09-11T18:01:09.370Z",
+  "results": {
+    "general": [
+      {
+        "name": "Google",
+        "url": "https://www.google.com/search?q=",
+        "icon": "fab fa-google",
+        "description": "Motor de busqueda principal",
+        "searchUrl": "https://www.google.com/search?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "Bing",
+        "url": "https://www.bing.com/search?q=",
+        "icon": "fab fa-microsoft",
+        "description": "Motor de busqueda de Microsoft",
+        "searchUrl": "https://www.bing.com/search?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "DuckDuckGo",
+        "url": "https://duckduckgo.com/?q=",
+        "icon": "fas fa-search",
+        "description": "Busqueda privada",
+        "searchUrl": "https://duckduckgo.com/?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      }
+    ],
+    "social": [
+      {
+        "name": "Facebook",
+        "url": "https://www.facebook.com/search/top/?q=",
+        "icon": "fab fa-facebook",
+        "description": "Red social principal",
+        "searchUrl": "https://www.facebook.com/search/top/?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "Twitter/X",
+        "url": "https://twitter.com/search?q=",
+        "icon": "fab fa-twitter",
+        "description": "Microblogging",
+        "searchUrl": "https://twitter.com/search?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/explore/tags/",
+        "icon": "fab fa-instagram",
+        "description": "Fotos y videos",
+        "searchUrl": "https://www.instagram.com/explore/tags/%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      }
+    ],
+    "professional": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/search/results/people/?keywords=",
+        "icon": "fab fa-linkedin",
+        "description": "Red profesional",
+        "searchUrl": "https://www.linkedin.com/search/results/people/?keywords=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "AngelList",
+        "url": "https://angel.co/search?q=",
+        "icon": "fas fa-rocket",
+        "description": "Startups y empleos",
+        "searchUrl": "https://angel.co/search?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "Crunchbase",
+        "url": "https://www.crunchbase.com/search/people?q=",
+        "icon": "fas fa-building",
+        "description": "Base de datos empresarial",
+        "searchUrl": "https://www.crunchbase.com/search/people?q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "inactive"
+      }
+    ],
+    "media": [
+      {
+        "name": "Google Images",
+        "url": "https://www.google.com/search?tbm=isch&q=",
+        "icon": "fas fa-images",
+        "description": "Busqueda de imagenes",
+        "searchUrl": "https://www.google.com/search?tbm=isch&q=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "TinEye",
+        "url": "https://tineye.com/search/",
+        "icon": "fas fa-eye",
+        "description": "Busqueda inversa de imagenes",
+        "searchUrl": "https://tineye.com/search/%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      },
+      {
+        "name": "Yandex Images",
+        "url": "https://yandex.com/images/search?text=",
+        "icon": "fas fa-camera",
+        "description": "Busqueda de imagenes rusa",
+        "searchUrl": "https://yandex.com/images/search?text=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      }
+    ],
+    "security": [
+      {
+        "name": "HaveIBeenPwned",
+        "url": "https://haveibeenpwned.com/unifiedsearch/",
+        "icon": "fas fa-shield-alt",
+        "description": "Brechas de datos",
+        "searchUrl": "https://haveibeenpwned.com/unifiedsearch/%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "inactive"
+      },
+      {
+        "name": "DeHashed",
+        "url": "https://www.dehashed.com/search?query=",
+        "icon": "fas fa-key",
+        "description": "Base de datos filtradas",
+        "searchUrl": "https://www.dehashed.com/search?query=%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "inactive"
+      },
+      {
+        "name": "LeakCheck",
+        "url": "https://leakcheck.io/search/",
+        "icon": "fas fa-bug",
+        "description": "Verificacion de filtraciones",
+        "searchUrl": "https://leakcheck.io/search/%22MARICELA%20AZUA%20CASTELLANOS%22%20limpieza.urbania%40gmail.com%20%2B523337785120%20lic.azua%40gmx%20Guadalajara%2C%20Jalisco%20%22azu%20amercado%20juridico%22",
+        "status": "active"
+      }
+    ]
+  },
+  "summary": {
+    "totalSources": 15,
+    "activeSources": 12
+  }
+}
