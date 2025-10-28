@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportación de Mango desde Jalisco - Requisitos Internacionales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        
+        .mango-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .region-section {
+            margin-bottom: 3rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .region-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50px;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1));
+            transform: skewX(-20deg);
+            transition: right 0.3s ease;
+        }
+        
+        .region-section:hover::before {
+            right: 100%;
+        }
+        
+        .usa { border-left-color: #3742fa; }
+        .europe { border-left-color: #2ed573; }
+        .asia { border-left-color: #ff6348; }
+        
+        .region-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .region-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .usa .region-title { color: #3742fa; }
+        .europe .region-title { color: #2ed573; }
+        .asia .region-title { color: #ff6348; }
+        
+        .flag {
+            font-size: 2rem;
+        }
+        
+        .requirement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .requirement-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 3px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .usa .requirement-card { border-top-color: #3742fa; }
+        .europe .requirement-card { border-top-color: #2ed573; }
+        .asia .requirement-card { border-top-color: #ff6348; }
+        
+        .requirement-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .requirement-card h4 {
+            color: #2d3436;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .requirement-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .requirement-card li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .requirement-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-card h4 {
+            color: #74b9ff;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .container { margin: 1rem; width: auto; }
+            .header h1 { font-size: 2rem; }
+            .requirement-grid { grid-template-columns: 1fr; }
+            .contact-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="mango-icon">🥭</div>
+            <h1>¿Que requisitos debo cumplir?</h1>
+            <p>Requisitos para exportar a los Estados Unidos, Europa y Asia desde Jalisco</p>
+        </header>
+        
+        <main class="content">
+            <!-- Estados Unidos -->
+            <section class="region-section usa">
+                <h2 class="region-title">
+                    <span class="flag">🇺🇸</span>
+                    Estados Unidos
+                </h2>
+                <div class="requirement-grid">
+                    <div class="requirement-card">
+                        <h4>📋 Documentación Fitosanitaria</h4>
+                        <ul>
+                            <li>Certificado fitosanitario de SENASICA</li>
+                            <li>Registro en APHIS (USDA)</li>
+                            <li>Permiso de importación previo</li>
+                            <li>Factura comercial detallada</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🏭 Instalaciones Certificadas</h4>
+                        <ul>
+                            <li>Empaque registrado ante USDA</li>
+                            <li>Sistema HACCP implementado</li>
+                            <li>Tratamiento hidrotérmico (46.1°C por 75 min)</li>
+                            <li>Trazabilidad completa del producto</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🔬 Especificaciones Técnicas</h4>
+                        <ul>
+                            <li>Libre de plagas cuarentenarias</li>
+                            <li>Residuos de pesticidas dentro de límites FDA</li>
+                            <li>Etiquetado en inglés obligatorio</li>
+                            <li>Código PLU en cada fruto</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>📦 Empaque y Transporte</h4>
+                        <ul>
+                            <li>Cajas nuevas y limpias</li>
+                            <li>Temperatura controlada (10-13°C)</li>
+                            <li>Humedad relativa 85-90%</li>
+                            <li>Contenedores refrigerados certificados</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Europa -->
+            <section class="region-section europe">
+                <h2 class="region-title">
+                    <span class="flag">🇪🇺</span>
+                    Unión Europea
+                </h2>
+                <div class="requirement-grid">
+                    <div class="requirement-card">
+                        <h4>📋 Certificación Europea</h4>
+                        <ul>
+                            <li>Certificado fitosanitario armonizado</li>
+                            <li>Registro TRACES para importación</li>
+                            <li>Cumplimiento del Reglamento (UE) 2016/2031</li>
+                            <li>Declaración de origen mexicano</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🌱 Residuos y Sostenibilidad</h4>
+                        <ul>
+                            <li>Límites máximos de residuos (LMR) EU</li>
+                            <li>Certificación GlobalGAP preferible</li>
+                            <li>Cumplimiento de Green Deal europeo</li>
+                            <li>Trazabilidad blockchain recomendada</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🏷️ Etiquetado y Calidad</h4>
+                        <ul>
+                            <li>Etiquetas en idioma del país destino</li>
+                            <li>Clasificación según normas CE</li>
+                            <li>Información nutricional completa</li>
+                            <li>Código de barras EAN-13</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🚢 Logística y Puertos</h4>
+                        <ul>
+                            <li>Puertos de entrada autorizados</li>
+                            <li>Inspección en frontera (2% muestras)</li>
+                            <li>Seguro de transporte internacional</li>
+                            <li>Cold chain sin interrupciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Asia -->
+            <section class="region-section asia">
+                <h2 class="region-title">
+                    <span class="flag">🌏</span>
+                    Asia (Japón, Corea, Singapur)
+                </h2>
+                <div class="requirement-grid">
+                    <div class="requirement-card">
+                        <h4>🎌 Japón - MAFF</h4>
+                        <ul>
+                            <li>Registro de huerto ante MAFF</li>
+                            <li>Tratamiento de vapor caliente obligatorio</li>
+                            <li>Inspección pre-embarque japonesa</li>
+                            <li>Certificado libre de mosca de la fruta</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🇰🇷 Corea del Sur - NPQS</h4>
+                        <ul>
+                            <li>Registro bilateral México-Corea</li>
+                            <li>Tratamiento cuarentenario específico</li>
+                            <li>Análisis de residuos K-MRL</li>
+                            <li>Etiquetado en coreano (Hangeul)</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🇸🇬 Singapur - AVA</h4>
+                        <ul>
+                            <li>Licencia de importación AVA</li>
+                            <li>Certificado de libre venta</li>
+                            <li>Cumplimiento estándares CODEX</li>
+                            <li>Declaración halal (mercados específicos)</li>
+                        </ul>
+                    </div>
+                    <div class="requirement-card">
+                        <h4>🔍 Requisitos Comunes Asia</h4>
+                        <ul>
+                            <li>Análisis microbiológicos completos</li>
+                            <li>Certificación de tercera parte</li>
+                            <li>Cadena de frío ultra-estricta</li>
+                            <li>Documentación en inglés + idioma local</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4>🏛️ SENASICA Jalisco</h4>
+                    <p>Av. Alcalde 1351, Guadalajara<br>
+                    Tel: (33) 3668-0500<br>
+                    www.senasica.gob.mx</p>
+                </div>
+                <div class="contact-card">
+                    <h4>💼 COFOCE Jalisco</h4>
+                    <p>Av. Mariano Otero 1249, Guadalajara<br>
+                    Tel: (33) 3336-5800<br>
+                    www.cofoce.jalisco.gob.mx</p>
+                </div>
+                <div class="contact-card">
+                    <h4>🌾 SAGARPA</h4>
+                    <p>Secretaría de Agricultura Jalisco<br>
+                    Tel: (33) 3030-5000<br>
+                    agricultura.jalisco.gob.mx</p>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                🥭 Información actualizada 2025 - Consulte siempre las regulaciones más recientes
+            </p>
+        </footer>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9620a52ab973576f',t:'MTc1Mjk5NTQ5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

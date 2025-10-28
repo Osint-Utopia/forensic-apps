@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Es Complicado Exportar? - Mango Mexicano</title>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2480fc;
+            --text-color: #27344a;
+            --bg-color: #fff;
+            --secondary-bg: #f5f5f5;
+            --accent-blue: #0052cc;
+            --main-blue: #007bff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+        }
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('data:font/truetype;base64,...') format('truetype'); /* Placeholder para fuente en base64 */
+        }
+
+        /* Etiqueta Flotante */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .floating-nav-button {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 24px;
+        }
+        .floating-nav-menu {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        .floating-nav-menu.active {
+            display: block;
+        }
+        .floating-nav-item {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .floating-nav-item:hover {
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .floating-nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .floating-nav-item {
+                font-size: 14px;
+            }
+        }
+
+        /* Sección Hero */
+        .main-section {
+            background-color: var(--main-blue);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+            color: var(--bg-color);
+            max-width: 700px;
+            z-index: 2;
+        }
+        .content h1 {
+            font-size: 4.75rem;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            background: var(--main-blue); /* Fondo sólido para evitar opacidad */
+        }
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            .content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tarjetas */
+        .essential-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+            max-width: 1390px;
+            margin: 0 auto;
+            background-color: var(--bg-color); /* Fondo opaco */
+        }
+        .essential-card {
+            background-color: var(--bg-color);
+            border: 1px solid #E4EBEF;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .essential-card:hover {
+            transform: translateY(-5px);
+        }
+        .essential-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .essential-card p {
+            font-size: 1rem;
+            color: #6C7A92;
+        }
+        @media (max-width: 768px) {
+            .essential-card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Acordeón */
+        .accordion-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .accordion-title {
+            background-color: var(--bg-color);
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .accordion-title::after {
+            content: '↓';
+            font-size: 1rem;
+        }
+        .accordion-title.active::after {
+            content: '↑';
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: var(--bg-color); /* Fondo opaco */
+            border-radius: 5px;
+            z-index: 2;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Etiqueta Flotante -->
+    <div class="floating-nav">
+        <div class="floating-nav-button">☰</div>
+        <div class="floating-nav-menu">
+            <a href="7_documentos.html" class="floating-nav-item">Documentos</a>
+        </div>
+    </div>
+
+    <!-- Sección Hero -->
+    <section id="es_complicado" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>🥭 ¿Es Complicado Exportar?</h1>
+            <p>Puntos importantes para el emprendimiento y exportación</p>
+            <p>Lic. Irene García Castillo, Consultor en Comercio Internacional</p>
+            <p>15 de julio de 2025</p>
+            <a href="#contenido" class="cta-button">Explorar Guía</a>
+        </div>
+    </section>
+
+    <!-- Tabla de Contenido -->
+    <section id="contenido">
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>🌍 El Mango Mexicano</h3>
+                <p>Estadísticas y ventajas de la variedad Kent.</p>
+            </div>
+            <div class="essential-card">
+                <h3>📋 Requisitos</h3>
+                <p>Regulaciones para exportar internacionalmente.</p>
+            </div>
+            <div class="essential-card">
+                <h3>📍 Mercados</h3>
+                <p>Principales destinos para el mango mexicano.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🚀 Estrategias</h3>
+                <p>Métodos para maximizar rentabilidad.</p>
+            </div>
+            <div class="essential-card">
+                <h3>❓ FAQ</h3>
+                <p>Respuestas a dudas comunes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secciones Detalladas -->
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-title">🌍 El Mango Mexicano</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>5º Productor Mundial</h3>
+                        <p>México lidera la exportación mundial de mango.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Crecimiento del 4.5%</h3>
+                        <p>Anual desde 2019, superando otros frutos tropicales.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Temporada Marzo-Julio</h3>
+                        <p>Ventana estratégica para maximizar rentabilidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📋 Requisitos para Exportar</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Certificado Fitosanitario</h3>
+                        <p>Emitido por SENASICA, cumple regulaciones del país destino.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Tratamientos Post-cosecha</h3>
+                        <p>Hidrotérmicos o irradiación según destino.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Registro de Empaques</h3>
+                        <p>Obligatorio para huertos y lugares de empaque.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Documentación</h3>
+                        <p>Factura comercial, BL, certificado de origen, aduaneros.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Trazabilidad</h3>
+                        <p>Sistema para seguir el recorrido del producto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📍 Principales Destinos</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>🇺🇸 Estados Unidos</h3>
+                        <p>68%, 1-3 días tránsito, flete terrestre rápido.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>🇨🇦 Canadá</h3>
+                        <p>13.1%, 5-6 días tránsito, demanda creciente.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>🇪🇸 Europa</h3>
+                        <p>8%, 15-20 días tránsito, mercado premium.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>🇨🇳 China</h3>
+                        <p>5%, 20-30 días tránsito, en expansión.</p>
+                    </div>
+                </div>
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>80M Cajas</h3>
+                        <p>Se mueven diariamente en mercados internacionales.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>98% EE.UU./Canadá</h3>
+                        <p>Compran el 98% de la exportación mundial.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>28 Países</h3>
+                        <p>Consumen mango mexicano regularmente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🚀 Estrategias Exitosas</div>
+            <div class="accordion-content">
+                <h3>Apalabrado Inteligente</h3>
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Contratos Nov-Dic</h3>
+                        <p>Fuera de temporada para ahorrar costos.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>20-30% Anticipo</h3>
+                        <p>Sobre precio estimado.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Cláusulas de Calidad</h3>
+                        <p>Obligatorias para garantizar estándares.</p>
+                    </div>
+                </div>
+                <h3>Comparativa de Costos</h3>
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Compra en Temporada</h3>
+                        <p>$15-25 MXN/kg.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Apalabrado Inteligente</h3>
+                        <p>$4-8 MXN/kg.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Ahorro</h3>
+                        <p>60-70%.</p>
+                    </div>
+                </div>
+                <h3>Reducción de Mermas</h3>
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Sin Inversión</h3>
+                        <p>12% mermas.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Con Inversión</h3>
+                        <p>8-10% mermas.</p>
+                    </div>
+                </div>
+                <h3>Financiamiento Cruzado</h3>
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Sistemas Anti-mosca</h3>
+                        <p>$10,000-50,000 MXN/ha.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Certificaciones</h3>
+                        <p>SENASICA y GlobalGAP.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Trazabilidad</h3>
+                        <p>Control completo del producto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">❓ Preguntas Frecuentes</div>
+            <div class="accordion-content">
+                <p><strong>¿Cuándo es la mejor época para exportar mango Kent?</strong><br>
+                   Marzo a julio, con picos en abril-mayo y mayo-junio, para alta demanda.</p>
+                <p><strong>¿Qué certificaciones son obligatorias?</strong><br>
+                   Certificado fitosanitario (SENASICA). GlobalGAP recomendado para Europa.</p>
+                <p><strong>¿Cómo registro mi empresa para exportar?</strong><br>
+                   Padrón de exportadores del SAT, RFC, servicios de aduana, y documentos.</p>
+                <p><strong>¿Cuál es la inversión mínima?</strong><br>
+                   $50,000-100,000 MXN para registros, certificaciones, y capital de trabajo.</p>
+                <p><strong>¿Qué hacer con las mermas del 12%?</strong><br>
+                   Reducir al 8-10% con sistemas anti-mosca y controles de calidad.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">💡 Consejos Finales</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Planifica desde Noviembre</h3>
+                        <p>Contratos fuera de temporada para ahorrar.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Invierte en Calidad</h3>
+                        <p>Trazabilidad y certificaciones para mercados premium.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Construye Relaciones</h3>
+                        <p>Productores confiables como activo competitivo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cierre -->
+    <section class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>🌍 El Mango Mexicano</h1>
+            <p>Guía completa para la exportación exitosa de mango variedad Kent</p>
+            <p>Con la estrategia correcta, tu empresa puede liderar los mercados internacionales.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense al mundo entero.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="1_index.html" class="nav-item">Inicio</a><br>
+                   <a href="2_Introduccion.html" class="nav-item">Introducción</a><br>
+                   <a href="3_requisitos.html" class="nav-item">Requisitos</a><br>
+                   <a href="4_upci.html" class="nav-item">UPCI</a><br>
+                   <a href="5_como_inicio.html" class="nav-item">Cómo Inicio</a><br>
+                   <a href="6_es_complicado.html" class="nav-item">Es Complicado</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>
+                   +52 33 1234 5678<br>
+                   Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Guía de Exportación • Jalisco, México • Mercados Internacionales</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Etiqueta Flotante
+        const floatingNavButton = document.querySelector('.floating-nav-button');
+        const floatingNavMenu = document.querySelector('.floating-nav-menu');
+        floatingNavButton.addEventListener('click', () => {
+            floatingNavMenu.classList.toggle('active');
+        });
+
+        // Animaciones
+        document.querySelectorAll('.essential-card').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('animate');
+            }, index * 200);
+        });
+
+        // Acordeón
+        document.querySelectorAll('.accordion-title').forEach(item => {
+            item.addEventListener('click', () => {
+                const content = item.nextElementSibling;
+                content.classList.toggle('active');
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

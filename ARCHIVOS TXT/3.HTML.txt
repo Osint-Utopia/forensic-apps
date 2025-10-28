@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos - Exportación de Mango</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        /* Estilos idénticos a 2_Introduccion.html */
+        /* ... (omitidos por brevedad) */
+        .floating-nav-button {
+            background-color: var(--tropical-orange);
+        }
+        .floating-nav-item:hover {
+            color: var(--tropical-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-nav">
+        <div class="floating-nav-button">☰</div>
+        <div class="floating-nav-menu">
+            <a href="4_upci.html" class="floating-nav-item">UPCI</a>
+            <a href="5_como_inicio.html" class="floating-nav-item">Cómo Inicio</a>
+            <a href="6_es_complicado.html" class="floating-nav-item">Es Complicado</a>
+            <a href="7_documentos.html" class="floating-nav-item">Documentos</a>
+        </div>
+    </div>
+    <section id="requisitos" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>📋 Requisitos para Exportar</h1>
+            <p>Cumple con las normativas para exportar mango</p>
+            <a href="#contenido" class="cta-button">Explorar Requisitos</a>
+        </div>
+    </section>
+    <section id="contenido">
+        <div class="chart-container">
+            <canvas id="requisitosChart"></canvas>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>✅ Certificado Fitosanitario</h3>
+                <p>Esencial para cumplir regulaciones internacionales.</p>
+            </div>
+            <div class="essential-card">
+                <h3>📄 Documentación</h3>
+                <p>Factura, BL, certificado de origen.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🔍 Trazabilidad</h3>
+                <p>Sistema de seguimiento del producto.</p>
+            </div>
+            <div class="essential-card">
+                <h3>📊 Inspección</h3>
+                <p>Verificación por SENASICA.</p>
+            </div>
+        </div>
+    </section>
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-title">✅ Certificado Fitosanitario</div>
+            <div class="accordion-content">
+                <p>Emitido por SENASICA, acredita que el mango cumple con las regulaciones del país destino. Costo: $558 MXN por envío.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📄 Documentación Requerida</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Factura Comercial</h3>
+                        <p>Detalla el producto y valor.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Bill of Lading (BL)</h3>
+                        <p>Contrato de transporte.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Certificado de Origen</h3>
+                        <p>Acredita origen mexicano.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Documentos Aduaneros</h3>
+                        <p>Específicos por país destino.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🔍 Trazabilidad</div>
+            <div class="accordion-content">
+                <p>Sistema para rastrear el mango desde el huerto hasta el destino final, obligatorio para mercados como Europa.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📊 Inspección y Certificación</div>
+            <div class="accordion-content">
+                <p>Inspección por SENASICA para verificar calidad y cumplimiento fitosanitario. Incluye pruebas de laboratorio.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="1_index.html" class="nav-item">Inicio</a><br>
+                   <a href="2_Introduccion.html" class="nav-item">Introducción</a><br>
+                   <a href="3_requisitos.html" class="nav-item">Requisitos</a><br>
+                   <a href="4_upci.html" class="nav-item">UPCI</a><br>
+                   <a href="5_como_inicio.html" class="nav-item">Cómo Inicio</a><br>
+                   <a href="6_es_complicado.html" class="nav-item">Es Complicado</a><br>
+                   <a href="7_documentos.html" class="nav-item">Documentos</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>+52 33 1234 5678<br>Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Guía de Exportación • Jalisco, México</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const floatingNavButton = document.querySelector('.floating-nav-button');
+            const floatingNavMenu = document.querySelector('.floating-nav-menu');
+            floatingNavButton.addEventListener('click', () => {
+                floatingNavMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.essential-card').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animate');
+                }, index * 200);
+            });
+            document.querySelectorAll('.accordion-title').forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.nextElementSibling;
+                    content.classList.toggle('active');
+                    item.classList.toggle('active');
+                });
+            });
+            const ctx = document.getElementById('requisitosChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fitosanitario', 'Documentación', 'Trazabilidad', 'Inspección'],
+                    datasets: [{
+                        label: 'Importancia (%)',
+                        data: [30, 30, 20, 20],
+                        backgroundColor: '#ff5722'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

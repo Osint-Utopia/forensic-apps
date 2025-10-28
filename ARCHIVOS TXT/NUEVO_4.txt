@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Exportaciones de Mango</title>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2480fc;
+            --text-color: #27344a;
+            --bg-color: #fff;
+            --secondary-bg: #f5f5f5;
+            --accent-blue: #0052cc;
+            --main-blue: #007bff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+        }
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('data:font/truetype;base64,...') format('truetype'); /* Placeholder para fuente en base64 */
+        }
+
+        /* Navegación (de main.css) */
+        .navbar {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 60rem;
+            width: calc(100% - 40px);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .apilayer-nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .nav-item:hover {
+            color: var(--primary-color);
+        }
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        .hamburger::before {
+            content: '☰';
+            font-size: 25px;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--primary-color);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+        .mobile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .close-menu::before {
+            content: '✕';
+            font-size: 25px;
+            color: var(--bg-color);
+        }
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .mobile-nav-item {
+            color: var(--bg-color);
+            font-size: 24px;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .apilayer-nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* Sección Hero (de main.css) */
+        .main-section {
+            background-color: var(--main-blue);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+            color: var(--bg-color);
+            max-width: 700px;
+            z-index: 2;
+        }
+        .content h1 {
+            font-size: 4.75rem;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 68%;
+            width: 100%;
+            opacity: 0.5;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        /* Tarjetas (de main.css y homepage.css) */
+        .curve-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: var(--bg-color);
+            border-radius: 7px;
+            padding: 40px;
+            position: relative;
+            max-width: 35rem;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 1rem;
+            color: #718096;
+        }
+        .essential-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+        .essential-card {
+            background-color: var(--bg-color);
+            border: 1px solid #E4EBEF;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .essential-card:hover {
+            transform: translateY(-5px);
+        }
+        .essential-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .essential-card p {
+            font-size: 1rem;
+            color: #6C7A92;
+        }
+        @media (max-width: 768px) {
+            .curve-card-container, .essential-card-container {
+                grid-template-columns: 1fr;
+            }
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            .content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Acordeón (de homepage.css) */
+        .accordion-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .accordion-title {
+            background-color: var(--bg-color);
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-title::after {
+            content: '↓';
+            font-size: 1rem;
+        }
+        .accordion-title.active::after {
+            content: '↑';
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Pie de Página (de main.css) */
+        .footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="logo">Mango Export Jalisco</div>
+        <div class="apilayer-nav-links" id="nav-links">
+            <a href="#inicio" class="nav-item">Inicio</a>
+            <a href="#introduccion" class="nav-item">Introducción</a>
+            <a href="#requisitos" class="nav-item">Requisitos</a>
+            <a href="#upci" class="nav-item">UPCI</a>
+            <a href="#como_inicio" class="nav-item">Cómo Inicio</a>
+            <a href="#es_complicado" class="nav-item">Es Complicado</a>
+            <a href="#documentos" class="nav-item">Documentos</a>
+        </div>
+        <div class="hamburger"></div>
+        <div class="mobile-menu">
+            <div class="mobile-header">
+                <div class="logo">Mango Export Jalisco</div>
+                <div class="close-menu"></div>
+            </div>
+            <div class="mobile-nav-links" id="mobile-nav-links">
+                <a href="#inicio" class="mobile-nav-item">Inicio</a>
+                <a href="#introduccion" class="mobile-nav-item">Introducción</a>
+                <a href="#requisitos" class="mobile-nav-item">Requisitos</a>
+                <a href="#upci" class="mobile-nav-item">UPCI</a>
+                <a href="#como_inicio" class="mobile-nav-item">Cómo Inicio</a>
+                <a href="#es_complicado" class="mobile-nav-item">Es Complicado</a>
+                <a href="#documentos" class="mobile-nav-item">Documentos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Inicio (index.html) -->
+    <section id="inicio" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>Guía Completa de Exportación de Mango</h1>
+            <p>Explore nuestra guía paso a paso para dominar el proceso de exportación de mango al extranjero, incluyendo procesos, requisitos legales y recursos útiles.</p>
+            <a href="#introduccion" class="cta-button">Explorar Guía</a>
+        </div>
+        <div class="curve-card-container">
+            <div class="card pop-animation">
+                <h3>🌟 Introducción</h3>
+                <p>Conceptos básicos y fundamentos de las exportaciones internacionales de mango.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>📋 Requisitos</h3>
+                <p>Documentación y requisitos legales necesarios para exportar mango.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>🔍 UPCI</h3>
+                <p>Unidad de Promoción del Comercio Internacional.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>🚀 ¿Cómo Inicio?</h3>
+                <p>Pasos iniciales y primeras acciones para comenzar a exportar mango.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>❓ ¿Es Complicado?</h3>
+                <p>Desmitificando el proceso de exportación de mango.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>📄 Documentos</h3>
+                <p>Formularios, certificados y documentación oficial.</p>
+            </div>
+        </div>
+        <div class="curve-card-container">
+            <div class="card pop-animation">
+                <h3>📋 Pasos Principales</h3>
+                <p>Investigación de mercado: Identificar países objetivo y analizar la demanda.<br>
+                   Registro como exportador: Obtener certificaciones necesarias.<br>
+                   Logística: Coordinar transporte y procesos aduaneros.<br>
+                   Documentación: Preparar facturas, certificados de origen.<br>
+                   Seguimiento: Monitorear el envío y confirmar entrega.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>📄 Requisitos Legales</h3>
+                <p>Registro en el padrón de exportadores ante el SAT.<br>
+                   Certificados de calidad y origen.<br>
+                   Contratos comerciales internacionales.<br>
+                   Permisos sanitarios y fitosanitarios.<br>
+                   Seguros de transporte.</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>📞 Contacto y Recursos</h3>
+                <p>SENASICA Jalisco: Av. Alcalde 1351, Guadalajara, Tel: (33) 3668-0500, www.senasica.gob.mx<br>
+                   COFOCE Jalisco: Av. Mariano Otero 1249, Guadalajara, Tel: (33) 3336-5800, www.cofoce.jalisco.gob.mx<br>
+                   SAGARPA: Secretaría de Agricultura Jalisco, Tel: (33) 3030-5000, agricultura.jalisco.gob.mx</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Introducción (introduccion.html) -->
+    <section id="introduccion" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>Introducción a la Exportación de Mango</h1>
+            <p>Convierte el mango jalisciense en una estrella global</p>
+            <a href="#ventajas" class="cta-button">Descubre las Ventajas</a>
+        </div>
+        <div class="essential-card-container" id="ventajas">
+            <div class="essential-card">
+                <h3>🌍 Ampliar Alcance</h3>
+                <p>Lleva el mango jalisciense a mercados internacionales y aumenta tu presencia global.</p>
+            </div>
+            <div class="essential-card">
+                <h3>⚖️ Diversificar Riesgos</h3>
+                <p>Reduce la dependencia del mercado local al exportar a múltiples destinos.</p>
+            </div>
+            <div class="essential-card">
+                <h3>💰 Incrementar Ingresos</h3>
+                <p>Accede a mercados con alta demanda y obtén mejores márgenes de ganancia.</p>
+            </div>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>Variedad Ataulfo</h3>
+                <p>Reconocida por su sabor dulce y textura cremosa.</p>
+            </div>
+            <div class="essential-card">
+                <h3>Variedad Kent</h3>
+                <p>Valorada por su jugosidad y color vibrante.</p>
+            </div>
+            <div class="essential-card">
+                <h3>Variedad Haden</h3>
+                <p>Popular por su sabor intenso y pulpa firme.</p>
+            </div>
+            <div class="essential-card">
+                <h3>Variedad Tommy Atkins</h3>
+                <p>Ampliamente demandada por su resistencia al transporte.</p>
+            </div>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>🇺🇸 Estados Unidos</h3>
+                <p>Mercado #1 con alta demanda de mango mexicano.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🇪🇺 Europa</h3>
+                <p>Alta demanda en España y Países Bajos.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🇨🇳 China</h3>
+                <p>Mercado emergente con gran potencial.</p>
+            </div>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>🇺🇸 Estados Unidos</h3>
+                <p>Destino #1 con aranceles preferenciales T-MEC. Requiere USDA, FDA, tratamiento hidrotérmico.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🇨🇦 Canadá</h3>
+                <p>Busca productos orgánicos y sustentables. Alta calidad, temporada específica.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🇪🇺 Europa</h3>
+                <p>España y Países Bajos como puertas de entrada. Trazabilidad, control de residuos, empaque.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🇨🇳 China</h3>
+                <p>Mercado estratégico con gran potencial. Acuerdos bilaterales, fitosanitario, inspección.</p>
+            </div>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>1. Producción y Cosecha</h3>
+                <p>Buenas Prácticas Agrícolas (BPA), manejo del agua, uso racional de pesticidas, registros y trazabilidad.</p>
+            </div>
+            <div class="essential-card">
+                <h3>2. Certificaciones</h3>
+                <p>Certificaciones fitosanitarias de SENASICA: GlobalG.A.P., PrimusGFS, USDA Organic, normas ISO.</p>
+            </div>
+            <div class="essential-card">
+                <h3>3. Empaque y Embalaje</h3>
+                <p>Cámaras de enfriamiento, acolchados, atmósferas modificadas, cajas ventiladas y biodegradables.</p>
+            </div>
+            <div class="essential-card">
+                <h3>Ejemplo de Rentabilidad</h3>
+                <p>Costos: $45,000 MXN/tonelada. Venta: $65,000 MXN/tonelada. Ganancia: $20,000 (44%). Temporada: Marzo - Julio.</p>
+            </div>
+        </div>
+        <div class="accordion-container">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="accordion-item">
+                <div class="accordion-title">¿Qué certificaciones necesito para exportar mango a EE.UU.?</div>
+                <div class="accordion-content">
+                    <p>Debes contar con certificación fitosanitaria de SENASICA, tratamiento hidrotérmico, y cumplir con las regulaciones de USDA y FDA. Se recomienda también contar con GlobalG.A.P.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">¿Cuánto tiempo dura el mango para poder exportarlo?</div>
+                <div class="accordion-content">
+                    <p>Con un buen manejo postcosecha y refrigeración, puede conservarse entre 21 y 28 días, dependiendo de la variedad y condiciones del transporte.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">¿Puedo exportar pequeñas cantidades sin ser una gran empresa?</div>
+                <div class="accordion-content">
+                    <p>Sí, puedes comenzar con exportaciones a pequeña escala a través de intermediarios o marketplaces B2B, pero debes cumplir con todas las normativas.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">¿Qué variedad es la más demandada en el extranjero?</div>
+                <div class="accordion-content">
+                    <p>El mango Ataulfo es muy apreciado por su sabor dulce y textura cremosa, aunque las variedades Kent y Tommy Atkins también son ampliamente solicitadas.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">¿Qué apoyo ofrece el gobierno mexicano?</div>
+                <div class="accordion-content">
+                    <p>Existen programas como los de ProMéxico, SADER, y Bancomext, que brindan asesoría, financiamiento, y capacitación para exportadores emergentes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <h1>¡Tu Oportunidad de Crecimiento Global!</h1>
+            <p>Exportar mango desde Jalisco no solo es viable, sino altamente prometedor. Con planificación adecuada y las estrategias correctas, puedes colocar esta fruta dorada en mesas de todo el mundo.</p>
+            <div class="essential-card-container">
+                <div class="essential-card">
+                    <h3>Planifica</h3>
+                    <p>Buena planificación y cumplimiento normativo.</p>
+                </div>
+                <div class="essential-card">
+                    <h3>Estrategia</h3>
+                    <p>Marketing adecuado y logística eficiente.</p>
+                </div>
+                <div class="essential-card">
+                    <h3>Aliados</h3>
+                    <p>Socios estratégicos y aprendizaje continuo.</p>
+                </div>
+            </div>
+            <a href="#" class="cta-button">Descargar Guía Completa 🥭</a>
+        </div>
+    </section>
+
+    <!-- Sección Requisitos (requisitos.html) -->
+    <section id="requisitos" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>🥭 ¿Qué Requisitos Debo Cumplir?</h1>
+            <p>Requisitos para exportar mango desde Jalisco a Estados Unidos, Europa y Asia.</p>
+        </div>
+        <div class="accordion-container">
+            <div class="accordion-item">
+                <div class="accordion-title">🇺🇸 Estados Unidos</div>
+                <div class="accordion-content">
+                    <div class="essential-card-container">
+                        <div class="essential-card">
+                            <h3>📋 Documentación Fitosanitaria</h3>
+                            <p>Certificado fitosanitario de SENASICA<br>
+                               Registro en APHIS (USDA)<br>
+                               Permiso de importación previo<br>
+                               Factura comercial detallada</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🏭 Instalaciones Certificadas</h3>
+                            <p>Empaque registrado ante USDA<br>
+                               Sistema HACCP implementado<br>
+                               Tratamiento hidrotérmico (46.1°C por 75 min)<br>
+                               Trazabilidad completa del producto</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🔬 Especificaciones Técnicas</h3>
+                            <p>Libre de plagas cuarentenarias<br>
+                               Residuos de pesticidas dentro de límites FDA<br>
+                               Etiquetado en inglés obligatorio<br>
+                               Código PLU en cada fruto</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>📦 Empaque y Transporte</h3>
+                            <p>Cajas nuevas y limpias<br>
+                               Temperatura controlada (10-13°C)<br>
+                               Humedad relativa 85-90%<br>
+                               Contenedores refrigerados certificados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">🇪🇺 Unión Europea</div>
+                <div class="accordion-content">
+                    <div class="essential-card-container">
+                        <div class="essential-card">
+                            <h3>📋 Certificación Europea</h3>
+                            <p>Certificado fitosanitario armonizado<br>
+                               Registro TRACES para importación<br>
+                               Cumplimiento del Reglamento (UE) 2016/2031<br>
+                               Declaración de origen mexicano</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🌱 Residuos y Sostenibilidad</h3>
+                            <p>Límites máximos de residuos (LMR) EU<br>
+                               Certificación GlobalGAP preferible<br>
+                               Cumplimiento de Green Deal europeo<br>
+                               Trazabilidad blockchain recomendada</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🏷️ Etiquetado y Calidad</h3>
+                            <p>Etiquetas en idioma del país destino<br>
+                               Clasificación según normas CE<br>
+                               Información nutricional completa<br>
+                               Código de barras EAN-13</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🚢 Logística y Puertos</h3>
+                            <p>Puertos de entrada autorizados<br>
+                               Inspección en frontera (2% muestras)<br>
+                               Seguro de transporte internacional<br>
+                               Cold chain sin interrupciones</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-title">🌏 Asia (Japón, Corea, Singapur)</div>
+                <div class="accordion-content">
+                    <div class="essential-card-container">
+                        <div class="essential-card">
+                            <h3>🎌 Japón - MAFF</h3>
+                            <p>Registro de huerto ante MAFF<br>
+                               Tratamiento de vapor caliente obligatorio<br>
+                               Inspección pre-embarque japonesa<br>
+                               Certificado libre de mosca de la fruta</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🇰🇷 Corea del Sur - NPQS</h3>
+                            <p>Registro bilateral México-Corea<br>
+                               Tratamiento cuarentenario específico<br>
+                               Análisis de residuos K-MRL<br>
+                               Etiquetado en coreano (Hangeul)</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🇸🇬 Singapur - AVA</h3>
+                            <p>Licencia de importación AVA<br>
+                               Certificado de libre venta<br>
+                               Cumplimiento estándares CODEX<br>
+                               Declaración halal (mercados específicos)</p>
+                        </div>
+                        <div class="essential-card">
+                            <h3>🔍 Requisitos Comunes Asia</h3>
+                            <p>Análisis microbiológicos completos<br>
+                               Certificación de tercera parte<br>
+                               Cadena de frío ultra-estricta<br>
+                               Documentación en inglés + idioma local</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="curve-card-container">
+            <div class="card pop-animation">
+                <h3>🏛️ SENASICA Jalisco</h3>
+                <p>Av. Alcalde 1351, Guadalajara<br>
+                   Tel: (33) 3668-0500<br>
+                   www.senasica.gob.mx</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>💼 COFOCE Jalisco</h3>
+                <p>Av. Mariano Otero 1249, Guadalajara<br>
+                   Tel: (33) 3336-5800<br>
+                   www.cofoce.jalisco.gob.mx</p>
+            </div>
+            <div class="card pop-animation">
+                <h3>🌾 SAGARPA</h3>
+                <p>Secretaría de Agricultura Jalisco<br>
+                   Tel: (33) 3030-5000<br>
+                   agricultura.jalisco.gob.mx</p>
+            </div>
+        </div>
+        <div class="content">
+            <p>🥭 Información actualizada 2025 - Consulte siempre las regulaciones más recientes</p>
+        </div>
+    </section>
+
+    <!-- Placeholders para otras secciones -->
+    <section id="upci">
+        <div class="content">
+            <h1>Unidad de Prácticas Comerciales Internacionales</h1>
+            <p>[Contenido de upci.html se insertará aquí]</p>
+        </div>
+    </section>
+    <section id="como_inicio">
+        <div class="content">
+            <h1>Primeros Pasos para Exportar</h1>
+            <p>[Contenido de como_inicio.html se insertará aquí]</p>
+        </div>
+    </section>
+    <section id="es_complicado">
+        <div class="content">
+            <h1>Consejos para Exportar</h1>
+            <p>[Contenido de es_complicado.html se insertará aquí]</p>
+        </div>
+    </section>
+    <section id="documentos">
+        <div class="content">
+            <h1>Documentación Necesaria</h1>
+            <p>[Contenido de documentos.html se insertará aquí]</p>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense al mundo entero.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="#inicio" class="nav-item">Inicio</a><br>
+                   <a href="#ventajas" class="nav-item">Ventajas</a><br>
+                   <a href="#destinos" class="nav-item">Destinos</a><br>
+                   <a href="#proceso" class="nav-item">Proceso</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>
+                   +52 33 1234 5678<br>
+                   Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Mango Export Jalisco. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JavaScript para Interactividad -->
+    <script>
+        // Menú móvil
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeMenu = document.querySelector('.close-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Animaciones
+        document.querySelectorAll('.pop-animation').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('animate');
+            }, index * 200);
+        });
+
+        // Acordeón
+        document.querySelectorAll('.accordion-title').forEach(item => {
+            item.addEventListener('click', () => {
+                const content = item.nextElementSibling;
+                content.classList.toggle('active');
+                item.classList.toggle('active');
+            });
+        });
+
+        // Navegación descendente
+        const sections = ['inicio', 'introduccion', 'requisitos', 'upci', 'como_inicio', 'es_complicado', 'documentos'];
+        const navLinks = document.getElementById('nav-links');
+        const mobileNavLinks = document.getElementById('mobile-nav-links');
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionElement = document.getElementById(section);
+                if (sectionElement.getBoundingClientRect().top <= 100) {
+                    currentSection = section;
+                }
+            });
+            const currentIndex = sections.indexOf(currentSection);
+            navLinks.innerHTML = '';
+            mobileNavLinks.innerHTML = '';
+            sections.slice(currentIndex + 1).forEach(section => {
+                const link = document.createElement('a');
+                link.href = `#${section}`;
+                link.className = 'nav-item';
+                link.textContent = section.charAt(0).toUpperCase() + section.slice(1).replace('_', ' ');
+                navLinks.appendChild(link);
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${section}`;
+                mobileLink.className = 'mobile-nav-item';
+                mobileLink.textContent = section.charAt(0).toUpperCase() + section.slice(1).replace('_', ' ');
+                mobileNavLinks.appendChild(mobileLink);
+            });
+        });
+    </script>
+</body>
+</html>

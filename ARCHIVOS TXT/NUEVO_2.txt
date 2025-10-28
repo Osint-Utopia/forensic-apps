@@ -1,0 +1,42 @@
+
+Para descargar una página web completa, incluidos los estilos (CSS), tienes varias opciones:
+
+**1. Usar la función "Guardar como" del navegador:**
+
+*   **Pasos:**
+    1.  Abre la página web en tu navegador (Chrome, Firefox, Edge, Safari, etc.).
+    2.  Haz clic derecho en cualquier parte de la página y selecciona "Guardar como..." o "Guardar página como...".  También puedes usar el atajo de teclado `Ctrl + S` (Windows/Linux) o `Cmd + S` (macOS).
+    3.  En la ventana que se abre, elige una ubicación para guardar la página.
+    4.  En el menú desplegable "Guardar como tipo", selecciona "Página web completa" o "Webpage, Complete" (esto guardará el HTML, las imágenes y otros archivos necesarios).  Algunos navegadores también ofrecen la opción "Archivo web, solo HTML" o "Webpage, HTML only" si solo quieres el HTML.
+    5.  Haz clic en "Guardar".
+
+*   **Resultado:** Esto creará una carpeta con los recursos de la página (imágenes, CSS, etc.) y un archivo HTML que puedes abrir sin conexión.
+
+**2. Usar herramientas de descarga de sitios web (Web scraping):**
+
+Estas herramientas descargan todos los archivos del sitio web de forma recursiva.  Algunas opciones son:
+
+*   **HTTrack:** Una herramienta gratuita y de código abierto para descargar sitios web completos a tu ordenador local.  Organiza la estructura del sitio web original.
+*   **WebCopy (Cyotek):**  Una herramienta gratuita para copiar sitios web de forma parcial o completa a tu disco duro local para verlos sin conexión.  Escanea el sitio web y descarga el contenido, remapeando automáticamente los enlaces a recursos como hojas de estilo e imágenes.
+*   **Wget:**  Una utilidad de línea de comandos que puede recuperar archivos a través de HTTP y FTP.  Es una herramienta excelente para descargar sitios web completos.  Un comando de ejemplo es: `wget -m -p -E -k [URL del sitio web]`.
+*   **SingleFile:** Un complemento para Firefox y Chrome que guarda una página web completa (incluyendo imágenes, estilos, marcos, fuentes, etc.) como un único archivo HTML.
+
+**3. Inspeccionar el código fuente (para una sola página):**
+
+*   **Pasos:**
+    1.  Haz clic derecho en la página web y selecciona "Inspeccionar" o "Inspeccionar elemento".
+    2.  Ve a la pestaña "Fuentes" ("Sources").
+    3.  Busca el archivo HTML principal (normalmente llamado "(index)").
+    4.  Haz clic derecho en el archivo y selecciona "Guardar como...".
+    5.  Guarda el archivo con la extensión ".html".
+    6.  En la misma pestaña "Fuentes", busca los archivos CSS y JavaScript y guárdalos también con las extensiones ".css" y ".js" respectivamente.
+
+*   **Limitaciones:** Este método solo descarga el código fuente de la página actual, no todo el sitio web.
+
+**Consideraciones adicionales:**
+
+*   **Sitios web dinámicos:**  Si el sitio web utiliza mucho JavaScript para generar contenido de forma dinámica, es posible que algunas herramientas no puedan crear una copia completa.
+*   **Robots.txt:**  Algunos sitios web tienen un archivo "robots.txt" que indica a los robots (como las herramientas de descarga) qué partes del sitio no deben rastrearse. Respeta estas directivas.
+*   **Términos de uso:** Asegúrate de que tienes permiso para descargar y copiar el contenido del sitio web.
+*   **Edición posterior:**  Después de descargar la página, puedes editar el archivo HTML con un editor de texto como Visual Studio Code para realizar cambios.
+

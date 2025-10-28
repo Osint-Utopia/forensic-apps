@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Como Inicio Operaciones?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mango: {
+                            50: '#fef7ee',
+                            100: '#fdebd3',
+                            500: '#f97316',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-yellow-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-orange-600 to-amber-600 text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6">
+                <i class="fas fa-shipping-fast text-3xl text-white"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                ¿Como Inicio Operaciones? 
+                <span class="text-yellow-200">¿Que necesito?</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                Exportando mango desde Jalisco a EE.UU., Canadá, Europa y Asia
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-white/10 rounded-lg p-4">
+                    <i class="fas fa-file-alt text-2xl mb-2"></i>
+                    <p class="font-semibold">Trámites</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <i class="fas fa-dollar-sign text-2xl mb-2"></i>
+                    <p class="font-semibold">Costos</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <i class="fas fa-rocket text-2xl mb-2"></i>
+                    <p class="font-semibold">Cómo Empezar</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <i class="fas fa-chart-line text-2xl mb-2"></i>
+                    <p class="font-semibold">Métricas</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-white shadow-md z-50 border-b border-orange-200">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center">
+                <div class="flex space-x-8 overflow-x-auto py-4">
+                    <a href="#inicio" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-play-circle mr-2"></i>Cómo Empezar
+                    </a>
+                    <a href="#tramites" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-clipboard-list mr-2"></i>Trámites
+                    </a>
+                    <a href="#costos" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-calculator mr-2"></i>Costos
+                    </a>
+                    <a href="#capital" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-money-bill-wave mr-2"></i>Capital
+                    </a>
+                    <a href="#metricas" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-analytics mr-2"></i>Métricas
+                    </a>
+                    <a href="#faq" class="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap px-3 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-question-circle mr-2"></i>FAQ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- Sección 1: Cómo Empiezo -->
+        <section id="inicio" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">1</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">¿Cómo Empiezo?</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                            <h3 class="font-bold text-lg mb-3 text-orange-800">
+                                <i class="fas fa-building mr-2"></i>Constitución Legal
+                            </h3>
+                            <p class="text-gray-700">Constituir tu empresa (si aún no lo hiciste). Necesitas tu RFC y alta en el SAT.</p>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 class="font-bold text-lg mb-3 text-blue-800">
+                                <i class="fas fa-id-card mr-2"></i>Registros Oficiales
+                            </h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>• Registro en el Padrón de Exportadores del SAT - fundamental para operar legalmente</li>
+                                <li>• Alta en el Padrón Sectorial - opcional, pero útil para grandes volúmenes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="font-bold text-lg mb-3 text-green-800">
+                                <i class="fas fa-handshake mr-2"></i>Socios Estratégicos
+                            </h3>
+                            <p class="text-gray-700 mb-3">Búscate un agente aduanal confiable. Ellos te guiarán con:</p>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Logística</li>
+                                <li>• Pedimentos</li>
+                                <li>• Aranceles</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                            <h3 class="font-bold text-lg mb-3 text-purple-800">
+                                <i class="fas fa-warehouse mr-2"></i>Proveedores
+                            </h3>
+                            <p class="text-gray-700">Contacta con proveedores de centro de acopio/empaque en Jalisco que trabajen con fruta de exportación de calidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Trámites -->
+        <section id="tramites" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">2</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Trámites 1 a 1</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Fracción Arancelaria -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-yellow-800">
+                            <i class="fas fa-barcode mr-2"></i>2.1 Fracción Arancelaria
+                        </h3>
+                        <div class="bg-white rounded-lg p-4">
+                            <p class="font-mono text-lg font-bold text-center text-orange-600 mb-2">0804.50.04.01</p>
+                            <p class="text-sm text-gray-600 text-center">Código de mango</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-3">
+                            <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                            Bajo el T-MEC no se pagan tarifas a EE.UU. Canadá y la UE también bajan aranceles.
+                        </p>
+                    </div>
+
+                    <!-- Documentación Comercial -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">
+                            <i class="fas fa-file-invoice mr-2"></i>2.2 Facturación
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>Pro-forma para acordar precio y condiciones</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>Factura comercial con descripción, cantidades, Incoterm, datos bancarios</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Certificados -->
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-green-800">
+                            <i class="fas fa-certificate mr-2"></i>2.3 Certificado de Origen
+                        </h3>
+                        <p class="text-gray-700 text-sm">
+                            Lo expide SAGARPA/SADER, acredita que el mango es 100% mexicano, esencial para aranceles preferenciales.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-red-800">
+                            <i class="fas fa-shield-alt mr-2"></i>2.4 Certificado Fitosanitario
+                        </h3>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600">Costo por certificado:</span>
+                            <span class="font-bold text-red-600">MXN $558</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Obligatorio para EE.UU., Canadá, UE, Asia. La fruta es inspeccionada por SENASICA.
+                        </p>
+                    </div>
+
+                    <!-- Certificados Adicionales -->
+                    <div class="lg:col-span-2 bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">
+                            <i class="fas fa-plus-circle mr-2"></i>2.5 Certificados Adicionales
+                        </h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <i class="fas fa-flag-usa text-2xl text-blue-600 mb-2"></i>
+                                <p class="font-semibold text-sm">APHIS/USDA</p>
+                                <p class="text-xs text-gray-600">Para EE.UU., funguicidas, etc.</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <i class="fas fa-maple-leaf text-2xl text-red-600 mb-2"></i>
+                                <p class="font-semibold text-sm">HACCP y COFEPRIS</p>
+                                <p class="text-xs text-gray-600">Para Canadá, fruta fresca</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <i class="fas fa-language text-2xl text-green-600 mb-2"></i>
+                                <p class="font-semibold text-sm">Etiquetado</p>
+                                <p class="text-xs text-gray-600">Multilingüe para destinos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documentos de Transporte -->
+                    <div class="bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-teal-800">
+                            <i class="fas fa-list mr-2"></i>2.6 Lista de Empaque
+                        </h3>
+                        <p class="text-gray-700 text-sm">
+                            Documento detallado: cajas, kg, peso bruto, dimensiones.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-50 to-slate-50 border border-gray-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-ship mr-2"></i>2.7 Bill of Lading / AWB
+                        </h3>
+                        <p class="text-gray-700 text-sm">
+                            Contrato de transporte. Según envío (marítimo reefer o aéreo).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Costos -->
+        <section id="costos" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">3</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Costos Estimados</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-blue-800">Certificado Fitosanitario</h3>
+                            <i class="fas fa-shield-alt text-blue-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-blue-600">MXN $558</p>
+                        <p class="text-sm text-gray-600">por envío</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-purple-800">Agente Aduanal</h3>
+                            <i class="fas fa-handshake text-purple-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-purple-600">$10K-30K MXN</p>
+                        <p class="text-sm text-gray-600">por contenedor</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-green-800">Documentación</h3>
+                            <i class="fas fa-file-alt text-green-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-green-600">$2K-5K MXN</p>
+                        <p class="text-sm text-gray-600">origen, proforma, factura</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-red-800">Certificaciones</h3>
+                            <i class="fas fa-certificate text-red-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-red-600">$500-2K USD</p>
+                        <p class="text-sm text-gray-600">HACCP, USDA</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-yellow-800">Flete Marítimo</h3>
+                            <i class="fas fa-ship text-yellow-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-yellow-600">$3K-8K USD</p>
+                        <p class="text-sm text-gray-600">contenedor 40' reefer</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-teal-800">Empaque</h3>
+                            <i class="fas fa-box text-teal-500"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-teal-600">$20-40 MXN</p>
+                        <p class="text-sm text-gray-600">por caja (~5 kg)</p>
+                    </div>
+                </div>
+
+                <!-- Ejemplo Práctico -->
+                <div class="bg-gradient-to-r from-orange-100 to-yellow-100 border border-orange-300 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-orange-800 flex items-center">
+                        <i class="fas fa-calculator mr-3"></i>Ejemplo Práctico
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-lg p-6 text-center">
+                            <i class="fas fa-box-open text-3xl text-orange-500 mb-3"></i>
+                            <h4 class="font-bold text-lg mb-2">Contenedor 20 toneladas</h4>
+                            <p class="text-2xl font-bold text-orange-600">$30K USD</p>
+                            <p class="text-sm text-gray-600">Valor FOB</p>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 text-center">
+                            <i class="fas fa-minus-circle text-3xl text-red-500 mb-3"></i>
+                            <h4 class="font-bold text-lg mb-2">Costos Totales</h4>
+                            <p class="text-2xl font-bold text-red-600">$7K-12K USD</p>
+                            <p class="text-sm text-gray-600">Depende del destino</p>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 text-center">
+                            <i class="fas fa-plus-circle text-3xl text-green-500 mb-3"></i>
+                            <h4 class="font-bold text-lg mb-2">Margen Bruto</h4>
+                            <p class="text-2xl font-bold text-green-600">$28K USD</p>
+                            <p class="text-sm text-gray-600">Antes de impuestos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Capital Necesario -->
+        <section id="capital" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">4</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">¿Cuánto Necesitas Para Empezar?</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-8">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-seedling text-4xl text-green-500 mb-4"></i>
+                            <h3 class="text-2xl font-bold text-green-800 mb-2">Capital Mínimo</h3>
+                            <p class="text-4xl font-bold text-green-600">$15K-20K USD</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span>Contenedor pequeño</span>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span>Empacado</span>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span>Trámites</span>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span>Flete</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-8">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-rocket text-4xl text-blue-500 mb-4"></i>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-2">Contenedor Grande</h3>
+                            <p class="text-4xl font-bold text-blue-600">$30K+ USD</p>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                            <h4 class="font-bold text-yellow-800 mb-2">
+                                <i class="fas fa-lightbulb mr-2"></i>Considera el Flujo de Caja
+                            </h4>
+                            <p class="text-sm text-gray-700">Cobras según tu Incoterm:</p>
+                            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                <li>• <strong>FOB:</strong> Al embarcar (puerto origen)</li>
+                                <li>• <strong>CIF:</strong> Al llegar a destino</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 5: Métricas -->
+        <section id="metricas" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">5</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Métricas Clave</h2>
+                    <p class="text-lg text-gray-600 ml-4">Para saber si vas bien o mal</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-green-800 mb-2 flex items-center">
+                                <i class="fas fa-percentage text-green-500 mr-3"></i>
+                                Margen Bruta %
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-2">Fórmula:</p>
+                            <div class="bg-white rounded-lg p-3 font-mono text-sm">
+                                (Ingresos - Costos) / Ingresos
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-blue-800 mb-2 flex items-center">
+                                <i class="fas fa-sync text-blue-500 mr-3"></i>
+                                Rotación del Contenedor
+                            </h3>
+                            <p class="text-sm text-gray-600">¿Cuántos haces al año?</p>
+                            <p class="text-lg font-bold text-blue-600 mt-2">Ideal: 4-6 contenedores</p>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-purple-800 mb-2 flex items-center">
+                                <i class="fas fa-clock text-purple-500 mr-3"></i>
+                                Días en Tránsito
+                            </h3>
+                            <p class="text-sm text-gray-600">Tiempo de envío:</p>
+                            <ul class="text-sm mt-2 space-y-1">
+                                <li class="flex justify-between">
+                                    <span>🇺🇸 EE.UU. (marítimo):</span>
+                                    <span class="font-bold">7-12 días</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>🌏 Asia:</span>
+                                    <span class="font-bold">25+ días</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-red-800 mb-2 flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Tasa de Rechazo
+                            </h3>
+                            <p class="text-sm text-gray-600">En destino:</p>
+                            <p class="text-lg font-bold text-red-600 mt-2">Ideal: < 2%</p>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-yellow-800 mb-2 flex items-center">
+                                <i class="fas fa-truck text-yellow-500 mr-3"></i>
+                                Costos Logísticos
+                            </h3>
+                            <p class="text-sm text-gray-600">% del valor FOB</p>
+                            <p class="text-sm text-gray-500 mt-2">Apúntalos para identificar fugas</p>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-teal-800 mb-2 flex items-center">
+                                <i class="fas fa-star text-teal-500 mr-3"></i>
+                                Satisfacción del Importador
+                            </h3>
+                            <div class="flex justify-between text-sm mt-2">
+                                <span>Calidad</span>
+                                <span>Tiempo</span>
+                                <span>Precios</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg text-green-800 mb-2 flex items-center">
+                                <i class="fas fa-chart-line text-green-500 mr-3"></i>
+                                Rentabilidad Neta
+                            </h3>
+                            <p class="text-sm text-gray-600">Utilidad después de TODOS los costos</p>
+                            <p class="text-xs text-gray-500 mt-1">Incluidos aranceles y agentes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 6: FAQ -->
+        <section id="faq" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-orange-100">
+                <div class="flex items-center mb-8">
+                    <div class="bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <i class="fas fa-question text-xl"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Preguntas Frecuentes</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Por qué Canadá y Europa tardan más que EE.UU.?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Porque requieren normativas <strong>HACCP</strong>, etiquetado bilingüe (inglés-francés), 
+                                y a veces inspección previa de COFEPRIS.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Puedo exportar orgánico?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Sí, con certificado orgánico + etiquetado especial, y cumpliendo requisitos de empaques, 
+                                sobre todo para UE/Canadá.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Necesito una cooperativa o empresa para exportar?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Sí, necesitas personalidad jurídica (empresa o RFC), pero puedes cooperar con otras productoras. 
+                                Algunas redes consiguen mejores volúmenes, pero necesitas coordinación y confianza.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Cuál es el mejor Incoterm para iniciar?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Empieza con <strong>FOB</strong>: menos riesgo y costos. Luego, ya que tengas base, 
+                                podrías pasar a CIF o DAP.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Y si me rechazan la carga?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Tener evidencia de calidad, fotos, registros fitosanitarios. A veces recuperas costos. 
+                                Una baja tasa (< 2%) es aceptable; más es señal de alerta.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl overflow-hidden">
+                        <button class="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors" onclick="toggleFAQ(this)">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-gray-800">
+                                    ¿Cuál es la fruta más rentable para exportar?
+                                </h3>
+                                <i class="fas fa-chevron-down text-gray-500 transform transition-transform"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content hidden p-6 border-t border-gray-200">
+                            <p class="text-gray-700">
+                                Además del mango, también funcionan aguacate, café, berries, etc. Pero el mango en Jalisco 
+                                tiene ventana de oportunidad entre <strong>marzo y julio</strong>, con buena demanda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 7: Consejos Finales -->
+        <section class="mb-20">
+            <div class="bg-gradient-to-br from-orange-600 to-red-600 text-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div class="flex items-center mb-8">
+                    <div class="bg-white text-orange-600 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <span class="text-xl font-bold">💡</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold">Consejos Finales</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-handshake mr-3 text-yellow-300"></i>
+                                Establece Contratos Claros
+                            </h3>
+                            <p class="text-orange-100">
+                                Con clientes: precios, volúmenes, calidad y penalizaciones por escrito.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-calendar-alt mr-3 text-yellow-300"></i>
+                                Timing Estratégico
+                            </h3>
+                            <p class="text-orange-100">
+                                Usa tiempos clave: evita temporada alta de otros competidores.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-arrow-up mr-3 text-yellow-300"></i>
+                                Reinvierte en Calidad
+                            </h3>
+                            <p class="text-orange-100">
+                                Mejora de manejo post cosecha: calidad creciente = mejores precios.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-calculator mr-3 text-yellow-300"></i>
+                                Control de Costos
+                            </h3>
+                            <p class="text-orange-100">
+                                Lleva control detallado de costos por contenedor / kg.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-file-alt mr-3 text-yellow-300"></i>
+                                Documenta Todo
+                            </h3>
+                            <p class="text-orange-100">
+                                Facturas, pedimentos, certificados, récord de rechazos.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                            <h3 class="font-bold text-xl mb-3 flex items-center">
+                                <i class="fas fa-chart-line mr-3 text-yellow-300"></i>
+                                Temporada Ideal
+                            </h3>
+                            <p class="text-orange-100">
+                                Mango de Jalisco: <strong>marzo a julio</strong> con mejor demanda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <i class="fas fa-seedling text-4xl text-orange-400 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">¡Tu Historia de Éxito Comienza Aquí!</h3>
+                <p class="text-gray-300">Exporta mango de Jalisco al mundo</p>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400">
+                    Guía completa para empezar operaciones de comercio internacional
+                </p>
+                <p class="text-sm text-gray-500 mt-2">
+                    Jalisco → 🇺🇸 EE.UU. | 🇨🇦 Canadá | 🇪🇺 Europa | 🌏 Asia
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle Function
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-white/95', 'backdrop-blur-sm');
+            } else {
+                nav.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9620ac642a0f576f',t:'MTc1Mjk5NTc4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

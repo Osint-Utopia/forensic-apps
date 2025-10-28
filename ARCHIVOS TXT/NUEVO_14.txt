@@ -1,0 +1,42 @@
+Si recibes el mensaje que indica que "el fondo está actualmente desactivado debido a la configuración de accesibilidad", es probable que tengas habilitada una función en Windows que afecta la personalización del fondo de escritorio. A continuación, te muestro algunos pasos que puedes seguir para solucionar este problema:
+1. Verifica la configuración de Accesibilidad:
+
+Presiona la tecla Windows + I para abrir la Configuración.
+
+Haz clic en Facilidad de acceso.
+
+Ve a la sección Color y alto contraste en el menú de la izquierda.
+
+Asegúrate de que la opción Activar alto contraste esté desactivada. Si está activada, desactívala y verifica si puedes cambiar el fondo del escritorio.
+
+
+2. Verifica la configuración de Temas:
+
+Regresa a la ventana de Personalización (clic derecho en el escritorio → Personalizar).
+
+Asegúrate de que el tema no esté configurado para usar un esquema de alto contraste. Esto también puede influir en la capacidad de personalizar el fondo.
+
+
+3. Revisa las políticas de Grupo (si corresponde):
+
+Si tu computadora es parte de una red de trabajo o dominio, algunas configuraciones pueden estar restringidas por el administrador del sistema. 
+
+Si tienes acceso a la configuración de políticas de grupo, ejecuta gpedit.msc. Navega a Configuración del usuario → Plantillas administrativas → Panel de control → Personalización y asegúrate de que no haya políticas que restrinjan la capacidad de cambiar el fondo.
+
+
+4. Reinicia tu PC:
+
+A veces, simplemente reiniciar el PC puede solucionar problemas temporales.
+
+
+5. Ejecutar un escaneo de sistema:
+
+Abre la línea de comandos (cmd) como administrador y ejecuta el siguiente comando: 
+sfc /scannow
+
+Este comando escaneará y reparará archivos del sistema dañados.
+
+
+6. Actualiza el sistema operativo:
+
+Asegúrate de que tu Windows 10 esté actualizado. Ve a Configuración → Actualización y seguridad y verifica si hay actualizaciones disponibles.

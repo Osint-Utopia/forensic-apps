@@ -1,0 +1,309 @@
+#!/usr/bin/env python
+# codificación: utf-8
+
+# ## Cree su propio intérprete de código: generación y ejecución dinámica de herramientas con o3-mini
+#
+La clave para que un Agente LLM pueda interactuar con el mundo exterior u otros Agentes es la llamada a herramientas (o funciones), donde un LLM puede invocar una función (un bloque de código) con argumentos. Normalmente, estas funciones están predefinidas por el desarrollador, junto con sus entradas y salidas esperadas. Sin embargo, en este libro de recetas, exploramos un paradigma más flexible: la **generación dinámica de herramientas** mediante modelos LLM (en este caso, **o3-mini**), con la capacidad de ejecutar la herramienta mediante un intérprete de código.
+#
+# ### Llamada a herramientas generada dinámicamente con intérprete de código
+Una herramienta generada dinámicamente es una función o bloque de código creado por el propio LLM en tiempo de ejecución, según la solicitud del usuario. Esto significa que no es necesario predefinir todos los escenarios posibles en el código base, lo que permite una resolución de problemas mucho más abierta, creativa y adaptativa.
+#
+La llamada a herramientas generada dinámicamente va un paso más allá al otorgar al LLM la capacidad de generar herramientas y ejecutar bloques de código sobre la marcha. Este enfoque dinámico es especialmente útil para tareas que implican:
+#
+# - Análisis y visualización de datos
+# - Manipulación y transformación de datos
+# - Generación y ejecución de flujo de trabajo de aprendizaje automático
+# - Automatización de procesos y scripting
+# - Y mucho más, a medida que surgen nuevas posibilidades a través de la experimentación.
+#
+# ### Uso de o3-mini para la generación de herramientas dinámicas
+#
+Lanzado el 31 de enero de 2025, el modelo o3-mini cuenta con capacidades STEM excepcionales, con especial énfasis en ciencias, matemáticas y programación, manteniendo el bajo costo y la latencia reducida de los modelos más pequeños. En este libro de recetas, demostraremos las capacidades de o3-mini para generar código Python, interpretar datos y extraer información.
+#
+Los modelos de razonamiento son especialmente eficaces para generar herramientas dinámicas de análisis de datos, ya que pueden razonar por sí solos, sin necesidad de instrucciones explícitas de cadena de pensamiento. De hecho, proporcionar instrucciones explícitas de cadena de pensamiento puede interferir con el razonamiento interno del modelo y generar resultados subóptimos. Puede obtener más información sobre o3-mini [aquí]. (https://openai.com/index/openai-o3-mini/)
+#
+# ### ¿Por qué construir tu propio intérprete de código?
+#
+Muchos proveedores de API, como la API de Asistentes de OpenAI, ofrecen funciones de interpretación de código integradas. Estos intérpretes de código integrados pueden ser extremadamente potentes, pero hay situaciones en las que los desarrolladores podrían necesitar crear su propio intérprete de código personalizado. Por ejemplo:
+#
+# 1. **Compatibilidad con lenguaje o biblioteca**: es posible que el intérprete integrado no admita el lenguaje de programación específico (por ejemplo, C++, Java, etc.) o las bibliotecas requeridas para su tarea.
+# 2. **Compatibilidad de tareas**: Es posible que su caso de uso no sea compatible con la solución integrada del proveedor.
+# 3. **Restricciones del modelo**: Es posible que necesite un modelo de lenguaje que no sea compatible con el intérprete del proveedor.
+# 4. **Consideraciones de costos**: La estructura de costos para la ejecución del código o el uso del modelo puede no ajustarse a su presupuesto o limitaciones.
+# 5. **Tamaño del archivo**: El tamaño del archivo de datos de entrada es demasiado grande o no es compatible con el intérprete del proveedor.
+# 6. **Integración con sistemas internos**: Es posible que el intérprete del proveedor no pueda integrarse con sus sistemas internos.
+#
+# ### Lo que aprenderás
+Al seguir este libro de recetas, aprenderá a:
+#
+# - Configurar un entorno de ejecución de código Python aislado usando Docker
+# - Configure su propia herramienta de interpretación de código para agentes LLM
+# - Establecer una separación clara de las preocupaciones “Agentic” en materia de seguridad y protección
+# - Uso del modelo **o3-mini** para generar código dinámicamente para el análisis de datos
+# - Orquestar agentes para realizar eficientemente una tarea determinada
+# - Diseñar una aplicación agente que pueda generar y ejecutar código dinámicamente
+#
+# Aprenderá cómo crear una herramienta de interpretación de código personalizada desde cero, aprovechar el poder de los LLM para generar código sofisticado y ejecutar ese código de manera segura en un entorno aislado, todo con el objetivo de hacer que sus aplicaciones impulsadas por IA sean más flexibles, potentes y rentables.
+
+# ### Ejemplo de escenario
+#
+Utilizaremos los datos de muestra proporcionados en [Factores Clave de Accidentes de Tránsito](https://www.kaggle.com/datasets/willianoliveiragibin/key-factors-traffic-accidents) para responder a un conjunto de preguntas. Estas preguntas no requieren ser predefinidas; permitiremos a LLM generar código para responderlas.
+#
+# Algunos ejemplos de preguntas podrían ser:
+# - ¿Qué factores contribuyen más a la frecuencia de accidentes? (Análisis de importancia de las características)
+# - ¿Qué zonas tienen mayor riesgo de accidentes? (Clasificación/Agrupamiento)
+# - ¿Cómo influye el importe de las multas de tráfico en el número de accidentes? (Regresión/Inferencia causal)
+# - ¿Podemos determinar los importes óptimos de las multas para reducir la siniestralidad? (Modelos de optimización)
+# - ¿Las multas más altas se correlacionan con velocidades promedio más bajas o menos accidentes? (Correlación/Regresión)
+# - etcétera ...
+#
+Con el enfoque tradicional de **Llamada a Herramientas Predefinidas**, el desarrollador tendría que predefinir la función para cada una de estas preguntas. Esto limita la capacidad del LLM para responder a otras preguntas no definidas en el conjunto de funciones predefinidas. Superamos esta limitación mediante el enfoque de **Llamada a Herramientas Dinámica**, donde el LLM genera código y utiliza un intérprete de código para ejecutarlo.
+
+# ## Descripción general
+Profundicemos en los pasos para crear esta aplicación Agentic con llamadas a herramientas generadas dinámicamente. Esta aplicación consta de tres componentes:
+
+# #### Paso 1: Configurar un entorno de contenedor de ejecución de código aislado
+#
+Necesitamos un entorno seguro donde se puedan ejecutar las llamadas a funciones generadas por LLM. Queremos evitar ejecutar directamente el código generado por LLM en el host, por lo que crearemos un entorno de contenedor Docker con acceso restringido a recursos (por ejemplo, sin acceso a la red). De forma predeterminada, los contenedores Docker no pueden acceder al sistema de archivos del host, lo que ayuda a garantizar que el código generado por LLM permanezca contenido.
+#
+# ##### ⚠️ UNA PALABRA DE PRECAUCIÓN: Implemente barandillas fuertes para el código generado por LLM
+Los LLM podrían generar código dañino con consecuencias imprevistas. Como práctica recomendada, aísle el entorno de ejecución del código, permitiendo únicamente el acceso a los recursos necesarios para la tarea. Evite ejecutar el código generado por LLM en su equipo host o portátil.
+#
+# #### Paso 2: Definir y probar los agentes
+#
+# "¿**Qué es un Agente?**" En el contexto de este libro de cocina, un Agente es:
+# 1. Conjunto de instrucciones que debe seguir el LLM, es decir, la indicación para desarrolladores
+# 2. Un modelo LLM y la capacidad de llamar al modelo a través de la API
+# 3. Acceso a una función mediante una llamada de herramienta y capacidad para ejecutar la función
+#
+# Definiremos dos agentes:
+# 1. FileAccessAgent: este agente leerá el archivo y proporcionará el contexto a PythonCodeExecAgent.
+# 2. PythonCodeExecAgent: Este agente generará el código Python para responder la pregunta del usuario y ejecutará el código en el contenedor Docker.
+#
+# #### Paso 3: Configurar Agentic Orchestration para ejecutar la aplicación
+Existen varias maneras de orquestar los agentes según los requisitos de la aplicación. En este ejemplo, utilizaremos una orquestación simple donde el usuario proporciona una tarea y los agentes se invocan secuencialmente para completarla.  
+#
+#La orquestación general se muestra a continuación:
+#
+# ![](../../images/oo_aa_image_1_code_interpreter_agents.png)
+
+# ## Empecemos
+#
+#
+# ### Requisitos previos
+# Antes de comenzar, asegúrese de tener lo siguiente instalado y configurado en su máquina host:
+#
+# 1. Docker: instalado y funcionando en tu equipo local. Puedes obtener más información sobre Docker e instalarlo desde aquí (https://www.docker.com/).
+# 2. Python: instalado en tu equipo local. Puedes aprender más sobre Python e instalarlo desde aquí (https://www.python.org/downloads/).
+# 3. Clave de API de OpenAI: configúrela en su equipo local como variable de entorno o en el archivo .env del directorio raíz. Puede obtener más información sobre la clave de API de OpenAI y [configurarla desde aquí](https://platform.openai.com/docs/api-reference/introduction).
+#
+
+# ### Paso 1: Configurar un entorno de ejecución de código aislado
+#
+# Definamos un entorno de contenedor Dockerizado que se usará para ejecutar nuestro código. He definido el **[dockerfile](https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/resources/docker/dockerfile)** en el directorio `resources/docker`, que se usará para crear el entorno de contenedor con las siguientes especificaciones:
+# - Python 3.10 como base
+# - Un usuario no root
+# - Preinstale los paquetes en requirements.txt  
+#
+El archivo requirements.txt incluido en el proceso de creación de la imagen de Docker contiene todos los paquetes que nuestro código generado por LLM podría necesitar para realizar sus tareas. Dado que restringiremos el acceso de red al contenedor, debemos preinstalar los paquetes necesarios para la tarea. Por seguridad, nuestro LLM no podrá instalar paquetes adicionales.
+#
+# Puede crear su propia imagen de Docker con los requisitos del lenguaje (como Python 3.10) y preinstalar los paquetes necesarios para la tarea, o crear una imagen de Docker personalizada con el lenguaje específico (como Java, C++, etc.) y los paquetes necesarios para la tarea.
+
+# Construyamos la imagen de Docker con el siguiente comando. Para abreviar, redirigí la salida para que busque el mensaje de éxito e imprima un mensaje si la compilación falla.
+
+# En[1]:
+
+
+get_ipython().system('docker build -t python_sandbox:latest ./resources/docker 2>&1 | grep -E "Ver detalles de la compilación|ERROR" || echo "Error en la compilación."')
+
+
+# Ejecutemos el contenedor en modo restringido. El contenedor se ejecutará en segundo plano. Esta es nuestra oportunidad para definir las políticas de seguridad. Es recomendable permitir solo las funciones mínimas necesarias para la tarea. De forma predeterminada, el contenedor no puede acceder al sistema de archivos del host desde dentro. También restringiremos su acceso a la red para que no pueda acceder a Internet ni a ningún otro recurso de red.
+
+# En[2]:
+
+
+# Ejecute el contenedor en modo restringido. El contenedor se ejecutará en segundo plano.
+get_ipython().system('docker run -d --name sandbox --network none --cap-drop all --pids-limit 64 --tmpfs /tmp:rw,size=64M python_sandbox:latest sleep infinity')
+
+
+# Asegurémonos de que el contenedor se esté ejecutando usando `docker ps` que debería enumerar nuestro contenedor.
+
+# En[3]:
+
+
+get_ipython().system('docker ps')
+
+
+# ### Paso 2: Definir y probar los agentes
+#
+# Para nuestros propósitos, definiremos dos agentes.
+# 1. **Agente 1: Agente de acceso a archivos (con llamada de herramienta predefinida)**
+# - Instrucciones para comprender el contenido del archivo para proporcionar como contexto al Agente 2.
+# - Tiene acceso al sistema de archivos de la máquina host.
+# - Puede leer un archivo del host y copiarlo en el contenedor Docker.
+# - No se puede acceder a la herramienta de interpretación de código.
+# - Utiliza el modelo gpt-4o.
+#
+# 2. **Agente 2: Generador y ejecutor de código Python (con llamada a herramientas generada dinámicamente y ejecución de código)**
+# - Recibe el contexto del contenido del archivo del Agente 1.
+# - Instrucciones para generar un script de Python para responder la pregunta del usuario.
+# - Tiene acceso al intérprete de código dentro del contenedor Docker, que se utiliza para ejecutar código Python.
+# - Tiene acceso solo al sistema de archivos dentro del contenedor Docker (no el host).
+# - No se puede acceder al sistema de archivos ni a la red del equipo host.
+# - Utiliza nuestro modelo más nuevo **o3-mini** que se destaca en la generación de código.
+#
+# Esta separación entre el acceso a archivos (Agente 1) y el generador y ejecutor de código (Agente 2) es crucial para evitar que el LLM acceda o modifique directamente la máquina host.
+#
+#
+# **Limite el Agente 1 a llamadas de herramientas estáticas, ya que tiene acceso al sistema de archivos del host.**  
+#
+#
+# | Agente | Tipo de llamada a la herramienta | Acceso al sistema de archivos del host | Acceso al sistema de archivos del contenedor Docker | Acceso al intérprete de código |
+# |-------|-------------------|----------------------------|----------------------------------------|----------------------------|
+# | Agente 1: Acceso a archivos | Herramientas predefinidas | Sí | Sí | No |
+# | Agente 2: Generador y ejecutor de código Python | Herramientas generadas dinámicamente | No | Sí | Sí |
+#
+
+# Para mantener los Agentes y las Herramientas organizados, hemos definido un conjunto de **clases principales** que se usarán para crear los dos agentes para mantener la coherencia utilizando los principios de Programación Orientada a Objetos.
+#
+# - **BaseAgent**: Comenzamos con una clase base abstracta que aplica firmas de métodos comunes, como `task()`. La clase base también proporciona un registrador para la depuración, una interfaz de modelo de lenguaje y otras funciones comunes, como `add_context()`, para agregar contexto al agente.
+# - **ChatMessages**: Una clase para almacenar el historial de conversaciones dado que la API ChatCompletions no tiene estado.
+# - **ToolManager**: Una clase para administrar las herramientas que un agente puede llamar.
+# - **ToolInterface**: una clase abstracta para cualquier 'herramienta' que un agente pueda llamar para que las herramientas tengan una interfaz consistente.
+#
+# Estas clases se definen en el directorio [object_oriented_agents/core_classes](./resources/object_oriented_agents/core_classes).
+
+# #### Diagrama de clases UML para clases principales
+El siguiente diagrama de clases muestra la relación entre las clases principales. Este UML (Lenguaje Unificado de Modelado) se generó usando [Mermaid](https://mermaid)
+#
+# ![](../../images/oo_aa_image_2_uml_diagram.png)
+
+# **Definir Agente 1: FileAccessAgent con FileAccessTool**
+#
+Comencemos definiendo la herramienta FileAccessTool, que hereda de la clase ToolInterface. La herramienta **FileAccessTool** se define en el archivo [file_access_tool.py](https://github.com/openai/openai-cookbook/blob/main/examples/object_orientado_agentic_approach/resources/registry/tools/file_access_tool.py), en el directorio `resources/registry/tools`.
+#
+# - FileAccessTool implementa la clase ToolInterface, que garantiza que las herramientas tendrán una interfaz consistente.
+# - Vincular la definición de la herramienta para la API de llamada de función de OpenAI en el método `get_definition` y el método `run` de la herramienta garantiza mantenibilidad, escalabilidad y reutilización.
+
+Ahora, definamos el **FileAccessAgent** que extiende la clase BaseAgent y enlaza la **FileAccessTool** con el agente. El FileAccessAgent se define en el archivo [file_acess_agent.py](https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/resources/registry/agents/file_access_agent.py) del directorio `resources/registry/agents`. El FileAccessAgent es:
+#
+# - Una implementación concreta de la clase BaseAgent.
+# - Se inicializa con el mensaje de solicitud del desarrollador, el nombre del modelo, el registrador y la interfaz del modelo de lenguaje. El desarrollador puede sobrescribir estos valores si es necesario.
+# - Tiene un método setup_tools que registra FileAccessTool en el administrador de herramientas.
+# - Tiene un método `task` que llama a FileAccessTool para leer el archivo y proporcionar el contexto a PythonCodeExecAgent.
+# - `model_name='gpt-4o'` que proporciona suficiente razonamiento y capacidad de llamada de herramientas para la tarea.
+#
+
+# **Definir el Agente 2: PythonExecAgent con PythonExecTool**  
+#
+De forma similar, PythonExecTool hereda de la clase ToolInterface e implementa los métodos get_definition y run. El método get_definition devuelve la definición de la herramienta en el formato esperado por la API de llamadas a funciones de OpenAI. El método run ejecuta el código Python en un contenedor Docker y devuelve la salida. Esta herramienta se define en el archivo [python_code_interpreter_tool.py](https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/resources/registry/tools/python_code_interpreter_tool.py) del directorio `resources/registry/tools`.
+#
+De igual forma, PythonExecAgent es una implementación concreta de la clase BaseAgent. Se define en el archivo [python_code_exec_agent.py](https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/resources/registry/agents/python_code_exec_agent.py) en el directorio `resources/registry/agents`. PythonExecAgent es:
+#
+# - Una implementación concreta de la clase BaseAgent.
+# - Se inicializa con el mensaje de solicitud del desarrollador, el nombre del modelo, el registrador y la interfaz del modelo de lenguaje. El desarrollador puede sobrescribir estos valores si es necesario.
+# - Tiene un método setup_tools que registra PythonExecTool en el administrador de herramientas.
+# - Tiene un método `task` que llama a la API de OpenAI para realizar la tarea del usuario, que en este caso implica generar un script de Python para responder la pregunta del usuario y ejecutarlo con la herramienta Code Interpreter.
+# - `model_name='o3-mini'` que se destaca en tareas STEM como la generación de código.
+# - `reasoning_effort='high'` que permite un razonamiento más completo dada la complejidad de la tarea, a costa de generar más tokens y respuestas más lentas. El valor predeterminado es medio, que representa un equilibrio entre velocidad y precisión de razonamiento.
+#
+# Puede obtener más información sobre el parámetro `reasoning_effort` [aquí](https://platform.openai.com/docs/guides/reasoning).
+
+# ### Paso 3: Configurar Agentic Orchestration para ejecutar la aplicación
+#
+Con los agentes definidos, podemos definir el bucle de orquestación que ejecutará la aplicación. Este bucle solicitará al usuario una pregunta o tarea y luego llamará a FileAccessAgent para leer el archivo y proporcionar el contexto a PythonExecAgent. PythonExecAgent generará el código Python para responder a la pregunta del usuario y lo ejecutará en el contenedor Docker. El resultado de la ejecución del código se mostrará al usuario.
+#
+# El usuario puede presionar "exit" para detener la aplicación. Nuestra pregunta: **¿Qué factores contribuyen más a la frecuencia de accidentes?** Tenga en cuenta que no predefinimos la función para responder a esta pregunta.
+#
+#
+
+# En[4]:
+
+
+# Importar los agentes desde el registro/agentes
+
+desde recursos.registro.agentes.file_access_agent importar FileAccessAgent
+desde recursos.registro.agentes.python_code_exec_agent importar PythonExecAgent
+
+
+Utilice el archivo "traffic_accidents.csv" para su análisis. Los nombres de las columnas son:
+Descripción de la variable
+accidentes Número de accidentes registrados, como un entero positivo.
+Traffic_fine_amount Monto de la multa de tráfico, expresado en miles de USD.
+Traffic_density Índice de densidad de tráfico, escala de 0 (bajo) a 10 (alto).
+semáforos Proporción de semáforos en el área (0 a 1).
+calidad_del_pavimento Calidad del pavimento, escala de 0 (muy mala) a 5 (excelente).
+urban_area Área urbana (1) o área rural (0), como un entero.
+velocidad_promedio Velocidad promedio de los vehículos en km/h.
+rain_intensity Intensidad de lluvia, escala de 0 (sin lluvia) a 3 (lluvia intensa).
+vehicle_count Número estimado de vehículos, en miles, como un entero.
+time_of_day Hora del día en formato de 24 horas (0 a 24).
+accidentes de tráfico importe de la multa
+"""
+
+
+imprimir("Configuración: ")
+imprimir(indicador)
+
+print("Configurando los agentes...")
+
+# Instanciar los agentes con los valores definidos por el constructor predeterminado
+# El desarrollador puede anular los valores predeterminados (indicador, modelo, registrador e interfaz del modelo de idioma) si es necesario
+
+# Este agente usa gpt-4o por defecto
+file_ingestion_agent = Agente de acceso a archivos()
+
+# Asegurémonos de que el agente use el modelo o3-mini y configuremos reasoning_effort en alto
+agente_de_análisis_de_datos = PythonExecAgent(nombre_del_modelo='o3-mini', esfuerzo_de_razonamiento='alto')
+
+print("Entendiendo el contenido del archivo...")
+# Asignar una tarea al agente de ingesta de archivos para leer el archivo y proporcionar el contexto al agente de análisis de datos
+salida del agente de ingestión de archivos = agente de ingestión de archivos.tarea(prompt)
+
+# Agrega el contenido del archivo como contexto al agente de análisis de datos
+# El contexto se agrega al administrador de herramientas del agente para que éste pueda usar el contexto para generar el código
+
+agente_de_análisis_de_datos.add_context(prompt)
+agente_de_análisis_de_datos.add_context(salida_del_agente_de_ingestión_de_archivos)
+
+mientras sea verdadero:
+
+    print("Escribe tu pregunta relacionada con los datos del archivo. Escribe 'exit' para salir.")
+    user_input = input("Escribe tu pregunta.")
+
+    si user_input == "salir":
+        print("Saliendo de la aplicación.")
+        romper
+
+    print(f"Pregunta del usuario: {user_input}")
+
+    print("Generando herramientas dinámicas y utilizando el intérprete de código...")
+    salida_del_agente_de_análisis_de_datos = agente_de_análisis_de_datos.tarea(entrada_del_usuario)
+
+    print("Salida...")
+    imprimir(salida del agente de análisis de datos)
+
+
+En este ejemplo, **o3-mini** generó dinámicamente una herramienta (script de Python) basada en la pregunta del usuario para analizar los datos. Cabe destacar que **o3-mini** examinó el problema utilizando múltiples enfoques, como análisis de correlación, regresión lineal y modelos de bosque aleatorio. Este enfoque destaca lo siguiente:
+#
+# **esfuerzo_de_razonamiento**: La profundidad de razonamiento que realiza el modelo (p. ej., en este caso, el número de aproximaciones) generalmente aumenta al aumentar el parámetro de bajo, medio o alto. Puede probar con diferentes niveles de esfuerzo de razonamiento para observar la diferencia.
+#
+# **Llamada a herramientas generadas dinámicamente**: La herramienta (script de Python) para analizar los datos no fue escrita manualmente ni predeterminada por el desarrollador. En su lugar, el modelo o3-mini creó el código relevante para la exploración de datos y el análisis de correlación en tiempo de ejecución.
+#
+# **Ejecución de Código Aislado**: Para garantizar la seguridad y evitar la ejecución de código no confiable en el equipo host, el script de Python se ejecutó dentro de un contenedor Docker con la herramienta `execute_python_code`. Este contenedor tenía acceso restringido a los recursos (p. ej., sin acceso a la red y con acceso limitado al sistema de archivos), lo que minimizaba los posibles riesgos de ejecución de código arbitrario.
+#
+
+# ### Conclusión
+#
+# El libro de recetas proporciona una guía para desarrollar un **intérprete de código personalizado** adaptado a las necesidades de aplicaciones específicas, abordando las limitaciones encontradas en las soluciones proporcionadas por los proveedores, como restricciones de lenguaje, consideraciones de costos y la necesidad de flexibilidad con diferentes LLM o modelos.
+#
+# **Enfoque para la gestión de agentes y herramientas**: También definimos un conjunto de clases principales para gestionar los agentes y las herramientas. Este enfoque garantiza que los agentes y las herramientas tengan una interfaz consistente y puedan reutilizarse en diferentes aplicaciones. Se puede crear un repositorio de agentes y herramientas, como la carpeta [registry](https://github.com/openai/openai-cookbook/tree/main/examples/object_oriented_agentic_approach/resources/registry), para gestionar los agentes y las herramientas.
+#
+# **modelo o3-mini**: Demostramos la capacidad del modelo o3-mini de generar código sofisticado en tiempo de ejecución para analizar datos según las indicaciones mínimas del usuario. Luego, el modelo o3-mini razonó sobre el resultado del análisis para explicar los resultados al usuario.
+#
+# Finalmente, **para recapitular**, los tres pasos para construir una aplicación Agentic con llamada de herramientas dinámica son:
+# 1. Configurar un entorno de contenedor de ejecución de código aislado
+# 2. Definir y probar los agentes
+# 3. Configure Agentic Orchestration para ejecutar la aplicación
+#
+# Analizamos la importancia de aislar el entorno de ejecución de código para garantizar la seguridad y evitar la ejecución de código no confiable en el equipo host. Con un archivo CSV como ejemplo, demostramos cómo generar dinámicamente una herramienta (un script de Python) para analizar los datos y responder a la pregunta del usuario. También mostramos cómo ejecutar el código en un contenedor Docker y devolver la salida al usuario.

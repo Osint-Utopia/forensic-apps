@@ -1,0 +1,26 @@
+
+	material-dashboard-pro
+		├── assets
+		│   ├── css
+		│   ├── fonts
+		│   ├── img
+		│   ├── js
+		│   │   ├── core
+		│   │   ├── plugins
+		│   │   └── points.json
+		│   │   └── material-dashboard.min.js
+		│   └── scss
+		│       ├── material-dashboard-pro
+		│       └── material-dashboard.scss
+		├── docs
+		│   ├── documentation.html
+		├── pages
+		│   ├── applications
+		│   ├── authentication
+		│   ├── dashboards
+		│   ├── ecommerce
+		│   ├── pages
+		├── CHANGELOG.md
+		├── gulpfile.js
+		├── package.json
+		├── presentation.html

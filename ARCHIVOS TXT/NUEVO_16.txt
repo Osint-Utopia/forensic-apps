@@ -1,0 +1,24 @@
+
+
+	Instrucciones para Uso
+	Configuración:
+	Reemplace "YOUR_SERPAPI_KEY" con una clave válida de SerpAPI (u otra API de búsqueda como Google Custom Search).
+	Ajuste max_results_per_query y delay_between_requests según las limitaciones de la API o las necesidades forenses.
+	Modifique output_file para especificar la ruta y nombre del archivo de resultados.
+	Ejecución:
+	Ejecute el script en un entorno Python con las dependencias instaladas (requests, logging, json).
+	Asegúrese de tener acceso a una API de búsqueda o configurar un scraper personalizado si no usa SerpAPI.
+	El script generará un archivo JSON (search_results.json) con los resultados de todas las consultas.
+	Consideraciones Éticas y Legales:
+	Datos Sensibles: El script incluye un método validate_results para detectar resultados potencialmente sensibles (e.g., enlaces con 
+	"confidential" o "password"). Ajuste según las normativas de privacidad de México (Ley Federal de Protección de Datos Personales).
+	Límites de API: Respete los límites de la API utilizada para evitar bloqueos.
+	Uso Forense: Verifique que las consultas cumplan con las regulaciones locales y no se utilicen para acceder a información privada sin autorización.
+	Personalización:
+	Agregue las 100 consultas completas en la lista SEARCH_QUERIES (se incluyeron solo las primeras y últimas como ejemplo para brevedad).
+	Puede extender el script para integrar con otras fuentes (e.g., bases de datos gubernamentales como Condusef, CNBV o SAT) usando APIs específicas o web scraping ético.
+	Añada filtros adicionales (e.g., intext:confidential, ext:log) según necesidades específicas.
+	Alternativas:
+	Si no desea usar una API externa, puede adaptar el script para usar selenium o beautifulsoup para scraping directo, asegurándose de cumplir con los 
+	términos de servicio de los sitios objetivo.
+	Para bases de datos locales, modifique el script para consultar una base de datos SQL o NoSQL con las mismas consultas.

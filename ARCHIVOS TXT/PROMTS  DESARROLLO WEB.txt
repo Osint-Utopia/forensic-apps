@@ -1,0 +1,76 @@
+
+
+		1. Indicaciones de arquitectura de desarrollo web
+
+		Desarrollar una arquitectura y código para un sitio web <description> para Javascript
+		Actúa como desarrollador de software. Diseña una arquitectura y código para desarrollar un sitio web [para abogados] con funciones de programación mediante HTML.
+		Estoy creando un sitio web para una pequeña empresa que vende jabones artesanales. Aporta ideas sobre cómo estructurar el sitio web con WordPress.
+		Desarrollar una arquitectura y un código para una herramienta de gestión de proyectos basada en web que permita a los usuarios colaborar en tareas y proyectos.
+		¿Puedes sugerir algunas bibliotecas o marcos para desarrollar [tipo especifico de aplicación]?
+
+		2. Indicaciones de HTML y Markdown
+
+		En una tabla, enumere los accesos directos para [HTML/VS Code/React/Python] usando un dispositivo Apple o Windows.
+		Escriba una hoja de trucos para el formato Markdown
+		Escriba un código HTML para un formulario que recopile el nombre, el correo electrónico y el número de teléfono de un usuario.
+		Escriba un documento Markdown que incluya encabezados, párrafos, viñetas y un hipervinculo.
+		Haga que el siguiente código de galeria de imágenes responda en HTML <insertar código>
+		¿Puede proporcionar un fragmento de código HTML que cree un botón con un efecto de desplazamiento y un enlace a la siguiente página [insertar URL]?
+		Actúa como desarrollador web. Genera una cuadricula de [número] por [número] de divs HTML con un fondo de [color].
+
+		3. Indicaciones CSS
+
+		Quiero implementar una barra de navegación en mi sitio web. ¿Podrias darme un ejemplo con CSS y Javascript?
+		Enumere la compatibilidad del navegador web con CSS Grid.
+		Proporcione una demostración de código utilizando Flexbox.
+		Muéstrame cómo puedo crear un menú responsivo usando solo CSS.
+		Muéstrame cómo puedo crear un fondo degradado usando CSS.
+		Muéstrame cómo crear una animación CSS para un botón cuando se pasa el cursor sobre él.
+		Actúa como desarrollador web. Escribe código HTML y CSS para un [tipo especifico de página web], con [Un Arsenal Completo para tu Defensa Digital especificas].
+		Recomendar un marco CSS para [proyecto especifico].
+
+		4. Indicaciones de JavaScript
+
+		Continúe escribiendo este código para Javascript <insertar código>
+		Como desarrollador de JavaScript, escribe un programa que revise la información de un formulario. El nombre y el número de teléfono son obligatorios, pero la dirección de correo electrónico y la edad no.
+		Detectar fugas de memoria en el siguiente código JavaScript <insertar código>
+		Cambie de [React] a [Vuejs] el siguiente código: <insertar código>
+		Desarrollar una aplicación JavaScript que recupere datos de una API pública y los muestre en una página web.
+
+		5. API y solicitudes de análisis de datos
+
+		Enumere diez API populares en la categoria de [insertar categoria].
+		Proporcione un fragmento de código Python para analizar datos JSON e imprimir valores especificos.
+		Cree una plantilla de documentación de API para el siguiente código [idioma]: <insertar código>
+		Documente el uso y la funcionalidad de la herramienta de linea de comandos [idioma] especificada, como se muestra en el <insertar código> proporcionado.
+		Muéstrame cómo crear una referencia de API para la biblioteca o el marco [lenguaje] dado: <insertar código>
+		Cree un tutorial para usar la siguiente API [idioma] con código de ejemplo: <insertar código>
+		Escriba un script [Python] para leer y analizar datos de una hoja de Excel
+		Escriba una función en Phyton que me ayude a convertir valores de caracteres en valores de fecha y hora.
+
+		6. Avisos de seguridad
+
+		Descubra la falla de seguridad en este fragmento de código de un paquete npm de código abierto
+		Muéstrame paso a paso cómo puedo implementar HTTPS en mi sitio web
+		Muéstrame cómo puedo implementar 2FA en mi sitio web
+		Como especialista en ciberseguridad, se le proporcionará información especifica sobre cómo se almacenan y comparten los datos, y su tarea será proponer medidas adecuadas para protegerlos de actores maliciosos. Esto puede implicar recomendar [insertar].
+		Escriba una función o módulo [lenguaje] seguro que realice [tarea u operación especifica] y al mismo tiempo evite [amenaza o vulnerabilidad de seguridad].
+
+
+		7. Indicaciones de depuración y optimización de código
+
+		Sugiera formas de optimizar la siguiente función <insertar función>
+		<insertar código> El código anterior no se ejecuta. ¿Podrias decirme cuál podria ser el problema?
+		Actúa como desarrollador web sénior. ¿Podrias refactorizar el siguiente código <insertar código>?
+		<insertar código> ¿Podrias decirme algunos casos de prueba para probar el código anterior?
+		Escriba una función o módulo [lenguaje] seguro que realice [tarea u operación especifica] y al mismo tiempo evite [amenaza o vulnerabilidad de seguridad].
+
+
+		8. Indicaciones para la preparación de la entrevista
+
+		Enumere 20 preguntas de entrevista comunes para [lenguaje de programación] e incluya las respuestas.
+		Sugerir formas de mejorar las habilidades de comunicación técnica para las entrevistas.
+		¿Puedes recomendarme algunos ejercicios de codificación para practicar entrevistas?
+		Proporcionar consejos para demostrar habilidades de resolución de problemas en las entrevistas.
+		Quiero que actúes como un experto en entrevistas y proporciones una lista de preguntas de codificación frecuentes en [nombre del idioma].
+		Hazme una entrevista simulada para un puesto de desarrollador full stack senior. Tú haces las preguntas, yo comparto mis respuestas y tú me das tu opinión. Por favor, haz solo una pregunta para empezar.

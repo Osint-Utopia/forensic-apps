@@ -1,0 +1,118 @@
+ETIQUETAS HTML
+
+### **1. Estructura Básica**
+- **`<!DOCTYPE html>`**: Define el tipo de documento como HTML5.
+- **`<html>`**: Raíz del documento HTML. Incluye `lang` para definir el idioma.
+- **`<head>`**: Contiene metadatos, enlaces a recursos y el título de la página.
+- **`<body>`**: Contenido principal visible en el navegador.
+- **`<meta>`**: Metadatos como `charset` (UTF-8), `viewport` (responsive), descripción, etc.
+- **`<title>`**: Título de la página (aparece en la pestaña del navegador).
+- **`<link>`**: Enlace a hojas de estilo, íconos (favicon), etc. (`rel="stylesheet"`).
+- **`<style>`**: CSS interno (no requiere `type="text/css"` en HTML5).
+- **`<script>`**: Carga scripts JavaScript (`async` o `defer` para carga asíncrona).
+
+---
+
+### **2. Elementos Semánticos**
+- **`<header>`**: Encabezado de una sección o página.
+- **`<nav>`**: Barra de navegación con enlaces.
+- **`<main>`**: Contenido principal de la página (único por página).
+- **`<section>`**: Sección temática dentro del documento.
+- **`<article>`**: Contenido autónomo (ej: noticia, entrada de blog).
+- **`<aside>`**: Contenido secundario (ej: barra lateral).
+- **`<footer>`**: Pie de página o sección.
+- **`<figure>` + `<figcaption>`**: Imagen/media con descripción.
+- **`<time>`**: Fecha o hora legible para máquinas (`datetime`).
+- **`<mark>`**: Texto resaltado (destacado por relevancia).
+- **`<details>` + `<summary>`**: Contenido desplegable (acordeón).
+- **`<dialog>`**: Ventana modal o cuadro de diálogo (HTML5.2).
+- **`<search>`**: Área dedicada a búsquedas (HTML Living Standard).
+
+---
+
+### **3. Texto y Formato**
+- **`<h1>` a `<h6>`**: Encabezados (jerarquía del contenido).
+- **`<p>`**: Párrafo de texto.
+- **`<span>`**: Contenedor en línea para estilizar texto.
+- **`<div>`**: Contenedor en bloque genérico.
+- **`<strong>`**: Texto importante (semántico).
+- **`<em>`**: Texto enfatizado (semántico).
+- **`<b>`**: Texto en negrita (sin énfasis semántico).
+- **`<i>`**: Texto en cursiva (ej: términos técnicos).
+- **`<u>`**: Texto subrayado.
+- **`<s>`**: Texto tachado (no vigente).
+- **`<blockquote>`**: Cita larga (usar `cite` para la fuente).
+- **`<code>`**: Fragmento de código.
+- **`<pre>`**: Texto preformateado (conserva espacios y saltos).
+- **`<a>`**: Enlace (`href`, `target="_blank"`).
+- **`<br>`**: Salto de línea (autocerrante).
+- **`<hr>`**: Línea horizontal temática (autocerrante).
+
+---
+
+### **4. Listas**
+- **`<ul>`**: Lista desordenada.
+- **`<ol>`**: Lista ordenada (`type`, `start`).
+- **`<li>`**: Ítem de lista.
+- **`<dl>`**: Lista de definiciones.
+- **`<dt>`**: Término a definir.
+- **`<dd>`**: Descripción de un término.
+
+---
+
+### **5. Multimedia**
+- **`<img>`**: Imagen (`src`, `alt` obligatorio para accesibilidad).
+- **`<video>`**: Reproductor de video (`controls`, `autoplay`, `loop`).
+- **`<audio>`**: Reproductor de audio.
+- **`<source>`**: Fuente multimedia múltiple para `<video>`/`<audio>`.
+- **`<picture>`**: Imágenes responsive (alternativas según pantalla).
+- **`<iframe>`**: Incrustar contenido externo (ej: mapas, videos).
+- **`<canvas>`**: Dibujar gráficos via JavaScript (juegos, gráficos).
+- **`<svg>`**: Gráficos vectoriales escalables.
+
+---
+
+### **6. Tablas**
+- **`<table>`**: Tabla de datos.
+- **`<thead>`**, **`<tbody>`**, **`<tfoot>`**: Secciones de la tabla.
+- **`<tr>`**: Fila de la tabla.
+- **`<td>`**: Celda de datos.
+- **`<th>`**: Celda de encabezado (`scope="col/row"`).
+- **`<caption>`**: Título descriptivo de la tabla.
+- **`<colgroup>` + `<col>`**: Formato de columnas específicas.
+
+---
+
+### **7. Formularios**
+- **`<form>`**: Contenedor de campos de entrada (`action`, `method`).
+- **`<input>`**: Campo de entrada:
+  - Tipos comunes: `text`, `email`, `password`, `number`, `date`, `file`, `checkbox`, `radio`.
+  - Nuevos tipos: `search`, `tel`, `url`, `range`, `color`, `datetime-local`.
+- **`<label>`**: Etiqueta asociada a un campo (`for="campo_id"`).
+- **`<button>`**: Botón (`type="submit/reset/button"`).
+- **`<select>` + `<option>`**: Lista desplegable.
+- **`<textarea>`**: Campo de texto multilínea.
+- **`<datalist>`**: Lista de sugerencias para `<input>`.
+- **`<progress>`**: Barra de progreso.
+- **`<meter>`**: Medidor de valores (ej: uso de disco).
+- **`<fieldset>` + `<legend>`**: Agrupar campos con título.
+
+---
+
+### **8. Atributos Relevantes**
+- **Globales**:
+  - `id`, `class`, `style`, `title`, `data-*` (datos personalizados).
+  - `aria-*`: Atributos para accesibilidad (ej: `aria-label`).
+  - `contenteditable`, `spellcheck`, `translate`.
+- **Eventos**: `onclick`, `onmouseover`, `onload`, etc.
+- **Accesibilidad**:
+  - `role="button"`, `tabindex`, `alt` (en `<img>`).
+
+---
+
+### **9. Términos Clave**
+- **DOM (Document Object Model)**: Representación jerárquica del documento.
+- **SEO**: Optimización para motores de búsqueda (uso de etiquetas semánticas).
+- **Responsive Design**: Adaptación a pantallas mediante `<meta name="viewport">`.
+- **Elemento Vacío**: Etiquetas autocerradas (ej: `<img>, <br>`).
+- **HTML Entity**: Códigos para caracteres especiales (ej: `&nbsp;`, `&copy;`).

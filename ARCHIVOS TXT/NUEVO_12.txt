@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normatividad en la Exportación de Mangos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Jura", sans-serif;
+            background-color: #5163ac;
+            color: #424242;
+            line-height: 1.2;
+        }
+        
+        .page {
+            width: 21.6cm;
+            min-height: 27.9cm;
+            margin: 0 auto;
+            padding: 2.5cm;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin-bottom: 2cm;
+            page-break-after: always;
+        }
+        
+        .cover-page {
+            background: linear-gradient(135deg, #E8B931 0%, #2E7D32 50%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .cover-title {
+            font-size: 36pt;
+            font-weight: bold;
+            margin-bottom: 1cm;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cover-subtitle {
+            font-size: 16pt;
+            margin-bottom: 2cm;
+            font-style: italic;
+        }
+        
+        .cover-author {
+            font-size: 12pt;
+            margin-top: 3cm;
+        }
+        
+        .page-header {
+            border-bottom: 3px solid #E8B931;
+            margin-bottom: 1cm;
+            padding-bottom: 0.5cm;
+        }
+        
+        .main-title {
+            font-size: 20pt;
+            font-weight: bold;
+            color: #E8B931;
+            margin-bottom: 0.5cm;
+        }
+        
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #2E7D32;
+            margin: 1cm 0 0.5cm 0;
+            padding-left: 0.5cm;
+            border-left: 4pt solid #E8B931;
+        }
+        
+        .subsection-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1B365D;
+            margin: 0.8cm 0 0.4cm 0;
+        }
+        
+        .body-text {
+            font-size: 12pt;
+            margin-bottom: 0.4cm;
+            text-align: justify;
+            max-width: 65ch;
+        }
+        
+        .highlight-box {
+            background-color: #F5F5F5;
+            border-left: 4pt solid #bd4646;
+            padding: 0.8cm;
+            margin: 0.6cm 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box .title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1B365D;
+            margin-bottom: 0.4cm;
+        }
+        
+        .bullet-point {
+            margin-left: 1cm;
+            margin-bottom: 0.3cm;
+            position: relative;
+        }
+        
+        .bullet-point::before {
+            content: "●";
+            color: #a52a2a;
+            font-size: 14pt;
+            position: absolute;
+            left: -0.6cm;
+        }
+        
+        .number-highlight {
+            background-color: #E8B931;
+            color: white;
+            padding: 0.2cm 0.4cm;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 12pt;
+            display: inline-block;
+            margin-right: 0.5cm;
+        }
+        
+        .warning-box {
+            background-color: #FFF3E0;
+            border-left: 4pt solid #FF8A50;
+            padding: 0.8cm;
+            margin: 0.6cm 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-box .title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #FF8A50;
+            margin-bottom: 0.4cm;
+        }
+        
+        .links-section {
+            background-color: #F8F9FA;
+            border-left: 4pt solid #2E7D32;
+            padding: 0.8cm;
+            margin: 0.6cm 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .links-section .title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 0.6cm;
+        }
+        
+        .link-item {
+            margin-bottom: 0.4cm;
+            padding: 0.3cm;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #E0E0E0;
+        }
+        
+        .link-item a {
+            color: #1B365D;
+            text-decoration: none;
+            font-size: 11pt;
+            display: block;
+            word-break: break-all;
+        }
+        
+        .link-item a:hover {
+            color: #E8B931;
+            text-decoration: underline;
+        }
+        
+        .link-category {
+            font-size: 13pt;
+            font-weight: bold;
+            color: #2E7D32;
+            margin: 0.8cm 0 0.4cm 0;
+            padding-bottom: 0.2cm;
+            border-bottom: 2px solid #E8B931;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 1cm;
+            right: 2.5cm;
+            color: #2E7D32;
+            font-size: 10pt;
+        }
+        
+        @media screen and (max-width: 900px) {
+            .page {
+                width: 95%;
+                padding: 1.5cm;
+                margin-bottom: 1cm;
+            }
+            
+            .cover-title {
+                font-size: 24pt;
+            }
+            
+            .cover-subtitle {
+                font-size: 14pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Página de portada -->
+    <div class="page cover-page">
+        <div class="cover-title">Normatividad en la Exportación de Mangos</div>
+        <div class="cover-subtitle">Guía completa de certificaciones fitosanitarias y requisitos normativos</div>
+        <div class="cover-author">Secretaría de Agricultura y Desarrollo Rural<br>Gobierno de México</div>
+    </div>
+
+    <!-- Página de contenido principal -->
+    <div class="page">
+        <div class="page-header">
+            <div class="main-title">Certificado Fitosanitario para Exportación de Mangos</div>
+        </div>
+
+        <div class="body-text">
+            El interesado en exportar mangos y otros vegetales, sus productos y subproductos, así como cualquier otra mercancía regulada o equipo que implique un riesgo fitosanitario, debe solicitar a la Secretaría el Certificado Fitosanitario Internacional en los términos establecidos en el artículo 27 de la Ley Federal de Sanidad Vegetal, previo cumplimiento de las normas oficiales mexicanas y de la legislación vigente del país que importa la mercancía.
+        </div>
+
+        <div class="highlight-box">
+            <div class="title">¿Qué es el Certificado Fitosanitario Internacional?</div>
+            <div class="body-text">
+                Es un documento que solicitan los países importadores para comprobar que los productos que ingresen representan un riesgo fitosanitario aceptable, de acuerdo a lo establecido en su regulación nacional y cumplimiento de requisitos fitosanitarios. De no presentarse este certificado, no se permite el ingreso de mercancías reguladas fitosanitariamente.
+            </div>
+        </div>
+
+        <div class="section-title">Requisitos para la Exportación</div>
+        
+        <div class="bullet-point"><span class="number-highlight">1</span>Pago de derechos</div>
+        <div class="bullet-point"><span class="number-highlight">2</span>Identificación Oficial</div>
+        <div class="bullet-point"><span class="number-highlight">3</span>Resultados de pruebas de laboratorio</div>
+        <div class="bullet-point"><span class="number-highlight">4</span>Dictamen de Verificación o inspección</div>
+        <div class="bullet-point"><span class="number-highlight">5</span>Escritos Libres</div>
+        <div class="bullet-point"><span class="number-highlight">6</span>Certificado de origen</div>
+        <div class="bullet-point"><span class="number-highlight">7</span>Otros documentos según el país destino</div>
+
+        <div class="warning-box">
+            <div class="title">Información Importante</div>
+            <div class="body-text">
+                Todos los datos y requisitos mencionados son de uso exclusivo en la Ventanilla Única. Es fundamental completar correctamente todos los campos requeridos para evitar demoras en el proceso de exportación.
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de datos del trámite -->
+    <div class="page">
+        <div class="page-header">
+            <div class="main-title">Datos Requeridos para el Trámite</div>
+        </div>
+
+        <div class="section-title">Datos del Trámite</div>
+        <div class="bullet-point">Aduana de Salida/Lugar de Embarque</div>
+        <div class="bullet-point">Punto de Ingreso País Destino</div>
+        <div class="bullet-point">País de Origen</div>
+        <div class="bullet-point">País de Destino</div>
+        <div class="bullet-point">Entidad Federativa de Origen</div>
+        <div class="bullet-point">Municipio de Origen</div>
+
+        <div class="section-title">Datos de la Mercancía</div>
+        <div class="bullet-point">Entidad Federativa</div>
+        <div class="bullet-point">Delegación Estatal SAGARPA</div>
+        <div class="bullet-point">Distrito de Desarrollo Rural (DDR)</div>
+        <div class="bullet-point">Centro de Apoyo al Desarrollo Rural (CADER)</div>
+        <div class="bullet-point">Módulo de Certificación Fitosanitaria</div>
+        <div class="bullet-point">Tipo de Certificado</div>
+
+        <div class="section-title">Detalle de la Mercancía</div>
+        <div class="bullet-point">Fracción Arancelaria</div>
+        <div class="bullet-point">Descripción Fracción Arancelaria</div>
+        <div class="bullet-point">Cantidad en UMT (Unidad de Medida de la Tarifa)</div>
+        <div class="bullet-point">Cantidad en UMC (Unidad de Medida de Comercialización)</div>
+        <div class="bullet-point">Nombre Común y Científico del mango</div>
+        <div class="bullet-point">Uso del producto</div>
+        <div class="bullet-point">País de Procedencia</div>
+        <div class="bullet-point">Marcas Distintivas</div>
+
+        <div class="section-title">Datos del Transporte y Destino</div>
+        <div class="bullet-point">Medio de Transporte</div>
+        <div class="bullet-point">Identificación del Transporte</div>
+        <div class="bullet-point">Datos específicos del destino</div>
+    </div>
+
+    <!-- Página de enlaces gubernamentales -->
+    <div class="page">
+        <div class="page-header">
+            <div class="main-title">Enlaces y Documentación Oficial</div>
+        </div>
+
+        <div class="links-section">
+            <div class="title">Portales Gubernamentales Principales</div>
+            
+            <div class="link-category">Ventanilla Única</div>
+            <div class="link-item">
+                <a href="https://ventanillaunica.gob.mx/ecert/login!input.action" target="_blank">Acceso a Ventanilla Única - Sistema de Certificación</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/index.html" target="_blank">Portal Principal VUCEM</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/Ayuda/SAGARPA/SolObtCerExp/cfievps.html" target="_blank">Ayuda - Certificación Fitosanitaria</a>
+            </div>
+
+            <div class="link-category">SAT y Aduanas</div>
+            <div class="link-item">
+                <a href="http://omawww.sat.gob.mx/aduanas/Portal/index.html#!/" target="_blank">Portal de Aduanas SAT</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/Clasificador.html" target="_blank">Clasificador Arancelario</a>
+            </div>
+
+            <div class="link-category">Gobierno de México</div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/" target="_blank">Portal Oficial del Gobierno de México</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/tramites" target="_blank">Trámites y Servicios</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/se/documentos/formulario-para-solicitantes-y-sus-anexos?state=published" target="_blank">Formulario para Solicitantes y Anexos</a>
+            </div>
+
+            <div class="link-category">Marco Legal</div>
+            <div class="link-item">
+                <a href="http://www.ordenjuridico.gob.mx/" target="_blank">Orden Jurídico Nacional</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/legislacionynormatividad.html" target="_blank">Legislación y Normatividad</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de formularios y anexos -->
+    <div class="page">
+        <div class="page-header">
+            <div class="main-title">Formularios y Anexos Descargables</div>
+        </div>
+
+        <div class="links-section">
+            <div class="title">Formularios Principales</div>
+            
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982136/Formulario_AD_para_Solicitantes.pdf" target="_blank">Formulario AD para Solicitantes (PDF)</a>
+            </div>
+
+            <div class="link-category">Anexos por Empresa</div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982126/Anexo_1_NOMBREDELAEMPRESA.pdf" target="_blank">Anexo 1 - Datos de la Empresa</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982125/Anexo_2__NOMBREDELAEMPRESA.pdf" target="_blank">Anexo 2 - Información Comercial</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982127/Anexo_3_NOMBREDELAEMPRESA.pdf" target="_blank">Anexo 3 - Documentación Técnica</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982128/Anexo_4__NOMBREDELAEMPRESA.pdf" target="_blank">Anexo 4 - Certificaciones</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982138/Anexo_5_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 5 - Procesos de Calidad</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982129/Anexo_6_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 6 - Trazabilidad</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982130/Anexo_7_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 7 - Medidas Sanitarias</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982131/Anexo_8_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 8 - Control de Plagas</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982132/Anexo_9_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 9 - Laboratorio</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982133/Anexo_10_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 10 - Empaque y Etiquetado</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982134/Anexo_11_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 11 - Transporte</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/982135/Anexo_12_NOMBREDEEMPRESA.pdf" target="_blank">Anexo 12 - Documentos Complementarios</a>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="title">Nota Importante sobre Anexos</div>
+            <div class="body-text">
+                Los anexos deben ser completados con el nombre específico de su empresa. Estos formularios son plantillas que deben ser personalizadas antes de su presentación ante las autoridades correspondientes.
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de herramientas y servicios -->
+    <div class="page">
+        <div class="page-header">
+            <div class="main-title">Herramientas y Servicios Adicionales</div>
+        </div>
+
+        <div class="links-section">
+            <div class="title">Herramientas de la Ventanilla Única</div>
+            
+            <div class="link-category">Calculadoras y Consultas</div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/calculadora.html" target="_blank">Calculadora de Aranceles</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/semaforo.html" target="_blank">Sistema de Semáforo Fiscal</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/trazabilidad.html" target="_blank">Sistema de Trazabilidad</a>
+            </div>
+
+            <div class="link-category">Capacitación y Ayuda</div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/elearning.html" target="_blank">Cursos en Línea (E-Learning)</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/PreguntasFrecuentes.html" target="_blank">Preguntas Frecuentes</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/contacto.html" target="_blank">Contacto y Soporte</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/hojasinformativas.html" target="_blank">Hojas Informativas</a>
+            </div>
+
+            <div class="link-category">Información Estadística</div>
+            <div class="link-item">
+                <a href="https://www.ventanillaunica.gob.mx/vucem/estadisticas.html" target="_blank">Estadísticas de Comercio Exterior</a>
+            </div>
+            <div class="link-item">
+                <a href="https://datos.gob.mx/" target="_blank">Portal de Datos Abiertos</a>
+            </div>
+
+            <div class="link-category">Transparencia y Participación</div>
+            <div class="link-item">
+                <a href="https://consultapublicamx.inai.org.mx/vut-web/" target="_blank">Consultas Públicas INAI</a>
+            </div>
+            <div class="link-item">
+                <a href="https://participa.gob.mx/" target="_blank">Participa - Consulta Ciudadana</a>
+            </div>
+            <div class="link-item">
+                <a href="https://alertadores.funcionpublica.gob.mx/" target="_blank">Sistema de Alertadores SFP</a>
+            </div>
+            <div class="link-item">
+                <a href="https://sidec.funcionpublica.gob.mx/" target="_blank">Sistema de Declaraciones SIDEC</a>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <div class="title">Redes Sociales Oficiales</div>
+            <div class="body-text">
+                Para mantenerse actualizado sobre cambios normativos y noticias relevantes:
+            </div>
+            <div class="link-item">
+                <a href="https://twitter.com/GobiernoMX" target="_blank">@GobiernoMX - Twitter</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.facebook.com/gobmexico" target="_blank">Gobierno de México - Facebook</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.instagram.com/gobmexico/" target="_blank">@gobmexico - Instagram</a>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/@gobiernodemexico" target="_blank">Gobierno de México - YouTube</a>
+            </div>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9620b2899f9b576f',t:'MTc1Mjk5NjA0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

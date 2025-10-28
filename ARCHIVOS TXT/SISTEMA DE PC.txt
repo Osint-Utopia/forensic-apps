@@ -1,0 +1,607 @@
+------------------Visión general------------------
+Procesador : Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+Uso de Memoria : 24416MB(2133)
+Placa Base : 829A
+Versión de Windows : Microsoft Windows 10 Pro
+Fecha de Instalación : 2024-10-29
+Monitor : HP Compaq LA1905 Wide LCD Monitor
+Adaptador de Video : Intel(R) HD Graphics 530
+Mouse : Dispositivo de entrada USB
+Teclado : Dispositivo de entrada USB
+Unidad de Disco : Kingston DataTraveler 3.0 USB Device(115GB,USB)
+Unidad de Disco :  ASM1153E SCSI Disk Device(149GB,SCSI)
+Unidad de Disco : TOSHIBA MK3275GSX(298GB,IDE)
+Unidad de Disco : SAMSUNG MZVLW256HEHP-000H1(238GB,SCSI)
+Unidad de Disco : Mass Storage Device USB Device(238GB,USB)
+Unidades de DVD/CD-ROM : 
+------------------Sistema Operativo------------------
+Nombre del SO : Microsoft Windows 10 Pro
+Idioma del SO : Español (México)
+Versión del SO : 10.0.19045
+Tipo de SO : 64 bit
+Usuario Registrado : AL
+Organización Registrada : 
+ID del Producto : 00330-50165-74466-AAOEM
+Clave del Producto : JW8RQ-N6HYD-XQMM6-RM7BJ-6MT6P
+Fecha de Instalación del SO : 20241029034243.000000-360
+Raiz del SO : C:\WINDOWS
+Nombre de la Computadora : FORENSIC
+Nombre del Usuario : AL
+Dominio de Inicio de Sesión : -
+Tiempo de Actividad : 124825SEG.(34 Horas 40 Minutos 25 Segundos)
+Internet Explorer : 11.3636.19041.0
+Windows Media Player : 12,0,10011,16384
+DirectX : 
+OpenGL : 4.6.0 - Build 31.0.101.2111
+------------------Dispositivos del Sistema------------------
+Nombre de la Placa Base : 829A
+Fabricante de la Placa Base : HP
+Versión del BIOS : P21 Ver. 02.50
+Fecha del BIOS del Sistema : 07/14/2024
+Fecha del BIOS de Video : 
+Identificación del CPU : Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+Nombre Genérico del CPU : Intel64 Family 6 Model 14 Stepping 3
+Proveedor del CPU : GenuineIntel
+Número de Serie : 0005-06E3-BFEB-FBFF-7FFA-FBFF
+Frecuencia del CPU : 4076 MB
+Código del Caché L1 : 32 KB
+Fecha del Caché L1 : 32 KB
+Caché L2 : 256 KB
+Caché L3 : 6 MB
+Zócalo de la CPU : U3E1
+Núcleos por Paquete : 4
+Lógicos por Núcleo : 4
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+APIC - APIC : Yes
+SEP - Fast system call (SYSENTER/SYSEXIT) : Yes
+MTRR - Memory type range registers : Yes
+PGE - Page global extension : Yes
+CMOV - Conditional move support : Yes
+PAT - Page attribute table : Yes
+PSE36 - 36-bit page size extension : Yes
+PSN - Processor serial number : No
+CLFSH - CLFLUSH instruction support : Yes
+DS - Debug trace store : Yes
+ACPI - Thermal monitor and software controlled clock : Yes
+MMX - MMX architecture support : Yes
+FXSR - Fast floating point save (FXSAVE/FXRSTOR) : Yes
+SSE - Streaming SIMD instruction support : Yes
+SSE2 - Streaming SIMD extensions 2 : Yes
+SS - Self snoop : Yes
+HTT - Hyper-Threading technology : Yes
+TM - Thermal monitor support : Yes
+IA-64 - IA-64 Intel : No
+SBF - Signal break on FERR : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+APIC - APIC : Yes
+SEP - Fast system call (SYSENTER/SYSEXIT) : Yes
+MTRR - Memory type range registers : Yes
+PGE - Page global extension : Yes
+CMOV - Conditional move support : Yes
+PAT - Page attribute table : Yes
+PSE36 - 36-bit page size extension : Yes
+PSN - Processor serial number : No
+CLFSH - CLFLUSH instruction support : Yes
+DS - Debug trace store : Yes
+ACPI - Thermal monitor and software controlled clock : Yes
+MMX - MMX architecture support : Yes
+FXSR - Fast floating point save (FXSAVE/FXRSTOR) : Yes
+SSE - Streaming SIMD instruction support : Yes
+SSE2 - Streaming SIMD extensions 2 : Yes
+SS - Self snoop : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+------------------Uso de Memoria------------------
+System Idle Process -- 8 K -- -
+System -- 23,208 K -- -
+Registry -- 247,240 K -- -
+smss.exe -- 312 K -- -
+csrss.exe -- 4,572 K -- -
+wininit.exe -- 4,768 K -- -
+csrss.exe -- 5,268 K -- -
+services.exe -- 10,984 K -- -
+lsass.exe -- 24,584 K -- C:\WINDOWS\system32\lsass.exe
+winlogon.exe -- 9,428 K -- C:\WINDOWS\system32\winlogon.exe
+svchost.exe -- 32,480 K -- C:\WINDOWS\system32\svchost.exe
+fontdrvhost.exe -- 9,580 K -- C:\WINDOWS\system32\fontdrvhost.exe
+fontdrvhost.exe -- 2,276 K -- C:\WINDOWS\system32\fontdrvhost.exe
+svchost.exe -- 17,880 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 9,584 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 10,224 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 11,596 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,444 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 4,288 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 9,992 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,288 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 9,772 K -- C:\WINDOWS\System32\svchost.exe
+dwm.exe -- 106,740 K -- C:\WINDOWS\system32\dwm.exe
+svchost.exe -- 17,840 K -- C:\WINDOWS\System32\svchost.exe
+IntelCpHDCPSvc.exe -- 5,468 K -- C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_51f685305808e3a5\IntelCpHDCPSvc.exe
+svchost.exe -- 5,220 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 5,552 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,604 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 15,004 K -- C:\WINDOWS\system32\svchost.exe
+IntelCpHeciSvc.exe -- 5,284 K -- C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_51f685305808e3a5\IntelCpHeciSvc.exe
+svchost.exe -- 6,724 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 12,836 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 18,840 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 6,752 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 5,888 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 10,608 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,028 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 12,164 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 8,924 K -- C:\WINDOWS\system32\svchost.exe
+dasHost.exe -- 16,584 K -- C:\WINDOWS\system32\dashost.exe
+svchost.exe -- 7,196 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 22,024 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 10,008 K -- C:\WINDOWS\System32\svchost.exe
+vmms.exe -- 19,940 K -- C:\WINDOWS\system32\vmms.exe
+svchost.exe -- 7,232 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 7,080 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 4,980 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 13,892 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 9,828 K -- C:\WINDOWS\system32\svchost.exe
+Memory Compression -- 190,024 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,048 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 8,040 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,508 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 7,916 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 11,876 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,916 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 10,184 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 8,376 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 5,812 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,652 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 8,572 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 27,308 K -- C:\WINDOWS\system32\svchost.exe
+vmcompute.exe -- 5,236 K -- C:\WINDOWS\system32\vmcompute.exe
+svchost.exe -- 7,144 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 15,608 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 14,268 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 5,904 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 9,576 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 10,224 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 17,688 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 15,716 K -- C:\WINDOWS\System32\svchost.exe
+spoolsv.exe -- 19,628 K -- C:\WINDOWS\System32\spoolsv.exe
+svchost.exe -- 8,044 K -- C:\WINDOWS\system32\svchost.exe
+AdminService.exe -- 6,000 K -- C:\WINDOWS\System32\drivers\AdminService.exe
+remoting_host.exe -- 10,364 K -- C:\Program Files (x86)\Google\Chrome Remote Desktop\140.0.7339.17\remoting_host.exe
+CxAudioSvc.exe -- 25,924 K -- C:\WINDOWS\CxSvc\CxAudioSvc.exe
+svchost.exe -- 16,364 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 4,368 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 49,644 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 8,840 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 6,960 K -- C:\WINDOWS\system32\svchost.exe
+inetinfo.exe -- 12,220 K -- C:\WINDOWS\system32\inetsrv\inetinfo.exe
+MpDefenderCoreService.exe -- 22,684 K -- C:\WINDOWS\system32\inetsrv\inetinfo.exe
+svchost.exe -- 11,628 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 5,328 K -- C:\WINDOWS\system32\svchost.exe
+QcomWlanSrvx64.exe -- 4,188 K -- C:\WINDOWS\System32\drivers\QcomWlanSrvx64.exe
+TCPSVCS.EXE -- 3,028 K -- C:\WINDOWS\System32\tcpsvcs.exe
+svchost.exe -- 7,112 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 8,536 K -- C:\WINDOWS\system32\svchost.exe
+WebManagement.exe -- 13,832 K -- C:\WINDOWS\system32\WebManagement.exe
+MsMpEng.exe -- 241,568 K -- C:\WINDOWS\system32\WebManagement.exe
+svchost.exe -- 21,396 K -- C:\WINDOWS\system32\svchost.exe
+SearchIndexer.exe -- 52,704 K -- C:\WINDOWS\system32\SearchIndexer.exe
+svchost.exe -- 5,088 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 6,372 K -- C:\WINDOWS\System32\svchost.exe
+remoting_host.exe -- 19,380 K -- C:\Program Files (x86)\Google\Chrome Remote Desktop\140.0.7339.17\remoting_host.exe
+svchost.exe -- 11,648 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 6,768 K -- C:\WINDOWS\system32\svchost.exe
+dllhost.exe -- 10,484 K -- C:\WINDOWS\system32\DllHost.exe
+NisSrv.exe -- 9,776 K -- C:\WINDOWS\system32\DllHost.exe
+sihost.exe -- 29,420 K -- C:\WINDOWS\system32\sihost.exe
+svchost.exe -- 29,248 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,292 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 33,432 K -- C:\WINDOWS\system32\svchost.exe
+taskhostw.exe -- 16,492 K -- C:\WINDOWS\system32\taskhostw.exe
+svchost.exe -- 15,532 K -- C:\WINDOWS\system32\svchost.exe
+MicTray64.exe -- 2,464 K -- C:\Windows\System32\MicTray64.exe
+probalance.exe -- 3,352 K -- C:\Program Files\CPUBalance\ProBalance.exe
+svchost.exe -- 6,728 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 5,856 K -- C:\WINDOWS\system32\svchost.exe
+ctfmon.exe -- 46,008 K -- C:\WINDOWS\system32\ctfmon.exe
+explorer.exe -- 189,300 K -- C:\WINDOWS\Explorer.EXE
+svchost.exe -- 18,768 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 9,248 K -- C:\WINDOWS\System32\svchost.exe
+ProcessGovernor.exe -- 7,184 K -- C:\Program Files\CPUBalance\processgovernor.exe
+svchost.exe -- 34,512 K -- C:\WINDOWS\system32\svchost.exe
+rundll32.exe -- 1,076 K -- C:\WINDOWS\system32\rundll32.exe
+rundll32.exe -- 1,100 K -- C:\WINDOWS\system32\rundll32.exe
+StartMenuExperienceHost.exe -- 131,020 K -- C:\WINDOWS\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe
+TextInputHost.exe -- 52,676 K -- C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe
+svchost.exe -- 23,700 K -- C:\WINDOWS\system32\svchost.exe
+RuntimeBroker.exe -- 99,340 K -- C:\Windows\System32\RuntimeBroker.exe
+AITextTune.exe -- 58,464 K -- C:\Program Files (x86)\AITextTune\AITextTune.exe
+SecurityHealthService.exe -- 13,648 K -- C:\Program Files (x86)\AITextTune\AITextTune.exe
+svchost.exe -- 17,544 K -- C:\WINDOWS\System32\svchost.exe
+CastSrv.exe -- 9,856 K -- C:\Windows\System32\CastSrv.exe
+svchost.exe -- 6,204 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 10,504 K -- C:\WINDOWS\system32\svchost.exe
+printfilterpipelinesvc.exe -- 14,036 K -- C:\WINDOWS\system32\printfilterpipelinesvc.exe
+aesm_service.exe -- 12,092 K -- C:\WINDOWS\System32\DriverStore\FileRepository\sgx_psw.inf_amd64_ece153ca769ec179\aesm_service.exe
+Flow.exe -- 81,544 K -- C:\Program Files\CONEXANT\Flow\Flow.exe
+svchost.exe -- 15,260 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 9,212 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 23,824 K -- C:\WINDOWS\system32\svchost.exe
+ShellExperienceHost.exe -- 72,792 K -- C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost.exe
+RuntimeBroker.exe -- 22,724 K -- C:\Windows\System32\RuntimeBroker.exe
+IntelSoftwareAssetManagerService.exe -- 2,076 K -- C:\Program Files\Intel\SUR\QUEENCREEK\Updater\bin\IntelSoftwareAssetManagerService.exe
+dllhost.exe -- 12,484 K -- C:\WINDOWS\system32\DllHost.exe
+svchost.exe -- 11,908 K -- C:\WINDOWS\system32\svchost.exe
+WUDFHost.exe -- 7,540 K -- C:\Windows\System32\WUDFHost.exe
+svchost.exe -- 14,588 K -- C:\WINDOWS\System32\svchost.exe
+Glary Utilities.exe -- 4,404 K -- J:\Glary Utilities\Glary Utilities.exe
+Integrator.exe -- 53,296 K -- J:\Glary Utilities\App\Glary Utilities\Integrator.exe
+MemfilesService.exe -- 357,208 K -- J:\Glary Utilities\App\Glary Utilities\x64\MemfilesService.exe
+chrome.exe -- 515,384 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 7,400 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 238,104 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 96,584 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 21,136 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+CompPkgSrv.exe -- 6,512 K -- C:\Windows\System32\CompPkgSrv.exe
+chrome.exe -- 34,984 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 21,364 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+ApplicationFrameHost.exe -- 25,160 K -- C:\WINDOWS\system32\ApplicationFrameHost.exe
+svchost.exe -- 6,584 K -- C:\WINDOWS\system32\ApplicationFrameHost.exe
+svchost.exe -- 18,244 K -- C:\WINDOWS\system32\ApplicationFrameHost.exe
+svchost.exe -- 8,232 K -- C:\WINDOWS\System32\svchost.exe
+LockApp.exe -- 55,324 K -- C:\Windows\SystemApps\Microsoft.LockApp_cw5n1h2txyewy\LockApp.exe
+SearchApp.exe -- 65,372 K -- C:\WINDOWS\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe
+RuntimeBroker.exe -- 31,388 K -- C:\Windows\System32\RuntimeBroker.exe
+RuntimeBroker.exe -- 26,036 K -- C:\Windows\System32\RuntimeBroker.exe
+IntelSoftwareAssetManagerService.exe -- 2,920 K -- C:\Program Files\Intel\SUR\QUEENCREEK\Updater\bin\IntelSoftwareAssetManagerService.exe
+svchost.exe -- 8,952 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 8,908 K -- C:\WINDOWS\system32\svchost.exe
+chrome.exe -- 282,016 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 58,924 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 53,024 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 283,740 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 52,968 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 109,616 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 56,448 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 301,408 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 56,052 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 57,136 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 262,748 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 243,188 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 254,432 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 81,128 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 71,084 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 169,812 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 55,040 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 41,184 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 132,972 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 45,744 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 77,332 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 66,896 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 64,772 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+svchost.exe -- 10,796 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+svchost.exe -- 14,440 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 8,864 K -- C:\WINDOWS\system32\svchost.exe
+SystemSettingsAdminFlows.exe -- 11,516 K -- C:\WINDOWS\system32\SystemSettingsAdminFlows.exe
+TrustedInstaller.exe -- 8,148 K -- C:\WINDOWS\servicing\TrustedInstaller.exe
+TiWorker.exe -- 35,748 K -- C:\WINDOWS\winsxs\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.19041.6271_none_7e26b07e7c7a5b82\TiWorker.exe
+chrome.exe -- 158,664 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 59,872 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 78,504 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 180,592 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+chrome.exe -- 56,592 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+svchost.exe -- 6,424 K -- C:\WINDOWS\System32\svchost.exe
+chrome.exe -- 32,388 K -- C:\Program Files\Google\Chrome\Application\chrome.exe
+GUBootService.exe -- 16,272 K -- C:\Program Files (x86)\Common Files\Glarysoft\StartupManager\1.0\GUBootService.exe
+memdefrag.exe -- 23,884 K -- J:\Glary Utilities\App\Glary Utilities\memdefrag.exe
+taskhostw.exe -- 16,304 K -- C:\WINDOWS\system32\taskhostw.exe
+svchost.exe -- 6,372 K -- C:\WINDOWS\system32\svchost.exe
+dllhost.exe -- 7,392 K -- C:\WINDOWS\system32\DllHost.exe
+sysinfo.exe -- 70,424 K -- J:\Glary Utilities\App\Glary Utilities\sysinfo.exe
+WmiPrvSE.exe -- 26,524 K -- C:\WINDOWS\system32\wbem\wmiprvse.exe
+svchost.exe -- 11,500 K -- C:\WINDOWS\system32\wbem\wmiprvse.exe
+svchost.exe -- 6,828 K -- C:\WINDOWS\System32\svchost.exe
+SmartAudio3.exe -- 31,404 K -- C:\Program Files\CONEXANT\SA3\HP-NB-AIO\SmartAudio3.exe
+SearchProtocolHost.exe -- 8,504 K -- C:\WINDOWS\system32\SearchProtocolHost.exe
+SearchFilterHost.exe -- 7,572 K -- C:\WINDOWS\system32\SearchFilterHost.exe
+Memoria Física : 24,416 MB
+Memoria Virtual : 4,096 MB
+Memoria Total : 28,512 MB
+Memoria Libre : 18,211 MB
+Memoria en Uso : 10,301 MB
+Memoria Seleccionada : N/A
+------------------Unidades------------------
+(C:)
+Letra del Disco : C:
+Tipo de Dispositivo : Disco fijo local
+Sistema de Archivos : NTFS
+Bytes Totales : 255,366,864,896 B
+Bytes Libres : 45,661,724,672 B
+Bytes Usados : 209,705,140,224 B
+Compresión de Archivos Habilitada : Yes
+El Volumen está Comprimido : No
+Nombre Largo de Archivo Habilitado : Yes
+Nombre de Archivo Unicode Habilitado : Yes
+Sistema de Archivos Encriptados : Yes
+Cantidad de Clusters : 62,345,426
+Clusters Libres : 11,147,882
+Clusters Usados : 51,197,544
+Bytes por Cluster : 4,096 bytes
+Sectores por Cluster : 8
+Sectores Usados : 409,580,352
+Sectores Libres : 89,183,056
+Bytes por Sector : 4,096 bytes
+Total de Sectores : 498,763,408
+(J:)
+Letra del Disco : J:
+Tipo de Dispositivo : Disco fijo local
+Sistema de Archivos : NTFS
+Bytes Totales : 215,212,882,944 B
+Bytes Libres : 119,915,934,720 B
+Bytes Usados : 95,296,948,224 B
+Compresión de Archivos Habilitada : Yes
+El Volumen está Comprimido : No
+Nombre Largo de Archivo Habilitado : Yes
+Nombre de Archivo Unicode Habilitado : Yes
+Sistema de Archivos Encriptados : Yes
+Cantidad de Clusters : 210,168,831
+Clusters Libres : 117,105,405
+Clusters Usados : 93,063,426
+Bytes por Cluster : 1,024 bytes
+Sectores por Cluster : 2
+Sectores Usados : 186,126,852
+Sectores Libres : 234,210,810
+Bytes por Sector : 1,024 bytes
+Total de Sectores : 420,337,662
+(K:)
+Letra del Disco : K:
+Tipo de Dispositivo : Disco fijo local
+Sistema de Archivos : NTFS
+Bytes Totales : 104,856,547,328 B
+Bytes Libres : 95,038,033,920 B
+Bytes Usados : 9,818,513,408 B
+Compresión de Archivos Habilitada : Yes
+El Volumen está Comprimido : No
+Nombre Largo de Archivo Habilitado : Yes
+Nombre de Archivo Unicode Habilitado : Yes
+Sistema de Archivos Encriptados : Yes
+Cantidad de Clusters : 25,599,743
+Clusters Libres : 23,202,645
+Clusters Usados : 2,397,098
+Bytes por Cluster : 4,096 bytes
+Sectores por Cluster : 8
+Sectores Usados : 19,176,784
+Sectores Libres : 185,621,160
+Bytes por Sector : 4,096 bytes
+Total de Sectores : 204,797,944
+(Z:)
+Letra del Disco : Z:
+Tipo de Dispositivo : Disco fijo local
+Sistema de Archivos : NTFS
+Bytes Totales : 160,038,383,616 B
+Bytes Libres : 132,845,068,288 B
+Bytes Usados : 27,193,315,328 B
+Compresión de Archivos Habilitada : Yes
+El Volumen está Comprimido : No
+Nombre Largo de Archivo Habilitado : Yes
+Nombre de Archivo Unicode Habilitado : Yes
+Sistema de Archivos Encriptados : Yes
+Cantidad de Clusters : 39,071,871
+Clusters Libres : 32,432,878
+Clusters Usados : 6,638,993
+Bytes por Cluster : 4,096 bytes
+Sectores por Cluster : 8
+Sectores Usados : 53,111,944
+Sectores Libres : 259,463,024
+Bytes por Sector : 4,096 bytes
+Total de Sectores : 312,574,968
+------------------Monitor------------------
+Descripción del Dispositivo : Intel(R) HD Graphics 530
+Cadena de Adaptador : Intel(R) HD Graphics Family
+Cadena del BIOS : -
+Tipo de Chip : Intel(R) HD Graphics Family
+Tipo de DAC : Internal
+Fecha del Controlador : 2022-07-19
+Versión del Controlador : 31.0.101.2111
+Proveedor del Controlador : Intel Corporation
+Tamaño de Memoria : 1024 MB
+Nombre del Monitor : LA190
+Modelo : HWP2844
+Fecha de Fabricación : 2011/7
+Número de Serie : CNC10707PQ
+  
+Tamaño máximo de pantalla visible : (41 x 26) cm (19.1')
+Gama : 2.20
+320 x 200 - 32 bit - 60 Hz
+320 x 240 - 32 bit - 60 Hz
+400 x 300 - 32 bit - 60 Hz
+512 x 384 - 32 bit - 60 Hz
+640 x 400 - 32 bit - 60 Hz
+640 x 480 - 32 bit - 59 Hz
+640 x 480 - 32 bit - 60 Hz
+800 x 600 - 32 bit - 60 Hz
+1024 x 768 - 32 bit - 60 Hz
+1152 x 864 - 32 bit - 60 Hz
+1280 x 600 - 32 bit - 60 Hz
+1280 x 720 - 32 bit - 60 Hz
+1280 x 768 - 32 bit - 60 Hz
+1280 x 800 - 32 bit - 60 Hz
+1280 x 960 - 32 bit - 60 Hz
+1280 x 1024 - 32 bit - 60 Hz
+1360 x 768 - 32 bit - 60 Hz
+1366 x 768 - 32 bit - 60 Hz
+1440 x 900 - 32 bit - 60 Hz
+320 x 200 - 16 bit - 60 Hz
+320 x 240 - 16 bit - 60 Hz
+400 x 300 - 16 bit - 60 Hz
+512 x 384 - 16 bit - 60 Hz
+640 x 400 - 16 bit - 60 Hz
+640 x 480 - 16 bit - 59 Hz
+640 x 480 - 16 bit - 60 Hz
+800 x 600 - 16 bit - 60 Hz
+1024 x 768 - 16 bit - 60 Hz
+1152 x 864 - 16 bit - 60 Hz
+1280 x 600 - 16 bit - 60 Hz
+1280 x 720 - 16 bit - 60 Hz
+1280 x 768 - 16 bit - 60 Hz
+1280 x 800 - 16 bit - 60 Hz
+1280 x 960 - 16 bit - 60 Hz
+1280 x 1024 - 16 bit - 60 Hz
+1360 x 768 - 16 bit - 60 Hz
+1366 x 768 - 16 bit - 60 Hz
+1440 x 900 - 16 bit - 60 Hz
+320 x 200 - 8 bit - 60 Hz
+320 x 240 - 8 bit - 60 Hz
+400 x 300 - 8 bit - 60 Hz
+512 x 384 - 8 bit - 60 Hz
+640 x 400 - 8 bit - 60 Hz
+640 x 480 - 8 bit - 59 Hz
+640 x 480 - 8 bit - 60 Hz
+800 x 600 - 8 bit - 60 Hz
+1024 x 768 - 8 bit - 60 Hz
+1152 x 864 - 8 bit - 60 Hz
+1280 x 600 - 8 bit - 60 Hz
+1280 x 720 - 8 bit - 60 Hz
+1280 x 768 - 8 bit - 60 Hz
+1280 x 800 - 8 bit - 60 Hz
+1280 x 960 - 8 bit - 60 Hz
+1280 x 1024 - 8 bit - 60 Hz
+1360 x 768 - 8 bit - 60 Hz
+1366 x 768 - 8 bit - 60 Hz
+1440 x 900 - 8 bit - 60 Hz
+------------------Red------------------
+Adaptador de Red : Bluetooth Device (Personal Area Network)
+Tipo de Interfaz : Ethernet
+Nombre de Conexión : Conexión de red Bluetooth
+Velocidad de Conexión : 3 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 0.0.0.0
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : Hyper-V Virtual Ethernet Adapter
+Tipo de Interfaz : Ethernet
+Nombre de Conexión : vEthernet (Default Switch)
+Velocidad de Conexión : 4294 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 172.30.176.1
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : Intel(R) Ethernet Connection (5) I219-LM
+Tipo de Interfaz : Ethernet
+Nombre de Conexión : Ethernet 3
+Velocidad de Conexión : 1000 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 192.168.1.65
+Puerta : 192.168.1.254
+DNS : 
+Adaptador de Red : Microsoft Wi-Fi Direct Virtual Adapter
+Tipo de Interfaz : 
+Nombre de Conexión : Conexión de área local* 9
+Velocidad de Conexión : 0 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 0.0.0.0
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : Microsoft Wi-Fi Direct Virtual Adapter #2
+Tipo de Interfaz : 
+Nombre de Conexión : Conexión de área local* 10
+Velocidad de Conexión : 0 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 0.0.0.0
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : Qualcomm QCA61x4A 802.11ac Wireless Adapter
+Tipo de Interfaz : 
+Nombre de Conexión : Wi-Fi 3
+Velocidad de Conexión : 0 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 0.0.0.0
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : Realtek 8821CU Wireless LAN 802.11ac USB NIC
+Tipo de Interfaz : 
+Nombre de Conexión : Wi-Fi
+Velocidad de Conexión : 0 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 0.0.0.0
+Puerta : 0.0.0.0
+DNS : 
+Adaptador de Red : VirtualBox Host-Only Ethernet Adapter
+Tipo de Interfaz : Ethernet
+Nombre de Conexión : Ethernet 2
+Velocidad de Conexión : 1000 MB
+MTU : 1500 B
+IP/Máscara de SubRed : 192.168.56.1
+Puerta : 0.0.0.0
+DNS : 
+------------------Otros Dispositivos------------------
+High Definition Audio Device
+Intel(R) Display Audio
+DisplayPort : Video Port
+DisplayPort : Video Port
+RJ45/USB : Network Port
+FRONT AUD : Audio Port
+SPKR : Audio Port
+FRONT USB 3.1 : USB
+FRONT USB 3.0 : USB
+FRONT USB 3.0 : USB
+USB : USB
+USB : USB
+USB : USB
+USB : USB
+MEDIA : USB
+Ctrl0Port1 : 8251 Compatible
+PWR : None
+PWRCPU : None
+SATAPWR0 : None
+CHFAN2 : None
+CPUFAN : None
+PB/LED : None
+HLCK : None
+HSNR : None
+Controlador de USB : Dispositivo compuesto USB
+Controlador de USB : Dispositivo compuesto USB
+Controlador de USB : Dispositivo compuesto USB
+Controlador de USB : Dispositivo de almacenamiento USB
+Controlador de USB : Concentrador raíz USB (USB 3.0)
+Controlador de USB : Concentrador USB genérico
+Controlador de USB : Concentrador USB genérico
+Controlador de USB : Dispositivo de almacenamiento USB
+OKI MB461+LP(PCL XPS) (Copiar 1) : LPT1:
+OKI MB461+LP(PCL XPS) : LPT1:
+Microsoft XPS Document Writer : PORTPROMPT:
+Microsoft Print to PDF : PORTPROMPT:
+HP Photosmart C309a series : USB002
+Fax : SHRFAX:
+Able2Extract Professional Printer : PDFTron Port

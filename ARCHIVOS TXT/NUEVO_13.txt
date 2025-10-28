@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normatividad en la Exportación de Mangos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2480fc;
+            --text-color: #27344a;
+            --bg-color: #fff;
+            --secondary-bg: #f5f5f5;
+            --accent-blue: #0052cc;
+            --main-blue: #007bff;
+            --mango-green: #28a745; /* Color distintivo */
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+        }
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('data:font/truetype;base64,...') format('truetype'); /* Placeholder */
+        }
+
+        /* Etiqueta Flotante */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .floating-nav-button {
+            background-color: var(--mango-green);
+            color: var(--bg-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 24px;
+        }
+        .floating-nav-menu {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        .floating-nav-menu.active {
+            display: block;
+        }
+        .floating-nav-item {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .floating-nav-item:hover {
+            color: var(--mango-green);
+        }
+        @media (max-width: 768px) {
+            .floating-nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .floating-nav-item {
+                font-size: 14px;
+            }
+        }
+
+        /* Sección Hero */
+        .main-section {
+            background-color: var(--mango-green);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+            color: var(--bg-color);
+            max-width: 700px;
+            z-index: 2;
+        }
+        .content h1 {
+            font-size: 4.75rem;
+            font-weight: 700; /* Más bold */
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--bg-color);
+            color: var(--mango-green);
+        }
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            background: var(--mango-green); /* Fondo sólido */
+        }
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            .content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tarjetas */
+        .essential-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+            max-width: 1390px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            z-index: 2;
+        }
+        .essential-card {
+            background-color: var(--bg-color);
+            border: 1px solid #E4EBEF;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: opacity 0.5s ease-in;
+            z-index: 2;
+        }
+        .essential-card.animate {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .essential-card:hover {
+            transform: translateY(-5px);
+        }
+        .essential-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700; /* Más bold */
+            margin-bottom: 15px;
+        }
+        .essential-card p {
+            font-size: 1rem;
+            color: #6C7A92;
+        }
+        @media (max-width: 768px) {
+            .essential-card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Acordeón */
+        .accordion-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .accordion-title {
+            background-color: var(--bg-color);
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: 700; /* Más bold */
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .accordion-title::after {
+            content: '↓';
+            font-size: 1rem;
+        }
+        .accordion-title.active::after {
+            content: '↑';
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            z-index: 2;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Etiqueta Flotante -->
+    <div class="floating-nav">
+        <div class="floating-nav-button">☰</div>
+        <div class="floating-nav-menu">
+            <a href="1_index.html" class="floating-nav-item">Volver al Inicio</a>
+        </div>
+    </div>
+
+    <!-- Sección Hero -->
+    <section id="documentos" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>📜 Normatividad en la Exportación de Mangos</h1>
+            <p>Guía completa de certificaciones fitosanitarias y requisitos normativos</p>
+            <p>Secretaría de Agricultura y Desarrollo Rural, Gobierno de México</p>
+            <a href="#contenido" class="cta-button">Explorar Normatividad</a>
+        </div>
+    </section>
+
+    <!-- Tabla de Contenido -->
+    <section id="contenido">
+        <div class="essential-card-container">
+            <div class="essential-card animate">
+                <h3>✅ Certificado Fitosanitario</h3>
+                <p>Documento esencial para exportar mangos.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>📋 Requisitos</h3>
+                <p>Lista de requisitos para cumplir normativas.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>📄 Datos del Trámite</h3>
+                <p>Información requerida para Ventanilla Única.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>🌐 Enlaces Oficiales</h3>
+                <p>Portales y documentación gubernamental.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>📑 Formularios</h3>
+                <p>Anexos y formularios descargables.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secciones Detalladas -->
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-title">✅ Certificado Fitosanitario Internacional</div>
+            <div class="accordion-content">
+                <p>El Certificado Fitosanitario Internacional es obligatorio para exportar mangos y otros vegetales, según el artículo 27 de la Ley Federal de Sanidad Vegetal. Acredita que los productos tienen un riesgo fitosanitario aceptable para el país importador.</p>
+                <p>Sin este certificado, las mercancías no pueden ingresar al país destino. Se solicita a través de la Secretaría de Agricultura y Desarrollo Rural (SADER) tras cumplir con las normas oficiales mexicanas y la legislación del país importador.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📋 Requisitos para la Exportación</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Pago de Derechos</h3>
+                        <p>Requisito financiero para el trámite.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Identificación Oficial</h3>
+                        <p>Documentación del solicitante.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Pruebas de Laboratorio</h3>
+                        <p>Resultados para garantizar calidad.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Dictamen de Verificación</h3>
+                        <p>Inspección fitosanitaria oficial.</p>
+                    </div>
+                </div>
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Escritos Libres</h3>
+                        <p>Documentos adicionales requeridos.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Certificado de Origen</h3>
+                        <p>Acredita el origen mexicano del mango.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Otros Documentos</h3>
+                        <p>Según el país destino.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📄 Datos Requeridos para el Trámite</div>
+            <div class="accordion-content">
+                <div class="chart-container">
+                    <canvas id="fitosanitarioFlow"></canvas>
+                </div>
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Datos del Trámite</h3>
+                        <p>Aduana de salida, punto de ingreso, país de origen/destino, entidad/municipio.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Datos de la Mercancía</h3>
+                        <p>Fracción arancelaria, cantidades, nombre científico, uso, marcas distintivas.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Datos del Transporte</h3>
+                        <p>Medio, identificación, y destino específico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🌐 Enlaces y Documentación Oficial</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Ventanilla Única</h3>
+                        <p><a href="#">Acceso a Ventanilla Única</a><br><a href="#">Portal VUCEM</a><br><a href="#">Ayuda Certificación</a></p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>SAT y Aduanas</h3>
+                        <p><a href="#">Portal de Aduanas SAT</a><br><a href="#">Clasificador Arancelario</a></p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Gobierno de México</h3>
+                        <p><a href="#">Portal Oficial</a><br><a href="#">Trámites y Servicios</a><br><a href="#">Formulario AD</a></p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Marco Legal</h3>
+                        <p><a href="#">Orden Jurídico Nacional</a><br><a href="#">Legislación y Normatividad</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📑 Formularios y Anexos</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Formulario AD</h3>
+                        <p>Formulario para solicitantes (PDF).</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Anexos 1-4</h3>
+                        <p>Datos de empresa, información comercial, documentación técnica, certificaciones.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Anexos 5-8</h3>
+                        <p>Procesos de calidad, trazabilidad, medidas sanitarias, control de plagas.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Anexos 9-12</h3>
+                        <p>Laboratorio, empaque, transporte, documentos complementarios.</p>
+                    </div>
+                </div>
+                <p><strong>Nota:</strong> Los anexos deben personalizarse con el nombre de la empresa antes de presentarlos.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🛠️ Herramientas y Servicios</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Calculadoras y Consultas</h3>
+                        <p>Calculadora de aranceles, semáforo fiscal, sistema de trazabilidad.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Capacitación</h3>
+                        <p>Cursos en línea, preguntas frecuentes, contacto y soporte.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Estadísticas</h3>
+                        <p>Comercio exterior, datos abiertos.</p>
+                    </div>
+                    <div class="essential-card animate">
+                        <h3>Transparencia</h3>
+                        <p>Consultas INAI, participación ciudadana, alertadores SFP, SIDEC.</p>
+                    </div>
+                </div>
+                <div class="essential-card-container">
+                    <div class="essential-card animate">
+                        <h3>Redes Sociales</h3>
+                        <p><a href="#">@GobiernoMX - Twitter</a><br><a href="#">Gobierno de México - Facebook</a><br><a href="#">@gobmexico - Instagram</a><br><a href="#">YouTube</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense al mundo entero.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="1_index.html" class="nav-item">Inicio</a><br>
+                   <a href="2_Introduccion.html" class="nav-item">Introducción</a><br>
+                   <a href="3_requisitos.html" class="nav-item">Requisitos</a><br>
+                   <a href="4_upci.html" class="nav-item">UPCI</a><br>
+                   <a href="5_como_inicio.html" class="nav-item">Cómo Inicio</a><br>
+                   <a href="6_es_complicado.html" class="nav-item">Es Complicado</a><br>
+                   <a href="7_documentos.html" class="nav-item">Documentos</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>
+                   +52 33 1234 5678<br>
+                   Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Guía de Exportación • Jalisco, México • Mercados Internacionales</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Etiqueta Flotante
+        const floatingNavButton = document.querySelector('.floating-nav-button');
+        const floatingNavMenu = document.querySelector('.floating-nav-menu');
+        floatingNavButton.addEventListener('click', () => {
+            floatingNavMenu.classList.toggle('active');
+        });
+
+        // Animaciones
+        document.querySelectorAll('.essential-card').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('animate');
+            }, index * 200);
+        });
+
+        // Acordeón
+        document.querySelectorAll('.accordion-title').forEach(item => {
+            item.addEventListener('click', () => {
+                const content = item.nextElementSibling;
+                content.classList.toggle('active');
+                item.classList.toggle('active');
+            });
+        });
+
+        // Gráfico Chart.js
+        const ctx = document.getElementById('fitosanitarioFlow').getContext('2d');
+        new Chart(ctx, {
+            type: 'flow',
+            data: {
+                nodes: [
+                    { id: '1', name: 'Solicitud en Ventanilla Única', x: 100, y: 50 },
+                    { id: '2', name: 'Presentar Requisitos', x: 300, y: 50 },
+                    { id: '3', name: 'Inspección SENASICA', x: 500, y: 50 },
+                    { id: '4', name: 'Emisión Certificado', x: 700, y: 50 }
+                ],
+                links: [
+                    { source: '1', target: '2' },
+                    { source: '2', target: '3' },
+                    { source: '3', target: '4' }
+                ]
+            },
+            options: {
+                layout: {
+                    hierarchical: { enabled: true, direction: 'LR', sortMethod: 'directed' }
+                },
+                edges: { arrows: { to: { enabled: true } } },
+                nodes: {
+                    shape: 'box',
+                    color: { background: '#28a745', border: '#fff' },
+                    font: { color: '#fff', size: 14 }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

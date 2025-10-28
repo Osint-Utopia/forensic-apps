@@ -1,0 +1,562 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a las Exportaciones de Mango Jalisciense</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Poppins para un estilo moderno como Argon) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fe;
+            color: #2c3e50;
+        }
+        .navbar {
+            background-color: #5e72e4;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            color: #f8f9fe !important;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .section {
+            padding: 4rem 0;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .btn-primary {
+            background-color: #5e72e4;
+            border-color: #5e72e4;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #324cdd;
+            border-color: #324cdd;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #5e72e4;
+            margin-bottom: 1rem;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0;
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: #f8f9fe;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #5e72e4;
+        }
+        .links-section {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        .links-section .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .links-section .section-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .links-section .section-header p {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .link-card {
+            display: block;
+            text-decoration: none;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+        .link-card .link-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #5e72e4;
+            margin-bottom: 0.5rem;
+        }
+        .link-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .link-card p {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección de Enlaces a Otras Páginas -->
+    <section class="links-section">
+        <div class="section-header">
+            <h2>📚 Guía Completa de Exportación</h2>
+            <p>Explore nuestra guía paso a paso para dominar el proceso de exportación</p>
+        </div>
+        <div class="links-grid">
+            <a href="./kent/2.html" class="link-card intro">
+                <div class="link-number">2</div>
+                <h3>🌟 Introducción</h3>
+                <p>Conceptos básicos y fundamentos de las exportaciones internacionales</p>
+            </a>
+            <a href="./kent/3.html" class="link-card requirements">
+                <div class="link-number">3</div>
+                <h3>📋 Requisitos</h3>
+                <p>Documentación y requisitos legales necesarios para exportar</p>
+            </a>
+            <a href="./kent/4.html" class="link-card upci">
+                <div class="link-number">4</div>
+                <h3>🔍 UPCI</h3>
+                <p>Unidad de Promoción del Comercio Internacional</p>
+            </a>
+            <a href="./kent/5.html" class="link-card start">
+                <div class="link-number">5</div>
+                <h3>🚀 ¿Cómo Inicio?</h3>
+                <p>Pasos iniciales y primeras acciones para comenzar a exportar</p>
+            </a>
+            <a href="./kent/6.html" class="link-card difficulty">
+                <div class="link-number">6</div>
+                <h3>�?¿Es Complicado?</h3>
+                <p>Desmitificando el proceso de exportación</p>
+            </a>
+            <a href="./kent/7.html" class="link-card documents">
+                <div class="link-number">7</div>
+                <h3>📄 Documentos</h3>
+                <p>Formularios, certificados y documentación oficial</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mango Export Jalisco</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ventajas">Ventajas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinos">Destinos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proceso">Proceso</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="inicio">
+        <div class="container">
+            <h1>Introducción a la Exportación</h1>
+            <p class="lead">Convierte el mango jalisciense en una estrella global</p>
+            <a href="#ventajas" class="btn btn-primary mt-3">Descubre las Ventajas</a>
+        </div>
+    </section>
+
+    <!-- Ventajas Section -->
+    <section class="section" id="ventajas">
+        <div class="container">
+            <h2 class="text-center mb-5">¿Por Qué Exportar Mango Desde Jalisco?</h2>
+            <p class="text-center mb-5">Jalisco es un estado mexicano líder en la producción de mango, reconocido por su alta calidad y cumplimiento con estándares internacionales.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="card-title">Ampliar Alcance</h3>
+                        <p>Lleva el mango jalisciense a mercados internacionales y aumenta tu presencia global.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">⚖️</div>
+                        <h3 class="card-title">Diversificar Riesgos</h3>
+                        <p>Reduce la dependencia del mercado local al exportar a múltiples destinos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="card-title">Incrementar Ingresos</h3>
+                        <p>Accede a mercados con alta demanda y obtén mejores márgenes de ganancia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características Section -->
+    <section class="section bg-light" id="caracteristicas">
+        <div class="container">
+            <h2 class="text-center mb-5">Características Excepcionales</h2>
+            <p class="text-center mb-5">Las condiciones climáticas, la altitud y la experiencia agrícola de Jalisco producen mangos con sabor, color y textura únicos.</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h4 class="card-title">Variedad Ataulfo</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h4 class="card-title">Variedad Kent</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h4 class="card-title">Variedad Haden</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h4 class="card-title">Variedad Tommy Atkins</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demanda Global Section -->
+    <section class="section" id="demanda">
+        <div class="container">
+            <h2 class="text-center mb-5">Demanda Global Creciente</h2>
+            <p class="text-center mb-5">El mango mexicano, especialmente el de Jalisco, es altamente valorado en mercados desarrollados y emergentes.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">🇺🇸</div>
+                        <h3 class="card-title">Estados Unidos</h3>
+                        <p>Mercado #1</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">🇪🇺</div>
+                        <h3 class="card-title">Europa</h3>
+                        <p>Alta demanda</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <div class="feature-icon">🇨🇳</div>
+                        <h3 class="card-title">China</h3>
+                        <p>Oportunidad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinos Section -->
+    <section class="section bg-light" id="destinos">
+        <div class="container">
+            <h2 class="text-center mb-5">Principales Destinos de Exportación</h2>
+            <p class="text-center mb-5">Mercados estratégicos para el mango jalisciense</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-4">
+                        <h3 class="card-title">🇺🇸 Estados Unidos</h3>
+                        <p>Destino #1 con aranceles preferenciales T-MEC</p>
+                        <ul>
+                            <li>USDA</li>
+                            <li>FDA</li>
+                            <li>Hidrotérmico</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-4">
+                        <h3 class="card-title">🇨🇦 Canadá</h3>
+                        <p>Busca productos orgánicos y sustentables</p>
+                        <ul>
+                            <li>Alta Calidad</li>
+                            <li>Orgánicos</li>
+                            <li>Temporada</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-4">
+                        <h3 class="card-title">🇪🇺 Europa</h3>
+                        <p>España y Países Bajos como puertas de entrada</p>
+                        <ul>
+                            <li>Trazabilidad</li>
+                            <li>Residuos</li>
+                            <li>Empaque</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-4">
+                        <h3 class="card-title">🇨🇳 China</h3>
+                        <p>Mercado estratégico con gran potencial</p>
+                        <ul>
+                            <li>Bilaterales</li>
+                            <li>Fitosanitario</li>
+                            <li>Inspección</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso Section -->
+    <section class="section" id="proceso">
+        <div class="container">
+            <h2 class="text-center mb-5">Proceso Paso a Paso</h2>
+            <p class="text-center mb-5">7 pasos fundamentales para exportar mango exitosamente</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h3 class="card-title">1. Producción y Cosecha Controlada</h3>
+                        <p>El proceso comienza en el campo con Buenas Prácticas Agrícolas (BPA) para asegurar calidad y prolongar vida útil.</p>
+                        <ul>
+                            <li>Manejo del Agua</li>
+                            <li>Uso Racional de Pesticidas</li>
+                            <li>Registros y Trazabilidad</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h3 class="card-title">2. Certificaciones Fitosanitarias</h3>
+                        <p>Obtener certificaciones de SENASICA y cumplir con exigencias internacionales.</p>
+                        <ul>
+                            <li>GlobalG.A.P.</li>
+                            <li>PrimusGFS</li>
+                            <li>USDA Organic</li>
+                            <li>Normas ISO</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h3 class="card-title">3. Empaque y Embalaje</h3>
+                        <p>El empaque adecuado mantiene frescura, evita daños y cumple estándares del destino.</p>
+                        <p><strong>Tecnologías de conservación:</strong></p>
+                        <ul>
+                            <li>Cámaras de enfriamiento rápido</li>
+                            <li>Acolchados y atmósferas modificadas</li>
+                            <li>Cajas ventiladas y biodegradables</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h3 class="card-title">Ejemplo Práctico de Rentabilidad</h3>
+                        <p>Proyección para exportación de 1 tonelada de mango Ataulfo</p>
+                        <ul>
+                            <li><strong>Costos Totales:</strong> $45,000 MXN por tonelada</li>
+                            <li><strong>Precio de Venta:</strong> $65,000 MXN por tonelada</li>
+                            <li><strong>Ganancia Neta:</strong> $20,000 (44% de rentabilidad)</li>
+                        </ul>
+                        <p>🗓�?Temporada ideal: Marzo - Julio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section bg-light" id="faq">
+        <div class="container">
+            <h2 class="text-center mb-5">Preguntas Frecuentes</h2>
+            <p class="text-center mb-5">Resolvemos tus dudas más comunes sobre exportación</p>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            ¿Qué certificaciones necesito para exportar mango a EE.UU.?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            Debes contar con certificación fitosanitaria de SENASICA, tratamiento hidrotérmico, y cumplir con las regulaciones de USDA y FDA. Se recomienda también contar con GlobalG.A.P.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            ¿Cuánto tiempo dura el mango para poder exportarlo?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Con un buen manejo postcosecha y refrigeración, puede conservarse entre 21 y 28 días, dependiendo de la variedad y condiciones del transporte.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            ¿Puedo exportar pequeñas cantidades sin ser una gran empresa?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Sí, puedes comenzar con exportaciones a pequeña escala a través de intermediarios o marketplaces B2B, pero debes cumplir con todas las normativas.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            ¿Qué variedad es la más demandada en el extranjero?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            El mango Ataulfo es muy apreciado por su sabor dulce y textura cremosa, aunque las variedades Kent y Tommy Atkins también son ampliamente solicitadas.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            ¿Qué apoyo ofrece el gobierno mexicano?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Existen programas como los de ProMéxico, SADER, y Bancomext, que brindan asesoría, financiamiento, y capacitación para exportadores emergentes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section" id="oportunidad">
+        <div class="container text-center">
+            <h2>¡Tu Oportunidad de Crecimiento Global!</h2>
+            <p class="lead mb-5">Exportar mango desde Jalisco no solo es viable, sino altamente prometedor. Con planificación adecuada y las estrategias correctas, puedes colocar esta fruta dorada en mesas de todo el mundo.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <h3 class="card-title">Planifica</h3>
+                        <p>Buena planificación y cumplimiento normativo</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <h3 class="card-title">Estrategia</h3>
+                        <p>Marketing adecuado y logística eficiente</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <h3 class="card-title">Aliados</h3>
+                        <p>Socios estratégicos y aprendizaje continuo</p>
+                    </div>
+                </div>
+            </div>
+            <a href="https://www.gob.mx/cms/uploads/attachment/file/982136/Formulario_AD_para_Solicitantes.pdf" class="btn btn-primary mt-4">Descargar Guía Completa</a>
+            <p class="mt-3">🥭 Haz del Mango Jalisciense una Marca Mundial</p>
+        </div><a href="https://www.gob.mx/cms/uploads/attachment/file/982126/Anexo_1_NOMBREDELAEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 1</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982125/Anexo_2__NOMBREDELAEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 2</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982127/Anexo_3_NOMBREDELAEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 3</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982128/Anexo_4__NOMBREDELAEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 4</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982138/Anexo_5_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 5</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982129/Anexo_6_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 6</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982130/Anexo_7_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 7</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982131/Anexo_8_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 8</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982132/Anexo_9_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 9</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982133/Anexo_10_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 10</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982134/Anexo_11_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 11</a></div><a href="https://www.gob.mx/cms/uploads/attachment/file/982135/Anexo_12_NOMBREDEEMPRESA.pdf" class="btn btn-primary mt-4">Anexo 12</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Mango Export Jalisco</h4>
+                    <p>Tu guía completa para exportar mango jalisciense al mundo entero.</p>
+                </div>
+                <div class="col-md-2">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#ventajas">Ventajas</a></li>
+                        <li><a href="#destinos">Destinos</a></li>
+                        <li><a href="#proceso">Proceso</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>Recursos</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">SENASICA</a></li>
+                        <li><a href="#">ProMéxico</a></li>
+                        <li><a href="#">Bancomext</a></li>
+                        <li><a href="#">SADER</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Contacto</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93fafdf5fcd3fef2fdf4fcf6ebe3fce1e7bdfeeb">[email&#160;protected]</a></li>
+                        <li>+52 33 1234 5678</li>
+                        <li>Guadalajara, Jalisco</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>© 2025 Mango Export Jalisco. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96209fff9c74576f',t:'MTc1Mjk5NTI4MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,130 @@
+
+	Paneles de control
+	
+	Aterrizaje
+	
+	Por defecto
+	
+	Automotor
+	
+	Casa inteligente
+	
+	Gestión de relaciones con el cliente
+	PÁGINAS
+	Páginas
+	
+	Realidad virtual
+	
+	Página de precios
+	
+	RTL
+	
+	Widgets
+	
+	Gráficos
+	
+	Alertas dulces
+	
+	Notificaciones
+	Cuenta
+	
+	Ajustes
+	B
+	Facturación
+	I
+	Factura
+	S
+	Seguridad
+	Aplicaciones
+	K
+	Kanban
+	O
+	Mago
+	D
+	Tablas de datos
+	do
+	Calendario
+	A
+	Analítica
+	Comercio electrónico
+	Oh
+	Descripción general
+	PAG
+	Productos
+	Oh
+	Pedidos
+	R
+	Remisión
+	Equipo
+	A
+	Todos los proyectos
+	T
+	Equipos
+	norte
+	Nuevo usuario
+	PAG
+	Descripción general del perfil
+	R
+	Informes
+	Proyectos
+	GRAMO
+	General
+	T
+	Cronología
+	norte
+	Nuevo proyecto
+	Autenticación
+	S
+	Iniciar sesión
+	S
+	Inscribirse
+	R
+	Restablecer contraseña
+	Yo
+	Cerrar
+	2
+	Verificación en dos pasos
+	mi
+	Error
+	DOCUMENTOS
+	Básico
+	GRAMO
+	Empezando
+	F
+	Base
+	Componentes
+	A
+	Alertas
+	B
+	Insignia
+	B
+	Botones
+	do
+	Tarjeta
+	do
+	Carrusel
+	do
+	Colapsar
+	D
+	Menús desplegables
+	F
+	Formularios
+	METRO
+	Modal
+	norte
+	Navegadores
+	norte
+	Barra de navegación
+	PAG
+	Paginación
+	PAG
+	Popovers
+	PAG
+	Progreso
+	S
+	Hilanderos
+	T
+	Tablas
+	T
+	Información sobre herramientas
+	Registro de cambios

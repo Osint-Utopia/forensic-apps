@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procedimiento UPCI - Exportación de Mango</title>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2480fc;
+            --text-color: #27344a;
+            --bg-color: #fff;
+            --secondary-bg: #f5f5f5;
+            --accent-blue: #0052cc;
+            --main-blue: #007bff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+        }
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('data:font/truetype;base64,...') format('truetype'); /* Placeholder para fuente en base64 */
+        }
+
+        /* Navegación (de main.css) */
+        .navbar {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 60rem;
+            width: calc(100% - 40px);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .apilayer-nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .nav-item:hover {
+            color: var(--primary-color);
+        }
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        .hamburger::before {
+            content: '☰';
+            font-size: 25px;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--primary-color);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+        .mobile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .close-menu::before {
+            content: '✕';
+            font-size: 25px;
+            color: var(--bg-color);
+        }
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .mobile-nav-item {
+            color: var(--bg-color);
+            font-size: 24px;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .apilayer-nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* Sección Hero (de main.css) */
+        .main-section {
+            background-color: var(--main-blue);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+            color: var(--bg-color);
+            max-width: 700px;
+            z-index: 2;
+        }
+        .content h1 {
+            font-size: 4.75rem;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 68%;
+            width: 100%;
+            opacity: 0.5;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        /* Tarjetas (de homepage.css) */
+        .essential-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+            max-width: 1390px;
+            margin: 0 auto;
+        }
+        .essential-card {
+            background-color: var(--bg-color);
+            border: 1px solid #E4EBEF;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .essential-card:hover {
+            transform: translateY(-5px);
+        }
+        .essential-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .essential-card p {
+            font-size: 1rem;
+            color: #6C7A92;
+        }
+
+        /* Acordeón (de homepage.css) */
+        .accordion-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .accordion-title {
+            background-color: var(--bg-color);
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-title::after {
+            content: '↓';
+            font-size: 1rem;
+        }
+        .accordion-title.active::after {
+            content: '↑';
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Footer (de main.css) */
+        .footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .essential-card-container, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            .content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="logo">Mango Export Jalisco</div>
+        <div class="apilayer-nav-links">
+            <a href="5_como_inicio.html" class="nav-item">Cómo Inicio</a>
+            <a href="6_es_complicado.html" class="nav-item">Es Complicado</a>
+            <a href="7_documentos.html" class="nav-item">Documentos</a>
+        </div>
+        <div class="hamburger"></div>
+        <div class="mobile-menu">
+            <div class="mobile-header">
+                <div class="logo">Mango Export Jalisco</div>
+                <div class="close-menu"></div>
+            </div>
+            <div class="mobile-nav-links">
+                <a href="5_como_inicio.html" class="mobile-nav-item">Cómo Inicio</a>
+                <a href="6_es_complicado.html" class="mobile-nav-item">Es Complicado</a>
+                <a href="7_documentos.html" class="mobile-nav-item">Documentos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section id="upci" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>🏛️ Procedimiento para Nuevos Solicitantes</h1>
+            <p>Unidad de Prácticas Comerciales Internacionales (UPCI)</p>
+            <p><a href="mailto:upci@economia.gob.mx">upci@economia.gob.mx</a></p>
+            <a href="#contenido" class="cta-button">Explorar Procedimiento</a>
+        </div>
+    </section>
+
+    <!-- Tabla de Contenido -->
+    <section id="contenido">
+        <div class="essential-card-container">
+            <div class="essential-card">
+                <h3>📜 Introducción</h3>
+                <p>Rol de la UPCI y marco jurídico para investigaciones antidumping.</p>
+            </div>
+            <div class="essential-card">
+                <h3>📋 Instructivo</h3>
+                <p>Requisitos para presentar información y formatos aceptados.</p>
+            </div>
+            <div class="essential-card">
+                <h3>🔍 Aspectos Generales</h3>
+                <p>Estructura corporativa, representante legal, y sistemas de distribución.</p>
+            </div>
+            <div class="essential-card">
+                <h3>💰 Discriminación de Precios</h3>
+                <p>Precio de exportación, valor normal, y márgenes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secciones Detalladas -->
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-title">📜 Introducción</div>
+            <div class="accordion-content">
+                <p>La Unidad de Prácticas Comerciales Internacionales (UPCI) de la Secretaría de Economía es la encargada de realizar investigaciones sobre prácticas desleales de comercio internacional, reguladas por el Acuerdo Antidumping, ASMC, LCE, y RLCE. La Secretaría puede imponer cuotas compensatorias tras estas investigaciones.</p>
+                <p>Los productores extranjeros que no exportaron durante el período de investigación pueden solicitar un margen individual de discriminación de precios (artículos 9.5 del Acuerdo Antidumping, 19.3 del ASMC, 89D de la LCE). La investigación sigue el artículo 52 de la LCE.</p>
+                <p>Los solicitantes deben presentar la información requerida en este formulario (artículos 54 de la LCE, 75 del RLCE). La información puede ser verificada (artículos 6.7, 12.6, 83 de la LCE), y se acepta electrónicamente en <a href="mailto:upci@economia.gob.mx">upci@economia.gob.mx</a>.</p>
+                <p><strong>Contacto:</strong><br>
+                   Secretaría de Economía, UPCI<br>
+                   Pachuca 189, Col. Condesa, C.P. 06140, Ciudad de México<br>
+                   Correo: <a href="mailto:upci@economia.gob.mx">upci@economia.gob.mx</a></p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📋 Instructivo</div>
+            <div class="accordion-content">
+                <p><strong>Requisitos de Presentación:</strong></p>
+                <ul>
+                    <li>Dirigir escritos a la persona titular de la UPCI con firma autógrafa (artículo 4, LFPCA).</li>
+                    <li>Documentos en idiomas distintos al español deben incluir traducción (artículo 271, CFPC).</li>
+                    <li>Indicar información confidencial o comercial reservada (artículos 6.5 Antidumping, 12.1 ASMC, 51 LCE).</li>
+                    <li>Presentar versiones pública y confidencial en formatos MS Word, PDF, o Excel.</li>
+                    <li>Presentación física: Original + 3 copias, 9:00-14:00, Oficialía de Partes.</li>
+                    <li>Presentación electrónica: <a href="mailto:upci@economia.gob.mx">upci@economia.gob.mx</a>, 9:00-18:00, máximo 20 MB.</li>
+                </ul>
+                <p><strong>Ejemplo de Versiones:</strong><br>
+                   Confidencial: "Costo de producción 50 dólares por tonelada"<br>
+                   Pública: "Costo de producción [ ] Dólares por tonelada"</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🔍 Aspectos Generales</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Estructura Corporativa</h3>
+                        <p>Acta constitutiva, empresas filiales, diagramas de flujo, y declaración de no vinculación (artículo 61, RLCE).</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Representante Legal</h3>
+                        <p>Nombre, domicilio, identificación oficial, y cédula profesional (artículo 51, LCE).</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Identificación de Investigación</h3>
+                        <p>Producto, país de origen, y fracción arancelaria.</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Indicadores y Distribución</h3>
+                        <p>Ventas totales, costos, y canales de distribución (Anexos 1-4).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">💰 Discriminación de Precios</div>
+            <div class="accordion-content">
+                <div class="essential-card-container">
+                    <div class="essential-card">
+                        <h3>Precio de Exportación</h3>
+                        <p>Listar operaciones, descuentos, y reconstrucción para partes vinculadas (Anexo 4).</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Valor Normal</h3>
+                        <p>Precios en mercado interno, terceros países, o valor reconstruido (Anexos 5-6).</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Ajustes</h3>
+                        <p>Ajustes por condiciones de venta, cantidades, y características físicas (Anexos 4-5).</p>
+                    </div>
+                    <div class="essential-card">
+                        <h3>Margen</h3>
+                        <p>Cálculo: MD = [(VNa - PEa) / PEa × 100] (Anexo 8).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📄 Apéndice y Formatos</div>
+            <div class="accordion-content">
+                <p><strong>Declaración:</strong> Bajo protesta de decir verdad, la información es completa y correcta.</p>
+                <p><strong>Consentimiento Confidencial:</strong> Autorización para consulta de información confidencial (artículo 158, RLCE).</p>
+                <p><strong>Consentimiento Electrónico:</strong> Aceptación de notificaciones vía <a href="mailto:upci@economia.gob.mx">upci@economia.gob.mx</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense al mundo entero.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="1_index.html" class="nav-item">Inicio</a><br>
+                   <a href="2_Introduccion.html" class="nav-item">Introducción</a><br>
+                   <a href="3_requisitos.html" class="nav-item">Requisitos</a><br>
+                   <a href="4_upci.html" class="nav-item">UPCI</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>
+                   +52 33 1234 5678<br>
+                   Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Mango Export Jalisco. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Menú móvil
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeMenu = document.querySelector('.close-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Animaciones
+        document.querySelectorAll('.essential-card').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('animate');
+            }, index * 200);
+        });
+
+        // Acordeón
+        document.querySelectorAll('.accordion-title').forEach(item => {
+            item.addEventListener('click', () => {
+                const content = item.nextElementSibling;
+                content.classList.toggle('active');
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

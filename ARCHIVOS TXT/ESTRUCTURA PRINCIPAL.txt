@@ -1,0 +1,203 @@
+
+
+	# Estructura de Carpetas - Material Dashboard Pro
+
+	## Estructura Principal
+	```
+	material-dashboard-pro/
+	├── assets/
+	│   ├── css/
+	│   ├── fonts/
+	│   ├── img/
+	│   ├── js/
+	│   │   ├── core/
+	│   │   ├── plugins/
+	│   │   ├── points.json
+	│   │   └── material-dashboard.min.js
+	│   └── scss/
+	│       ├── material-dashboard-pro/
+	│       └── material-dashboard.scss
+	├── docs/
+	│   └── documentation.html
+	├── pages/
+	│   ├── account/
+	│   ├── applications/
+	│   ├── authentication/
+	│   ├── dashboards/
+	│   ├── ecommerce/
+	│   ├── pages/
+	│   ├── projects/
+	│   └── team/
+	├── CHANGELOG.md
+	├── gulpfile.js
+	├── package.json
+	└── presentation.html
+	```
+
+	## Detalle de Archivos por Carpeta
+
+	### 📁 pages/account/
+	```
+	account/
+	├── billing.html
+	├── invoice.html
+	├── security.html
+	└── settings.html
+	```
+
+	### 📁 pages/applications/
+	```
+	applications/
+	├── calendar.html
+	├── crm.html
+	├── datatables.html
+	├── kanban.html
+	├── stats.html
+	├── validation.html
+	└── wizard.html
+	```
+
+	### 📁 pages/authentication/
+	```
+	authentication/
+	├── error/
+	│   ├── 404.html
+	│   └── 500.html
+	├── lock/
+	│   ├── basic.html
+	│   ├── cover.html
+	│   └── illustration.html
+	├── reset/
+	│   ├── cover.html
+	│   └── illustration.html
+	├── signin/
+	│   ├── cover.html
+	│   └── illustration.html
+	├── signup/
+	│   ├── basic.html
+	│   ├── cover.html
+	│   └── illustration.html
+	└── verification/
+		├── basic.html
+		├── cover.html
+		└── illustration.html
+	```
+
+	### 📁 pages/dashboards/
+	```
+	dashboards/
+	├── analytics.html
+	├── automotive.html
+	├── discover.html
+	├── sales.html
+	└── smart-home.html
+	```
+
+	### 📁 pages/ecommerce/
+	```
+	ecommerce/
+	├── orders/
+	│   ├── details.html
+	│   └── list.html
+	├── products/
+	│   ├── edit-product.html
+	│   ├── new-product.html
+	│   ├── product-page.html
+	│   └── products-list.html
+	└── referral.html
+	```
+
+	### 📁 pages/pages/
+	```
+	pages/
+	├── account/
+	│   └── settings.html
+	├── profile/
+	│   └── overview.html
+	├── vr/
+	│   ├── vr-default.html
+	│   └── vr-info.html
+	├── charts.html
+	├── notifications.html
+	├── pricing-page.html
+	├── rtl-page.html
+	├── sweet-alerts.html
+	└── widgets.html
+	```
+
+	### 📁 pages/projects/
+	```
+	projects/
+	├── general.html
+	├── new-project.html
+	└── timeline.html
+	```
+
+	### 📁 pages/team/
+	```
+	team/
+	├── all-projects.html
+	├── messages.html
+	├── new-user.html
+	├── profile-overview.html
+	└── reports.html
+	```
+
+	## Archivos Principales en la Raíz
+	- `presentation.html` - Página de presentación principal
+
+	## Notas Importantes
+
+	### Archivos con Idioma Español
+	- `pages/authentication/lock/basic.html` - Marcado como "Español"
+	- `pages/authentication/signin/cover.html` - Marcado como "Español"
+
+	### Archivos con Anchors/Secciones
+	El archivo `pages/dashboards/analytics.html` contiene múltiples secciones accesibles via anchors:
+	- #ProfileNav
+	- #StepExample
+	- #accountExamples
+	- #applicationsExamples
+	- #authExamples
+	- #basicExamples
+	- #componentsExamples
+	- #dashboardsExamples
+	- #ecommerceExamples
+	- #errorExample
+	- #foundationExample
+	- #gettingStartedExample
+	- #lockExample
+	- #ordersExample
+	- #pagesExamples
+	- #productsExample
+	- #profileExamples
+	- #projectsExamples
+	- #resetExample
+	- #signinExample
+	- #signupExample
+	- #vrExamples
+
+	### Archivos Duplicados Detectados
+	- `pages/authentication/reset/cover.html` (aparece 2 veces)
+	- `pages/authentication/reset/illustration.html` (aparece 2 veces)
+
+	## Recomendaciones de Organización
+
+	1. **Mantén la estructura original** del template para facilitar actualizaciones
+	2. **Crea un index.html** en la raíz que redirija al dashboard principal
+	3. **Considera crear subcarpetas adicionales** si planeas agregar más páginas personalizadas
+	4. **Documenta las modificaciones** que hagas a los archivos originales
+	5. **Usa un sistema de versionado** (Git) para trackear cambios
+
+	## Comandos Útiles para Desarrollo
+
+	```bash
+	# Instalar dependencias (si usas npm)
+	npm install
+
+	# Compilar SCSS (si usas Gulp)
+	gulp
+
+	# Servir archivos localmente
+	# Puedes usar cualquier servidor local como Live Server, http-server, etc.
+	```

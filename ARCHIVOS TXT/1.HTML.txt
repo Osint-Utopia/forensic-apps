@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Exportación de Mango - Jalisco</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2480fc;
+            --text-color: #27344a;
+            --bg-color: #fff;
+            --secondary-bg: #f5f5f5;
+            --accent-blue: #0052cc;
+            --main-blue: #007bff;
+            --mango-yellow: #ffc107;
+            --tropical-orange: #ff5722;
+            --lime-green: #8bc34a;
+            --dark-green: #388e3c;
+            --mango-green: #28a745;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+        }
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('data:font/truetype;base64,...') format('truetype');
+        }
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .floating-nav-button {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 24px;
+        }
+        .floating-nav-menu {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        .floating-nav-menu.active {
+            display: block;
+        }
+        .floating-nav-item {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .floating-nav-item:hover {
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .floating-nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .floating-nav-item {
+                font-size: 14px;
+            }
+        }
+        .main-section {
+            background-color: var(--main-blue);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+            color: var(--bg-color);
+            max-width: 700px;
+            z-index: 2;
+        }
+        .content h1 {
+            font-size: 4.75rem;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: var(--bg-color);
+            color: var(--main-blue);
+        }
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            background: var(--main-blue);
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            .content p {
+                font-size: 1rem;
+            }
+        }
+        .essential-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+            max-width: 1390px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            z-index: 2;
+        }
+        .essential-card {
+            background-color: var(--bg-color);
+            border: 1px solid #E4EBEF;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .essential-card.animate {
+            animation: popIn 0.5s ease-out;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .essential-card:hover {
+            transform: translateY(-5px);
+        }
+        .essential-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .essential-card p {
+            font-size: 1rem;
+            color: #6C7A92;
+        }
+        @media (max-width: 768px) {
+            .essential-card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .accordion-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .accordion-title {
+            background-color: var(--bg-color);
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .accordion-title::after {
+            content: '↓';
+            font-size: 1rem;
+        }
+        .accordion-title.active::after {
+            content: '↑';
+        }
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            z-index: 2;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-nav">
+        <div class="floating-nav-button">☰</div>
+        <div class="floating-nav-menu">
+            <a href=".\Exportacion\2_introduccion.html" class="floating-nav-item">Introducción</a>
+            <a href=".\Exportacion\3_requisitos.html" class="floating-nav-item">Requisitos</a>
+            <a href=".\Exportacion\4_upci.html" class="floating-nav-item">UPCI</a>
+            <a href=".\Exportacion\5_como_inicio.html" class="floating-nav-item">Cómo Inicio</a>
+            <a href=".\Exportacion\6_es_complicado.html" class="floating-nav-item">Es Complicado</a>
+            <a href=".\Exportacion\7_documentos.html" class="floating-nav-item">Documentos</a>
+        </div>
+    </div>
+    <section id="inicio" class="main-section">
+        <div class="background-circles"></div>
+        <div class="content">
+            <h1>🥭 Exportación de Mango Jalisciense</h1>
+            <p>Tu guía completa para exportar mango al mundo</p>
+            <a href="#contenido" class="cta-button">Comenzar Ahora</a>
+        </div>
+    </section>
+    <section id="contenido">
+        <div class="chart-container">
+            <canvas id="exportDistribution"></canvas>
+        </div>
+        <div class="essential-card-container">
+            <div class="essential-card animate">
+                <h3>🌍 Mercados Globales</h3>
+                <p>EE.UU., Canadá, Europa, Asia.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>📈 Crecimiento</h3>
+                <p>4.5% anual en exportaciones.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>🥭 Calidad</h3>
+                <p>Variedad Kent de alta demanda.</p>
+            </div>
+            <div class="essential-card animate">
+                <h3>🚀 Oportunidades</h3>
+                <p>Jalisco como líder exportador.</p>
+            </div>
+        </div>
+    </section>
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-title">🌍 Principales Mercados</div>
+            <div class="accordion-content">
+                <p>México exporta mango principalmente a EE.UU. (68%), Canadá (13.1%), Europa (8%) y Asia (5%).</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">📈 Potencial de Crecimiento</div>
+            <div class="accordion-content">
+                <p>El mercado global de mango crece un 4.5% anual, con Jalisco como líder en México.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-title">🥭 Variedad Kent</div>
+            <div class="accordion-content">
+                <p>La variedad Kent es ideal para exportación por su sabor y durabilidad. Temporada: marzo-julio.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Mango Export Jalisco</h3>
+                <p>Tu guía completa para exportar mango jalisciense.</p>
+            </div>
+            <div>
+                <h3>Enlaces Rápidos</h3>
+                <p><a href=".\Exportacion\1_index.html" class="nav-item">Inicio</a><br>
+                   <a href=".\Exportacion\2_introduccion.html" class="nav-item">Introducción</a><br>
+                   <a href=".\Exportacion\3_requisitos.html" class="nav-item">Requisitos</a><br>
+                   <a href=".\Exportacion\4_upci.html" class="nav-item">UPCI</a><br>
+                   <a href=".\Exportacion\5_como_inicio.html" class="nav-item">Cómo Inicio</a><br>
+                   <a href=".\Exportacion\6_es_complicado.html" class="nav-item">Es Complicado</a><br>
+                   <a href=".\Exportacion\7_documentos.html" class="nav-item">Documentos</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>info@mangoexport.mx<br>+52 33 1234 5678<br>Guadalajara, Jalisco</p>
+            </div>
+        </div>
+        <p>© 2025 Guía de Exportación • Jalisco, México</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const floatingNavButton = document.querySelector('.floating-nav-button');
+            const floatingNavMenu = document.querySelector('.floating-nav-menu');
+            floatingNavButton.addEventListener('click', () => {
+                floatingNavMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.essential-card').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animate');
+                }, index * 200);
+            });
+            document.querySelectorAll('.accordion-title').forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.nextElementSibling;
+                    content.classList.toggle('active');
+                    item.classList.toggle('active');
+                });
+            });
+            const ctx = document.getElementById('exportDistribution').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['EE.UU.', 'Canadá', 'Europa', 'Asia'],
+                    datasets: [{
+                        data: [68, 13.1, 8, 5],
+                        backgroundColor: ['#2480fc', '#0052cc', '#007bff', '#ffc107']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
