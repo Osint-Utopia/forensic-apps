@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+<!--     <link rel="stylesheet" href="test_style.css"> -->
+    <!-- <script src="test_js.js"></script> -->
+    <title>Test</title>
+    <style>
+        td{
+            border-left: 1px solid black;
+        }
+        table{
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        function showSubmit(){
+            var radio;
+            var total=false;
+            var total_aux = false;
+
+            for (var i = 1; i <16;i++){
+                radio= document.getElementsByName('p'+i);
+                if(radio.item(0).checked || radio.item(1).checked || radio.item(2).checked)
+                    total = true;
+                else total = false;
+                //console.log(total);
+            }
+            if(total)
+                document.getElementById("submit").style.display="block";
+            
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Test de hema</h1>
+    </header>
+    <div id="container">
+    <div class="sides"></div>
+
+    <div id="form">
+        <form method="post" action="hema.php">
+                <div class="pregunta">
+                    <table border="1">
+                        <tr>
+                            <td>Factores ambientales</td>
+                            <td>Si</td>
+                            <td>No</td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes un lugar permanente de estudio?
+                            </td>
+                            <td>
+                                <input type="radio" name="a1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Puedes eliminar fácilmente los ruidos molestos?
+                            </td>
+                            <td>
+                                <input type="radio" name="a2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Es tu lugar de estudios suficientemente amplio?
+                            </td>
+                            <td>
+                                <input type="radio" name="a3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consigues la oxigenación, temperatura y humedad adecuadas cuando estudias?
+                            </td>
+                            <td>
+                                <input type="radio" name="a4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Cuándo utilizas luz artificial, es suficientemente buena?
+                            </td>
+                            <td>
+                                <input type="radio" name="a5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Cuándo utilizas luz artificial, es suficientemente buena?
+                            </td>
+                            <td>
+                                <input type="radio" name="a6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Puedes apoyar con facilidad los antebrazos?
+                            </td>
+                            <td>
+                                <input type="radio" name="a7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                La superficie ¿es mate u opaca?
+                            </td>
+                            <td>
+                                <input type="radio" name="a8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                La silla es de relativa dureza y con respaldo
+                            </td>
+                            <td>
+                                <input type="radio" name="a9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Utilizas la luz diurna permanentemente?		
+                            </td>
+                            <td>
+                                <input type="radio" name="a10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="a10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>Salud fisica y emocional</td>
+                            <td>Si</td>
+                            <td>No</td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Haces ejercicio diariamente?
+                            </td>
+                            <td>
+                                <input type="radio" name="s1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Cambias de actividad cuando te sientes cansado?
+                            </td>
+                            <td>
+                                <input type="radio" name="s2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Puedes dedicarte a un estudio prolongado sin sentir molestias en los ojos?
+                            </td>
+                            <td>
+                                <input type="radio" name="s3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Duermes generalmente ocho horas al día?
+                            </td>
+                            <td>
+                                <input type="radio" name="s4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tu régimen alimenticio es variado y razonable?
+                            </td>
+                            <td>
+                                <input type="radio" name="s5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Reduces al máximo el alcohol y el tabaco?
+                            </td>
+                            <td>
+                                <input type="radio" name="s6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes en cuenta la incidencia de los problemas afectivos en el rendimiento?
+                            </td>
+                            <td>
+                                <input type="radio" name="s7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes interés en los estudios universitarios?
+                            </td>
+                            <td>
+                                <input type="radio" name="s8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                Una tensión fuerte y prolongada ¿perjudica tu retención?
+                            </td>
+                            <td>
+                                <input type="radio" name="s9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes salir de la frustración que te produce el no conseguir estudiar lo programado?
+                            </td>
+                            <td>
+                                <input type="radio" name="s10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="s10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>aspecto sobre el metodo de estudio</td>
+                            <td>Si</td>
+                            <td>No</td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Haces una exploración general antes de concentrarte para estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="e1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Comienzas con una lectura rápida de todo lo que tienes que estudiar cada vez?
+                            </td>
+                            <td>
+                                <input type="radio" name="e2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Puedes comprender con claridad el contenido de lo que estudias?
+                            </td>
+                            <td>
+                                <input type="radio" name="e3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Distingues los puntos principales y lo fundamental de cada tema?
+                            </td>
+                            <td>
+                                <input type="radio" name="e4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Haces esquemas clasificadores de cada unidad de contenido?
+                            </td>
+                            <td>
+                                <input type="radio" name="e5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sintetizas o resumes en orden para facilitarte los repasos?
+                            </td>
+                            <td>
+                                <input type="radio" name="e6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Destacas de alguna manera el contenido principal en lo que estudias?
+                            </td>
+                            <td>
+                                <input type="radio" name="e7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Llevas los apuntes al día y los completas si es preciso?
+                            </td>
+                            <td>
+                                <input type="radio" name="e8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Buscas los sitios donde oyes bien y tienes buena visibilidad?
+                            </td>
+                            <td>
+                                <input type="radio" name="e9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Dispones del material necesario complementario para estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="e10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="e10" value="0">
+                            </td>
+                        </tr>
+                    </table ><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>organizacion de planes y horarios</td>
+                            <td>Si</td>
+                            <td>No</td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Acostumbras a tener un horario más o menos habitual de estudio?
+                            </td>
+                            <td>
+                                <input type="radio" name="o1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te centras fácilmente en el estudio?
+                            </td>
+                            <td>
+                                <input type="radio" name="o2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consigues resultados satisfactorios cuando te pones a estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="o3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Piensas en las prioridades, en tu estudio y trabajos, en el tiempo que dedicas a estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="o4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Distribuyes generalmente tu tiempo de estudio a lo largo de la semana?
+                            </td>
+                            <td>
+                                <input type="radio" name="o5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te concentras con facilidad después de un corto período de adaptación?
+                            </td>
+                            <td>
+                                <input type="radio" name="o6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                Antes de terminar tu estudio, ¿aprovechas el corto período de más rendimiento?
+                            </td>
+                            <td>
+                                <input type="radio" name="o7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Acostumbras a hacer pequeños descansos, cada vez más frecuentes, cuando aumenta el tiempo de tu dedicación?
+                            </td>
+                            <td>
+                                <input type="radio" name="o8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te pones a estudiar con intención consciente de aprovechar el tiempo? 
+                            </td>
+                            <td>
+                                <input type="radio" name="o9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te mantienes al menos algún tiempo estudiando, aunque de momento no te concentres?
+                            </td>
+                            <td>
+                                <input type="radio" name="o10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="o10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                Realizacion de examenes
+                            </td>
+                            <td>
+                                Si
+                            </td>
+                            <td>
+                                No
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te desvelas la noche anterior a un examen?
+                            </td>
+                            <td>
+                                <input type="radio" name="x1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Lees detenidamente las instrucciones?
+                            </td>
+                            <td>
+                                <input type="radio" name="x2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Distribuyes el tiempo que tienes entre las preguntas que tienes que contestar?
+                            </td>
+                            <td>
+                                <input type="radio" name="x3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Comienzas por las cuestiones más sencillas o que ya sabes?
+                            </td>
+                            <td>
+                                <input type="radio" name="x4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Distingues con claridad la palabra o palabras que te indican lo que realmente se te pide?
+                            </td>
+                            <td>
+                                <input type="radio" name="x5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Haces el esquema preciso que facilite el desarrollo y te permita no dejarlo incompleto'
+                            </td>
+                            <td>
+                                <input type="radio" name="x6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Escribes con claridad?
+                            </td>
+                            <td>
+                                <input type="radio" name="x7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes buena ortografía?
+                            </td>
+                            <td>
+                                <input type="radio" name="x8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Dejas márgenes, títulos, apartados, etc.,..?
+                            </td>
+                            <td>
+                                <input type="radio" name="x9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Relees el ejercicio antes de entregarlo?
+                            </td>
+                            <td>
+                                <input type="radio" name="x10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="x10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                Busqueda de informacion
+                            </td>
+                            <td>
+                                Si
+                            </td>
+                            <td>
+                                No
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes hacer fichas bibliográficas? 
+                            </td>
+                            <td>
+                                <input type="radio" name="b1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Manejas los ficheros tradicionales con facilidad?
+                            </td>
+                            <td>
+                                <input type="radio" name="b2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes un fichero personal ampliable?
+                            </td>
+                            <td>
+                                <input type="radio" name="b3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Acostumbras a sacar fichas de contenido, frases o referencias?
+                            </td>
+                            <td>
+                                <input type="radio" name="b4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Conoces la clasificación decimal universal aplicada a la documentación?
+                            </td>
+                            <td>
+                                <input type="radio" name="b5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Conoces las bibliotecas generales y su manejo?
+                            </td>
+                            <td>
+                                <input type="radio" name="b6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes localizada alguna fuente de investigación de tu línea de estudio?
+                            </td>
+                            <td>
+                                <input type="radio" name="b7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes dónde consultar revistas?
+                            </td>
+                            <td>
+                                <input type="radio" name="b8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes conocimiento de las principales librerías y editoriales?
+                            </td>
+                            <td>
+                                <input type="radio" name="b9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Conoces los sistemas bibliográficos digitalizados? 
+                            </td>
+                            <td>
+                                <input type="radio" name="b10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="b10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                Comunicacion academica oral y escrita
+                            </td>
+                            <td>
+                                Si
+                            </td>
+                            <td>
+                                No
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes claras las diferencias entre los distintos tipos de redacción científica?
+                            </td>
+                            <td>
+                                <input type="radio" name="m1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Conoces la estructura general de un trabajo científico?
+                            </td>
+                            <td>
+                                <input type="radio" name="m2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Podrías expresar con facilidad lo escrito con anterioridad?
+                            </td>
+                            <td>
+                                <input type="radio" name="m3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes argumentar para defender tus aportaciones?
+                            </td>
+                            <td>
+                                <input type="radio" name="m4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes criticar y discutir los trabajos de otros?
+                            </td>
+                            <td>
+                                <input type="radio" name="m5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te sería fácil trabajar en equipo?
+                            </td>
+                            <td>
+                                <input type="radio" name="m6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes acceso directo a un mecanografiado sencillo?
+                            </td>
+                            <td>
+                                <input type="radio" name="m7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Puedes utilizar mínimamente otro idioma?
+                            </td>
+                            <td>
+                                <input type="radio" name="m8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Sabes establecer contacto con personas de interés para tu trabajo?
+                            </td>
+                            <td>
+                                <input type="radio" name="m9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te expresas con claridad y precisión al comunicar algo?
+                            </td>
+                            <td>
+                                <input type="radio" name="m10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="m10" value="0">
+                            </td>
+                        </tr>
+                    </table><br><br><br>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                Acerca de la motivacion para aprender
+                            </td>
+                            <td>
+                                Si
+                            </td>
+                            <td>
+                                No
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras tu estudio como algo realmente personal?
+                            </td>
+                            <td>
+                                <input type="radio" name="w1" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w1" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tienes confianza en tu capacidad de aprender?
+                            </td>
+                            <td>
+                                <input type="radio" name="w2" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w2" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras que lo que estudias está en relación con tus intereses?
+                            </td>
+                            <td>
+                                <input type="radio" name="w3" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w3" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de comprender lo que estudias aunque te resulte difícil entenderlo o aceptarlo?
+                            </td>
+                            <td>
+                                <input type="radio" name="w4" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w4" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Procuras participar activamente en las propuestas de tus compañeros y profesores?
+                            </td>
+                            <td>
+                                <input type="radio" name="w5" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w5" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras tu tiempo de aprendizaje como digno de ser vivido con intensidad?
+                            </td>
+                            <td>
+                                <input type="radio" name="w6" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w6" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Llevas a cabo las propuestas de los profesores con el fin de facilitar la comunicación con ellos?
+                            </td>
+                            <td>
+                                <input type="radio" name="w7" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w7" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de reflexionar sobre la forma en que aprendes?
+                            </td>
+                            <td>
+                                <input type="radio" name="w8" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w8" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Has pensado en cómo poder aprovechar mejor tu tiempo de aprender?
+                            </td>
+                            <td>
+                                <input type="radio" name="w9" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w9" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras fundamental el contar con otros para conseguir tus objetivos de aprendizaje?
+                            </td>
+                            <td>
+                                <input type="radio" name="w10" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w10" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tiendes a trabajar personalmente para profundizar en la comprensión de los contenidos?
+                            </td>
+                            <td>
+                                <input type="radio" name="w11" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w11" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Percibes que el estudio es el medio para recrear el saber y divulgarlo?
+                            </td>
+                            <td>
+                                <input type="radio" name="w12" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w12" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras las preguntas en clase y la realización de trabajos como medios para impulsarte a estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="w13" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w13" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Piensas que la asistencia a clase es muy importante para orientarte en tu proceso de estudio?
+                            </td>
+                            <td>
+                                <input type="radio" name="w14" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w14" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Las bajas puntuaciones te hacen reaccionar para estudiar más y mejor?
+                            </td>
+                            <td>
+                                <input type="radio" name="w15" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w15" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras al profesor como alguien de quien puedes servirte para aprender?
+                            </td>
+                            <td>
+                                <input type="radio" name="w16" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w16" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                Consideras al profesor como alguien de quien puedes servirte para aprender?
+                            </td>
+                            <td>
+                                <input type="radio" name="w17" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w17" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                Consideras al profesor como alguien de quien puedes servirte para aprender?
+                            </td>
+                            <td>
+                                <input type="radio" name="w18" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w18" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de solucionar tus problemas de estudio y aprendizaje en general?
+                            </td>
+                            <td>
+                                <input type="radio" name="w19" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w19" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Consideras que cualquier actividad mientras estudias puede influir en tu rendimiento?
+                            </td>
+                            <td>
+                                <input type="radio" name="w20" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w20" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de relacionarte con personas y ambientes de semejantes intereses a tus estudios?
+                            </td>
+                            <td>
+                                <input type="radio" name="w21" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w21" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Te interesan los problemas culturales aunque estén aparentemente alejados de los que tienes que estudiar?
+                            </td>
+                            <td>
+                                <input type="radio" name="w22" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w22" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                A pesar de los muchos alumnos, ¿tratas de relacionarte con los profesores en clase y fuera de ella?
+                            </td>
+                            <td>
+                                <input type="radio" name="w23" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w23" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas, además de estudiar lo explicado, de tener una actitud creativa y crítica?
+                            </td>
+                            <td>
+                                <input type="radio" name="w24" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w24" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de relacionarte con profesionales de las áreas a las que piensas dedicarte en un futuro?
+                            </td>
+                            <td>
+                                <input type="radio" name="w25" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w25" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Visitas las exposiciones que tengan relación con tus estudios?
+                            </td>
+                            <td>
+                                <input type="radio" name="w26" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w26" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de leer revistas y publicaciones en torno a los temas que te interesan en la actualidad?
+                            </td>
+                            <td>
+                                <input type="radio" name="w27" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w27" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Has buscado información en otros lugares respecto a los estudios que te interesan en la actualidad?
+                            </td>
+                            <td>
+                                <input type="radio" name="w28" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w28" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Conoces los planes de estudio de otros centros semejantes a los que estudias?
+                            </td>
+                            <td>
+                                <input type="radio" name="w29" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w29" value="0">
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                ¿Tratas de relacionarte con otros estudiantes en el extranjero?	
+                            </td>
+                            <td>
+                                <input type="radio" name="w30" value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="w30" value="0">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <center><input type="submit" id="submit" value="Ver resultado"></center>
+            </form>
+        </div>
+        <div class="sides"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Personas Desaparecidas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            max-width: 500px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .results {
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .card {
+            background: #e9ecef;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Buscador de Personas Desaparecidas</h1>
+
+<input type="text" id="searchName" placeholder="Buscar por nombre..." onkeyup="filterResults()" />
+
+<div class="results" id="resultsContainer">
+    <!-- Aquí aparecen los resultados -->
+</div>
+
+<script>
+    const data = [
+        { nombre: "Carolina Mendoza", fecha: "2022-11-15", estado: "Jalisco", detalles: "Desaparecida en Tlaquepaque" },
+        { nombre: "Luis Hernández", fecha: "2021-06-21", estado: "Nuevo León", detalles: "Última vez visto en Monterrey" },
+        { nombre: "Ana Torres", fecha: "2023-02-10", estado: "Guanajuato", detalles: "Reportada en Celaya" }
+    ];
+
+    function filterResults() {
+        const input = document.getElementById("searchName").value.toLowerCase();
+        const container = document.getElementById("resultsContainer");
+        container.innerHTML = "";
+
+        const filtered = data.filter(person =>
+            person.nombre.toLowerCase().includes(input)
+        );
+
+        if (filtered.length === 0) {
+            container.innerHTML = "<p>No se encontraron coincidencias.</p>";
+        } else {
+            filtered.forEach(person => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `<strong>Nombre:</strong> ${person.nombre}<br>
+                                  <strong>Fecha:</strong> ${person.fecha}<br>
+                                  <strong>Estado:</strong> ${person.estado}<br>
+                                  <strong>Detalles:</strong> ${person.detalles}`;
+                container.appendChild(card);
+            });
+        }
+    }
+
+    // Mostrar todos al cargar
+    window.onload = filterResults;
+</script>
+
+</body>
+</html>
+
