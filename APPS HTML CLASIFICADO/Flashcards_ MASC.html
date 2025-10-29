@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Flashcards Interactivas - MASC (Completo con Navegación)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --primary: #1976d2;
+    --primary-dark: #125aa3;
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #222;
+    --text-inv: #fff;
+  }
+  body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 24px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    gap: 16px;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .title {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  button {
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--primary);
+    color: var(--text-inv);
+    transition: background 0.2s, transform 0.05s;
+  }
+  button:hover { background: var(--primary-dark); }
+  button:active { transform: translateY(1px); }
+  .muted { background: #e0e0e0; color: #222; }
+
+  .stage {
+    display: grid;
+    place-items: center;
+  }
+  .flashcard {
+    background: var(--card-bg);
+    width: min(800px, 92vw);
+    height: min(330px, 56vh);
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  }
+  .flashcard.flipped .inner { transform: rotateY(180deg); }
+  .side {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    border-radius: 14px;
+  }
+  .front {
+    background: var(--primary);
+    color: var(--text-inv);
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-y: auto;
+  }
+  .back {
+    background: var(--card-bg);
+    color: var(--text);
+    transform: rotateY(180deg);
+    text-align: left;
+    line-height: 1.4;
+    overflow-y: auto;
+  }
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .progress { font-weight: 600; }
+  .hint { color: #555; font-size: 14px; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="title">Flashcards MASC — Mediación, Arbitraje, Conciliación y Negociación</div>
+    <div class="controls">
+      <button id="prevBtn">⟵ Anterior</button>
+      <button id="nextBtn">Siguiente ⟶</button>
+      <button id="shuffleBtn" class="muted">Mezclar</button>
+      <button id="resetBtn" class="muted">Reiniciar orden</button>
+    </div>
+  </header>
+
+  <div class="stage">
+    <div class="flashcard" id="flashcard" title="Clic o barra espaciadora para voltear">
+      <div class="inner">
+        <div class="side front" id="front"></div>
+        <div class="side back" id="back"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="progress" id="progress">0 / 0</div>
+    <div class="hint">Sugerencias: Clic/Barra espaciadora = voltear • ←/→ = navegar</div>
+  </footer>
+
+<script>
+// === DATA COMPLETA (todas las preguntas y contenido) ===
+const cardsBase = [
+  // ——— MEDIACIÓN ———
+  {q: "¿Qué es la mediación?", a: "Proceso en el que un tercero neutral (mediador) facilita la comunicación para que las partes alcancen un acuerdo voluntario y satisfactorio sin imponer soluciones."},
+  {q: "Rol del mediador", a: "Facilitar el diálogo, ordenar los temas, gestionar tiempos y ayudar a identificar intereses. No decide ni impone."},
+  {q: "¿La mediación impone soluciones?", a: "No. El mediador no impone; las partes construyen el acuerdo."},
+  {q: "Principio: Neutralidad (mediación)", a: "El mediador no tiene intereses en el conflicto ni preferencias por alguna parte."},
+  {q: "Principio: Imparcialidad (mediación)", a: "El mediador actúa sin prejuicios ni sesgos que afecten el resultado."},
+  {q: "Principio: Confidencialidad (mediación)", a: "Lo dicho en sesión no se revela a terceros; protege información y fomenta apertura."},
+  {q: "Principio: Colaboración (mediación)", a: "Las partes trabajan juntas para construir una solución mutuamente aceptable."},
+  {q: "Principio: Voluntariedad (mediación)", a: "Participación libre; las partes pueden abandonar el proceso en cualquier momento."},
+  {q: "Marco legal: Constitución (mediación)", a: "Reforma al Art. 17 reconoce los MASC como parte del acceso a la justicia."},
+  {q: "Marco legal: Ley General de MASC (mediación)", a: "La Ley General de Mecanismos Alternativos de Solución de Controversias establece principios de confidencialidad, neutralidad, imparcialidad, colaboración y voluntariedad."},
+  {q: "Mediación en línea", a: "La ley permite tramitar MASC por medios electrónicos, reduciendo tiempos y costos."},
+  {q: "Ventaja (mediación): Flexibilidad", a: "Se adapta a circunstancias y necesidades específicas del caso."},
+  {q: "Ventaja (mediación): Costos reducidos", a: "Generalmente menos costosa que el juicio."},
+  {q: "Ventaja (mediación): Tiempo reducido", a: "Suele resolverse más rápido que otros mecanismos."},
+  {q: "Ventaja (mediación): Control de las partes", a: "Las partes definen el contenido del acuerdo y el proceso."},
+
+  // ——— ARBITRAJE ———
+  {q: "¿Qué es el arbitraje?", a: "Proceso en el que las partes, por acuerdo, someten su disputa a un árbitro o tribunal arbitral que emite un laudo vinculante tras valorar pruebas y argumentos."},
+  {q: "¿Qué es un tribunal arbitral?", a: "Órgano integrado por uno o más árbitros designados por las partes o conforme a reglas pactadas."},
+  {q: "¿Qué es el laudo?", a: "La decisión final del árbitro/tribunal arbitral; es obligatoria y vinculante para las partes."},
+  {q: "Carácter del laudo", a: "Obligatorio y ejecutable para las partes, salvo supuestos de anulación según la normativa aplicable."},
+  {q: "Principio: Voluntariedad (arbitraje)", a: "Requiere convenio arbitral; las partes deben consentir someterse al arbitraje."},
+  {q: "Principio: Neutralidad (árbitro)", a: "El árbitro no debe tener intereses personales o profesionales en la disputa."},
+  {q: "Principio: Imparcialidad (árbitro)", a: "Debe decidir sin sesgos, previa valoración objetiva de pruebas y argumentos."},
+  {q: "Principio: Confidencialidad (arbitraje)", a: "Actuaciones y documentos se mantienen reservados salvo acuerdo en contrario o disposición legal."},
+  {q: "Principio: Colaboración (arbitraje)", a: "Las partes cooperan para el desarrollo del procedimiento y la emisión del laudo."},
+  {q: "Marco legal: Constitución (arbitraje)", a: "Art. 17 reconoce a los MASC en el acceso a la justicia."},
+  {q: "Marco legal: Ley General de MASC (arbitraje)", a: "Recoge principios de confidencialidad, neutralidad, imparcialidad, colaboración y voluntariedad; habilita medios electrónicos."},
+  {q: "Arbitraje en línea", a: "La tramitación por medios electrónicos agiliza plazos y reduce costos logísticos."},
+  {q: "Ventaja (arbitraje): Rapidez", a: "Menos formalidades que el proceso judicial; tiempos más breves."},
+  {q: "Ventaja (arbitraje): Flexibilidad", a: "Las partes acuerdan reglas de procedimiento adecuadas a su caso."},
+  {q: "Ventaja (arbitraje): Confidencialidad", a: "Resguarda información sensible de negocio o reputación."},
+  {q: "Ventaja (arbitraje): Costo", a: "Puede resultar más económico que el litigio judicial tradicional."},
+
+  // ——— CONCILIACIÓN ———
+  {q: "¿Qué es la conciliación?", a: "Proceso de negociación asistida en el que un tercero neutral (conciliador) ayuda a las partes a alcanzar un acuerdo pacífico y voluntario."},
+  {q: "Rol del conciliador", a: "Facilita la comunicación, propone fórmulas y promueve entendimientos sin imponer decisiones."},
+  {q: "Principio: Neutralidad (conciliación)", a: "El conciliador no tiene intereses ni lealtades hacia alguna parte."},
+  {q: "Principio: Confidencialidad (conciliación)", a: "Las comunicaciones y deliberaciones se mantienen en secreto."},
+  {q: "Principio: Voluntariedad (conciliación)", a: "Participación y aceptación del acuerdo dependen del consentimiento de las partes."},
+  {q: "Principio: Colaboración (conciliación)", a: "Se requiere participación activa de todas las partes para construir el acuerdo."},
+  {q: "Principio: Flexibilidad (conciliación)", a: "El proceso se adapta a las necesidades del caso."},
+  {q: "Marco legal: Constitución (conciliación)", a: "Art. 17 reconoce MASC como parte del acceso a la justicia."},
+  {q: "Marco legal: Ley General de MASC (conciliación)", a: "Regula la conciliación, fija principios de voluntariedad, confidencialidad, neutralidad e imparcialidad; habilita medios electrónicos."},
+  {q: "Conciliación en línea", a: "La LGMASC/LGMAC permite tramitar sesiones y acuerdos por medios electrónicos."},
+
+  // ——— NEGOCIACIÓN ———
+  {q: "¿Qué es la negociación?", a: "Proceso comunicativo y cooperativo entre dos o más partes para alcanzar un acuerdo mutuo sobre un tema específico, intercambiando información, intereses y necesidades."},
+  {q: "Elementos clave de la negociación", a: "Interacción activa, creatividad, búsqueda de equilibrio entre necesidades y objetivos de cada parte."},
+  {q: "Principio: Voluntariedad (negociación)", a: "Las partes deciden negociar y alcanzar acuerdos libremente."},
+  {q: "Principio: Colaboración (negociación)", a: "Trabajo conjunto para soluciones de beneficio mutuo."},
+  {q: "Tercero neutral en negociación", a: "Puede participar un mediador/conciliador neutral para facilitar el proceso."},
+  {q: "Principio: Confidencialidad (negociación)", a: "Posibilita compartir información sensible sin temor a su divulgación."},
+  {q: "Principio: Imparcialidad (negociación)", a: "Decisiones y acuerdos deben ser justos y equitativos."},
+  {q: "Marco legal (negociación)", a: "Art. 17 y Ley General de MASC: principios de confidencialidad, neutralidad, imparcialidad, colaboración y voluntariedad; transparencia y accesibilidad."},
+  {q: "Negociación en línea", a: "La ley permite tramitar MASC por medios electrónicos, facilitando acceso en contextos de distancia o recursos limitados."},
+
+  // ——— VENTAJAS GENERALES DE LOS MASC ———
+  {q: "Ventaja MASC: Flexibilidad", a: "Procedimientos y soluciones adaptables a cada caso."},
+  {q: "Ventaja MASC: Eficacia", a: "Resuelven disputas de manera efectiva, reduciendo tiempo y costos del litigio tradicional."},
+  {q: "Ventaja MASC: Confidencialidad", a: "Protege la información y el contenido de la negociación/mediación."},
+  {q: "Ventaja MASC: Colaboración", a: "Fomenta acuerdos constructivos orientados al beneficio mutuo."},
+  {q: "Ventaja MASC: Voluntariedad", a: "Las partes participan y acuerdan sin imposición externa."},
+  {q: "Ventaja MASC: Acceso a la justicia", a: "Acerca soluciones a quienes enfrentan barreras geográficas o de recursos; medios electrónicos apoyan el acceso."},
+  {q: "Ventaja MASC: Reducción de costos", a: "Menor necesidad de recursos que el litigio judicial."},
+  {q: "Ventaja MASC: Reducción del estrés", a: "Entornos más colaborativos y menos confrontativos que el juicio."},
+  {q: "Marco legal de soporte (MASC)", a: "Reforma de 2011 al Art. 17 y Ley General de MASC consolidan principios y habilitan tramitación electrónica."},
+
+  // ——— DESVENTAJAS DE LOS MASC ———
+  {q: "Desventaja: Protección de derechos", a: "Puede existir presión para acordar; no siempre hay herramientas para imponer sanciones ante incumplimiento."},
+  {q: "Desventaja: Falta de transparencia", a: "No siguen los mismos estándares de rendición de cuentas que los procesos judiciales, generando desconfianza."},
+  {q: "Desventaja: Desigualdad en el acceso", a: "Quienes tienen mayores recursos pueden aprovechar mejor los MASC, excluyendo a los más vulnerables."},
+  {q: "Desventaja: Conflicto con Constitución/leyes", a: "Si un MASC no protege derechos fundamentales, puede contravenir el marco constitucional."},
+  {q: "Desventaja: Dependencia de la voluntariedad", a: "Si las partes no desean participar, el mecanismo pierde eficacia."},
+  {q: "Desventaja: Falta de capacitación/recursos", a: "Déficits en formación de mediadores/árbitros y apoyo institucional reducen la efectividad."},
+  {q: "Desventaja: Limitaciones tecnológicas", a: "La tramitación en línea puede excluir a quienes carecen de acceso o habilidades digitales."}
+];
+
+// Estado
+let cards = [...cardsBase];
+let current = 0;
+
+// Referencias DOM
+const flashcard = document.getElementById('flashcard');
+const front = document.getElementById('front');
+const back = document.getElementById('back');
+const progress = document.getElementById('progress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+function render() {
+  flashcard.classList.remove('flipped');
+  front.textContent = cards[current].q;
+  back.textContent = cards[current].a;
+  progress.textContent = `${current + 1} / ${cards.length}`;
+}
+
+function next() { current = (current + 1) % cards.length; render(); }
+function prev() { current = (current - 1 + cards.length) % cards.length; render(); }
+
+function shuffle() {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  current = 0; render();
+}
+function reset() { cards = [...cardsBase]; current = 0; render(); }
+
+// Eventos
+flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
+prevBtn.addEventListener('click', prev);
+nextBtn.addEventListener('click', next);
+shuffleBtn.addEventListener('click', shuffle);
+resetBtn.addEventListener('click', reset);
+
+// Teclado: barra espaciadora voltea; flechas navegan
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); flashcard.classList.toggle('flipped'); }
+  if (e.key === 'ArrowRight') { next(); }
+  if (e.key === 'ArrowLeft') { prev(); }
+});
+
+render();
+</script>
+</body>
+</html>

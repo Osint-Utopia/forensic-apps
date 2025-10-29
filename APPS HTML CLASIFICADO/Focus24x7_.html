@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secuencia Completa - Focus24x7® Intro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* FASE 1: INTRODUCCIÓN PERSONAL */
+        .intro-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+            opacity: 1;
+            animation: introFadeOut 1s ease-in-out 3s forwards;
+        }
+
+        .intro-text {
+            text-align: center;
+            color: #ffffff;
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: introTypewriter 2.5s ease-in-out forwards;
+            position: relative;
+        }
+
+        .intro-text::after {
+            content: '|';
+            color: #00ffff;
+            animation: introCursor 1s infinite, cursorFade 0.5s ease-in-out 2.5s forwards;
+        }
+
+        @keyframes introTypewriter {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        @keyframes introCursor {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes cursorFade {
+            100% { opacity: 0; }
+        }
+
+        @keyframes introFadeOut {
+            0% { opacity: 1; transform: scale(1); }
+            70% { opacity: 0.3; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(0); visibility: hidden; }
+        }
+
+        /* EFECTOS DE TRANSICIÓN */
+        .transition-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+            background: radial-gradient(circle, transparent 0%, #000000 50%);
+            opacity: 0;
+            animation: transitionPulse 2s ease-in-out 3.5s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes transitionPulse {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 0.8; transform: scale(2); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        /* Canvas para la lluvia binaria */
+        #binaryCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            animation: binaryFadeIn 1s ease-in-out 4s forwards;
+        }
+
+        @keyframes binaryFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* FASE 2: TEXTO FOCUS24X7 */
+        .main-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            animation: mainTextFadeIn 3s ease-in-out 6s forwards;
+        }
+
+        .company-name {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #00ffff, #ffffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 32px;
+            color: #00ffff;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            opacity: 0;
+            animation: taglineFadeIn 2s ease-in-out 8s forwards;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes mainTextFadeIn {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes taglineFadeIn {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* FASE 3: CALL TO ACTION */
+        .cta-section {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            animation: ctaFadeIn 2s ease-in-out 10s forwards;
+        }
+
+        .cta-text {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 10px rgba(255, 107, 53, 0.8),
+                0 0 20px rgba(255, 107, 53, 0.6),
+                0 0 30px rgba(255, 107, 53, 0.4);
+            animation: ctaPulse 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 15px 30px;
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            border-radius: 50px;
+            background: rgba(255, 107, 53, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-text:hover {
+            transform: scale(1.05);
+            background: rgba(255, 107, 53, 0.2);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+        }
+
+        @keyframes ctaFadeIn {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px rgba(255, 107, 53, 0.8),
+                    0 0 20px rgba(255, 107, 53, 0.6),
+                    0 0 30px rgba(255, 107, 53, 0.4);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 107, 53, 1),
+                    0 0 30px rgba(255, 107, 53, 0.8),
+                    0 0 40px rgba(255, 107, 53, 0.6);
+            }
+        }
+
+        /* Efectos de partículas de fondo */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 4s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 5s; }
+        .particle:nth-child(3) { left: 50%; animation-delay: 6s; }
+        .particle:nth-child(4) { left: 70%; animation-delay: 7s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+        @keyframes particleFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) scale(0);
+            }
+            10% { 
+                opacity: 1; 
+                transform: translateY(90vh) scale(1);
+            }
+            90% { 
+                opacity: 1; 
+                transform: translateY(10vh) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(0) scale(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-text {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+            .company-name {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+            .tagline {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+            .cta-text {
+                font-size: 18px;
+                letter-spacing: 1px;
+                padding: 12px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro-text {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+            .company-name {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+            .tagline {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+            .cta-text {
+                font-size: 16px;
+                letter-spacing: 1px;
+                padding: 10px 20px;
+            }
+        }
+
+        /* Efectos adicionales de ambiente */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: ambientPulse 4s ease-in-out infinite, ambientFadeIn 1s ease-in-out 4s forwards;
+            z-index: 0;
+        }
+
+        @keyframes ambientFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes ambientPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.05;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FASE 1: Introducción Personal -->
+    <div class="intro-section">
+        <div class="intro-text">Hola, mi nombre es Al...</div>
+    </div>
+
+    <!-- Efecto de transición -->
+    <div class="transition-effect"></div>
+
+    <!-- Partículas ambientales -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Resplandor ambiental -->
+    <div class="ambient-glow"></div>
+
+    <!-- FASE 2: Canvas para lluvia binaria -->
+    <canvas id="binaryCanvas"></canvas>
+    
+    <!-- FASE 3: Texto principal Focus24x7 -->
+    <div class="main-text">
+        <div class="company-name">Focus24x7®</div>
+        <div class="tagline">Éticamente Intrusiva</div>
+    </div>
+
+    <!-- FASE 4: Call to Action -->
+    <div class="cta-section">
+        <div class="cta-text" id="ctaLink">Entérate de qué se trata...</div>
+    </div>
+
+    <script>
+        // Configuración de la lluvia binaria (inicia después de la intro)
+        const canvas = document.getElementById('binaryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Configuración lluvia binaria
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+
+        const binaryChars = '01';
+        const specialChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        
+        function getRandomChar() {
+            return Math.random() < 0.9 ? 
+                binaryChars[Math.floor(Math.random() * binaryChars.length)] :
+                specialChars[Math.floor(Math.random() * specialChars.length)];
+        }
+
+        function draw() {
+            // Fondo negro semitransparente
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = `${fontSize}px 'Courier New', monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const char = getRandomChar();
+                const y = drops[i] * fontSize;
+                const opacity = Math.max(0, 1 - (y / canvas.height) * 0.7);
+                
+                if (Math.random() < 0.1) {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.shadowBlur = 10;
+                } else {
+                    ctx.fillStyle = `rgba(0, 255, 255, ${opacity})`;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.shadowBlur = 2;
+                }
+
+                ctx.fillText(char, i * fontSize, y);
+                ctx.shadowBlur = 0;
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+
+        let animationId;
+        function animate() {
+            draw();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Iniciar lluvia binaria después de la introducción (4 segundos)
+        setTimeout(() => {
+            animate();
+        }, 4000);
+
+        // Reducir intensidad después de 8 segundos
+        setTimeout(() => {
+            const fadeInterval = setInterval(() => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }, 100);
+            
+            setTimeout(() => {
+                clearInterval(fadeInterval);
+                cancelAnimationFrame(animationId);
+            }, 3000);
+        }, 12000);
+
+        // Manejar click en CTA
+        document.getElementById('ctaLink').addEventListener('click', function() {
+            // AQUÍ AGREGAS TU LINK
+            // window.open('TU_LINK_AQUI', '_blank');
+            
+            // Por ahora, efecto visual de click
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1.05)';
+            }, 100);
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+            
+            console.log('Aquí agregas tu link de Focus24x7®');
+        });
+
+        // Efecto de sonido sutil (opcional)
+        function playTransitionSound() {
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                const audioContext = new (AudioContext || webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.3);
+                
+                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        }
+
+        // Activar sonido en la transición
+        setTimeout(playTransitionSound, 3500);
+
+        // Easter egg: Doble click reinicia toda la secuencia
+        document.addEventListener('dblclick', () => {
+            location.reload();
+        });
+
+        // Ajustar columnas si cambia el tamaño
+        window.addEventListener('resize', () => {
+            columns = Math.floor(canvas.width / fontSize);
+            drops.length = columns;
+            for (let i = 0; i < columns; i++) {
+                if (drops[i] === undefined) {
+                    drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

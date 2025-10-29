@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Contacto — Lic. Al Ulises Azúa | Abogado Forense</title>
+    <meta name="description" content="Agenda tu consulta. Contacto directo por WhatsApp para casos con análisis forense: penal, civil, familiar, mercantil, peritajes.">
+    <meta name="author" content="Lic. Al Ulises Azúa">
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+          font-family : 'Poppins', Arial, sans-serif;
+          background : #f7f9fc;
+          line-height : 1.7;
+        }
+        .navbar-brand img {
+          max-height : 48px;
+        }
+        .hero {
+          background : #0b0f1a;
+          color : #fff;
+          padding : 60px 0;
+        }
+        .badge-forense {
+          background : #ffc107;
+          font-size : 12px;
+          padding : 4px 8px;
+          border-radius : 6px;
+          font-weight : 700;
+        }
+        .form-wrap {
+          background : #fff;
+          border-radius : 16px;
+          box-shadow : 0 12px 30px rgba(20, 32, 50, .08);
+          padding : 28px;
+        }
+        .help {
+          font-size : .9rem;
+          color : #6b7280;
+        }
+          .required : after {
+          content : " *";
+          color : #dc2626;
+        }
+        .floating-whatsapp {
+          position : fixed;
+          bottom : 20px;
+          right : 20px;
+          z-index : 1000;
+        }
+        .pill {
+          display : inline-block;
+          background : #e5e7eb;
+          color : #111827;
+          padding : 2px 10px;
+          border-radius : 999px;
+          font-size : 12px;
+          margin-right : 6px;
+        }
+        footer {
+          background : #0b0f1a;
+          color : #cbd5e1;
+          padding : 40px 0;
+          margin-top : 40px;
+        }
+        footer a {
+          color : #ffc107;
+          text-decoration : none;
+        }
+        .input-group-text {
+          background : #f3f4f6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/Abogados Forenses_final logo 1.jpg" alt="Logo">
+                <span class="ms-2 fw-bold">Lic. Al Ulises Azúa</span>
+            </a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+                    <li class="nav-item d-flex align-items-center ms-2"><span class="badge-forense">CERTIFICADO FORENSE</span></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center gy-3">
+                <div class="col-lg-8">
+                    <h1 data-aos="fade-up">Agenda tu consulta forense</h1>
+                    <p class="mt-2" data-aos="fade-up" data-aos-delay="100">
+                        Atención de <span class="fw-semibold">casos serios</span> con enfoque científico y jurídico. Respuesta prioritaria por WhatsApp.
+                    </p>
+                    <div class="mt-2">
+                        <span class="pill">Penal</span>
+                        <span class="pill">Civil/Mercantil</span>
+                        <span class="pill">Familiar</span>
+                        <span class="pill">Peritajes</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="tel:5213319608468" class="btn btn-outline-light me-2">
+                        <i class="fa-solid fa-phone me-1"></i> Urgencias 24/7
+                    </a>
+                    <a href="#formulario" class="btn btn-warning">
+                        <i class="fa-solid fa-calendar-check me-1"></i> Reservar ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM -->
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-wrap" id="formulario" data-aos="fade-up">
+                    <h2 class="mb-1 fw-bold">Formulario de contacto</h2>
+                    <p class="text-muted mb-4">Campos marcados con * son obligatorios. Tiempo de respuesta típico: 1–3 horas hábiles.</p>
+
+                    <form id="contactForm" novalidate>
+                        <!-- Honeypot anti-spam -->
+                        <input type="text" name="company" id="company" class="d-none" autocomplete="off" tabindex="-1">
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label required" for="name">Nombre completo</label>
+                                <input type="text" id="name" name="name" class="form-control" required maxlength="80" autocomplete="name" />
+                                <div class="invalid-feedback">Indica tu nombre.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label required" for="phone">WhatsApp</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+52</span>
+                                    <input type="tel" id="phone" name="phone" class="form-control" inputmode="tel" placeholder="33 1234 5678" required pattern="^[0-9\s\-]{8,20}$" />
+                                </div>
+                                <div class="help">Preferente de México. Ajusta el prefijo si escribes desde otro país.</div>
+                                <div class="invalid-feedback">Escribe un WhatsApp válido.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label required" for="email">Correo</label>
+                                <input type="email" id="email" name="email" class="form-control" required autocomplete="email" />
+                                <div class="invalid-feedback">Ingresa un correo válido.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label required" for="caseType">Tipo de caso</label>
+                                <select id="caseType" name="caseType" class="form-select" required>
+                                    <option value="" selected disabled>Selecciona una opción…</option>
+                                    <option>Penal</option>
+                                    <option>Civil</option>
+                                    <option>Mercantil</option>
+                                    <option>Familiar</option>
+                                    <option>Laboral</option>
+                                    <option>Peritaje (grafoscopía, criminalística, OSINT)</option>
+                                    <option>Otros</option>
+                                </select>
+                                <div class="invalid-feedback">Selecciona el tipo de caso.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label required" for="urgency">Urgencia</label>
+                                <select id="urgency" name="urgency" class="form-select" required>
+                                    <option value="" selected disabled>¿Qué tan urgente?</option>
+                                    <option>Alta (48h)</option>
+                                    <option>Media (7 días)</option>
+                                    <option>Baja (Planificación)</option>
+                                </select>
+                                <div class="invalid-feedback">Indica la urgencia.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label required" for="desc">Describe tu caso</label>
+                                <textarea id="desc" name="desc" rows="5" class="form-control" required minlength="20" maxlength="1500" placeholder="Expón hechos, fechas clave y qué necesitas lograr…"></textarea>
+                                <div class="help">Cuanto más claro, mejor puedo ayudarte. No compartas datos sensibles innecesarios.</div>
+                                <div class="invalid-feedback">Por favor, describe tu caso (mín. 20 caracteres).</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" for="pref">Preferencia de contacto</label>
+                                <select id="pref" name="pref" class="form-select">
+                                    <option>WhatsApp</option>
+                                    <option>Llamada</option>
+                                    <option>Correo</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" id="consent" required>
+                                    <label class="form-check-label required" for="consent">
+                                        Acepto el aviso de privacidad y el uso de mis datos para ser contactado.
+                                    </label>
+                                    <div class="invalid-feedback">Debes aceptar para continuar.</div>
+                                </div>
+                                <div class="help mt-1">
+                                    Tus datos se tratan conforme a principios de licitud, finalidad y proporcionalidad.
+                                    <a href="#privacidad" class="link-primary">Ver aviso</a>.
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex flex-wrap gap-2 mt-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-brands fa-whatsapp me-1"></i> Enviar por WhatsApp
+                                </button>
+                                <button type="button" id="sendEmail" class="btn btn-outline-secondary">
+                                    <i class="fa-solid fa-envelope me-1"></i> Enviar por correo
+                                </button>
+                                <a href="tel:5213319608468" class="btn btn-outline-dark">
+                                    <i class="fa-solid fa-phone me-1"></i> Llamar ahora
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Toast -->
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+                        <div id="toastOK" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    Redirigiendo a WhatsApp… Si no se abre, revisa bloqueos de ventanas.
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Aviso de Privacidad -->
+                <section class="mt-4" id="privacidad" data-aos="fade-up" data-aos-delay="100">
+                    <div class="form-wrap">
+                        <h3 class="fw-bold mb-2">Aviso de privacidad (síntesis)</h3>
+                        <p class="mb-2">
+                            Los datos proporcionados (nombre, teléfono, correo y descripción del caso) se utilizarán exclusivamente para brindarte asesoría y seguimiento. No se comparten con terceros sin tu consentimiento, salvo obligación legal.
+                        </p>
+                        <ul class="mb-2">
+                            <li>Finalidades: contacto, agenda y evaluación preliminar.</li>
+                            <li>Conservación: solo por el tiempo necesario para atender el asunto.</li>
+                            <li>Derechos ARCO: solicita acceso, rectificación o supresión escribiendo a <a href="mailto:consultas@abogadoforense.mx">consultas@abogadoforense.mx</a>.</li>
+                        </ul>
+                        <p class="mb-0 help">Versión completa disponible a solicitud.</p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row gy-3 align-items-center">
+                <div class="col-lg-8">
+                    <p class="mb-1">&copy; 2025 Lic. Al Ulises Azúa — Todos los derechos reservados</p>
+                    <p class="mb-0"><em>“La diferencia no está solo en la ley, está en la ciencia que la respalda.”</em></p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="index.html" class="me-3">Inicio</a>
+                    <a href="blog.html" class="me-3">Blog</a>
+                    <a href="tel:5213319608468"><i class="fa-solid fa-phone me-1"></i> +52 33 1960 8468</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp flotante -->
+    <div class="floating-whatsapp">
+        <a href="https://wa.me/5213319608468?text=Hola%20Lic.%20Az%C3%BAa,%20tengo%20un%20caso%20para%20revisar." target="_blank" class="btn btn-success rounded-circle p-3">
+            <i class="fab fa-whatsapp fa-2x"></i>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    
+        // Utilidades
+        const WAPP_NUMBER = "5213319608468"; // Ajusta si es necesario
+        const form = document.getElementById('contactForm');
+        const sendEmailBtn = document.getElementById('sendEmail');
+        const toastOK = new bootstrap.Toast(document.getElementById('toastOK'));
+    
+        function buildMessage(data){
+          const lines = [
+            "Nueva consulta forense:",
+            `Nombre: ${data.name}`,
+            `WhatsApp: +52 ${data.phone}`,
+            `Correo: ${data.email}`,
+            `Tipo de caso: ${data.caseType}`,
+            `Urgencia: ${data.urgency}`,
+            `Preferencia: ${data.pref || "No indicado"}`,
+            "Descripción:",
+            data.desc
+          ];
+          return lines.join("\n");
+        }
+    
+        function encodeForURL(text){ return encodeURIComponent(text); }
+    
+        // Validación Bootstrap
+        function validateForm(){
+          // honeypot
+          if (document.getElementById('company').value.trim() !== "") return false;
+    
+          if (!form.checkValidity()){
+            form.classList.add('was-validated');
+            return false;
+          }
+          return true;
+        }
+    
+        // Envío por WhatsApp
+        form.addEventListener('submit', (e)=>{
+          e.preventDefault();
+          if (!validateForm()) return;
+    
+          const fd = new FormData(form);
+          const data = Object.fromEntries(fd.entries());
+          const msg = buildMessage(data);
+          const url = `https://wa.me/${WAPP_NUMBER}?text=${encodeForURL(msg)}`;
+    
+          toastOK.show();
+          window.open(url, '_blank');
+        });
+    
+        // Fallback: Enviar por email (mailto)
+        sendEmailBtn.addEventListener('click', ()=>{
+          if (!validateForm()) return;
+    
+          const fd = new FormData(form);
+          const data = Object.fromEntries(fd.entries());
+          const subject = encodeForURL("Nueva consulta forense");
+          const body = encodeForURL(buildMessage(data));
+          window.location.href = `mailto:consultas@abogadoforense.mx?subject=${subject}&body=${body}`;
+        });
+    
+        // UX: si el usuario edita, limpiar estado de validación
+        form.querySelectorAll('input, select, textarea').forEach(el=>{
+          el.addEventListener('input', ()=> form.classList.remove('was-validated'));
+        });
+    </script>
+</body>
+
+</html>

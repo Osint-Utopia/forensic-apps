@@ -1,0 +1,616 @@
+	<!DOCTYPE html>
+
+	<html lang="es">
+	<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<title>Aplicación de Denuncias</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+			body {
+				background-color: #f9fafb; /* Light Gray Background */
+				color: #1f2937; /* Dark Text */
+			}
+			.note-preview {
+				background-color: #fa882a; /* White Background for Notes */
+				border: 1px solid #e5e7eb; /* Light Gray Border */
+				color: #1f2937; /* Dark Text */
+			}
+			.note-preview:hover {
+				background-color: #f3f4f6; /* Lighter Gray on Hover */
+			}
+			.note-input {
+				background-color: #ffffff; /* White Background for Input */
+				border: 1px solid #e5e7eb; /* Light Gray Border */
+				color: #1f2937; /* Dark Text */
+			}
+			.accordion {
+				background-color: #ffffff;
+				color: #1f2937;
+				cursor: pointer;
+				padding: 18px;
+				width: 100%;
+				border: none;
+				text-align: left;
+				outline: none;
+				font-size: 15px;
+				transition: 0.4s;
+			}
+			.active, .accordion:hover {
+				background-color: #f3f4f6;
+			}
+			.accordion:after {
+				content: '\02795'; /* Unicode character for "plus" sign (+) */
+				font-size: 13px;
+				color: #777;
+				float: right;
+				margin-left: 5px;
+			}
+			.active:after {
+				content: '\2796'; /* Unicode character for "minus" sign (-) */
+				color: #777;
+			}
+			.panel {
+				padding: 0 18px;
+				background-color: white;
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.2s ease-out;
+			}
+		</style>
+	<style>
+	body {
+	  font-family: Arial, sans-serif;
+	  text-align: justify;
+	  margin: 2.5cm 2.5cm 2.5cm 3cm;
+	}
+	header {
+	  text-align: center;
+	  margin-bottom: 10px;
+	}
+	header img {
+	  max-width: 150px;
+	  height: auto;
+	  display: block;
+	  margin: 0 auto;
+	}
+	footer {
+	  text-align: center;
+	  font-size: 0.8em;
+	  margin-top: 30px;
+	  color: #555;
+	}
+	.buttons-container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 10px;
+	  justify-content: center;
+	  margin-top: 20px;
+	}
+	.marca-agua {
+	  position: fixed;
+	  bottom: 1cm;
+	  width: 100%;
+	  text-align: center;
+	  font-size: 20px;
+	  color: gray;
+	  opacity: 0.4;
+	  z-index: 9999;
+	}
+	@media screen and (max-width: 768px) {
+	  body {
+		margin: 20px;
+	  }
+	  header, footer {
+		font-size: 0.9em;
+	  }
+	}
+	</style></head>
+	<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+	<header class="bg-white shadow-md p-4">
+		<h1 class="w-full bg-blue-500 text-white text-lg font-bold p-2 mb-4 rounded">Abogados Forenses | Despacho Juridico </h1>
+	<div>Lic. Alejo Ramon | alejo-mr@hotmail.com<div>
+	<div>Lic. Sergio Mercado | lic.mercado@gmx.com<br/><div>
+	<div>Lic. Al Azúa | lic.azua@gmx.com<div>
+	<div>Jalisco – Quintana Roo – Yucatán – Nuevo León<br/><div>
+	<div><a href="https://azuaymercadoasociados.webnode.mx/" target="_blank">abogadosforenses.org</a><div>
+	<div><h1 class="w-full bg-red-500 text-white font-regular mb-2 rounded">
+		© 2025 Se prohíbe la reproducción parcial o total de este medio digital.</h1>
+	</div>
+	</header>
+	<div class="marca-agua">Uso exclusivo y único - abogadosforenses.org Firma Legal</div>
+
+	<div class="w-3/4 p-4 bg-gray-100">
+	<h2 class="text-xl font-bold mb-4">Formulario para Inicio de Carpeta de Investigacion</h2>
+	<button class="w-full bg-blue-500 text-white p-2 mb-4 rounded" id="newNoteButton">Nueva Denuncia</button>
+	<h2 class="text-xl font-regular mb-4" id="noteTitle">1 linea naranja genera texto ejemplo, Boton Denuncia guarda la informacion, 3 linea ""BORRA TODO""</h2>
+	<div class="space-y-2" id="noteList">
+	<!-- Note previews will be inserted here -->
+	</div>
+	</div>
+	<div class="w-3/4 p-4">
+	<h2 class="text-xl font-bold mb-4" id="noteTitle">Lea detenidamente e ingrese la informacion correcta, puede borrar o editar mientras no de click a guardar, una vez llenado el formulario, de click al boton verde Guardar Denuncia al final de la pagina y posteriormente, de click al boton Exportar pdf, y ese archivo que se genere, envielo a nosotros por email o whatsapp, este formulario es de un solo uso.</h2>
+	<div id="formSections">
+	<div class="mb-4" id="section1">
+	<h3 class="text-lg font-bold mb-2">Seccion 1: INFORMACION DEL DENUNCIANTE</h3>
+	<input class="note-input w-full p-2 mb-2 rounded" id="nombreDenunciante" placeholder="Nombre(s) Apellidos Paterno y Materno" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="curpRfc" placeholder="Con que documento se identifica INE / CURP / RFC" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="domicilioNotificaciones" placeholder="Casa #, Int #, Calle, Colonia, Municipio, Ciudad, Estado" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="telefonoCorreo" placeholder="Numero de Teléfono y Correo Electrónico" type="text"/>
+	<select class="note-input w-full p-2 mb-2 rounded" id="representaPersonaMoral">
+	<option value="">¿Representa usted a una Persona Moral, Sociedad o Asociacion?, (si) Acompañe el poder correspondiente</option>
+	<option value="si">Sí</option>
+	<option value="no">No</option>
+	</select>
+	</div>
+	<div class="mb-4" id="section2">
+	<h3 class="text-lg font-bold mb-2">Seccion 2: INFORMACIÓN DEL PROBABLE RESPONSABLE</h3>
+	<select class="note-input w-full p-2 mb-2 rounded" id="conoceIdentidad">
+	<option value="">¿Conoce su identidad?</option>
+	<option value="si">Sí</option>
+	<option value="no">No</option>
+	</select>
+	<input class="note-input w-full p-2 mb-2 rounded" id="nombreResponsable" placeholder="Nombre completo, Apodo o Alias" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="datosContacto" placeholder="Datos de contacto, localizacion o ubicacion disponible" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="descripcionFisica" placeholder="Media filiacion: La descripción física detallada :Nombre Alias Edad Sexo Altura Peso Complexión Color de piel Forma de la cara Cabello color Rostro frente cejas ojos nariz boca labios Barba y bigotes Mentón Cuello Orejas Dentadura otras señas" type="text"/>
+	</div>
+	<div class="mb-4" id="section3">
+	<h3 class="text-lg font-bold mb-2">Seccion 3: BIENES JURÍDICOS AFECTADOS</h3>
+	<button class="accordion">Bienes Jurídicos Afectados marque el area que considere usted le fue afectada</button>
+	<div class="panel">
+	<div class="flex flex-wrap">
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="vidaIntegridad" type="checkbox"/>
+	<label for="vidaIntegridad">La vida y la integridad corporal</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="libertadPersonal" type="checkbox"/>
+	<label for="libertadPersonal">La libertad personal</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="libertadSexual" type="checkbox"/>
+	<label for="libertadSexual">La libertad y la seguridad sexual</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="patrimonio" type="checkbox"/>
+	<label for="patrimonio">El patrimonio</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="familia" type="checkbox"/>
+	<label for="familia">La familia</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="sociedad" type="checkbox"/>
+	<label for="sociedad">La sociedad</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="otros" type="checkbox"/>
+	<label for="otros">Otros bienes jurídicos afectados, señalelos en su descripcion de hechos</label>
+	</div>
+	</div>
+	</div>
+	<input class="note-input w-full p-2 mb-2 rounded" id="fechasHechos" placeholder="Fechas en que ocurrieron los hechos, de inicio a fin." type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="lugarHechos" placeholder="Lugar(es) donde ocurrieron los hechos" type="text"/>
+	<input class="note-input w-full p-2 mb-2 rounded" id="montoPerjuicio" placeholder="Monto del perjuicio patrimonial, economico en especie, gastos medicos, etc." type="text"/>
+	<button class="accordion">Tipos de Delito, marque los que usted considere, sin caer en el abuso o suposiciones</button>
+	<div class="panel">
+	<div class="flex flex-wrap">
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="abusoMenores" type="checkbox"/>
+	<label for="abusoMenores">Abuso de menores</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="amenazas" type="checkbox"/>
+	<label for="amenazas">Amenazas</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="abusoSexual" type="checkbox"/>
+	<label for="abusoSexual">Abuso sexual</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="acosoSexual" type="checkbox"/>
+	<label for="acosoSexual">Acoso sexual</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="corrupcion" type="checkbox"/>
+	<label for="corrupcion">Corrupción</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="delitosElectorales" type="checkbox"/>
+	<label for="delitosElectorales">Delitos electorales</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="desaparicionPersonas" type="checkbox"/>
+	<label for="desaparicionPersonas">Desaparición de personas</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="discriminacion" type="checkbox"/>
+	<label for="discriminacion">Discriminación</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="extorsion" type="checkbox"/>
+	<label for="extorsion">Extorsión</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="fraude" type="checkbox"/>
+	<label for="fraude">Fraude</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="feminicidio" type="checkbox"/>
+	<label for="feminicidio">Feminicidio</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="homicidio" type="checkbox"/>
+	<label for="homicidio">Homicidio</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="lesiones" type="checkbox"/>
+	<label for="lesiones">Lesiones</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="maltratoAnimal" type="checkbox"/>
+	<label for="maltratoAnimal">Maltrato animal</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="robo" type="checkbox"/>
+	<label for="robo">Robo</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="secuestro" type="checkbox"/>
+	<label for="secuestro">Secuestro</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="trataPersonas" type="checkbox"/>
+	<label for="trataPersonas">Trata de personas</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="violacion" type="checkbox"/>
+	<label for="violacion">Violación</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="violenciaDigital" type="checkbox"/>
+	<label for="violenciaDigital">Violencia digital</label>
+	</div>
+	<div class="w-full md:w-1/2 xl:w-1/2 p-2">
+	<input class="mr-2" id="violenciaFamiliar" type="checkbox"/>
+	<label for="violenciaFamiliar">Violencia familiar</label>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="mb-4" id="section4">
+	<h3 class="text-lg font-bold mb-2">Seccion 4: DESCRIPCIÓN DE LOS HECHOS</h3>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="descripcionHechos" placeholder="¿En qué consistió el hecho: Describa las circunstancias de tiempo, modo y lugar; debe ser clara, precisa y detallada e incluir: Cuándo ocurrieron los hechos, fecha y hora, Dónde ocurrieron los hechos, si se tiene dirección o un lugar de referencia, Cómo ocurrieron los hechos, Quién o quiénes cometieron el delito (si se sabe), Descripción de la persona que cometió el delito, si se pudo ver, elementos con los que se cuenta para probar lo denunciado"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="modoHechos" placeholder="¿Cómo se realizó: Con violencia, en pandilla, mas de uno, con engaño"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="relacionResponsable" placeholder="¿Existe alguna relación previa con el probable responsable? Si/No, Describa"></textarea>
+	</div>
+	<div class="mb-4" id="section5">
+	<h3 class="text-lg font-bold mb-2">Seccion 5: EVIDENCIA DISPONIBLE</h3>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="documentosDisponibles" placeholder="Listado de documentos que tiene disponibles"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="testigos" placeholder="Testigos: nombres y relación con los hechos"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="comunicacionesRelevantes" placeholder="Comunicaciones relevantes: Mensajes, Correos"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="comprobantes" placeholder="Comprobantes: De pago/transferencia"></textarea>
+	<textarea class="note-input w-full h-24 p-2 mb-2 rounded" id="otros" placeholder="Otros"></textarea>
+	</div>
+	</div>
+	<button class="mt-4 w-full bg-green-500 text-white p-2 rounded" id="saveNoteButton">Guardar Denuncia</button>
+	<button class="mt-2 w-full bg-red-500 text-white p-2 rounded" id="exportPdfButton">Exportar a PDF</button>
+	<button class="mt-2 w-full bg-yellow-500 text-white p-2 rounded" id="exportJsonButton">Exportar a JSON</button>
+	</div>
+		</div>
+		</main>
+		<footer class="bg-white shadow-md p-4 text-center">
+			<p>&copy;  2025 Forensic | ®Lic. Azua | https//www.abogadosforenses.org</p>
+		</footer>
+		<!-- Modal -->
+		<div id="previewModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+			<div class="bg-white p-6 rounded-lg shadow-md w-3/4 max-w-4xl">
+				<h3 class="text-2xl font-semibold mb-4">Vista Previa</h3>
+				<div id="previewContent" class="mb-4">
+					<!-- Preview content will be inserted here -->
+				</div>
+				<button id="closeModal" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Cerrar</button>
+			</div>
+		</div>
+	<script>
+			let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+			function renderNotes() {
+				const noteList = document.getElementById('noteList');
+				noteList.innerHTML = '';
+				notes.forEach((note, index) => {
+					const noteDiv = document.createElement('div');
+					noteDiv.className = 'note-preview p-2 rounded cursor-pointer';
+					noteDiv.textContent = note.title;
+					noteDiv.addEventListener('click', () => {
+						loadNote(note);
+					});
+					noteList.appendChild(noteDiv);
+				});
+			}
+
+			function loadNote(note) {
+				document.getElementById('nombreDenunciante').value = note.nombreDenunciante;
+				document.getElementById('curpRfc').value = note.curpRfc;
+				document.getElementById('domicilioNotificaciones').value = note.domicilioNotificaciones;
+				document.getElementById('telefonoCorreo').value = note.telefonoCorreo;
+				document.getElementById('representaPersonaMoral').value = note.representaPersonaMoral;
+				document.getElementById('conoceIdentidad').value = note.conoceIdentidad;
+				document.getElementById('nombreResponsable').value = note.nombreResponsable;
+				document.getElementById('datosContacto').value = note.datosContacto;
+				document.getElementById('descripcionFisica').value = note.descripcionFisica;
+				// Bienes Jurídicos Afectados
+				if (note.afectacion) {
+					note.afectacion.forEach(afectacion => {
+						const checkbox = document.getElementById(afectacion);
+						if (checkbox) {
+							checkbox.checked = true;
+						}
+					});
+				}
+				document.getElementById('fechasHechos').value = note.fechasHechos;
+				document.getElementById('lugarHechos').value = note.lugarHechos;
+				document.getElementById('montoPerjuicio').value = note.montoPerjuicio;
+				// Tipos de Delito
+				if (note.tipoDelito) {
+					note.tipoDelito.forEach(delito => {
+						const checkbox = document.getElementById(delito);
+						if (checkbox) {
+							checkbox.checked = true;
+						}
+					});
+				}
+				document.getElementById('descripcionHechos').value = note.descripcionHechos;
+				document.getElementById('modoHechos').value = note.modoHechos;
+				document.getElementById('relacionResponsable').value = note.relacionResponsable;
+				document.getElementById('documentosDisponibles').value = note.documentosDisponibles;
+				document.getElementById('testigos').value = note.testigos;
+				document.getElementById('comunicacionesRelevantes').value = note.comunicacionesRelevantes;
+				document.getElementById('comprobantes').value = note.comprobantes;
+				document.getElementById('otros').value = note.otros;
+			}
+
+			document.getElementById('newNoteButton').addEventListener('click', () => {
+				document.getElementById('nombreDenunciante').value = '';
+				document.getElementById('curpRfc').value = '';
+				document.getElementById('domicilioNotificaciones').value = '';
+				document.getElementById('telefonoCorreo').value = '';
+				document.getElementById('representaPersonaMoral').value = '';
+				document.getElementById('conoceIdentidad').value = '';
+				document.getElementById('nombreResponsable').value = '';
+				document.getElementById('datosContacto').value = '';
+				document.getElementById('descripcionFisica').value = '';
+				// Bienes Jurídicos Afectados
+				const afectacionCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				afectacionCheckboxes.forEach(checkbox => {
+					checkbox.checked = false;
+				});
+				document.getElementById('fechasHechos').value = '';
+				document.getElementById('lugarHechos').value = '';
+				document.getElementById('montoPerjuicio').value = '';
+				// Tipos de Delito
+				const delitoCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				delitoCheckboxes.forEach(checkbox => {
+					checkbox.checked = false;
+				});
+				document.getElementById('descripcionHechos').value = '';
+				document.getElementById('modoHechos').value = '';
+				document.getElementById('relacionResponsable').value = '';
+				document.getElementById('documentosDisponibles').value = '';
+				document.getElementById('testigos').value = '';
+				document.getElementById('comunicacionesRelevantes').value = '';
+				document.getElementById('comprobantes').value = '';
+				document.getElementById('otros').value = '';
+			});
+
+			document.getElementById('saveNoteButton').addEventListener('click', () => {
+				const note = {
+					nombreDenunciante: document.getElementById('nombreDenunciante').value,
+					curpRfc: document.getElementById('curpRfc').value,
+					domicilioNotificaciones: document.getElementById('domicilioNotificaciones').value,
+					telefonoCorreo: document.getElementById('telefonoCorreo').value,
+					representaPersonaMoral: document.getElementById('representaPersonaMoral').value,
+					conoceIdentidad: document.getElementById('conoceIdentidad').value,
+					nombreResponsable: document.getElementById('nombreResponsable').value,
+					datosContacto: document.getElementById('datosContacto').value,
+					descripcionFisica: document.getElementById('descripcionFisica').value,
+					afectacion: [],
+					fechasHechos: document.getElementById('fechasHechos').value,
+					lugarHechos: document.getElementById('lugarHechos').value,
+					montoPerjuicio: document.getElementById('montoPerjuicio').value,
+					tipoDelito: [],
+					descripcionHechos: document.getElementById('descripcionHechos').value,
+					modoHechos: document.getElementById('modoHechos').value,
+					relacionResponsable: document.getElementById('relacionResponsable').value,
+					documentosDisponibles: document.getElementById('documentosDisponibles').value,
+					testigos: document.getElementById('testigos').value,
+					comunicacionesRelevantes: document.getElementById('comunicacionesRelevantes').value,
+					comprobantes: document.getElementById('comprobantes').value,
+					otros: document.getElementById('otros').value,
+					timestamp: new Date().toLocaleString()
+				};
+				// Bienes Jurídicos Afectados
+				const afectacionCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				afectacionCheckboxes.forEach(checkbox => {
+					if (checkbox.checked) {
+						note.afectacion.push(checkbox.id);
+					}
+				});
+				// Tipos de Delito
+				const delitoCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				delitoCheckboxes.forEach(checkbox => {
+					if (checkbox.checked) {
+						note.tipoDelito.push(checkbox.id);
+					}
+				});
+				const existingNoteIndex = notes.findIndex(n => n.nombreDenunciante === note.nombreDenunciante);
+				if (existingNoteIndex !== -1) {
+					notes[existingNoteIndex] = note;
+				} else {
+					notes.push(note);
+				}
+				localStorage.setItem('notes', JSON.stringify(notes));
+				renderNotes();
+			});
+
+			document.getElementById('exportPdfButton').addEventListener('click', () => {
+		const { jsPDF } = window.jspdf;
+		const doc = new jsPDF({
+			orientation: 'portrait',
+			unit: 'mm',
+			format: 'letter'
+		});
+
+		const marginLeft = 30;
+		let y = 40;
+
+		const getTextLines = (text, maxWidth) => {
+			return doc.splitTextToSize(text, maxWidth);
+		};
+
+		const addTextBlock = (title, content) => {
+			doc.setFont("Arial", "bold");
+			doc.setFontSize(12);
+			doc.text(title, marginLeft, y);
+			y += 10;
+			doc.setFont("Arial", "normal");
+			doc.setFontSize(10);
+			const lines = getTextLines(content, 160);
+			doc.text(lines, marginLeft, y);
+			y += lines.length * 6 + 4;
+			if (y > 260) {
+				doc.addPage();
+				y = 30;
+			}
+		};
+
+		const note = {
+			nombreDenunciante: document.getElementById('nombreDenunciante').value,
+			curpRfc: document.getElementById('curpRfc').value,
+			domicilioNotificaciones: document.getElementById('domicilioNotificaciones').value,
+			telefonoCorreo: document.getElementById('telefonoCorreo').value,
+			representaPersonaMoral: document.getElementById('representaPersonaMoral').value,
+			conoceIdentidad: document.getElementById('conoceIdentidad').value,
+			nombreResponsable: document.getElementById('nombreResponsable').value,
+			datosContacto: document.getElementById('datosContacto').value,
+			descripcionFisica: document.getElementById('descripcionFisica').value,
+			fechasHechos: document.getElementById('fechasHechos').value,
+			lugarHechos: document.getElementById('lugarHechos').value,
+			montoPerjuicio: document.getElementById('montoPerjuicio').value,
+			descripcionHechos: document.getElementById('descripcionHechos').value,
+			modoHechos: document.getElementById('modoHechos').value,
+			relacionResponsable: document.getElementById('relacionResponsable').value,
+			documentosDisponibles: document.getElementById('documentosDisponibles').value,
+			testigos: document.getElementById('testigos').value,
+			comunicacionesRelevantes: document.getElementById('comunicacionesRelevantes').value,
+			comprobantes: document.getElementById('comprobantes').value,
+			otros: document.getElementById('otros').value
+		};
+
+		// Suponiendo que usas checkboxes separados con diferentes nombres
+		const afectacion = Array.from(document.querySelectorAll('input[name="afectacion"]:checked')).map(cb => cb.value);
+		const tipoDelito = Array.from(document.querySelectorAll('input[name="tipoDelito"]:checked')).map(cb => cb.value);
+
+		addTextBlock("Seccion 1: INFORMACIÓN DEL DENUNCIANTE", `
+	Nombre: ${note.nombreDenunciante}
+	CURP/RFC: ${note.curpRfc}
+	Domicilio: ${note.domicilioNotificaciones}
+	Teléfono/Correo: ${note.telefonoCorreo}
+	Representa persona moral: ${note.representaPersonaMoral}`);
+
+		addTextBlock("Seccion 2: PROBABLE RESPONSABLE", `
+	¿Conoce identidad?: ${note.conoceIdentidad}
+	Nombre: ${note.nombreResponsable}
+	Contacto: ${note.datosContacto}
+	Descripción física: ${note.descripcionFisica}`);
+
+		addTextBlock("Seccion 3: AFECTACIÓN Y DELITO", `
+	Afectación: ${afectacion.join(', ')}
+	Fechas de los hechos: ${note.fechasHechos}
+	Lugar: ${note.lugarHechos}
+	Monto del perjuicio: ${note.montoPerjuicio}
+	Tipo de delito: ${tipoDelito.join(', ')}`);
+
+		addTextBlock("Seccion 4: HECHOS", `
+	Descripción: ${note.descripcionHechos}
+	Modo: ${note.modoHechos}
+	Relación con responsable: ${note.relacionResponsable}`);
+
+		addTextBlock("Seccion 5: PRUEBAS", `
+	Documentos: ${note.documentosDisponibles}
+	Testigos: ${note.testigos}
+	Comunicaciones: ${note.comunicacionesRelevantes}
+	Comprobantes: ${note.comprobantes}
+	Otros: ${note.otros}`);
+
+		doc.save("denuncia.pdf");
+	});
+
+			document.getElementById('exportJsonButton').addEventListener('click', () => {
+				const note = {
+					nombreDenunciante: document.getElementById('nombreDenunciante').value,
+					curpRfc: document.getElementById('curpRfc').value,
+					domicilioNotificaciones: document.getElementById('domicilioNotificaciones').value,
+					telefonoCorreo: document.getElementById('telefonoCorreo').value,
+					representaPersonaMoral: document.getElementById('representaPersonaMoral').value,
+					conoceIdentidad: document.getElementById('conoceIdentidad').value,
+					nombreResponsable: document.getElementById('nombreResponsable').value,
+					datosContacto: document.getElementById('datosContacto').value,
+					descripcionFisica: document.getElementById('descripcionFisica').value,
+					afectacion: [],
+					fechasHechos: document.getElementById('fechasHechos').value,
+					lugarHechos: document.getElementById('lugarHechos').value,
+					montoPerjuicio: document.getElementById('montoPerjuicio').value,
+					tipoDelito: [],
+					descripcionHechos: document.getElementById('descripcionHechos').value,
+					modoHechos: document.getElementById('modoHechos').value,
+					relacionResponsable: document.getElementById('relacionResponsable').value,
+					documentosDisponibles: document.getElementById('documentosDisponibles').value,
+					testigos: document.getElementById('testigos').value,
+					comunicacionesRelevantes: document.getElementById('comunicacionesRelevantes').value,
+					comprobantes: document.getElementById('comprobantes').value,
+					otros: document.getElementById('otros').value,
+					timestamp: new Date().toLocaleString()
+				};
+				// Bienes Jurídicos Afectados
+				const afectacionCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				afectacionCheckboxes.forEach(checkbox => {
+					if (checkbox.checked) {
+						note.afectacion.push(checkbox.id);
+					}
+				});
+				// Tipos de Delito
+				const delitoCheckboxes = document.querySelectorAll('#section3 .panel input[type="checkbox"]');
+				delitoCheckboxes.forEach(checkbox => {
+					if (checkbox.checked) {
+						note.tipoDelito.push(checkbox.id);
+					}
+				});
+				const jsonString = JSON.stringify(note, null, 2);
+				const blob = new Blob([jsonString], { type: 'application/json' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'denuncia.json';
+				a.click();
+			});
+
+			const accordions = document.getElementsByClassName('accordion');
+			for (let i = 0; i < accordions.length; i++) {
+				accordions[i].addEventListener('click', function() {
+					this.classList.toggle('active');
+					const panel = this.nextElementSibling;
+					if (panel.style.maxHeight) {
+						panel.style.maxHeight = null;
+					} else {
+						panel.style.maxHeight = panel.scrollHeight + 'px';
+					}
+				});
+			}
+
+			renderNotes();
+		</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	</footer>
+	</body>
+	</html>

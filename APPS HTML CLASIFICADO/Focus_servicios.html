@@ -1,0 +1,671 @@
+<html>
+<head><meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+span.cls_005{font-family:"Montserrat Regular",serif;font-size:18.2px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_005{font-family:"Montserrat Regular",serif;font-size:18.2px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_004{font-family:"Montserrat Black",serif;font-size:67.6px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_004{font-family:"Montserrat Black",serif;font-size:67.6px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_003{font-family:"Montserrat Black",serif;font-size:17.0px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_003{font-family:"Montserrat Black",serif;font-size:17.0px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_006{font-family:"Open Sans Bold",serif;font-size:77.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_006{font-family:"Open Sans Bold",serif;font-size:77.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_002{font-family:"Open Sans Bold",serif;font-size:66.7px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_002{font-family:"Open Sans Bold",serif;font-size:66.7px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_007{font-family:"Open Sans",serif;font-size:22.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_007{font-family:"Open Sans",serif;font-size:22.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"Open Sans Bold",serif;font-size:22.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"Open Sans Bold",serif;font-size:22.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_011{font-family:"Montserrat Regular",serif;font-size:8.6px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_011{font-family:"Montserrat Regular",serif;font-size:8.6px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:"Montserrat Black",serif;font-size:31.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_010{font-family:"Montserrat Black",serif;font-size:31.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"Montserrat Black",serif;font-size:7.6px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"Montserrat Black",serif;font-size:7.6px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_012{font-family:"Open Sans Bold",serif;font-size:24.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_012{font-family:"Open Sans Bold",serif;font-size:24.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_013{font-family:"Open Sans Bold",serif;font-size:56.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_013{font-family:"Open Sans Bold",serif;font-size:56.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_014{font-family:"Open Sans Bold",serif;font-size:24.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_014{font-family:"Open Sans Bold",serif;font-size:24.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_015{font-family:"Open Sans",serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_015{font-family:"Open Sans",serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_019{font-family:"Montserrat Regular",serif;font-size:7.2px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_019{font-family:"Montserrat Regular",serif;font-size:7.2px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_018{font-family:"Montserrat Black",serif;font-size:26.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_018{font-family:"Montserrat Black",serif;font-size:26.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_016{font-family:"Montserrat Black",serif;font-size:6.4px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_016{font-family:"Montserrat Black",serif;font-size:6.4px;color:rgb(255,255,255);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_020{font-family:"Open Sans",serif;font-size:24.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_020{font-family:"Open Sans",serif;font-size:24.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_021{font-family:"Open Sans Bold",serif;font-size:19.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_021{font-family:"Open Sans Bold",serif;font-size:19.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_023{font-family:"Open Sans Bold",serif;font-size:20.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_023{font-family:"Open Sans Bold",serif;font-size:20.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_022{font-family:"Open Sans",serif;font-size:19.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_022{font-family:"Open Sans",serif;font-size:19.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_025{font-family:"Open Sans Bold",serif;font-size:47.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_025{font-family:"Open Sans Bold",serif;font-size:47.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_024{font-family:"Open Sans Bold",serif;font-size:15.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_024{font-family:"Open Sans Bold",serif;font-size:15.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_026{font-family:"Open Sans",serif;font-size:16.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_026{font-family:"Open Sans",serif;font-size:16.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_027{font-family:"Open Sans Bold",serif;font-size:12.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_027{font-family:"Open Sans Bold",serif;font-size:12.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_028{font-family:"Open Sans Bold",serif;font-size:50.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_028{font-family:"Open Sans Bold",serif;font-size:50.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_029{font-family:"Open Sans",serif;font-size:17.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_029{font-family:"Open Sans",serif;font-size:17.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_031{font-family:"Open Sans",serif;font-size:17.0px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_031{font-family:"Open Sans",serif;font-size:17.0px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_032{font-family:"Open Sans Bold",serif;font-size:45.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_032{font-family:"Open Sans Bold",serif;font-size:45.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_033{font-family:"Open Sans Bold",serif;font-size:18.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_033{font-family:"Open Sans Bold",serif;font-size:18.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_034{font-family:"Open Sans Bold",serif;font-size:30.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_034{font-family:"Open Sans Bold",serif;font-size:30.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_037{font-family:"Open Sans Bold",serif;font-size:36.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_037{font-family:"Open Sans Bold",serif;font-size:36.0px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_038{font-family:"Open Sans Bold",serif;font-size:18.1px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_038{font-family:"Open Sans Bold",serif;font-size:18.1px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_035{font-family:"Open Sans Bold",serif;font-size:21.1px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_035{font-family:"Open Sans Bold",serif;font-size:21.1px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_036{font-family:"Open Sans",serif;font-size:18.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_036{font-family:"Open Sans",serif;font-size:18.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_039{font-family:"Open Sans Bold",serif;font-size:40.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_039{font-family:"Open Sans Bold",serif;font-size:40.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_040{font-family:"Open Sans Bold",serif;font-size:20.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_040{font-family:"Open Sans Bold",serif;font-size:20.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_041{font-family:"Open Sans Bold",serif;font-size:32.0px;color:rgb(26,46,55);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_041{font-family:"Open Sans Bold",serif;font-size:32.0px;color:rgb(26,46,55);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_042{font-family:"Open Sans",serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_042{font-family:"Open Sans",serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_043{font-family:"Open Sans Bold",serif;font-size:95.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_043{font-family:"Open Sans Bold",serif;font-size:95.7px;color:rgb(255,87,87);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_044{font-family:"Open Sans Bold",serif;font-size:32.7px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_044{font-family:"Open Sans Bold",serif;font-size:32.7px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_045{font-family:"Open Sans Bold",serif;font-size:26.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_045{font-family:"Open Sans Bold",serif;font-size:26.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+-->
+</style>
+<script type="text/javascript" src="Focus_servicios_files/wz_jsgraphics.js"></script>
+</head>
+<body>
+<div style="position:absolute;left:50%;margin-left:-720px;top:0px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-01.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:605.80px;top:127.10px" class="cls_005"><span class="cls_005">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:602.05px;top:131.71px" class="cls_004"><span class="cls_004">CENEXP</span></div>
+<div style="position:absolute;left:602.05px;top:204.14px" class="cls_003"><span class="cls_003">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:284.04px;top:389.08px" class="cls_006"><span class="cls_006">CATÁLOGO DE SERVICIOS</span></div>
+<div style="position:absolute;left:543.89px;top:500.62px" class="cls_002"><span class="cls_002">PERICIALES</span></div>
+<div style="position:absolute;left:456.35px;top:599.52px" class="cls_007"><span class="cls_007">14 AÑOS AL SERVICIO DE LA JUSTICIA 2013 - 2025</span></div>
+<div style="position:absolute;left:239.66px;top:723.47px" class="cls_008"><span class="cls_008">33.1480.8390</span></div>
+<div style="position:absolute;left:1047.58px;top:725.10px" class="cls_008"><span class="cls_008">Focus24x7</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:819px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-02.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:158.87px;top:53.00px" class="cls_011"><span class="cls_011">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:157.11px;top:55.16px" class="cls_010"><span class="cls_010">CENEXP</span></div>
+<div style="position:absolute;left:156.42px;top:91.39px" class="cls_009"><span class="cls_009">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:1132.84px;top:321.80px" class="cls_007"><span class="cls_007">Informática Forense</span></div>
+<div style="position:absolute;left:88.20px;top:330.58px" class="cls_007"><span class="cls_007">Guadalajara</span></div>
+<div style="position:absolute;left:544.98px;top:352.55px" class="cls_007"><span class="cls_007">Miembro    de    la    Mesa</span></div>
+<div style="position:absolute;left:863.19px;top:352.55px" class="cls_007"><span class="cls_007">5    de</span></div>
+<div style="position:absolute;left:1132.84px;top:352.55px" class="cls_007"><span class="cls_007">Inteligencia Artificial</span></div>
+<div style="position:absolute;left:88.20px;top:361.33px" class="cls_007"><span class="cls_007">Maestro  en  Ciencias,  Universidad</span></div>
+<div style="position:absolute;left:544.98px;top:383.30px" class="cls_007"><span class="cls_007">Ciberseguridad del IFT</span></div>
+<div style="position:absolute;left:1132.84px;top:383.30px" class="cls_007"><span class="cls_007">Delitos Cibernéticos</span></div>
+<div style="position:absolute;left:88.20px;top:392.08px" class="cls_007"><span class="cls_007">de Guadalajara</span></div>
+<div style="position:absolute;left:544.98px;top:414.05px" class="cls_007"><span class="cls_007">Profesor en analisi del comportamiento Forense</span></div>
+<div style="position:absolute;left:1132.84px;top:414.05px" class="cls_007"><span class="cls_007">Acústica Forense</span></div>
+<div style="position:absolute;left:88.20px;top:422.83px" class="cls_007"><span class="cls_007">Doctor en Ciencias, Universidad de</span></div>
+<div style="position:absolute;left:544.98px;top:444.80px" class="cls_007"><span class="cls_007">Instructor  de  Reconstrucción  de</span></div>
+<div style="position:absolute;left:88.20px;top:453.58px" class="cls_007"><span class="cls_007">Guadalajara</span></div>
+<div style="position:absolute;left:544.98px;top:475.55px" class="cls_007"><span class="cls_007">Hechos de Tránsito Terrestre del</span></div>
+<div style="position:absolute;left:88.20px;top:484.33px" class="cls_007"><span class="cls_007">Especialidad     en     Dictaminación</span></div>
+<div style="position:absolute;left:544.98px;top:506.30px" class="cls_007"><span class="cls_007">Consejo    de    la    Judicatura    del</span></div>
+<div style="position:absolute;left:88.20px;top:515.08px" class="cls_007"><span class="cls_007">Pericial,   Instituto   Jalisciense   de</span></div>
+<div style="position:absolute;left:544.98px;top:537.05px" class="cls_007"><span class="cls_007">Estado  de  Jalisco  y  del  Instituto</span></div>
+<div style="position:absolute;left:88.20px;top:545.83px" class="cls_007"><span class="cls_007">Ciencias Forenses</span></div>
+<div style="position:absolute;left:544.98px;top:567.80px" class="cls_007"><span class="cls_007">Jalisciense de Ciencias Forenses</span></div>
+<div style="position:absolute;left:88.20px;top:576.58px" class="cls_007"><span class="cls_007">Profesor</span></div>
+<div style="position:absolute;left:247.16px;top:576.58px" class="cls_007"><span class="cls_007">Investigador</span></div>
+<div style="position:absolute;left:448.15px;top:576.58px" class="cls_007"><span class="cls_007">en</span></div>
+<div style="position:absolute;left:544.98px;top:598.55px" class="cls_007"><span class="cls_007">Ex-Consultor de Ciberseguridad de</span></div>
+<div style="position:absolute;left:88.20px;top:607.33px" class="cls_007"><span class="cls_007">Informática   Forense,   Centro</span></div>
+<div style="position:absolute;left:448.17px;top:607.33px" class="cls_007"><span class="cls_007">de</span></div>
+<div style="position:absolute;left:544.98px;top:629.30px" class="cls_007"><span class="cls_007">PEMEX</span></div>
+<div style="position:absolute;left:88.20px;top:638.08px" class="cls_007"><span class="cls_007">Estudios Experimentales</span></div>
+<div style="position:absolute;left:544.98px;top:660.05px" class="cls_007"><span class="cls_007">Consultor</span></div>
+<div style="position:absolute;left:743.43px;top:660.05px" class="cls_007"><span class="cls_007">Senior</span></div>
+<div style="position:absolute;left:904.93px;top:660.05px" class="cls_007"><span class="cls_007">en</span></div>
+<div style="position:absolute;left:88.20px;top:668.83px" class="cls_007"><span class="cls_007">Perito del Consejo de la Judicatura</span></div>
+<div style="position:absolute;left:544.98px;top:690.80px" class="cls_007"><span class="cls_007">Ciberseguridad</span></div>
+<div style="position:absolute;left:88.20px;top:699.58px" class="cls_007"><span class="cls_007">del Estado de Jalisco</span></div>
+<div style="position:absolute;left:544.98px;top:721.55px" class="cls_007"><span class="cls_007">Perito en el Supremo Tribunal de</span></div>
+<div style="position:absolute;left:544.98px;top:752.30px" class="cls_007"><span class="cls_007">Justicia del Estado de Jalisco</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:1638px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-03.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:1221.41px;top:60.30px" class="cls_011"><span class="cls_011">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:1219.65px;top:62.47px" class="cls_010"><span class="cls_010">CENEXP</span></div>
+<div style="position:absolute;left:1218.97px;top:98.70px" class="cls_009"><span class="cls_009">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:698.00px;top:80.21px" class="cls_013"><span class="cls_013">ICTAMEN EN</span></div>
+<div style="position:absolute;left:695.19px;top:138.71px" class="cls_013"><span class="cls_013">NÁLISIS DE</span></div>
+<div style="position:absolute;left:695.19px;top:197.21px" class="cls_013"><span class="cls_013">PLICACIONES Y</span></div>
+<div style="position:absolute;left:656.55px;top:255.71px" class="cls_013"><span class="cls_013">SOFTWARE</span></div>
+<div style="position:absolute;left:656.55px;top:363.05px" class="cls_014"><span class="cls_014">El costo del dictamen varia con respecto al software</span></div>
+<div style="position:absolute;left:656.55px;top:396.05px" class="cls_014"><span class="cls_014">analizado. El costo mínimo de este dictamen es de</span></div>
+<div style="position:absolute;left:656.55px;top:429.05px" class="cls_014"><span class="cls_014">$45,000.00</span></div>
+<div style="position:absolute;left:656.55px;top:484.50px" class="cls_015"><span class="cls_015">El</span></div>
+<div style="position:absolute;left:709.14px;top:484.50px" class="cls_015"><span class="cls_015">objetivo    de    este    Dictamen    es    analizar    el</span></div>
+<div style="position:absolute;left:656.55px;top:512.25px" class="cls_015"><span class="cls_015">funcionamiento de un software y a partir de eso poder</span></div>
+<div style="position:absolute;left:656.55px;top:540.00px" class="cls_015"><span class="cls_015">determinar si dicho software cumple con los requisitos</span></div>
+<div style="position:absolute;left:656.55px;top:567.75px" class="cls_015"><span class="cls_015">solicitados por el contratante a la empresa diseñadora</span></div>
+<div style="position:absolute;left:656.55px;top:595.50px" class="cls_015"><span class="cls_015">del software.</span></div>
+<div style="position:absolute;left:656.55px;top:651.00px" class="cls_015"><span class="cls_015">Otro  objetivo,  es  el  de  determinar  si  un  software  se</span></div>
+<div style="position:absolute;left:656.55px;top:678.75px" class="cls_015"><span class="cls_015">utilizo en algún momento en específico.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:2457px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-04.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:1250.44px;top:49.68px" class="cls_019"><span class="cls_019">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:1248.96px;top:51.50px" class="cls_018"><span class="cls_018">CENEXP</span></div>
+<div style="position:absolute;left:517.59px;top:27.33px" class="cls_013"><span class="cls_013">DICTAMEN EN</span></div>
+<div style="position:absolute;left:1248.39px;top:81.97px" class="cls_016"><span class="cls_016">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:517.59px;top:88.08px" class="cls_013"><span class="cls_013">ANÁLISIS DE CORREOS</span></div>
+<div style="position:absolute;left:517.59px;top:148.83px" class="cls_013"><span class="cls_013">ELECTRÓNICOS</span></div>
+<div style="position:absolute;left:660.84px;top:262.50px" class="cls_012"><span class="cls_012">Objetivo</span></div>
+<div style="position:absolute;left:1050.00px;top:262.50px" class="cls_012"><span class="cls_012">Costo Promedio</span></div>
+<div style="position:absolute;left:1006.62px;top:336.00px" class="cls_015"><span class="cls_015">$18,800.00</span></div>
+<div style="position:absolute;left:617.46px;top:359.62px" class="cls_015"><span class="cls_015">Qué el contenido del correo no ha</span></div>
+<div style="position:absolute;left:1006.62px;top:366.75px" class="cls_015"><span class="cls_015">Incluye redacción del dictamen,</span></div>
+<div style="position:absolute;left:617.46px;top:390.37px" class="cls_015"><span class="cls_015">sido alterado</span></div>
+<div style="position:absolute;left:1006.62px;top:397.50px" class="cls_015"><span class="cls_015">análisis de cinco correos</span></div>
+<div style="position:absolute;left:617.46px;top:421.12px" class="cls_015"><span class="cls_015">Fechas en las que se genero y</span></div>
+<div style="position:absolute;left:1006.62px;top:428.25px" class="cls_015"><span class="cls_015">electrónicos, la redacción del</span></div>
+<div style="position:absolute;left:617.46px;top:451.87px" class="cls_015"><span class="cls_015">recibió la comunicación</span></div>
+<div style="position:absolute;left:1006.62px;top:459.00px" class="cls_015"><span class="cls_015">cuestionario y la preparación de la</span></div>
+<div style="position:absolute;left:617.46px;top:482.62px" class="cls_015"><span class="cls_015">Remitente y receptor de dicha</span></div>
+<div style="position:absolute;left:1006.62px;top:489.75px" class="cls_015"><span class="cls_015">prueba (en caso de ser la parte</span></div>
+<div style="position:absolute;left:617.46px;top:513.37px" class="cls_015"><span class="cls_015">comunicación</span></div>
+<div style="position:absolute;left:1006.62px;top:520.50px" class="cls_015"><span class="cls_015">oferente)</span></div>
+<div style="position:absolute;left:617.46px;top:544.12px" class="cls_015"><span class="cls_015">Validación de correos adjuntos</span></div>
+<div style="position:absolute;left:660.84px;top:580.97px" class="cls_012"><span class="cls_012">Extras</span></div>
+<div style="position:absolute;left:617.46px;top:637.42px" class="cls_015"><span class="cls_015">Análisis de correo adicional $500.00</span></div>
+<div style="position:absolute;left:617.46px;top:668.17px" class="cls_015"><span class="cls_015">Audiencia especial $2,000.00</span></div>
+<div style="position:absolute;left:617.46px;top:698.92px" class="cls_015"><span class="cls_015">Audiencia extra $1,300.00</span></div>
+<div style="position:absolute;left:617.46px;top:729.67px" class="cls_015"><span class="cls_015">Análisis inicial del material para determinar pertinencia de la prueba</span></div>
+<div style="position:absolute;left:617.46px;top:760.42px" class="cls_015"><span class="cls_015">$$800.00</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:3276px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-05.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:176.66px;top:80.23px" class="cls_013"><span class="cls_013">TAMEN DE ANÁLISIS</span></div>
+<div style="position:absolute;left:81.00px;top:147.73px" class="cls_013"><span class="cls_013">DE WHATSAPP</span></div>
+<div style="position:absolute;left:81.00px;top:236.19px" class="cls_020"><span class="cls_020">Costo promedio del Dictamen $19,300.00</span></div>
+<div style="position:absolute;left:81.00px;top:295.01px" class="cls_015"><span class="cls_015">El Objetivo del dictamen es determinar:</span></div>
+<div style="position:absolute;left:115.00px;top:350.51px" class="cls_015"><span class="cls_015">Qué el contenido de la comunicación no ha sido</span></div>
+<div style="position:absolute;left:115.00px;top:378.26px" class="cls_015"><span class="cls_015">alterado.</span></div>
+<div style="position:absolute;left:115.00px;top:406.01px" class="cls_015"><span class="cls_015">Fechas en las que se generó y recibió la</span></div>
+<div style="position:absolute;left:115.00px;top:433.76px" class="cls_015"><span class="cls_015">comunicación.</span></div>
+<div style="position:absolute;left:115.00px;top:461.51px" class="cls_015"><span class="cls_015">Remitente y receptor de dicha comunicación.</span></div>
+<div style="position:absolute;left:115.00px;top:489.26px" class="cls_015"><span class="cls_015">Validación de los archivos adjuntos.</span></div>
+<div style="position:absolute;left:913.21px;top:510.01px" class="cls_015"><span class="cls_015">Incluye  redacción  del</span></div>
+<div style="position:absolute;left:559.52px;top:535.10px" class="cls_021"><span class="cls_021">EXTRAS</span></div>
+<div style="position:absolute;left:913.21px;top:537.76px" class="cls_015"><span class="cls_015">dictamen,  análisis  de</span></div>
+<div style="position:absolute;left:217.70px;top:543.01px" class="cls_023"><span class="cls_023">IMPORTANTE</span></div>
+<div style="position:absolute;left:913.21px;top:565.51px" class="cls_015"><span class="cls_015">cien</span></div>
+<div style="position:absolute;left:1018.27px;top:565.51px" class="cls_015"><span class="cls_015">líneas</span></div>
+<div style="position:absolute;left:1143.20px;top:565.51px" class="cls_015"><span class="cls_015">de</span></div>
+<div style="position:absolute;left:591.82px;top:587.60px" class="cls_022"><span class="cls_022">Análisis de mensaje adicional</span></div>
+<div style="position:absolute;left:913.21px;top:593.26px" class="cls_015"><span class="cls_015">comunicación</span></div>
+<div style="position:absolute;left:1143.20px;top:593.26px" class="cls_015"><span class="cls_015">de</span></div>
+<div style="position:absolute;left:72.11px;top:598.51px" class="cls_015"><span class="cls_015">Es importante contar con el acceso al menos a</span></div>
+<div style="position:absolute;left:591.82px;top:613.85px" class="cls_022"><span class="cls_022">$3.00</span></div>
+<div style="position:absolute;left:913.21px;top:621.01px" class="cls_015"><span class="cls_015">whatsapp,</span></div>
+<div style="position:absolute;left:1151.39px;top:621.01px" class="cls_015"><span class="cls_015">la</span></div>
+<div style="position:absolute;left:72.11px;top:626.26px" class="cls_015"><span class="cls_015">una de ls fuentes originales de la comunicación.</span></div>
+<div style="position:absolute;left:591.82px;top:640.10px" class="cls_022"><span class="cls_022">Audiencia especial $2,500.00</span></div>
+<div style="position:absolute;left:913.21px;top:648.76px" class="cls_015"><span class="cls_015">redacción</span></div>
+<div style="position:absolute;left:1135.81px;top:648.76px" class="cls_015"><span class="cls_015">del</span></div>
+<div style="position:absolute;left:72.11px;top:654.01px" class="cls_015"><span class="cls_015">La  preparación  de  la  prueba  requiere  de  un</span></div>
+<div style="position:absolute;left:591.82px;top:666.35px" class="cls_022"><span class="cls_022">Audiencia extra $1,300.00</span></div>
+<div style="position:absolute;left:913.21px;top:676.51px" class="cls_015"><span class="cls_015">cuestionario</span></div>
+<div style="position:absolute;left:1096.76px;top:676.51px" class="cls_015"><span class="cls_015">y</span></div>
+<div style="position:absolute;left:1151.41px;top:676.51px" class="cls_015"><span class="cls_015">la</span></div>
+<div style="position:absolute;left:72.11px;top:681.76px" class="cls_015"><span class="cls_015">cuidado   especial   en   la   extracción   de   los</span></div>
+<div style="position:absolute;left:591.82px;top:692.60px" class="cls_022"><span class="cls_022">Análisis   inicial   de   material</span></div>
+<div style="position:absolute;left:913.21px;top:704.26px" class="cls_015"><span class="cls_015">preparación</span></div>
+<div style="position:absolute;left:1086.22px;top:704.26px" class="cls_015"><span class="cls_015">de     la</span></div>
+<div style="position:absolute;left:72.11px;top:709.51px" class="cls_015"><span class="cls_015">mensajes de Whatsapp, en la extracción de los</span></div>
+<div style="position:absolute;left:591.82px;top:718.85px" class="cls_022"><span class="cls_022">para  determinar  pertinencia</span></div>
+<div style="position:absolute;left:913.21px;top:732.01px" class="cls_015"><span class="cls_015">prueba  (en  caso  de</span></div>
+<div style="position:absolute;left:72.11px;top:737.26px" class="cls_015"><span class="cls_015">adjuntos, así como en la determinación de los</span></div>
+<div style="position:absolute;left:591.82px;top:745.10px" class="cls_022"><span class="cls_022">de la prueba $8,00.00</span></div>
+<div style="position:absolute;left:913.21px;top:759.76px" class="cls_015"><span class="cls_015">ser la parte oferente)</span></div>
+<div style="position:absolute;left:72.11px;top:765.01px" class="cls_015"><span class="cls_015">valores hash de los mismos.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:4095px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-06.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:81.00px;top:19.08px" class="cls_025"><span class="cls_025">DICTAMEN EN INFORMÁTICA EN</span></div>
+<div style="position:absolute;left:81.00px;top:70.83px" class="cls_025"><span class="cls_025">NULIDAD DE TRANSACCIONES</span></div>
+<div style="position:absolute;left:463.44px;top:162.92px" class="cls_024"><span class="cls_024">Suerte Principal</span></div>
+<div style="position:absolute;left:696.84px;top:162.92px" class="cls_024"><span class="cls_024">Honorarios</span></div>
+<div style="position:absolute;left:24.77px;top:170.11px" class="cls_026"><span class="cls_026">El objetivo del dictamen es determinar que las</span></div>
+<div style="position:absolute;left:24.77px;top:191.86px" class="cls_026"><span class="cls_026">transacciones  controvertidas  fueron  operadas</span></div>
+<div style="position:absolute;left:24.77px;top:213.61px" class="cls_026"><span class="cls_026">por la Institución Bancaria sin la validación de la</span></div>
+<div style="position:absolute;left:457.96px;top:231.92px" class="cls_027"><span class="cls_027">Menores a $100,000.00</span></div>
+<div style="position:absolute;left:662.86px;top:231.92px" class="cls_027"><span class="cls_027">10% de la suerte principal</span></div>
+<div style="position:absolute;left:24.77px;top:235.36px" class="cls_026"><span class="cls_026">firma  electrónica  de  la  actora,  así  como  las</span></div>
+<div style="position:absolute;left:24.77px;top:257.11px" class="cls_026"><span class="cls_026">vulnerabilidades con las que cuenta el Sistema</span></div>
+<div style="position:absolute;left:24.77px;top:278.86px" class="cls_026"><span class="cls_026">de Banca en Línea de la institución Demandada.</span></div>
+<div style="position:absolute;left:476.73px;top:296.42px" class="cls_027"><span class="cls_027">de $101,000.00 a</span></div>
+<div style="position:absolute;left:709.11px;top:304.67px" class="cls_027"><span class="cls_027">$10,000.00</span></div>
+<div style="position:absolute;left:490.81px;top:312.92px" class="cls_027"><span class="cls_027">$150,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:322.36px" class="cls_026"><span class="cls_026">Es recomendable realizar un estudio previo de</span></div>
+<div style="position:absolute;left:24.77px;top:344.11px" class="cls_026"><span class="cls_026">los sistemas de cómputo y celular de la actora</span></div>
+<div style="position:absolute;left:24.77px;top:365.86px" class="cls_026"><span class="cls_026">para estimar que esta no haya sido el origen de</span></div>
+<div style="position:absolute;left:476.73px;top:377.42px" class="cls_027"><span class="cls_027">de $151,000.00 a</span></div>
+<div style="position:absolute;left:709.11px;top:385.67px" class="cls_027"><span class="cls_027">$15,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:387.61px" class="cls_026"><span class="cls_026">la  vulnerabilidad.  Se  recomienda  ofrecer  esta</span></div>
+<div style="position:absolute;left:490.81px;top:393.92px" class="cls_027"><span class="cls_027">$200,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:409.36px" class="cls_026"><span class="cls_026">prueba en la contestación de la vista, ya que la</span></div>
+<div style="position:absolute;left:24.77px;top:431.11px" class="cls_026"><span class="cls_026">demandada haya ofrecido la pericial y aportado</span></div>
+<div style="position:absolute;left:24.77px;top:452.86px" class="cls_026"><span class="cls_026">sus elementos de prueba.</span></div>
+<div style="position:absolute;left:476.73px;top:458.42px" class="cls_027"><span class="cls_027">de $201,000.00 a</span></div>
+<div style="position:absolute;left:709.11px;top:466.67px" class="cls_027"><span class="cls_027">$20,000.00</span></div>
+<div style="position:absolute;left:490.81px;top:474.92px" class="cls_027"><span class="cls_027">$300,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:496.36px" class="cls_026"><span class="cls_026">Se solicitan datos adicionales a la demandada,</span></div>
+<div style="position:absolute;left:24.77px;top:518.11px" class="cls_026"><span class="cls_026">los   cuales   dependen   del   modo   en   que   se</span></div>
+<div style="position:absolute;left:476.73px;top:539.42px" class="cls_027"><span class="cls_027">de $301,000.00 a</span></div>
+<div style="position:absolute;left:24.77px;top:539.86px" class="cls_026"><span class="cls_026">realizaron  las  transacciones  controvertidas.  Es</span></div>
+<div style="position:absolute;left:709.11px;top:547.67px" class="cls_027"><span class="cls_027">$30,000.00</span></div>
+<div style="position:absolute;left:490.81px;top:555.92px" class="cls_027"><span class="cls_027">$400,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:561.61px" class="cls_026"><span class="cls_026">muy probable que la demandada solicite una</span></div>
+<div style="position:absolute;left:24.77px;top:583.36px" class="cls_026"><span class="cls_026">audiencia especial en sus instalaciones, fuera de</span></div>
+<div style="position:absolute;left:24.77px;top:605.11px" class="cls_026"><span class="cls_026">la ZMG.</span></div>
+<div style="position:absolute;left:476.73px;top:620.42px" class="cls_027"><span class="cls_027">de $401,000.00 a</span></div>
+<div style="position:absolute;left:185.89px;top:626.86px" class="cls_026"><span class="cls_026">Extras</span></div>
+<div style="position:absolute;left:709.11px;top:628.67px" class="cls_027"><span class="cls_027">$40,000.00</span></div>
+<div style="position:absolute;left:490.81px;top:636.92px" class="cls_027"><span class="cls_027">$500,000.00</span></div>
+<div style="position:absolute;left:51.97px;top:670.36px" class="cls_026"><span class="cls_026">El costo incluye redacción del dictamen y la</span></div>
+<div style="position:absolute;left:51.97px;top:692.11px" class="cls_026"><span class="cls_026">redacción del cuestionario</span></div>
+<div style="position:absolute;left:476.73px;top:701.42px" class="cls_027"><span class="cls_027">de $500,000.00 a</span></div>
+<div style="position:absolute;left:709.11px;top:709.67px" class="cls_027"><span class="cls_027">$50,000.00</span></div>
+<div style="position:absolute;left:51.97px;top:713.86px" class="cls_026"><span class="cls_026">Audiencia especial $2,500.00 + viáticos</span></div>
+<div style="position:absolute;left:485.78px;top:717.92px" class="cls_027"><span class="cls_027">$1&apos;000,000.00</span></div>
+<div style="position:absolute;left:51.97px;top:735.61px" class="cls_026"><span class="cls_026">Audiencia extra $1,500.00</span></div>
+<div style="position:absolute;left:51.97px;top:757.36px" class="cls_026"><span class="cls_026">Analisis inicial de material para determinar</span></div>
+<div style="position:absolute;left:51.97px;top:779.11px" class="cls_026"><span class="cls_026">pertinencia de la prueba $1,000.00</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:4914px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-07.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:195.36px;top:79.51px" class="cls_028"><span class="cls_028">AMEN EN ANÁLISIS DE</span></div>
+<div style="position:absolute;left:81.00px;top:139.51px" class="cls_028"><span class="cls_028">SÁBANAS DE LLAMADAS</span></div>
+<div style="position:absolute;left:81.00px;top:284.27px" class="cls_020"><span class="cls_020">Costo promedio del Dictamen $18,500.00</span></div>
+<div style="position:absolute;left:81.00px;top:343.09px" class="cls_015"><span class="cls_015">El objetivo del dictamen es determinar la</span></div>
+<div style="position:absolute;left:81.00px;top:370.84px" class="cls_015"><span class="cls_015">georeferenciación de un equipo celular con respecto</span></div>
+<div style="position:absolute;left:81.00px;top:398.59px" class="cls_015"><span class="cls_015">al espectro radioeléctrico de la antena receptora en</span></div>
+<div style="position:absolute;left:81.00px;top:426.34px" class="cls_015"><span class="cls_015">un día y hora determinada.</span></div>
+<div style="position:absolute;left:217.70px;top:502.51px" class="cls_023"><span class="cls_023">IMPORTANTE</span></div>
+<div style="position:absolute;left:908.11px;top:509.55px" class="cls_029"><span class="cls_029">Incluye</span></div>
+<div style="position:absolute;left:1011.33px;top:509.55px" class="cls_029"><span class="cls_029">redacción</span></div>
+<div style="position:absolute;left:1141.26px;top:509.55px" class="cls_029"><span class="cls_029">del</span></div>
+<div style="position:absolute;left:908.11px;top:532.80px" class="cls_029"><span class="cls_029">Dictamen,  análisis  de  la</span></div>
+<div style="position:absolute;left:559.52px;top:535.10px" class="cls_021"><span class="cls_021">EXTRAS</span></div>
+<div style="position:absolute;left:908.11px;top:556.05px" class="cls_029"><span class="cls_029">sábana de llamadas de un</span></div>
+<div style="position:absolute;left:72.11px;top:558.01px" class="cls_015"><span class="cls_015">Con  la  sábana  de  llamadas  de  una  antena</span></div>
+<div style="position:absolute;left:908.11px;top:579.30px" class="cls_029"><span class="cls_029">equipo</span></div>
+<div style="position:absolute;left:1027.76px;top:579.30px" class="cls_029"><span class="cls_029">celular,</span></div>
+<div style="position:absolute;left:1154.52px;top:579.30px" class="cls_029"><span class="cls_029">la</span></div>
+<div style="position:absolute;left:72.11px;top:585.76px" class="cls_015"><span class="cls_015">receptora no se puede triangular la ubicación del</span></div>
+<div style="position:absolute;left:591.82px;top:587.60px" class="cls_022"><span class="cls_022">Análisis de telefóno adicional</span></div>
+<div style="position:absolute;left:908.11px;top:602.55px" class="cls_029"><span class="cls_029">determinación  del  patrón</span></div>
+<div style="position:absolute;left:72.11px;top:613.51px" class="cls_015"><span class="cls_015">equipo celular. Solo se obtiene un abanico de</span></div>
+<div style="position:absolute;left:591.82px;top:613.85px" class="cls_022"><span class="cls_022">$3,800.00</span></div>
+<div style="position:absolute;left:908.11px;top:625.80px" class="cls_029"><span class="cls_029">del</span></div>
+<div style="position:absolute;left:1084.52px;top:625.80px" class="cls_029"><span class="cls_029">espectro</span></div>
+<div style="position:absolute;left:72.11px;top:641.26px" class="cls_015"><span class="cls_015">posibilidades  centrado  en  el  azimut  para  la</span></div>
+<div style="position:absolute;left:591.82px;top:640.10px" class="cls_022"><span class="cls_022">Audiencia extra $1,500.00</span></div>
+<div style="position:absolute;left:908.11px;top:649.05px" class="cls_029"><span class="cls_029">radioeléctrico</span></div>
+<div style="position:absolute;left:1087.57px;top:649.05px" class="cls_029"><span class="cls_029">de</span></div>
+<div style="position:absolute;left:1154.51px;top:649.05px" class="cls_029"><span class="cls_029">la</span></div>
+<div style="position:absolute;left:591.82px;top:666.35px" class="cls_022"><span class="cls_022">Los viáticos para el trabajo de</span></div>
+<div style="position:absolute;left:72.11px;top:669.01px" class="cls_015"><span class="cls_015">ubicación del equipo celular.</span></div>
+<div style="position:absolute;left:908.11px;top:672.30px" class="cls_029"><span class="cls_029">antena,  georeferenciación</span></div>
+<div style="position:absolute;left:591.82px;top:692.60px" class="cls_022"><span class="cls_022">campo   se   determinan   con</span></div>
+<div style="position:absolute;left:908.11px;top:695.55px" class="cls_029"><span class="cls_029">del    equipo    celular,    la</span></div>
+<div style="position:absolute;left:591.82px;top:718.85px" class="cls_022"><span class="cls_022">respecto a la ubicación de las</span></div>
+<div style="position:absolute;left:908.11px;top:718.80px" class="cls_029"><span class="cls_029">redacción</span></div>
+<div style="position:absolute;left:1141.26px;top:718.80px" class="cls_029"><span class="cls_029">del</span></div>
+<div style="position:absolute;left:908.11px;top:742.05px" class="cls_029"><span class="cls_029">cuestionario.</span></div>
+<div style="position:absolute;left:591.82px;top:745.10px" class="cls_022"><span class="cls_022">antenas    reportadas    en    la</span></div>
+<div style="position:absolute;left:591.82px;top:771.35px" class="cls_022"><span class="cls_022">sábana de llamadas.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:5733px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-08.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:698.00px;top:80.21px" class="cls_013"><span class="cls_013">ICTAMEN EN ANÁLISIS</span></div>
+<div style="position:absolute;left:698.00px;top:138.71px" class="cls_013"><span class="cls_013">E VIDEOS</span></div>
+<div style="position:absolute;left:656.55px;top:254.40px" class="cls_014"><span class="cls_014">El costo promedio del Dictamen es de $17,300.00</span></div>
+<div style="position:absolute;left:639.58px;top:304.55px" class="cls_029"><span class="cls_029">El objetivo del dictamen es variado</span></div>
+<div style="position:absolute;left:1039.03px;top:305.01px" class="cls_015"><span class="cls_015">Costo</span></div>
+<div style="position:absolute;left:1129.50px;top:305.01px" class="cls_015"><span class="cls_015">promedio</span></div>
+<div style="position:absolute;left:1258.30px;top:305.01px" class="cls_015"><span class="cls_015">del</span></div>
+<div style="position:absolute;left:1323.93px;top:305.01px" class="cls_015"><span class="cls_015">Dictamen</span></div>
+<div style="position:absolute;left:639.58px;top:327.80px" class="cls_029"><span class="cls_029">y puede versar en la determinación</span></div>
+<div style="position:absolute;left:1039.03px;top:332.76px" class="cls_015"><span class="cls_015">$19,800.00</span></div>
+<div style="position:absolute;left:639.58px;top:351.05px" class="cls_029"><span class="cls_029">de  objetos  o  actos  determinados</span></div>
+<div style="position:absolute;left:639.58px;top:374.30px" class="cls_029"><span class="cls_029">dentro del material. Es un dictamen</span></div>
+<div style="position:absolute;left:1039.03px;top:388.26px" class="cls_015"><span class="cls_015">Incluye redacción del dictamen, análisis</span></div>
+<div style="position:absolute;left:639.58px;top:397.55px" class="cls_029"><span class="cls_029">ligado a la dinámica de hechos y en</span></div>
+<div style="position:absolute;left:639.58px;top:420.80px" class="cls_029"><span class="cls_029">ocasiones     a     identificación</span></div>
+<div style="position:absolute;left:973.89px;top:420.80px" class="cls_029"><span class="cls_029">de</span></div>
+<div style="position:absolute;left:1039.03px;top:416.01px" class="cls_015"><span class="cls_015">de    vídeo    (menor    a</span></div>
+<div style="position:absolute;left:1280.73px;top:416.01px" class="cls_015"><span class="cls_015">30    minutos),</span></div>
+<div style="position:absolute;left:639.58px;top:444.05px" class="cls_029"><span class="cls_029">personas.</span></div>
+<div style="position:absolute;left:1039.03px;top:443.76px" class="cls_015"><span class="cls_015">extracción  de  vídeo,  la  redacción  del</span></div>
+<div style="position:absolute;left:1039.03px;top:471.51px" class="cls_015"><span class="cls_015">cuestionario   y   la   preparación   de   la</span></div>
+<div style="position:absolute;left:639.58px;top:490.55px" class="cls_029"><span class="cls_029">Para     ofrecer</span></div>
+<div style="position:absolute;left:813.95px;top:490.55px" class="cls_029"><span class="cls_029">el</span></div>
+<div style="position:absolute;left:862.29px;top:490.55px" class="cls_029"><span class="cls_029">vídeo     como</span></div>
+<div style="position:absolute;left:1039.03px;top:499.26px" class="cls_015"><span class="cls_015">prueba  (en  caso  de  que  seamos  los</span></div>
+<div style="position:absolute;left:639.58px;top:513.80px" class="cls_029"><span class="cls_029">elemento  de  prueba  se  debe  de</span></div>
+<div style="position:absolute;left:1039.03px;top:527.01px" class="cls_015"><span class="cls_015">oferentes).</span></div>
+<div style="position:absolute;left:639.58px;top:537.05px" class="cls_029"><span class="cls_029">cuidar  la  extracción  (generando  la</span></div>
+<div style="position:absolute;left:639.58px;top:560.30px" class="cls_029"><span class="cls_029">cádena  de  custodia),  la  cual  debe</span></div>
+<div style="position:absolute;left:639.58px;top:583.55px" class="cls_029"><span class="cls_029">de   ser   realizada   de   la   fuente</span></div>
+<div style="position:absolute;left:1189.13px;top:582.51px" class="cls_023"><span class="cls_023">EXTRAS</span></div>
+<div style="position:absolute;left:639.58px;top:606.80px" class="cls_029"><span class="cls_029">original, así como la determinación</span></div>
+<div style="position:absolute;left:639.58px;top:630.05px" class="cls_029"><span class="cls_029">de los valores hash.</span></div>
+<div style="position:absolute;left:1073.03px;top:638.01px" class="cls_015"><span class="cls_015">Análisis de video adicional (por cada</span></div>
+<div style="position:absolute;left:1073.03px;top:665.76px" class="cls_015"><span class="cls_015">15 minutos de análisis) $1,000.00</span></div>
+<div style="position:absolute;left:639.58px;top:676.55px" class="cls_029"><span class="cls_029">No    todo    vídeo    es    apto    para</span></div>
+<div style="position:absolute;left:1073.03px;top:693.51px" class="cls_015"><span class="cls_015">Audiencia extra $1,500.00</span></div>
+<div style="position:absolute;left:639.58px;top:699.80px" class="cls_029"><span class="cls_029">cuestiones   de   identificación.   Se</span></div>
+<div style="position:absolute;left:639.58px;top:723.05px" class="cls_029"><span class="cls_029">recomienda  realizar  un  análisis  del</span></div>
+<div style="position:absolute;left:1073.03px;top:721.26px" class="cls_015"><span class="cls_015">Análisis  inicial  para  determinar  la</span></div>
+<div style="position:absolute;left:639.58px;top:746.30px" class="cls_029"><span class="cls_029">material probatorio antes de ofrecer</span></div>
+<div style="position:absolute;left:1073.03px;top:749.01px" class="cls_015"><span class="cls_015">pertinencia de la prueba $1,500.00</span></div>
+<div style="position:absolute;left:639.58px;top:769.55px" class="cls_029"><span class="cls_029">la prueba.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:6552px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-09.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:81.00px;top:40.01px" class="cls_025"><span class="cls_025">DICTAMEN EN ANÁLISIS DE</span></div>
+<div style="position:absolute;left:81.00px;top:91.76px" class="cls_025"><span class="cls_025">GOOGLE MAPS</span></div>
+<div style="position:absolute;left:24.77px;top:237.38px" class="cls_015"><span class="cls_015">El objetivo del dictamen es determinar</span></div>
+<div style="position:absolute;left:479.36px;top:237.38px" class="cls_015"><span class="cls_015">Costo</span></div>
+<div style="position:absolute;left:567.81px;top:237.38px" class="cls_015"><span class="cls_015">promedio</span></div>
+<div style="position:absolute;left:694.58px;top:237.38px" class="cls_015"><span class="cls_015">del</span></div>
+<div style="position:absolute;left:758.19px;top:237.38px" class="cls_015"><span class="cls_015">Dictamen</span></div>
+<div style="position:absolute;left:24.77px;top:265.13px" class="cls_015"><span class="cls_015">que:</span></div>
+<div style="position:absolute;left:479.36px;top:265.13px" class="cls_015"><span class="cls_015">$19,800.00</span></div>
+<div style="position:absolute;left:58.77px;top:320.63px" class="cls_015"><span class="cls_015">la    información    dentro    de    la</span></div>
+<div style="position:absolute;left:479.36px;top:320.63px" class="cls_015"><span class="cls_015">Incluye redacción del dictamen, análisis</span></div>
+<div style="position:absolute;left:58.77px;top:348.38px" class="cls_015"><span class="cls_015">aplicación   no   esta   modificada   o</span></div>
+<div style="position:absolute;left:479.36px;top:348.38px" class="cls_015"><span class="cls_015">de  1000  líneas  de  comunicación  de</span></div>
+<div style="position:absolute;left:58.77px;top:376.13px" class="cls_015"><span class="cls_015">alterada.</span></div>
+<div style="position:absolute;left:479.36px;top:376.13px" class="cls_015"><span class="cls_015">datos  informáticos,  la  redacción  del</span></div>
+<div style="position:absolute;left:58.77px;top:403.88px" class="cls_015"><span class="cls_015">Las fechas en las que se generó y</span></div>
+<div style="position:absolute;left:479.36px;top:403.88px" class="cls_015"><span class="cls_015">cuestionario  y  la  preparación  de  la</span></div>
+<div style="position:absolute;left:58.77px;top:431.63px" class="cls_015"><span class="cls_015">recibió    la    comunicación    entre</span></div>
+<div style="position:absolute;left:479.36px;top:431.63px" class="cls_015"><span class="cls_015">prueba   (en   caso   de   ser   la   parte</span></div>
+<div style="position:absolute;left:58.77px;top:459.38px" class="cls_015"><span class="cls_015">usuario y Google Maps</span></div>
+<div style="position:absolute;left:479.36px;top:459.38px" class="cls_015"><span class="cls_015">oferente).</span></div>
+<div style="position:absolute;left:58.77px;top:487.13px" class="cls_015"><span class="cls_015">La validación de los logs y demás</span></div>
+<div style="position:absolute;left:58.77px;top:514.88px" class="cls_015"><span class="cls_015">datos informáticos</span></div>
+<div style="position:absolute;left:626.42px;top:514.88px" class="cls_023"><span class="cls_023">EXTRAS</span></div>
+<div style="position:absolute;left:24.77px;top:570.38px" class="cls_015"><span class="cls_015">Es importante contar con el acceso a la</span></div>
+<div style="position:absolute;left:513.36px;top:570.38px" class="cls_015"><span class="cls_015">Análisis de línea extra $3.00</span></div>
+<div style="position:absolute;left:24.77px;top:598.13px" class="cls_015"><span class="cls_015">cuenta Google para la obtención de la</span></div>
+<div style="position:absolute;left:513.36px;top:598.13px" class="cls_015"><span class="cls_015">Audiencia especial $1,300.00</span></div>
+<div style="position:absolute;left:24.77px;top:625.88px" class="cls_015"><span class="cls_015">información.</span></div>
+<div style="position:absolute;left:513.36px;top:625.88px" class="cls_015"><span class="cls_015">Audiencia Extra $1,300.00</span></div>
+<div style="position:absolute;left:513.36px;top:653.63px" class="cls_015"><span class="cls_015">Análisis   inicial   de   material   para</span></div>
+<div style="position:absolute;left:24.77px;top:681.38px" class="cls_015"><span class="cls_015">La preparación de la prueba requiere</span></div>
+<div style="position:absolute;left:513.36px;top:681.38px" class="cls_015"><span class="cls_015">determinar     pertinencia     de     la</span></div>
+<div style="position:absolute;left:24.77px;top:709.13px" class="cls_015"><span class="cls_015">de un cuidado especial en la extracción</span></div>
+<div style="position:absolute;left:513.36px;top:709.13px" class="cls_015"><span class="cls_015">prueba $2,000.00</span></div>
+<div style="position:absolute;left:24.77px;top:736.88px" class="cls_015"><span class="cls_015">de los datos de Google Maps.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:7371px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-10.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:195.36px;top:79.51px" class="cls_028"><span class="cls_028">AMEN EN</span></div>
+<div style="position:absolute;left:81.00px;top:139.51px" class="cls_028"><span class="cls_028">ACÚSTICA FORENSE</span></div>
+<div style="position:absolute;left:81.00px;top:284.27px" class="cls_014"><span class="cls_014">Costo promedio del Dictamen $25,500.00</span></div>
+<div style="position:absolute;left:81.00px;top:343.09px" class="cls_015"><span class="cls_015">El objetivo del dictamen es determinar a los locutores</span></div>
+<div style="position:absolute;left:81.00px;top:370.84px" class="cls_015"><span class="cls_015">que participan dentro de un audio.</span></div>
+<div style="position:absolute;left:217.70px;top:502.51px" class="cls_023"><span class="cls_023">IMPORTANTE</span></div>
+<div style="position:absolute;left:559.52px;top:505.85px" class="cls_021"><span class="cls_021">EXTRAS</span></div>
+<div style="position:absolute;left:908.11px;top:557.45px" class="cls_031"><span class="cls_031">Incluye</span></div>
+<div style="position:absolute;left:1011.33px;top:557.45px" class="cls_031"><span class="cls_031">redacción</span></div>
+<div style="position:absolute;left:1141.26px;top:557.45px" class="cls_031"><span class="cls_031">del</span></div>
+<div style="position:absolute;left:72.11px;top:558.01px" class="cls_015"><span class="cls_015">Este  dictamen  va  vinculado  a  una  audiencia</span></div>
+<div style="position:absolute;left:591.82px;top:558.35px" class="cls_022"><span class="cls_022">Análisis de audio mayor a 15</span></div>
+<div style="position:absolute;left:908.11px;top:580.70px" class="cls_031"><span class="cls_031">Dictamen,    audiencia    de</span></div>
+<div style="position:absolute;left:591.82px;top:584.60px" class="cls_022"><span class="cls_022">minutos $100.00 por minuto</span></div>
+<div style="position:absolute;left:72.11px;top:585.76px" class="cls_015"><span class="cls_015">especial  donde  se  debe  de  realizar  un  test</span></div>
+<div style="position:absolute;left:908.11px;top:603.95px" class="cls_031"><span class="cls_031">test fonético, la redacción</span></div>
+<div style="position:absolute;left:591.82px;top:610.85px" class="cls_022"><span class="cls_022">extra.</span></div>
+<div style="position:absolute;left:72.11px;top:613.51px" class="cls_015"><span class="cls_015">acustico   (toma   de   muestra   de   voz)   a   los</span></div>
+<div style="position:absolute;left:908.11px;top:627.20px" class="cls_031"><span class="cls_031">del</span></div>
+<div style="position:absolute;left:983.54px;top:627.20px" class="cls_031"><span class="cls_031">cuestionario</span></div>
+<div style="position:absolute;left:1148.54px;top:627.20px" class="cls_031"><span class="cls_031">en</span></div>
+<div style="position:absolute;left:591.82px;top:637.10px" class="cls_022"><span class="cls_022">A partir del tercer locutor a</span></div>
+<div style="position:absolute;left:72.11px;top:641.26px" class="cls_015"><span class="cls_015">locutores señalados en los audios.</span></div>
+<div style="position:absolute;left:908.11px;top:650.45px" class="cls_031"><span class="cls_031">ofrecimiento de prueba, la</span></div>
+<div style="position:absolute;left:591.82px;top:663.35px" class="cls_022"><span class="cls_022">identificar</span></div>
+<div style="position:absolute;left:717.40px;top:663.35px" class="cls_022"><span class="cls_022">5,000.00</span></div>
+<div style="position:absolute;left:828.98px;top:663.35px" class="cls_022"><span class="cls_022">por</span></div>
+<div style="position:absolute;left:72.11px;top:669.01px" class="cls_015"><span class="cls_015">No todo audio sirve para realizar el Dictamen en</span></div>
+<div style="position:absolute;left:908.11px;top:673.70px" class="cls_031"><span class="cls_031">identificación</span></div>
+<div style="position:absolute;left:1075.83px;top:673.70px" class="cls_031"><span class="cls_031">de</span></div>
+<div style="position:absolute;left:1136.33px;top:673.70px" class="cls_031"><span class="cls_031">dos</span></div>
+<div style="position:absolute;left:591.82px;top:689.60px" class="cls_022"><span class="cls_022">locutor.</span></div>
+<div style="position:absolute;left:908.11px;top:696.95px" class="cls_031"><span class="cls_031">locutores.  La  udiencia  de</span></div>
+<div style="position:absolute;left:72.11px;top:696.76px" class="cls_015"><span class="cls_015">Acústica    Forense.    Se    recomienda    realizar</span></div>
+<div style="position:absolute;left:591.82px;top:715.85px" class="cls_022"><span class="cls_022">Audiencia extra $1,500.00</span></div>
+<div style="position:absolute;left:908.11px;top:720.20px" class="cls_031"><span class="cls_031">desahogo  (por  una  única</span></div>
+<div style="position:absolute;left:72.11px;top:724.51px" class="cls_015"><span class="cls_015">primero un preanalisis al audio antes de pensar</span></div>
+<div style="position:absolute;left:591.82px;top:742.10px" class="cls_022"><span class="cls_022">Transcripción de audio $1.00</span></div>
+<div style="position:absolute;left:908.11px;top:743.45px" class="cls_031"><span class="cls_031">ocasión)</span></div>
+<div style="position:absolute;left:72.11px;top:752.26px" class="cls_015"><span class="cls_015">en la viabilidad del dictamen.</span></div>
+<div style="position:absolute;left:591.82px;top:768.35px" class="cls_022"><span class="cls_022">por palabra.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:8190px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-11.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:1258.79px;top:55.49px" class="cls_019"><span class="cls_019">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:511.24px;top:16.00px" class="cls_013"><span class="cls_013">DICTAMEN EN</span></div>
+<div style="position:absolute;left:1257.31px;top:57.31px" class="cls_018"><span class="cls_018">CENEXP</span></div>
+<div style="position:absolute;left:1256.73px;top:87.78px" class="cls_016"><span class="cls_016">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:511.24px;top:76.75px" class="cls_013"><span class="cls_013">ANÁ</span></div>
+<div style="position:absolute;left:1063.10px;top:76.75px" class="cls_013"><span class="cls_013">AS</span></div>
+<div style="position:absolute;left:511.24px;top:137.50px" class="cls_013"><span class="cls_013">DE ACCESO</span></div>
+<div style="position:absolute;left:660.84px;top:262.50px" class="cls_012"><span class="cls_012">Objetivo</span></div>
+<div style="position:absolute;left:1050.00px;top:262.50px" class="cls_012"><span class="cls_012">Costo Promedio</span></div>
+<div style="position:absolute;left:1006.62px;top:336.00px" class="cls_015"><span class="cls_015">$18,900.00</span></div>
+<div style="position:absolute;left:617.46px;top:359.62px" class="cls_015"><span class="cls_015">A    partir    del    análisis    de    los</span></div>
+<div style="position:absolute;left:1006.62px;top:366.75px" class="cls_015"><span class="cls_015">Incluye redacción del dictamen,</span></div>
+<div style="position:absolute;left:617.46px;top:390.37px" class="cls_015"><span class="cls_015">sistemas</span></div>
+<div style="position:absolute;left:746.09px;top:390.37px" class="cls_015"><span class="cls_015">de</span></div>
+<div style="position:absolute;left:812.74px;top:390.37px" class="cls_015"><span class="cls_015">acceso,</span></div>
+<div style="position:absolute;left:931.61px;top:390.37px" class="cls_015"><span class="cls_015">se</span></div>
+<div style="position:absolute;left:1006.62px;top:397.50px" class="cls_015"><span class="cls_015">extracción de logs de sistema de</span></div>
+<div style="position:absolute;left:617.46px;top:421.12px" class="cls_015"><span class="cls_015">determinar</span></div>
+<div style="position:absolute;left:757.75px;top:421.12px" class="cls_015"><span class="cls_015">el</span></div>
+<div style="position:absolute;left:811.06px;top:421.12px" class="cls_015"><span class="cls_015">historico</span></div>
+<div style="position:absolute;left:930.06px;top:421.12px" class="cls_015"><span class="cls_015">de</span></div>
+<div style="position:absolute;left:1006.62px;top:428.25px" class="cls_015"><span class="cls_015">acceso, la redacción del</span></div>
+<div style="position:absolute;left:617.46px;top:451.87px" class="cls_015"><span class="cls_015">ingresos y salidas de una unidad</span></div>
+<div style="position:absolute;left:1006.62px;top:459.00px" class="cls_015"><span class="cls_015">cuestionario y la preparación de la</span></div>
+<div style="position:absolute;left:617.46px;top:482.62px" class="cls_015"><span class="cls_015">de trabajo.</span></div>
+<div style="position:absolute;left:1006.62px;top:489.75px" class="cls_015"><span class="cls_015">prueba (en caso de ser la parte</span></div>
+<div style="position:absolute;left:1006.62px;top:520.50px" class="cls_015"><span class="cls_015">oferente), así como una única</span></div>
+<div style="position:absolute;left:660.84px;top:542.57px" class="cls_012"><span class="cls_012">Extras</span></div>
+<div style="position:absolute;left:1006.62px;top:551.25px" class="cls_015"><span class="cls_015">audiencia de desahogo.</span></div>
+<div style="position:absolute;left:617.46px;top:599.01px" class="cls_015"><span class="cls_015">Análisis de  sistema de acceso extra de audio $1,500.00</span></div>
+<div style="position:absolute;left:617.46px;top:629.76px" class="cls_015"><span class="cls_015">Audiencia especial $2,000.00</span></div>
+<div style="position:absolute;left:617.46px;top:660.51px" class="cls_015"><span class="cls_015">Audiencia extra $1,300.00</span></div>
+<div style="position:absolute;left:617.46px;top:691.26px" class="cls_015"><span class="cls_015">Análisis inicial del material para determinar pertinencia de la prueba</span></div>
+<div style="position:absolute;left:617.46px;top:722.01px" class="cls_015"><span class="cls_015">$800.00</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:9009px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-12.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:73.50px;top:10.11px" class="cls_032"><span class="cls_032">DICTAMEN EN ANÁLISIS DE</span></div>
+<div style="position:absolute;left:73.50px;top:59.61px" class="cls_032"><span class="cls_032">INFORMACIÓN PROCEDENTE DE REDES</span></div>
+<div style="position:absolute;left:73.50px;top:109.11px" class="cls_032"><span class="cls_032">SOCIALES</span></div>
+<div style="position:absolute;left:24.77px;top:208.61px" class="cls_033"><span class="cls_033">El   objetivo   del   Dictamen   es   extraer   y</span></div>
+<div style="position:absolute;left:24.77px;top:233.36px" class="cls_033"><span class="cls_033">presentar en forma de cadena de custodia</span></div>
+<div style="position:absolute;left:24.77px;top:258.11px" class="cls_033"><span class="cls_033">información que procede de redes sociales</span></div>
+<div style="position:absolute;left:24.77px;top:282.86px" class="cls_033"><span class="cls_033">como</span></div>
+<div style="position:absolute;left:107.02px;top:282.86px" class="cls_033"><span class="cls_033">facebook,</span></div>
+<div style="position:absolute;left:227.81px;top:282.86px" class="cls_033"><span class="cls_033">whatsapp,</span></div>
+<div style="position:absolute;left:354.55px;top:282.86px" class="cls_033"><span class="cls_033">youtube,</span></div>
+<div style="position:absolute;left:521.74px;top:287.95px" class="cls_034"><span class="cls_034">Costo promedio del</span></div>
+<div style="position:absolute;left:24.77px;top:307.61px" class="cls_033"><span class="cls_033">instagram, entre otras.</span></div>
+<div style="position:absolute;left:594.69px;top:329.95px" class="cls_034"><span class="cls_034">Dictamen</span></div>
+<div style="position:absolute;left:24.77px;top:357.11px" class="cls_033"><span class="cls_033">En   este   dictamen   no   se   puede   analizar</span></div>
+<div style="position:absolute;left:24.77px;top:381.86px" class="cls_033"><span class="cls_033">integridad de la imagen y/o video extraído,</span></div>
+<div style="position:absolute;left:24.77px;top:406.61px" class="cls_033"><span class="cls_033">así como realizar recuperación pasada.</span></div>
+<div style="position:absolute;left:574.56px;top:413.95px" class="cls_037"><span class="cls_037">$21,900.00</span></div>
+<div style="position:absolute;left:24.77px;top:456.11px" class="cls_033"><span class="cls_033">No realizamos trabajos de hackeo de ningún</span></div>
+<div style="position:absolute;left:530.18px;top:462.70px" class="cls_038"><span class="cls_038">(1 GB de información extraída)</span></div>
+<div style="position:absolute;left:24.77px;top:480.86px" class="cls_033"><span class="cls_033">tipo.</span></div>
+<div style="position:absolute;left:475.01px;top:529.45px" class="cls_035"><span class="cls_035">Nota: El precio vario con respecto a</span></div>
+<div style="position:absolute;left:203.82px;top:555.11px" class="cls_036"><span class="cls_036">Extras</span></div>
+<div style="position:absolute;left:475.01px;top:558.70px" class="cls_035"><span class="cls_035">la cantidad de infomración a extaer.</span></div>
+<div style="position:absolute;left:55.37px;top:604.61px" class="cls_036"><span class="cls_036">El costo incluye redacción del dictamen y la</span></div>
+<div style="position:absolute;left:55.37px;top:629.36px" class="cls_036"><span class="cls_036">redacción del cuestionario</span></div>
+<div style="position:absolute;left:55.37px;top:654.11px" class="cls_036"><span class="cls_036">Audiencia especial $2,500.00 + viáticos</span></div>
+<div style="position:absolute;left:55.37px;top:678.86px" class="cls_036"><span class="cls_036">Audiencia extra $1,500.00</span></div>
+<div style="position:absolute;left:55.37px;top:703.61px" class="cls_036"><span class="cls_036">GB extra de extracción, $2,500.00</span></div>
+<div style="position:absolute;left:55.37px;top:728.36px" class="cls_036"><span class="cls_036">Analisis inicial de material para determinar</span></div>
+<div style="position:absolute;left:55.37px;top:753.11px" class="cls_036"><span class="cls_036">pertinencia de la prueba $3,000.00</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:9828px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-13.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:1258.79px;top:55.49px" class="cls_019"><span class="cls_019">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:1257.31px;top:57.31px" class="cls_018"><span class="cls_018">CENEXP</span></div>
+<div style="position:absolute;left:1256.73px;top:87.78px" class="cls_016"><span class="cls_016">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:699.40px;top:80.00px" class="cls_039"><span class="cls_039">CTAMENES</span></div>
+<div style="position:absolute;left:695.79px;top:122.00px" class="cls_039"><span class="cls_039">NCULADOS A DELITOS</span></div>
+<div style="position:absolute;left:707.92px;top:164.00px" class="cls_039"><span class="cls_039">NERADOS POR</span></div>
+<div style="position:absolute;left:702.31px;top:206.00px" class="cls_039"><span class="cls_039">TELIGENCIA ARTIFICIAL</span></div>
+<div style="position:absolute;left:656.55px;top:314.00px" class="cls_014"><span class="cls_014">El costo del dictamen varia con respecto al material</span></div>
+<div style="position:absolute;left:656.55px;top:347.00px" class="cls_014"><span class="cls_014">analizado (texto, video, audio o imagen). El costo</span></div>
+<div style="position:absolute;left:656.55px;top:380.00px" class="cls_014"><span class="cls_014">mínimo de este dictamen es de $30,000.00</span></div>
+<div style="position:absolute;left:656.55px;top:430.98px" class="cls_015"><span class="cls_015">El objetivo de este Dictamen es analizar material que se</span></div>
+<div style="position:absolute;left:656.55px;top:458.73px" class="cls_015"><span class="cls_015">sospeche fue generado por Inteligencia Artificial (IA).</span></div>
+<div style="position:absolute;left:656.55px;top:514.23px" class="cls_015"><span class="cls_015">Incluye</span></div>
+<div style="position:absolute;left:690.55px;top:569.73px" class="cls_015"><span class="cls_015">Extracción de evidencia digital</span></div>
+<div style="position:absolute;left:690.55px;top:597.48px" class="cls_015"><span class="cls_015">Análisis de evidencia</span></div>
+<div style="position:absolute;left:690.55px;top:625.23px" class="cls_015"><span class="cls_015">Redacción del Dictamen</span></div>
+<div style="position:absolute;left:690.55px;top:652.98px" class="cls_015"><span class="cls_015">Una audiencia de desahogo</span></div>
+<div style="position:absolute;left:690.55px;top:680.73px" class="cls_015"><span class="cls_015">Asesoría  en  la  preparación  y  ofrecimiento  de  la</span></div>
+<div style="position:absolute;left:690.55px;top:708.48px" class="cls_015"><span class="cls_015">prueba</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:10647px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-14.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:692.23px;top:80.21px" class="cls_013"><span class="cls_013">ADENA DE CUSTODIA</span></div>
+<div style="position:absolute;left:695.89px;top:175.21px" class="cls_014"><span class="cls_014">osto promedio del Dictamen es de $7,500.00</span></div>
+<div style="position:absolute;left:639.58px;top:238.96px" class="cls_029"><span class="cls_029">El   objetivo   de   este   servicio   es</span></div>
+<div style="position:absolute;left:639.58px;top:262.21px" class="cls_029"><span class="cls_029">extraer   la   evidencia   digital   con</span></div>
+<div style="position:absolute;left:639.58px;top:285.46px" class="cls_029"><span class="cls_029">métodos forenses para conservar la</span></div>
+<div style="position:absolute;left:639.58px;top:308.71px" class="cls_029"><span class="cls_029">trazabilidad al dispositivo fuente. En</span></div>
+<div style="position:absolute;left:1039.03px;top:305.01px" class="cls_015"><span class="cls_015">Incluye extracción de la evidencia digital</span></div>
+<div style="position:absolute;left:639.58px;top:331.96px" class="cls_029"><span class="cls_029">el  caso  de  telecomunicaciones  se</span></div>
+<div style="position:absolute;left:1039.03px;top:332.76px" class="cls_015"><span class="cls_015">(hasta 1 GB), determinación de valores</span></div>
+<div style="position:absolute;left:639.58px;top:355.21px" class="cls_029"><span class="cls_029">conserva la trazabilidad al remitente</span></div>
+<div style="position:absolute;left:1039.03px;top:360.51px" class="cls_015"><span class="cls_015">hash,    elaboración    de    cadena    de</span></div>
+<div style="position:absolute;left:639.58px;top:378.46px" class="cls_029"><span class="cls_029">y receptor de la comunicación.</span></div>
+<div style="position:absolute;left:1039.03px;top:388.26px" class="cls_015"><span class="cls_015">custodia y guardado de evidencia digital</span></div>
+<div style="position:absolute;left:1039.03px;top:416.01px" class="cls_015"><span class="cls_015">en un dispositivo de almacenamiento</span></div>
+<div style="position:absolute;left:639.58px;top:424.95px" class="cls_029"><span class="cls_029">No es un servicio dictaminador, por</span></div>
+<div style="position:absolute;left:639.58px;top:448.20px" class="cls_029"><span class="cls_029">lo</span></div>
+<div style="position:absolute;left:698.20px;top:448.20px" class="cls_029"><span class="cls_029">que</span></div>
+<div style="position:absolute;left:774.10px;top:448.20px" class="cls_029"><span class="cls_029">no</span></div>
+<div style="position:absolute;left:837.80px;top:448.20px" class="cls_029"><span class="cls_029">se</span></div>
+<div style="position:absolute;left:901.01px;top:448.20px" class="cls_029"><span class="cls_029">presentan</span></div>
+<div style="position:absolute;left:1039.03px;top:443.76px" class="cls_015"><span class="cls_015">USB (una copia)</span></div>
+<div style="position:absolute;left:639.58px;top:471.45px" class="cls_029"><span class="cls_029">conclusiones   sobre   el</span></div>
+<div style="position:absolute;left:899.97px;top:471.45px" class="cls_029"><span class="cls_029">estado   e</span></div>
+<div style="position:absolute;left:639.58px;top:494.70px" class="cls_029"><span class="cls_029">integridad</span></div>
+<div style="position:absolute;left:772.80px;top:494.70px" class="cls_029"><span class="cls_029">de</span></div>
+<div style="position:absolute;left:832.21px;top:494.70px" class="cls_029"><span class="cls_029">la</span></div>
+<div style="position:absolute;left:884.66px;top:494.70px" class="cls_029"><span class="cls_029">información</span></div>
+<div style="position:absolute;left:1189.13px;top:499.26px" class="cls_040"><span class="cls_040">EXTRAS</span></div>
+<div style="position:absolute;left:639.58px;top:517.96px" class="cls_029"><span class="cls_029">extraída.</span></div>
+<div style="position:absolute;left:1073.03px;top:554.76px" class="cls_015"><span class="cls_015">Extracción de información adicional</span></div>
+<div style="position:absolute;left:639.58px;top:564.46px" class="cls_029"><span class="cls_029">Cada tipo de evidencia digital tiene</span></div>
+<div style="position:absolute;left:639.58px;top:587.71px" class="cls_029"><span class="cls_029">su técnica de extracción por lo que</span></div>
+<div style="position:absolute;left:1073.03px;top:582.51px" class="cls_015"><span class="cls_015">$3,000.00 (hasta 1 GB).</span></div>
+<div style="position:absolute;left:639.58px;top:610.96px" class="cls_029"><span class="cls_029">se  debe  de  preparar  con  tiempo</span></div>
+<div style="position:absolute;left:639.58px;top:634.21px" class="cls_029"><span class="cls_029">suficiente dicho servicio.</span></div>
+<div style="position:absolute;left:639.58px;top:680.71px" class="cls_029"><span class="cls_029">Si  bien,  la  cadena  de  custodia  es</span></div>
+<div style="position:absolute;left:639.58px;top:703.96px" class="cls_029"><span class="cls_029">una    figura    penal,    se    extrae    y</span></div>
+<div style="position:absolute;left:639.58px;top:727.21px" class="cls_029"><span class="cls_029">almacena la información y se genera</span></div>
+<div style="position:absolute;left:639.58px;top:750.46px" class="cls_029"><span class="cls_029">documento traza para otros tipos de</span></div>
+<div style="position:absolute;left:639.58px;top:773.70px" class="cls_029"><span class="cls_029">materias.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:11466px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-15.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:1051.20px;top:15.74px" class="cls_041"><span class="cls_041">Clausulas</span></div>
+<div style="position:absolute;left:871.44px;top:58.99px" class="cls_042"><span class="cls_042">Si es requerida una copia certificada del diestro, tiene un costo</span></div>
+<div style="position:absolute;left:871.44px;top:83.74px" class="cls_042"><span class="cls_042">de $250.00.</span></div>
+<div style="position:absolute;left:871.44px;top:108.49px" class="cls_042"><span class="cls_042">Para que el diestro comience el trabajo, se solicita el pago del</span></div>
+<div style="position:absolute;left:871.44px;top:133.24px" class="cls_042"><span class="cls_042">50% de los honorarios fijados, y el otro 50% se debe de cubrir a</span></div>
+<div style="position:absolute;left:871.44px;top:157.99px" class="cls_042"><span class="cls_042">la entrega del Dictamen escrito (no en audiencia de desahogo).</span></div>
+<div style="position:absolute;left:871.44px;top:182.74px" class="cls_042"><span class="cls_042">Se cobran viáticos para trabajos fuera de la ZMG, los cuales se</span></div>
+<div style="position:absolute;left:871.44px;top:207.49px" class="cls_042"><span class="cls_042">deben de cubrir al 100% antes de cada salida.</span></div>
+<div style="position:absolute;left:871.44px;top:232.24px" class="cls_042"><span class="cls_042">La cotización no incluye impuestos, los cuales se cubren aunque</span></div>
+<div style="position:absolute;left:871.44px;top:256.99px" class="cls_042"><span class="cls_042">no se necesite factura.</span></div>
+<div style="position:absolute;left:871.44px;top:281.74px" class="cls_042"><span class="cls_042">Se  atienden  las  audiencias  de  desahogo  según  las  vayan</span></div>
+<div style="position:absolute;left:871.44px;top:306.49px" class="cls_042"><span class="cls_042">notificando, dando prioridad a la que se notifique primero al</span></div>
+<div style="position:absolute;left:871.44px;top:331.24px" class="cls_042"><span class="cls_042">diestro, y buscando diferir las posteriores en conflicto.</span></div>
+<div style="position:absolute;left:871.44px;top:355.99px" class="cls_042"><span class="cls_042">Para  que  el  diestro  asista  a  la  audiencia  de  desahogo,  los</span></div>
+<div style="position:absolute;left:871.44px;top:380.74px" class="cls_042"><span class="cls_042">honorarios deben de estar cubiertos al 100% tres días antes de</span></div>
+<div style="position:absolute;left:871.44px;top:405.49px" class="cls_042"><span class="cls_042">la misma.</span></div>
+<div style="position:absolute;left:871.44px;top:430.24px" class="cls_042"><span class="cls_042">No hay reembolso en caso de que el dictamen no se desahogue.</span></div>
+<div style="position:absolute;left:871.44px;top:454.99px" class="cls_042"><span class="cls_042">Los diestros trabajan con un estricto código de ética, por lo que</span></div>
+<div style="position:absolute;left:871.44px;top:479.74px" class="cls_042"><span class="cls_042">el dictamen solo mostrara lo que se pueda justificar con el</span></div>
+<div style="position:absolute;left:871.44px;top:504.49px" class="cls_042"><span class="cls_042">método científico.</span></div>
+<div style="position:absolute;left:871.44px;top:529.24px" class="cls_042"><span class="cls_042">Si no se le informa del diferimiento de una audiencia a un perito,</span></div>
+<div style="position:absolute;left:871.44px;top:553.99px" class="cls_042"><span class="cls_042">y este asiste a juzgados, la siguiente audiencia tiene un costo</span></div>
+<div style="position:absolute;left:871.44px;top:578.74px" class="cls_042"><span class="cls_042">adicional de $1,500.00</span></div>
+<div style="position:absolute;left:871.44px;top:603.49px" class="cls_042"><span class="cls_042">La reimpresión de dictamen tiene un costo de $5,000.00</span></div>
+<div style="position:absolute;left:871.44px;top:628.24px" class="cls_042"><span class="cls_042">La regrabación de datos en una memoria USB tiene un costo</span></div>
+<div style="position:absolute;left:80.22px;top:634.19px" class="cls_015"><span class="cls_015">No le confíes tu prueba a cualquiera. Nosotros hemos participado en</span></div>
+<div style="position:absolute;left:871.44px;top:652.99px" class="cls_042"><span class="cls_042">adicional de $1,500.00</span></div>
+<div style="position:absolute;left:80.22px;top:664.94px" class="cls_015"><span class="cls_015">más de 2000 desahogos en diversas materias, tanto en la modalidad</span></div>
+<div style="position:absolute;left:871.44px;top:677.74px" class="cls_042"><span class="cls_042">Los datos solo duran 30 días en nuestra base de datos. Una vez</span></div>
+<div style="position:absolute;left:80.22px;top:695.69px" class="cls_015"><span class="cls_015">tradicional como en juicios orales.</span></div>
+<div style="position:absolute;left:871.44px;top:702.49px" class="cls_042"><span class="cls_042">desahogado  el  dictamen,  los  datos  se  borran  con  técnicas</span></div>
+<div style="position:absolute;left:871.44px;top:727.24px" class="cls_042"><span class="cls_042">forenses.</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-720px;top:12285px;width:1440px;height:809px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="Focus_servicios_files/background-16.jpg" width=1440 height=809></div>
+<div style="position:absolute;left:605.80px;top:127.10px" class="cls_005"><span class="cls_005">LA CIENCIA AL SERVICIO DE LA JUSTICIA</span></div>
+<div style="position:absolute;left:602.05px;top:131.71px" class="cls_004"><span class="cls_004">CENEXP</span></div>
+<div style="position:absolute;left:602.05px;top:204.14px" class="cls_003"><span class="cls_003">DEPARTAMENTO DE INVESTIGACIONES CIBERNÉTICAS</span></div>
+<div style="position:absolute;left:447.65px;top:343.97px" class="cls_043"><span class="cls_043">INFORMES</span></div>
+<div style="position:absolute;left:645.10px;top:538.18px" class="cls_044"><span class="cls_044">33.1480.8390</span></div>
+<div style="position:absolute;left:611.09px;top:630.96px" class="cls_045"><span class="cls_045">periciales@cenexp.com</span></div>
+<div style="position:absolute;left:250.26px;top:730.31px" class="cls_012"><span class="cls_012">Parque La Primavera 209, Col. Parques de Tesistan, Zapopan, Jalisco. C.P. 45200</span></div>
+</div>
+
+</body>
+</html>
