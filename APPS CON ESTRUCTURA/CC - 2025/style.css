@@ -1,0 +1,33 @@
+
+body {
+    font-family: sans-serif;
+    background-color: #111;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    background-color: #222;
+    padding: 15px;
+    text-align: center;
+}
+#form {
+    padding: 10px;
+    background-color: #1c1c1c;
+}
+#form input, #form textarea {
+    margin: 5px;
+    padding: 8px;
+    width: 200px;
+}
+#form button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #005b96;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#map {
+    height: 600px;
+}
