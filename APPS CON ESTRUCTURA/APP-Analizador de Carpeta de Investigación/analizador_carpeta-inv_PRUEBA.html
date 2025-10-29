@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recolección y Gestión de Indicios</title>
+    <link rel="stylesheet" href="../../../../css/main.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+    /stylos específicos para el módulo Documentación de Escena */
+    
+    .module-container {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .section {
+        margin-bottom: 30px;
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
+    
+    .photo-preview img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+    }
+    
+    .canvas-controls button {
+        margin-right: 10px;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .canvas-controls button:hover {
+        background-color: #5a6268;
+    }
+    
+    .ia-suggestions {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #e0f7fa;
+        border: 1px solid #b2ebf2;
+        border-radius: 4px;
+    }
+    ' >
+</style>
+
+<body>
+    <div class="module-container">
+        <h2>Recolección y Gestión de Indicios</h2>
+        <p>Herramientas para la identificación, recolección, etiquetado y seguimiento de evidencias con IA.</p>
+
+        <div class="section">
+            <h3>Checklist de Indicios</h3>
+            <div id="evidenceChecklist">
+                <!-- Los elementos del checklist se cargarán aquí -->
+                <div class="checklist-item">
+                    <input type="checkbox" id="item1" name="item1">
+                    <label for="item1">Guantes desechables</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="item2" name="item2">
+                    <label for="item2">Bolsas de evidencia</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="item3" name="item3">
+                    <label for="item3">Cinta métrica</label>
+                </div>
+            </div>
+            <button class="btn-primary">Añadir Indicio</button>
+            <button class="btn-secondary">Exportar Checklist (JSON)</button>
+            <div class="ia-suggestions">
+                <h4>Sugerencias de IA:</h4>
+                <p>Sugerencia de tipos de indicios según el contexto de la escena, validación de datos...</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Cadena de Custodia Digital</h3>
+            <div id="custodyChainLog">
+                <!-- El log de la cadena de custodia se mostrará aquí -->
+                <p><strong>Indicio #001:</strong> Recolectado por Perito A, 2025-09-25 10:00 AM, Ubicación GPS: [Lat, Lon]</p>
+                <p><strong>Indicio #001:</strong> Entregado a Laboratorio B por Perito A, 2025-09-25 11:30 AM</p>
+            </div>
+            <button class="btn-primary">Registrar Movimiento</button>
+            <div class="ia-suggestions">
+                <h4>Asistencia de IA:</h4>
+                <p>Detección de inconsistencias o rupturas en la cadena de custodia, alertas automáticas...</p>
+            </div>
+        </div>
+
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>' >

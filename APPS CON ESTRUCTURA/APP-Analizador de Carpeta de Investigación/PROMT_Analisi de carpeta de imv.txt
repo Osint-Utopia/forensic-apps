@@ -1,0 +1,334 @@
+Realizar en 3 PARTES o mas si es necesario: HTML, CSS. JS Y JASON  una aplicación web compleja e interactiva diseñada para analizar carpetas de investigación Penal conforme al Artículo 131 y demas artículos señalados en mas adelante en el punto 4 del Código Nacional de Procedimientos Penales (CNPP) de México. 
+Con las siguientes características que debe de cumplir la App en su funcionamiento:
+
+1.	FUNCIONES EN HTML (estructura visual y funcional)
+2.	SIGUIENDO ESTE ORDEN
+3.	1 CARPETA BASE
+4.	SUBCARPETAS
+5.	ARCHIVOS HTML
+6.	ARCHIVOS CSS
+7.	ARCHIVOS JS 8SCRIPTS9
+8.	ARCHIVOS JSON
+9.	README .TXT
+
+SECCIÓN DE CARGA DE ARCHIVOS
+
+Permite al usuario subir documentos relevantes a la carpeta de investigación. Soporta archivos PDF, DOC, DOCX y TXT. Está compuesta por:
+
+UN BOTÓN ESTILIZADO QUE LANZA EL SELECTOR DE ARCHIVOS.
+
+UN ÁREA DONDE SE LISTAN LOS ARCHIVOS CARGADOS (#FILELIST Y #DEBUGFILELIST).
+
+BOTÓN “ANALIZAR CARPETA”
+<button> con id="analyzeBtn" y un evento onclick="startAnalysis()".
+
+ESTÁ DESHABILITADO HASTA QUE SE CARGAN ARCHIVOS VÁLIDOS.
+
+INICIA LA EVALUACIÓN SECUENCIAL DE LOS DOCUMENTOS SEGÚN EL CNPP.
+
+SECCIÓN DE RESULTADOS (#resultsSection)
+Contiene:
+
+TABS (PESTAÑAS) PARA NAVEGAR ENTRE:
+
+RESUMEN EJECUTIVO (#SUMMARY)
+
+LISTA DE VERIFICACIÓN (#CHECKLIST)
+
+INFORME DETALLADO (#DETAILED)
+
+MARCO LEGAL (#LEGAL)
+
+UN GRÁFICO DE BARRAS GENERADO POR CHART.JS (<canvas id="cnppChart">) para mostrar visualmente los elementos presentes, parciales y faltantes.
+
+SECCIÓN PARA EXPORTAR LOS RESULTADOS (HTML, PDF, JSON e impresión directa).
+
+ 2. FUNCIONES EN CSS (estética y presentación)
+El archivo contiene un CSS muy detallado que:
+
+Estiliza el fondo con degradados.
+
+Da forma a los botones, bordes y contenedores.
+
+Clasifica visualmente los elementos de CNPP como:
+
+.present (verde)
+
+.missing (rojo)
+
+.partial (amarillo)
+
+ESTILIZA BARRAS DE PROGRESO, ANIMACIONES DE CARGA, PESTAÑAS, ENTRE OTROS.
+
+10.	FUNCIONES EN JAVASCRIPT (lógica, procesamiento y análisis legal)
+
+ESTE ES EL CORAZÓN FUNCIONAL DEL SISTEMA. 
+
+A continuación, se desglosan las principales funciones y bloques:
+
+CARGA Y GESTIÓN DE ARCHIVOS (setupFileUpload(): prepara el input de archivos.; setupDragAndDrop(): habilita arrastrar y soltar archivos.; handleFileSelect() y handleFiles(): validan tipo de archivo, almacenan y actualizan la lista visual.
+
+ANÁLISIS DE DOCUMENTOS: startAnalysis(): función principal que gestiona todo el flujo:
+
+PROCESA LOS DOCUMENTOS UNO POR UNO.
+
+EXTRAE TEXTO.
+
+LIMPIA EL CONTENIDO.
+
+IDENTIFICA TIPO DE DOCUMENTO, FECHAS, NOMBRES, REFERENCIAS LEGALES.
+
+EVALÚA LA PRESENCIA Y CALIDAD DE LOS ELEMENTOS REQUERIDOS POR EL CNPP.
+
+CALCULA EL PUNTAJE GENERAL.
+
+LIMPIEZA DE TEXTO: cleanDocumentContent(): ELIMINA ENCABEZADOS, SELLOS, LOGOS, PIES DE PÁGINA, DIRECCIONES, ETC.
+
+preserveImportantStructure(): MARCA SECCIONES CLAVE COMO === HECHOS ===, === DICTAMEN ===, ETC.
+
+IDENTIFICACIÓN Y EXTRACCIÓN INTELIGENTE
+identifyDocumentType(): DETECTA SI UN DOCUMENTO ES DENUNCIA, DICTAMEN, ENTREVISTA, ETC.
+
+extractDates(), extractEntities(), extractTabularData(): sacan fechas, nombres, lugares, tablas, artículos legales.
+
+
+EVALUACIÓN CONFORME AL CNPP
+requiredElements: DEFINE LOS DOCUMENTOS EXIGIDOS POR EL ART. 131 CNPP, CON PESO Y DESCRIPCIÓN.
+
+cnppAnalysisConfig: DEFINE PATRONES Y CRITERIOS DE CALIDAD PARA CADA UNO.
+
+analyzeDocuments(): EVALÚA SI LOS DOCUMENTOS CUMPLEN Y EN QUÉ GRADO.
+
+evaluateElementQuality(): APLICA REVISIONES COMO SI HUBIERA UNA LISTA DE COTEJO: ¿HAY NARRACIÓN?, ¿FECHA?, ¿VÍCTIMA?, ¿EVIDENCIA?
+
+VISUALIZACIÓN Y PUNTUACIÓN
+renderCNPPHistogram(): GENERA UN GRÁFICO DE BARRAS DE LOS ELEMENTOS DETECTADOS.
+
+calculateOverallScore(): PONDERA LA PRESENCIA Y CALIDAD DE CADA DOCUMENTO SEGÚN SU PESO.
+
+determineJudicializationLevel(): DEFINE SI LA CARPETA ES “EXCELENTE”, “BUENO”, “REGULAR”, ETC.
+
+Exportaciones
+exportToPDF(), exportToHTML(), exportToJSON(), printExecutiveSummary(): PERMITE SACAR INFORMES EJECUTIVOS O COMPLETOS EN VARIOS FORMATOS.
+
+ 4. RELACIÓN CON LEGISLACIÓN (Artículo 131 CNPP)
+Cada elemento evaluado está directamente vinculado con el artículo 131 del CNPP, que establece qué debe contener una carpeta de investigación para que pueda judicializarse. El sistema:
+
+Evalúa Si Se Cumple Con Ese Mínimo Legal.
+
+Identifica Los Faltantes.
+
+Sugiere Acciones Correctivas.
+
+Determina El Nivel De Viabilidad Jurídica Del Caso.
+
+EN RESUMEN
+
+ES UNA  APP CON FUNCIONES DE UNA HERRAMIENTA FORENSE DISEÑADA PARA ABOGADOS, MINISTERIOS PÚBLICOS O DEFENSORES QUE PERMITE:
+
+1.- Subir archivos de una carpeta de investigación.
+
+2.- Identificar faltantes, evaluar la calidad, mostrar visualizaciones gráficas.
+3.- Exportar todo en formatos útiles para presentación judicial o administrativa.
+4.- Evaluar automáticamente si se integró adecuadamente conforme a los Articulo del CNPP.  
+
+Art. 131 CNPP.
+
+
+Artículo 212 Deber de investigación penal
+Cuando el Ministerio Público tenga conocimiento de la existencia de un hecho que la ley señale como delito, dirigirá la investigación penal, sin que pueda suspender, interrumpir o hacer cesar su curso, salvo en los casos autorizados en la misma.
+La investigación deberá realizarse de manera inmediata, eficiente, exhaustiva, profesional e imparcial, libre de estereotipos y discriminación, orientada a explorar todas las líneas de investigación posibles que permitan allegarse de datos para el esclarecimiento del hecho que la ley señala como delito, así como la identificación de quien lo cometió o participó en su comisión.
+Artículo 213 Objeto de la investigación
+La investigación tiene por objeto que el Ministerio Público reúna indicios para el esclarecimiento de los hechos y, en su caso, los datos de prueba para sustentar el ejercicio de la acción penal, la acusación contra el imputado y la reparación del daño.
+Artículo 214 Principios que rigen a las autoridades de la investigación
+Las autoridades encargadas de desarrollar la investigación de los delitos se regirán por los principios de legalidad, objetividad, eficiencia, profesionalismo, honradez, lealtad y respeto a los derechos humanos reconocidos en la Constitución y en los Tratados.
+Artículo 215 Obligación de suministrar información
+Toda persona o servidor público está obligado a proporcionar oportunamente la información que requieran el Ministerio Público y la Policía en el ejercicio de sus funciones de investigación de un hecho delictivo concreto. En caso de ser citados para ser entrevistados por el Ministerio Público o la Policía, tienen obligación de comparecer y sólo podrán excusarse en los casos expresamente previstos en la ley. En caso de incumplimiento, se incurrirá en responsabilidad y será sancionado de conformidad con las leyes aplicables.
+Artículo 216 Proposición de actos de investigación
+Durante la investigación, tanto el imputado cuando haya comparecido o haya sido entrevistado, como su Defensor, así como la víctima u ofendido, podrán solicitar al Ministerio Público todos aquellos actos de investigación que consideraren pertinentes y útiles para el esclarecimiento de los hechos. El Ministerio Público ordenará que se lleven a cabo aquellos que sean conducentes. La solicitud deberá resolverse en un plazo máximo de tres días siguientes a la fecha en que se haya formulado la petición al Ministerio Público.
+
+Artículo 217 Registro de los actos de investigación
+El Ministerio Público y la Policía deberán dejar registro de todas las actuaciones que se realicen durante la investigación de los delitos, utilizando al efecto cualquier medio que permita garantizar que la información recabada sea completa, íntegra y exacta, así como el acceso a la misma por parte de los sujetos que de acuerdo con la ley tuvieren derecho a exigirlo.
+Cada acto de investigación se registrará por separado, y será firmado por quienes hayan intervenido. Si no quisieren o no pudieren firmar, se imprimirá su huella digital. En caso de que esto no sea posible o la persona se niegue a imprimir su huella, se hará constar el motivo.
+El registro de cada actuación deberá contener por lo menos la indicación de la fecha, hora y lugar en que se haya efectuado, identificación de los servidores públicos y demás personas que hayan intervenido y una breve descripción de la actuación y, en su caso, de sus resultados.
+
+Artículo 218 Reserva de los actos de investigación
+Los registros de la investigación, así como todos los documentos, independientemente de su contenido o naturaleza, los objetos, los registros de voz e imágenes o cosas que le estén relacionados, son estrictamente reservados, por lo que únicamente las partes, podrán tener acceso a los mismos, con las limitaciones establecidas en este Código y demás disposiciones aplicables.
+La víctima u ofendido y su Asesor Jurídico podrán tener acceso a los registros de la investigación en cualquier momento.
+El imputado y su defensor podrán tener acceso a ellos cuando se encuentre detenido, sea citado para comparecer como imputado o sea sujeto de un acto de molestia y se pretenda recibir su entrevista, a partir de este momento ya no podrán mantenerse en reserva los registros para el imputado o su Defensor a fin de no afectar su derecho de defensa. Para los efectos de este párrafo, se entenderá como acto de molestia lo dispuesto en el artículo 266 de este Código.
+En ningún caso la reserva de los registros podrá hacerse valer en perjuicio del imputado y su Defensor, una vez dictado el auto de vinculación a proceso, salvo lo previsto en este Código o en las leyes especiales.
+Para efectos de acceso a la información pública gubernamental, el Ministerio Público únicamente deberá proporcionar una versión pública de las determinaciones de no ejercicio de la acción penal, archivo temporal o de aplicación de un criterio de oportunidad, siempre que haya transcurrido un plazo igual al de prescripción de los delitos de que se trate, de conformidad con lo dispuesto en el Código Penal Federal o estatal correspondiente, sin que pueda ser menor de tres años, ni mayor de doce años, contado a partir de que dicha determinación haya quedado firme.
+(ARTÍCULO REFORMADO D.O.F. 17 DE JUNIO DE 2016)
+
+Artículo 219 Acceso a los registros y la audiencia inicial
+Una vez convocados a la audiencia inicial, el imputado y su Defensor tienen derecho a consultar los registros de la investigación y a obtener copia, con la oportunidad debida para preparar la defensa. En caso que el Ministerio Público se niegue a permitir el acceso a los registros o a la obtención de las copias, podrán acudir ante el Juez de control para que resuelva lo conducente.
+
+Artículo 220 Excepciones para el acceso a la información
+El Ministerio Público podrá solicitar excepcionalmente al Juez de control que determinada información se mantenga bajo reserva aún después de la vinculación a proceso, cuando sea necesario para evitar la destrucción, alteración u ocultamiento de pruebas, la intimidación, amenaza o influencia a los testigos del hecho, para asegurar el éxito de la investigación, o para garantizar la protección de personas o bienes jurídicos.
+Si el Juez de control considera procedente la solicitud, así lo resolverá y determinará el plazo de la reserva, siempre que la información que se solicita sea reservada, sea oportunamente revelada para no afectar el derecho de defensa. La reserva podrá ser prorrogada cuando sea estrictamente necesario, pero no podrá prolongarse hasta después de la formulación de la acusación.
+Artículo 221 Formas de inicio
+La investigación de los hechos que revistan características de un delito podrá iniciarse por denuncia, por querella o por su equivalente cuando la ley lo exija. El Ministerio Público y la Policía están obligados a proceder sin mayores requisitos a la investigación de los hechos de los que tengan noticia.
+Tratándose de delitos que deban perseguirse de oficio, bastará para el inicio de la investigación la comunicación que haga cualquier persona, en la que se haga del conocimiento de la autoridad investigadora los hechos que pudieran ser constitutivos de un delito.
+Tratándose de informaciones anónimas, la Policía constatará la veracidad de los datos aportados mediante los actos de investigación que consideren conducentes para este efecto. De confirmarse la información, se iniciará la investigación correspondiente.
+Cuando el Ministerio Público tenga conocimiento de la probable comisión de un hecho delictivo cuya persecución dependa de querella o de cualquier otro requisito equivalente que deba formular alguna autoridad, lo comunicará por escrito y de inmediato a ésta, a fin de que resuelva lo que a sus facultades o atribuciones corresponda. Las autoridades harán saber por escrito al Ministerio Público la determinación que adopten.
+El Ministerio Público podrá aplicar el criterio de oportunidad en los casos previstos por las disposiciones legales aplicables o no iniciar investigación cuando resulte evidente que no hay delito que perseguir. Las decisiones del Ministerio Público serán impugnables en los términos que prevé este Código.
+
+Artículo 222 Deber de denunciar
+Toda persona a quien le conste que se ha cometido un hecho probablemente constitutivo de un delito está obligada a denunciarlo ante el Ministerio Público y en caso de urgencia ante cualquier agente de la Policía.
+Quien en ejercicio de funciones públicas tenga conocimiento de la probable existencia de un hecho que la ley señale como delito, está obligado a denunciarlo inmediatamente al Ministerio Público, proporcionándole todos los datos que tuviere, poniendo a su disposición a los imputados, si hubieren sido detenidos en flagrancia. Quien tenga el deber jurídico de denunciar y no lo haga, será acreedor a las sanciones correspondientes.
+Cuando el ejercicio de las funciones públicas a que se refiere el párrafo anterior, correspondan a la coadyuvancia con las autoridades responsables de la seguridad pública, además de cumplir con lo previsto en dicho párrafo, la intervención de los servidores públicos respectivos deberá limitarse a preservar el lugar de los hechos hasta el arribo de las autoridades competentes y, en su caso, adoptar las medidas a su alcance para que se brinde atención médica de urgencia a los heridos si los hubiere, así como poner a disposición de la autoridad a los detenidos por conducto o en coordinación con la policía.
+(PÁRRAFO ADICIONADO D.O.F. 17 DE JUNIO DE 2016)
+No estarán obligados a denunciar quienes al momento de la comisión del delito detenten el carácter de tutor, curador, pupilo, cónyuge, concubina o concubinario, conviviente del imputado, los parientes por consanguinidad o por afinidad en la línea recta ascendente o descendente hasta el cuarto grado y en la colateral por consanguinidad o afinidad, hasta el segundo grado inclusive.
+Artículo 223 Forma y contenido de la denuncia
+La denuncia podrá formularse por cualquier medio y deberá contener, salvo los casos de denuncia anónima o reserva de identidad, la identificación del denunciante, su domicilio, la narración circunstanciada del hecho, la indicación de quién o quiénes lo habrían cometido y de las personas que lo hayan presenciado o que tengan noticia de él y todo cuanto le constare al denunciante.
+En el caso de que la denuncia se haga en forma oral, se levantará un registro en presencia del denunciante, quien previa lectura que se haga de la misma, lo firmará junto con el servidor público que la reciba. La denuncia escrita será firmada por el denunciante.
+En ambos casos, si el denunciante no pudiere firmar, estampará su huella digital, previa lectura que se le haga de la misma.
+Artículo 224 Trámite de la denuncia
+Cuando la denuncia sea presentada directamente ante el Ministerio Público, éste iniciará la investigación conforme a las reglas previstas en este Código.
+Cuando la denuncia sea presentada ante la Policía, ésta informará de dicha circunstancia al Ministerio Público en forma inmediata y por cualquier medio, sin perjuicio de realizar las diligencias urgentes que se requieran dando cuenta de ello en forma posterior al Ministerio Público.
+Artículo 225 Querella u otro requisito equivalente
+La querella es la expresión de la voluntad de la víctima u ofendido o de quien legalmente se encuentre facultado para ello, mediante la cual manifiesta expresamente ante el Ministerio Público su pretensión de que se inicie la investigación de uno o varios hechos que la ley señale como delitos y que requieran de este requisito de procedibilidad para ser investigados y, en su caso, se ejerza la acción penal correspondiente.
+La querella deberá contener, en lo conducente, los mismos requisitos que los previstos para la denuncia. El Ministerio Público deberá cerciorarse que éstos se encuentren debidamente satisfechos para, en su caso, proceder en los términos que prevé el presente Código. Tratándose de requisitos de procedibilidad equivalentes, el Ministerio Público deberá realizar la misma verificación.
+Artículo 226 Querella de personas menores de edad o que no tienen capacidad para comprender el significado del hecho
+Tratándose de personas menores de dieciocho años, o de personas que no tengan la capacidad de comprender el significado del hecho, la querella podrá ser presentada por quienes ejerzan la patria potestad o la tutela o sus representantes legales, sin perjuicio de que puedan hacerlo por sí mismos, por sus hermanos o un tercero, cuando se trate de delitos cometidos en su contra por quienes ejerzan la patria potestad, la tutela o sus propios representantes.
+Artículo 227 Cadena de custodia
+La cadena de custodia es el sistema de control y registro que se aplica al indicio, evidencia, objeto, instrumento o producto del hecho delictivo, desde su localización, descubrimiento o aportación, en el lugar de los hechos o del hallazgo, hasta que la autoridad competente ordene su conclusión.
+Con el fin de corroborar los elementos materiales probatorios y la evidencia física, la cadena de custodia se aplicará teniendo en cuenta los siguientes factores: identidad, estado original, condiciones de recolección, preservación, empaque y traslado; lugares y fechas de permanencia y los cambios que en cada custodia se hayan realizado; igualmente se registrará el nombre y la identificación de todas las personas que hayan estado en contacto con esos elementos.
+Artículo 228 Responsables de cadena de custodia
+La aplicación de la cadena de custodia es responsabilidad de quienes, en cumplimiento de las funciones propias de su encargo o actividad, en los términos de ley, tengan contacto con los indicios, vestigios, evidencias, objetos, instrumentos o productos del hecho delictivo.
+Cuando durante el procedimiento de cadena de custodia los indicios, huellas o vestigios del hecho delictivo, así como los instrumentos, objetos o productos del delito se alteren, no perderán su valor probatorio, a menos que la autoridad competente verifique que han sido modificados de tal forma que hayan perdido su eficacia para acreditar el hecho o circunstancia de que se trate. Los indicios, huellas o vestigios del hecho delictivo, así como los instrumentos, objetos o productos del delito deberán concatenarse con otros medios probatorios para tal fin. Lo anterior, con independencia de la responsabilidad en que pudieran incurrir los servidores públicos por la inobservancia de este procedimiento.
+Artículo 229 Aseguramiento de bienes, instrumentos, objetos o productos del delito
+Los instrumentos, objetos o productos del delito, así como los bienes en que existan huellas o pudieran tener relación con éste, siempre que guarden relación directa con el lugar de los hechos o del hallazgo, serán asegurados durante el desarrollo de la investigación, a fin de que no se alteren, destruyan o desaparezcan. Para tales efectos se establecerán controles específicos para su resguardo, que atenderán como mínimo a la naturaleza del bien y a la peligrosidad de su conservación.
+Artículo 230 Reglas sobre el aseguramiento de bienes
+El aseguramiento de bienes se realizará conforme a lo siguiente:
+•	I. El Ministerio Público, o la Policía en auxilio de éste, deberá elaborar un inventario de todos y cada uno de los bienes que se pretendan asegurar, firmado por el imputado o la persona con quien se atienda el acto de investigación. Ante su ausencia o negativa, la relación deberá ser firmada por dos testigos presenciales que preferentemente no sean miembros de la Policía y cuando ello suceda, que no hayan participado materialmente en la ejecución del acto;
+•	II. La Policía deberá tomar las providencias necesarias para la debida preservación del lugar de los hechos o del hallazgo y de los indicios, huellas, o vestigios del hecho delictivo, así como de los instrumentos, objetos o productos del delito asegurados, y
+•	III. Los bienes asegurados y el inventario correspondiente se pondrán a la brevedad a disposición de la autoridad competente, de conformidad con las disposiciones aplicables. Se deberá informar si los bienes asegurados son indicio, evidencia física, objeto, instrumento o producto del hecho delictivo.
+Artículo 230. Reglas sobre el aseguramiento de bienes
+El aseguramiento de bienes se realizará conforme a lo siguiente:
+I. El Ministerio Público, o la Policía en auxilio de éste, deberá elaborar un inventario de todos y cada uno de los bienes que se pretendan asegurar, firmado por el imputado o la persona con quien se atienda el acto de investigación. Ante su ausencia o negativa, la relación deberá ser firmada por dos testigos presenciales que preferentemente no sean miembros de la Policía y cuando ello suceda, que no hayan participado materialmente en la ejecución del acto;
+
+II. La Policía deberá tomar las providencias necesarias para la debida preservación del lugar de los hechos o del hallazgo y de los indicios, huellas, o vestigios del hecho delictivo, así como de los instrumentos, objetos o productos del delito asegurados, y
+
+III. Los bienes asegurados y el inventario correspondiente se pondrán a la brevedad a disposición de la autoridad competente, de conformidad con las disposiciones aplicables. Se deberá informar si los bienes asegurados son indicio, evidencia física, objeto, instrumento o producto del hecho delictivo. 
+
+
+
+Artículo 231. Notificación del aseguramiento y abandono
+El Ministerio Público deberá notificar al interesado o a su representante legal el aseguramiento del objeto, instrumento o producto del delito, dentro de los sesenta días naturales siguientes a su ejecución, entregando o poniendo a su disposición, según sea el caso, una copia del registro de aseguramiento, para que manifieste lo que a su derecho convenga.
+
+En la notificación se apercibirá al interesado o a su representante legal para que se abstenga de ejercer actos de dominio sobre los bienes asegurados y se le apercibirá que de no manifestar lo que a su derecho convenga, en un término de noventa días naturales siguientes al de la notificación, los bienes causarán abandono a favor del Gobierno Federal o de la Entidad federativa de que se trate, según corresponda. 
+
+Artículo 232. Custodia y disposición de los bienes asegurados
+Cuando los bienes que se aseguren hayan sido previamente embargados, intervenidos, secuestrados o asegurados, se notificará el nuevo aseguramiento a las autoridades que hayan ordenado dichos actos. Los bienes continuarán en custodia de quien se haya designado para ese fin, y a disposición de la autoridad judicial o del Ministerio Público para los efectos del procedimiento penal. 
+
+Artículo 233. Registro de los bienes asegurados
+Se hará constar en los registros públicos que correspondan, de conformidad con las disposiciones aplicables:
+I. El aseguramiento de bienes muebles o inmuebles, y
+II. La existencia de medidas cautelares que afecten la propiedad o posesión de bienes. 
+Servicio de Información Legislativa
+Artículo 234. Frutos de los bienes asegurados
+A los frutos o rendimientos de los bienes durante el tiempo del aseguramiento, se les dará el mismo tratamiento que a los bienes asegurados, debiendo ser conservados y administrados conforme a las disposiciones aplicables. 
+Artículo 235. Aseguramiento de bienes en delitos de querella
+En los delitos de querella, no se procederá sin que ésta se haya formulado, salvo para realizar los actos urgentes de investigación o los estrictamente necesarios para impedir o interrumpir la comisión del delito. 
+
+Artículo 236. Objetos de gran tamaño
+Los objetos de gran tamaño, como naves, aeronaves, vehículos automotores, máquinas, grúas y otros similares, después de ser examinados, fotografiados o videograbados, podrán ser devueltos, con o sin reservas, al propietario, poseedor o al tenedor legítimo según el caso, previa demostración de la calidad invocada, siempre y cuando no hayan sido medios comisivos del delito ni se requieran para el desarrollo de la investigación. 
+Artículo 237. Aseguramiento de objetos de gran tamaño
+Los objetos mencionados en el artículo precedente, después de que sean examinados, fotografiados o videograbados, podrán ser devueltos, con o sin reservas, al propietario, poseedor o al tenedor legítimo según el caso, previa demostración de la calidad invocada, siempre y cuando no hayan sido medios comisivos del delito ni se requieran para el desarrollo de la investigación. 
+Artículo 238. Aseguramiento de flora y fauna
+Las especies de flora y fauna de reserva ecológica que se aseguren, serán provistas de los cuidados necesarios y, en su caso, se pondrán a disposición de las autoridades competentes para su resguardo y conservación, conforme a las disposiciones aplicables. 
+
+Artículo 239. Requisitos para el aseguramiento de vehículos
+Tratándose de delitos culposos ocasionados con motivo del tránsito de vehículos, estos se entregarán a su propietario, poseedor o tenedor legítimo, una vez que se hayan realizado las diligencias necesarias para la investigación, salvo que existan razones fundadas para su retención. 
+
+Artículo 240. Aseguramiento de vehículos
+En caso de que se presente alguno de los supuestos anteriores, el Ministerio Público podrá ordenar el aseguramiento y resguardo del vehículo, tomando las medidas necesarias para su conservación y evitando su deterioro. 
+
+Artículo 241. Aseguramiento de armas de fuego o explosivos
+Cuando se aseguren armas de fuego o explosivos, se hará del conocimiento de la Secretaría de la Defensa Nacional, para los efectos legales conducentes. 
+Conceptos Jurídicos
+
+Artículo 242. Aseguramiento de sustancias tóxicas o peligrosas
+Las sustancias tóxicas o peligrosas que se aseguren serán puestas a disposición de las autoridades competentes para su resguardo, análisis o destrucción, conforme a las disposiciones aplicables.
+
+Artículo 243. Aseguramiento de documentos
+Los documentos que se aseguren serán conservados en su estado original y, en su caso, se realizarán copias certificadas para su incorporación a la carpeta de investigación, garantizando su autenticidad e integridad.
+
+Artículo 244. Aseguramiento de información electrónica
+La información electrónica que se asegure será resguardada en medios que garanticen su integridad y, en su caso, se realizarán copias de seguridad para su análisis, conforme a las disposiciones aplicables.
+
+Artículo 245. Aseguramiento de correspondencia
+La correspondencia que se asegure será abierta y examinada únicamente por orden judicial, garantizando la confidencialidad y los derechos de las personas involucradas.
+
+Artículo 246. Aseguramiento de bienes culturales
+Los bienes culturales que se aseguren serán puestos a disposición de las autoridades competentes para su resguardo y conservación, conforme a las disposiciones aplicables.
+
+Artículo 247. Aseguramiento de bienes en delitos fiscales
+En los delitos fiscales, el aseguramiento de bienes se realizará conforme a las disposiciones aplicables en la materia, garantizando los derechos de los contribuyentes.
+
+I. Prueba Testimonial (Artículos 360 al 367)
+Artículo 360. Deber de testificar
+Toda persona tiene la obligación de concurrir al proceso cuando sea citada y de declarar la verdad de cuanto conozca y le sea preguntado. No deberá ocultar hechos, circunstancias o cualquier otra información relevante para la solución de la controversia, salvo disposición en contrario. El testigo no estará obligado a declarar sobre hechos por los que se le pueda fincar responsabilidad penal. 
+Artículo 361. Facultad de abstención
+Podrán abstenerse de declarar el tutor, curador, pupilo, cónyuge, concubina o concubinario, conviviente del imputado, la persona que tenga con él una relación de parentesco por consanguinidad o afinidad hasta el cuarto grado, así como quienes estén ligados por vínculos de confianza, afecto o interés que, a juicio del órgano jurisdiccional, justifiquen la abstención. 
+Artículo 362. Inadmisibilidad de testimonios
+Es inadmisible el testimonio de quien haya sido coimputado en el mismo proceso, salvo que haya sido separado del mismo y su declaración sea ofrecida por la defensa.
+Artículo 363. Citación de testigos
+Los testigos serán citados para su examinación. En casos de urgencia, podrán ser citados por cualquier medio que garantice la recepción de la citación, de lo cual se deberá dejar constancia. El testigo podrá presentarse a declarar sin previa cita. 
+Artículo 364. Sanciones por incomparecencia
+Se impondrá de seis meses a tres años de prisión y de veinticinco a cien días multa al particular que, citado legalmente como testigo, no comparezca sin justa causa. 
+Artículo 365. Protección de testigos
+El órgano jurisdiccional podrá ordenar medidas especiales destinadas a proteger la integridad física y psicológica del testigo y sus familiares, cuando exista riesgo fundado. 
+Artículo 366. Testimonios especiales
+Cuando deba recibirse testimonio de menores de edad víctimas del delito y se tema por su afectación psicológica o emocional, el órgano jurisdiccional deberá ordenar su recepción con el auxilio de familiares y peritos especializados de manera oficiosa. 
+Artículo 367. Protección a los testigos
+El órgano jurisdiccional, por un tiempo razonable, podrá ordenar medidas especiales destinadas a proteger la integridad física y psicológica del testigo y sus familiares, cuando exista riesgo fundado. 
+
+II. Prueba Pericial (Artículos 368 al 370)
+Artículo 368. Prueba pericial
+Podrá ofrecerse la prueba pericial cuando, para el examen de personas, hechos, objetos o circunstancias relevantes para el proceso, sea necesario o conveniente poseer conocimientos especiales en alguna ciencia, arte, técnica u oficio. 
+Artículo 369. Requisitos de los peritos
+Los peritos deberán poseer título oficial en la materia relativa al punto sobre el cual dictaminarán y no tener impedimentos legales para ejercer su profesión. 
+Artículo 370. Medidas de protección
+En caso necesario, los peritos y otros terceros que deban intervenir en el procedimiento para efectos probatorios, podrán ser objeto de medidas de protección, cuando exista riesgo fundado para su integridad. 
+III. Disposiciones Generales del Interrogatorio y Contrainterrogatorio (Artículos 371 al 376)
+Artículo 371. Declarantes en la audiencia de juicio
+Antes de declarar, los testigos no podrán comunicarse entre sí, ni ver, oír o ser informados de lo que ocurra en la audiencia. 
+Artículo 372. Desarrollo del interrogatorio
+Otorgada la protesta y realizada su identificación, el juzgador que presida la audiencia de juicio concederá la palabra a la parte que ofreció al testigo para que proceda a su interrogatorio. 
+Artículo 373. Reglas para formular preguntas en juicio
+Toda pregunta deberá formularse de manera oral y versará sobre un hecho específico. En ningún caso se permitirán preguntas ambiguas, conclusivas, impertinentes, irrelevantes o argumentativas. 
+Artículo 374. Objeciones
+Las partes podrán formular objeciones a las preguntas que consideren improcedentes. El juez resolverá de inmediato sobre su procedencia.
+Artículo 375. Contrainterrogatorio
+La parte contraria podrá interrogar al testigo sobre los mismos hechos objeto del interrogatorio principal y sobre otros relacionados con su credibilidad.
+Artículo 376. Intervención del juez
+El juez podrá formular preguntas para aclarar aspectos oscuros o contradictorios de las declaraciones, sin asumir el papel de las partes.
+
+IV. Declaración del Acusado (Artículos 377 al 379)
+Artículo 377. Derecho a declarar
+El acusado podrá declarar en cualquier momento del proceso, sin que ello implique confesión ni perjuicio.
+Artículo 378. Asistencia de defensa
+La declaración del acusado se recibirá en presencia de su defensor.
+Artículo 379. Valor probatorio
+La declaración del acusado se valorará en conjunto con las demás pruebas del proceso.
+
+V. Prueba Documental y Material (Artículos 380 al 387)
+Artículo 380. Presentación de documentos
+Los documentos deberán presentarse en su forma original o en copia certificada, salvo imposibilidad justificada.
+Artículo 381. Incorporación de documentos
+Los documentos se incorporarán al juicio mediante su lectura o exhibición, según corresponda.
+Artículo 382. Valor probatorio de documentos
+El valor probatorio de los documentos se determinará conforme a las reglas de la sana crítica.
+Artículo 383. Objetos materiales
+Los objetos materiales relacionados con el delito podrán ser presentados como prueba, siempre que se garantice su autenticidad e integridad.
+Artículo 384. Exhibición de objetos
+La exhibición de objetos materiales se realizará en audiencia, permitiendo su examen por las partes.
+Artículo 385. Conservación de objetos
+Los objetos materiales deberán conservarse en condiciones que eviten su alteración o deterioro.
+Artículo 386. Devolución de objetos
+Los objetos podrán ser devueltos a quien acredite su legítima propiedad, salvo que deban conservarse para el proceso.
+Artículo 387. Destrucción de objetos
+Cuando los objetos representen un peligro o no sea posible su conservación, el juez podrá ordenar su destrucción, previa documentación adecuada.
+

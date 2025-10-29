@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Documentos Legales Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 35px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #e74c3c, #f39c12, #27ae60);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-tab.active {
+            background: #ffffff;
+            border-bottom: 4px solid #3498db;
+            color: #2c3e50;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 35px;
+            min-height: 700px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .upload-area:hover::before {
+            left: 100%;
+        }
+
+        .upload-area:hover {
+            border-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.2);
+        }
+
+        .upload-area.dragover {
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            transform: scale(1.02);
+        }
+
+        .upload-area h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+
+        .upload-area p {
+            color: #7f8c8d;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 6px;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #d68910);
+            color: white;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .file-list {
+            margin-top: 30px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .file-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            border-left-color: #e74c3c;
+        }
+
+        .file-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .file-name {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .file-details {
+            font-size: 13px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .document-type {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 700;
+            margin: 6px 6px 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .type-contrato { 
+            background: linear-gradient(135deg, #9b59b6, #8e44ad); 
+            color: white; 
+        }
+        .type-expediente-penal { 
+            background: linear-gradient(135deg, #e74c3c, #c0392b); 
+            color: white; 
+        }
+        .type-expediente-civil { 
+            background: linear-gradient(135deg, #3498db, #2980b9); 
+            color: white; 
+        }
+        .type-expediente-laboral { 
+            background: linear-gradient(135deg, #f39c12, #d68910); 
+            color: white; 
+        }
+        .type-expediente-familiar { 
+            background: linear-gradient(135deg, #e91e63, #ad1457); 
+            color: white; 
+        }
+        .type-carpeta-investigacion { 
+            background: linear-gradient(135deg, #795548, #5d4037); 
+            color: white; 
+        }
+        .type-sucesion { 
+            background: linear-gradient(135deg, #607d8b, #455a64); 
+            color: white; 
+        }
+        .type-demanda { 
+            background: linear-gradient(135deg, #ff5722, #d84315); 
+            color: white; 
+        }
+        .type-resolucion { 
+            background: linear-gradient(135deg, #4caf50, #388e3c); 
+            color: white; 
+        }
+        .type-escritura { 
+            background: linear-gradient(135deg, #673ab7, #512da8); 
+            color: white; 
+        }
+
+        .analysis-section {
+            margin: 30px 0;
+            padding: 30px;
+            border-left: 5px solid #3498db;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .analysis-section h3 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            border-top: 4px solid #3498db;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 900;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px;
+        }
+
+        .spinner {
+            border: 5px solid #ecf0f1;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            font-weight: 600;
+            border-left: 5px solid;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border-left-color: #27ae60;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+            border-left-color: #f39c12;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border-left-color: #e74c3c;
+        }
+
+        .analysis-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .analysis-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .risk-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-alto { 
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        .risk-medio { 
+            background: linear-gradient(135deg, #f39c12, #d68910);
+            color: white;
+        }
+        .risk-bajo { 
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+
+        .legal-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .legal-element {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .nav-tab {
+                flex: 1 1 50%;
+                font-size: 13px;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .tab-content {
+                padding: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Librerías externas para procesamiento real -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/2.1.5/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Analizador de Documentos Legales</h1>
+            <p>Sistema profesional de análisis e inteligencia documental jurídica</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('upload')">Carga de Documentos</button>
+            <button class="nav-tab" onclick="showTab('analyze')">Análisis Legal</button>
+            <button class="nav-tab" onclick="showTab('reports')">Informes Técnicos</button>
+            <button class="nav-tab" onclick="showTab('database')">Base de Datos</button>
+        </div>
+
+        <!-- Tab: Upload -->
+        <div id="upload" class="tab-content active">
+            <h2>Gestión de Documentos</h2>
+            
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <h3>Seleccionar documentos legales</h3>
+                <p>PDF, DOCX, TXT, imágenes escaneadas</p>
+                <p><strong>Procesamiento real con OCR y extracción avanzada</strong></p>
+                <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.docx,.txt,.jpg,.png,.jpeg">
+            </div>
+
+            <div class="export-options">
+                <button class="btn btn-primary" onclick="document.getElementById('folderInput').click()">
+                    Cargar Expediente Completo
+                </button>
+                <input type="file" id="folderInput" class="file-input" webkitdirectory multiple>
+                <button class="btn btn-success" onclick="processFiles()">Procesar y Analizar</button>
+                <button class="btn btn-warning" onclick="clearFiles()">Limpiar</button>
+            </div>
+
+            <div id="fileList" class="file-list"></div>
+        </div>
+
+        <!-- Tab: Analyze -->
+        <div id="analyze" class="tab-content">
+            <h2>Análisis Legal Avanzado</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalDocs">0</div>
+                    <div class="stat-label">Documentos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="highRisk">0</div>
+                    <div class="stat-label">Alto Riesgo</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="legalRefs">0</div>
+                    <div class="stat-label">Referencias</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="compliance">0</div>
+                    <div class="stat-label">% Conformidad</div>
+                </div>
+            </div>
+            
+            <div id="analysisResults"></div>
+            
+            <div class="analysis-section">
+                <h3>Elementos Legales Identificados</h3>
+                <div id="legalElements" class="legal-elements"></div>
+            </div>
+
+            <div class="analysis-section">
+                <h3>Clasificación por Materia</h3>
+                <div id="matterClassification"></div>
+            </div>
+        </div>
+
+        <!-- Tab: Reports -->
+        <div id="reports" class="tab-content">
+            <h2>Informes Profesionales</h2>
+            
+            <div class="summary-card">
+                <h3>Informe Ejecutivo</h3>
+                <div id="executiveReport"></div>
+                
+                <div class="export-options">
+                    <button class="btn btn-primary" onclick="exportReport('executive')">Exportar PDF</button>
+                    <button class="btn btn-success" onclick="exportReport('executive', 'docx')">Exportar DOCX</button>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Análisis Técnico Detallado</h3>
+                <div id="technicalReport"></div>
+                
+                <div class="export-options">
+                    <button class="btn btn-primary" onclick="exportReport('technical')">Exportar PDF</button>
+                    <button class="btn btn-success" onclick="exportReport('technical', 'docx')">Exportar DOCX</button>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Reporte de Cumplimiento</h3>
+                <div id="complianceReport"></div>
+                
+                <div class="export-options">
+                    <button class="btn btn-primary" onclick="exportReport('compliance')">Exportar PDF</button>
+                    <button class="btn btn-warning" onclick="generateCompliance()">Regenerar Análisis</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Database -->
+        <div id="database" class="tab-content">
+            <h2>Base de Datos Jurídica</h2>
+            
+            <div class="summary-card">
+                <h3>Repositorio de Documentos</h3>
+                <div id="documentDatabase"></div>
+                
+                <div class="export-options">
+                    <button class="btn btn-primary" onclick="exportDatabase()">Exportar Base</button>
+                    <button class="btn btn-success" onclick="loadDatabase()">Cargar Base</button>
+                    <button class="btn btn-warning" onclick="searchDatabase()">Buscar</button>
+                    <input type="file" id="databaseInput" class="file-input" accept=".json">
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Análisis de Patrones</h3>
+                <div id="patternAnalysis"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let uploadedFiles = [];
+        let analysisResults = {};
+        let documentDatabase = {};
+        let legalPatterns = {};
+
+        // Configuración de PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            loadStoredData();
+            updateStats();
+        });
+
+        function setupEventListeners() {
+            const uploadArea = document.querySelector('.upload-area');
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+
+            document.getElementById('fileInput').addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+
+            document.getElementById('folderInput').addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+
+            document.getElementById('databaseInput').addEventListener('change', (e) => {
+                loadDatabaseFromFile(e.target.files[0]);
+            });
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            displayFileList();
+        }
+
+        function displayFileList() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                const fileType = getFileType(file.name);
+                
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-details">
+                            Tipo: ${fileType} | Tamaño: ${formatFileSize(file.size)} | 
+                            Modificado: ${new Date(file.lastModified).toLocaleString()}
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-danger" onclick="removeFile(${index})">Eliminar</button>
+                    </div>
+                `;
+                
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            displayFileList();
+        }
+
+        function clearFiles() {
+            uploadedFiles = [];
+            displayFileList();
+        }
+
+        function getFileType(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const types = {
+                'pdf': 'PDF',
+                'docx': 'Word Document',
+                'doc': 'Word Document',
+                'txt': 'Texto Plano',
+                'jpg': 'Imagen JPEG',
+                'jpeg': 'Imagen JPEG',
+                'png': 'Imagen PNG'
+            };
+            return types[ext] || 'Archivo';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // ANÁLISIS REAL CON LIBRERÍAS EXTERNAS
+        async function processFiles() {
+            if (uploadedFiles.length === 0) {
+                showAlert('Seleccione documentos para procesar', 'warning');
+                return;
+            }
+
+            showLoadingState();
+            
+            try {
+                for (let file of uploadedFiles) {
+                    const content = await extractTextFromFile(file);
+                    if (content && content.length > 0) {
+                        const analysis = await performLegalAnalysis(file, content);
+                        analysisResults[file.name] = analysis;
+                        documentDatabase[file.name] = {
+                            ...analysis,
+                            processedDate: new Date().toISOString(),
+                            fileSize: file.size,
+                            fileType: file.type
+                        };
+                    }
+                }
+                
+                generateAnalysisResults();
+                generateReports();
+                saveToStorage();
+                updateStats();
+                
+                showTab('analyze');
+                document.querySelector('[onclick="showTab(\'analyze\')"]').click();
+                showAlert('Análisis completado exitosamente', 'success');
+                
+            } catch (error) {
+                console.error('Error procesando archivos:', error);
+                showAlert('Error al procesar: ' + error.message, 'danger');
+            } finally {
+                hideLoadingState();
+            }
+        }
+
+        // EXTRACCIÓN REAL DE TEXTO
+        async function extractTextFromFile(file) {
+            const fileType = file.type;
+            const fileName = file.name.toLowerCase();
+
+            try {
+                if (fileType === 'application/pdf') {
+                    return await extractTextFromPDF(file);
+                } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || 
+                           fileName.endsWith('.docx')) {
+                    return await extractTextFromDOCX(file);
+                } else if (fileType === 'text/plain' || fileName.endsWith('.txt')) {
+                    return await extractTextFromTXT(file);
+                } else if (fileType.startsWith('image/')) {
+                    return await extractTextFromImage(file);
+                }
+            } catch (error) {
+                console.error('Error extracting text from', file.name, ':', error);
+                throw new Error(`No se pudo extraer texto de ${file.name}`);
+            }
+            
+            throw new Error(`Tipo de archivo no soportado: ${file.name}`);
+        }
+
+        async function extractTextFromPDF(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            let fullText = '';
+            
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\n';
+            }
+            
+            return fullText;
+        }
+
+        async function extractTextFromDOCX(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.extractRawText({arrayBuffer: arrayBuffer});
+            return result.value;
+        }
+
+        async function extractTextFromTXT(file) {
+            return await file.text();
+        }
+
+        async function extractTextFromImage(file) {
+            const { data: { text } } = await Tesseract.recognize(file, 'spa', {
+                logger: m => console.log(m)
+            });
+            return text;
+        }
+
+        // CLASIFICACIÓN AVANZADA DE DOCUMENTOS LEGALES
+        function classifyLegalDocument(content) {
+            const text = content.toLowerCase();
+            
+            const legalDocuments = {
+                'Contrato': {
+                    keywords: ['contrato', 'contratante', 'contratista', 'cláusulas', 'prestación', 'obligaciones', 'acuerdo', 'pacto'],
+                    structures: ['primera', 'segunda', 'tercera', 'cláusula', 'estipula', 'conviene'],
+                    weight: 0,
+                    minScore: 15
+                },
+                'Expediente Penal': {
+                    keywords: ['expediente penal', 'causa penal', 'delito', 'imputado', 'fiscal', 'ministerio público', 'audiencia', 'sentencia penal'],
+                    structures: ['hechos', 'imputación', 'pruebas', 'alegatos', 'fallo', 'condenar'],
+                    weight: 0,
+                    minScore: 12
+                },
+                'Expediente Civil': {
+                    keywords: ['expediente civil', 'demanda civil', 'actor', 'demandado', 'pretensión', 'daños', 'indemnización'],
+                    structures: ['hechos', 'fundamentos', 'petitorio', 'contestación', 'sentencia civil'],
+                    weight: 0,
+                    minScore: 12
+                },
+                'Expediente Laboral': {
+                    keywords: ['despido', 'trabajador', 'empleador', 'salario', 'jornada', 'contrato laboral', 'liquidación', 'finiquito'],
+                    structures: ['relación laboral', 'prestaciones', 'indemnización', 'tribunal laboral'],
+                    weight: 0,
+                    minScore: 10
+                },
+                'Expediente Familiar': {
+                    keywords: ['divorcio', 'custodia', 'régimen visitias', 'alimentos', 'patria potestad', 'matrimonio', 'menores'],
+                    structures: ['cónyuge', 'hijos', 'pensión alimenticia', 'bienes gananciales'],
+                    weight: 0,
+                    minScore: 10
+                },
+                'Carpeta de Investigación': {
+                    keywords: ['carpeta investigación', 'ministerio público', 'denuncia', 'querella', 'probable responsabilidad', 'víctima'],
+                    structures: ['hechos denunciados', 'investigación', 'diligencias', 'consignación'],
+                    weight: 0,
+                    minScore: 12
+                },
+                'Sucesión': {
+                    keywords: ['testamento', 'herencia', 'sucesión', 'herederos', 'legado', 'albacea', 'inventario', 'partición'],
+                    structures: ['bienes hereditarios', 'causante', 'sucesores', 'adjudicación'],
+                    weight: 0,
+                    minScore: 10
+                },
+                'Demanda': {
+                    keywords: ['demanda', 'actor', 'demandado', 'prestación', 'petitorio', 'emplazamiento'],
+                    structures: ['hechos', 'fundamentos derecho', 'suplica', 'primera instancia'],
+                    weight: 0,
+                    minScore: 12
+                },
+                'Resolución': {
+                    keywords: ['resolución', 'resuelve', 'visto', 'considerando', 'por tanto', 'dispongo'],
+                    structures: ['antecedentes', 'fundamentos', 'parte resolutiva', 'notifíquese'],
+                    weight: 0,
+                    minScore: 12
+                },
+                'Escritura Pública': {
+                    keywords: ['escritura pública', 'notario', 'protocolo', 'otorga', 'comparece', 'fedatario'],
+                    structures: ['comparecientes', 'otorgamiento', 'autorización notarial', 'matriz'],
+                    weight: 0,
+                    minScore: 10
+                }
+            };
+
+            // Calcular puntajes
+            for (const [docType, config] of Object.entries(legalDocuments)) {
+                let score = 0;
+                
+                // Evaluar keywords (peso 3)
+                config.keywords.forEach(keyword => {
+                    const regex = new RegExp(keyword.replace(/\s+/g, '\\s+'), 'gi');
+                    const matches = text.match(regex);
+                    if (matches) {
+                        score += matches.length * 3;
+                    }
+                });
+
+                // Evaluar estructuras (peso 2)
+                config.structures.forEach(structure => {
+                    const regex = new RegExp(structure.replace(/\s+/g, '\\s+'), 'gi');
+                    if (regex.test(text)) {
+                        score += 2;
+                    }
+                });
+
+                config.weight = score;
+            }
+
+            // Encontrar el mejor match
+            let bestMatch = 'Documento General';
+            let highestScore = 0;
+
+            for (const [docType, config] of Object.entries(legalDocuments)) {
+                if (config.weight >= config.minScore && config.weight > highestScore) {
+                    highestScore = config.weight;
+                    bestMatch = docType;
+                }
+            }
+
+            return {
+                type: bestMatch,
+                confidence: Math.min(100, Math.round((highestScore / 30) * 100)),
+                scores: Object.fromEntries(
+                    Object.entries(legalDocuments).map(([type, config]) => [type, config.weight])
+                )
+            };
+        }
+
+        // ANÁLISIS LEGAL AVANZADO
+        async function performLegalAnalysis(file, content) {
+            const classification = classifyLegalDocument(content);
+            const legalElements = extractLegalElements(content);
+            const riskAssessment = assessLegalRisk(content, classification.type);
+            const compliance = checkCompliance(content, classification.type);
+            const structure = analyzeDocumentStructure(content);
+            
+            return {
+                fileName: file.name,
+                fileSize: file.size,
+                lastModified: new Date(file.lastModified),
+                documentType: classification.type,
+                confidence: classification.confidence,
+                alternativeTypes: classification.scores,
+                content: content.substring(0, 2000) + (content.length > 2000 ? '...' : ''),
+                fullContent: content,
+                legalElements: legalElements,
+                riskLevel: riskAssessment.level,
+                riskFactors: riskAssessment.factors,
+                compliance: compliance,
+                structure: structure,
+                wordCount: content.split(/\s+/).length,
+                pageCount: Math.ceil(content.split(/\s+/).length / 250), // Aprox 250 palabras por página
+                processedDate: new Date().toISOString()
+            };
+        }
+
+        function extractLegalElements(content) {
+            const elements = {
+                laws: [],
+                articles: [],
+                codes: [],
+                jurisprudence: [],
+                authorities: [],
+                dates: [],
+                amounts: [],
+                parties: []
+            };
+
+            // Leyes y decretos
+            const lawPatterns = [
+                /ley\s+(\d+\/\d+)/gi,
+                /decreto\s+(\d+\/\d+)/gi,
+                /real\s+decreto\s+(\d+\/\d+)/gi,
+                /orden\s+(\w+\/\d+)/gi,
+                /reglamento\s+(\d+\/\d+)/gi
+            ];
+
+            lawPatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.laws.push(...matches);
+            });
+
+            // Artículos
+            const articlePatterns = [
+                /artículo\s+(\d+)/gi,
+                /art\.\s*(\d+)/gi,
+                /numeral\s+(\d+)/gi,
+                /inciso\s+(\w+)/gi
+            ];
+
+            articlePatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.articles.push(...matches);
+            });
+
+            // Códigos
+            const codePatterns = [
+                /código\s+(civil|penal|comercio|trabajo|familia)/gi,
+                /c\.\s*(c\.|p\.|com\.|t\.)/gi,
+                /ley\s+federal\s+del\s+trabajo/gi,
+                /código\s+fiscal/gi
+            ];
+
+            codePatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.codes.push(...matches);
+            });
+
+            // Autoridades
+            const authorityPatterns = [
+                /juzgado\s+\w+/gi,
+                /tribunal\s+\w+/gi,
+                /corte\s+suprema/gi,
+                /ministerio\s+público/gi,
+                /fiscalía/gi,
+                /notario/gi
+            ];
+
+            authorityPatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.authorities.push(...matches);
+            });
+
+            // Fechas
+            const datePatterns = [
+                /\d{1,2}\s+de\s+\w+\s+de\s+\d{4}/gi,
+                /\d{1,2}\/\d{1,2}\/\d{2,4}/gi,
+                /\d{1,2}-\d{1,2}-\d{2,4}/gi
+            ];
+
+            datePatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.dates.push(...matches);
+            });
+
+            // Cantidades monetarias
+            const amountPatterns = [
+                /\$\s*[\d,]+\.?\d*/gi,
+                /\d+\s*pesos/gi,
+                /\d+\s*euros/gi,
+                /\d+\s*dólares/gi
+            ];
+
+            amountPatterns.forEach(pattern => {
+                const matches = content.match(pattern);
+                if (matches) elements.amounts.push(...matches);
+            });
+
+            return elements;
+        }
+
+        function assessLegalRisk(content, documentType) {
+            let riskScore = 0;
+            const factors = [];
+            const text = content.toLowerCase();
+
+            // Factores de riesgo generales
+            const riskPatterns = {
+                'Alto': [
+                    { pattern: /incumplimiento/gi, weight: 4, desc: 'Incumplimiento contractual' },
+                    { pattern: /demanda|litigation|juicio/gi, weight: 4, desc: 'Proceso judicial activo' },
+                    { pattern: /multa|sanción|penalización/gi, weight: 3, desc: 'Sanciones económicas' },
+                    { pattern: /rescisión|terminación/gi, weight: 3, desc: 'Terminación de relaciones' },
+                    { pattern: /plazo\s+vencido|mora/gi, weight: 3, desc: 'Plazos vencidos' }
+                ],
+                'Medio': [
+                    { pattern: /revisión|modificación/gi, weight: 2, desc: 'Requiere modificaciones' },
+                    { pattern: /advertencia|observación/gi, weight: 2, desc: 'Advertencias legales' },
+                    { pattern: /plazo\s+próximo/gi, weight: 2, desc: 'Plazos próximos a vencer' },
+                    { pattern: /pendiente|por\s+resolver/gi, weight: 2, desc: 'Asuntos pendientes' }
+                ],
+                'Bajo': [
+                    { pattern: /informativo|comunicación/gi, weight: 1, desc: 'Documento informativo' },
+                    { pattern: /copia\s+simple/gi, weight: 1, desc: 'Copia simple' }
+                ]
+            };
+
+            // Factores específicos por tipo de documento
+            const specificRisks = {
+                'Contrato': [
+                    { pattern: /sin\s+garantía/gi, weight: 2, desc: 'Ausencia de garantías' },
+                    { pattern: /cláusulas\s+abusivas/gi, weight: 3, desc: 'Cláusulas potencialmente abusivas' }
+                ],
+                'Expediente Penal': [
+                    { pattern: /auto\s+de\s+formal\s+prisión/gi, weight: 4, desc: 'Auto de formal prisión' },
+                    { pattern: /sentencia\s+condenatoria/gi, weight: 4, desc: 'Sentencia condenatoria' }
+                ],
+                'Demanda': [
+                    { pattern: /medida\s+cautelar/gi, weight: 3, desc: 'Medidas cautelares' },
+                    { pattern: /embargo/gi, weight: 4, desc: 'Embargo decretado' }
+                ]
+            };
+
+            // Evaluar riesgos generales
+            Object.values(riskPatterns).flat().forEach(risk => {
+                const matches = text.match(risk.pattern);
+                if (matches) {
+                    riskScore += matches.length * risk.weight;
+                    factors.push(`${risk.desc} (${matches.length} ocurrencias)`);
+                }
+            });
+
+            // Evaluar riesgos específicos
+            if (specificRisks[documentType]) {
+                specificRisks[documentType].forEach(risk => {
+                    const matches = text.match(risk.pattern);
+                    if (matches) {
+                        riskScore += matches.length * risk.weight;
+                        factors.push(`${risk.desc} (${matches.length} ocurrencias)`);
+                    }
+                });
+            }
+
+            let level = 'Bajo';
+            if (riskScore >= 10) level = 'Alto';
+            else if (riskScore >= 5) level = 'Medio';
+
+            return { level, score: riskScore, factors };
+        }
+
+        function checkCompliance(content, documentType) {
+            const compliance = {
+                score: 0,
+                maxScore: 0,
+                percentage: 0,
+                checks: []
+            };
+
+            const complianceChecks = {
+                'Contrato': [
+                    { name: 'Identificación de partes', pattern: /\b(nombre|dni|rfc|cédula)\b/gi, required: true },
+                    { name: 'Objeto del contrato', pattern: /objeto.*contrato/gi, required: true },
+                    { name: 'Precio o contraprestación', pattern: /(precio|pago|contraprestación|honorarios)/gi, required: true },
+                    { name: 'Vigencia o plazo', pattern: /(vigencia|plazo|duración|término)/gi, required: true },
+                    { name: 'Firmas', pattern: /(firma|suscribe|otorga)/gi, required: true }
+                ],
+                'Demanda': [
+                    { name: 'Datos del actor', pattern: /actor|demandante/gi, required: true },
+                    { name: 'Datos del demandado', pattern: /demandado/gi, required: true },
+                    { name: 'Hechos', pattern: /hechos/gi, required: true },
+                    { name: 'Fundamentos de derecho', pattern: /(fundamentos|derecho)/gi, required: true },
+                    { name: 'Petitorio', pattern: /(petitorio|solicita|suplica)/gi, required: true }
+                ],
+                'Resolución': [
+                    { name: 'Autoridad que resuelve', pattern: /(juzgado|tribunal|autoridad)/gi, required: true },
+                    { name: 'Antecedentes', pattern: /(visto|antecedentes)/gi, required: true },
+                    { name: 'Considerandos', pattern: /considerando/gi, required: true },
+                    { name: 'Parte resolutiva', pattern: /(resuelvo|resolvemos|se resuelve)/gi, required: true },
+                    { name: 'Fundamento legal', pattern: /(ley|artículo|código)/gi, required: true }
+                ]
+            };
+
+            const checks = complianceChecks[documentType] || complianceChecks['Contrato'];
+            
+            checks.forEach(check => {
+                compliance.maxScore += check.required ? 2 : 1;
+                const found = content.match(check.pattern);
+                if (found) {
+                    compliance.score += check.required ? 2 : 1;
+                    compliance.checks.push({ name: check.name, status: 'Cumple', required: check.required });
+                } else {
+                    compliance.checks.push({ name: check.name, status: 'No cumple', required: check.required });
+                }
+            });
+
+            compliance.percentage = Math.round((compliance.score / compliance.maxScore) * 100);
+            return compliance;
+        }
+
+        function analyzeDocumentStructure(content) {
+            return {
+                hasHeader: /^[A-ZÁÉÍÓÚÑ\s]{10,100}$/m.test(content),
+                hasParagraphs: content.split('\n\n').length > 3,
+                hasNumbering: /\b(primero|segundo|tercero|\d+\.-|\d+\))/gi.test(content),
+                hasSignature: /(firma|fdo\.|atentamente|suscribe)/gi.test(content),
+                hasDate: /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}|\d{1,2}\s+de\s+\w+\s+de\s+\d{4}/i.test(content),
+                wordCount: content.split(/\s+/).length,
+                paragraphs: content.split(/\n\s*\n/).length,
+                avgSentenceLength: getAverageSentenceLength(content)
+            };
+        }
+
+        function getAverageSentenceLength(content) {
+            const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            if (sentences.length === 0) return 0;
+            const totalWords = sentences.reduce((sum, sentence) => {
+                return sum + sentence.trim().split(/\s+/).length;
+            }, 0);
+            return Math.round(totalWords / sentences.length);
+        }
+
+        function generateAnalysisResults() {
+            const resultsContainer = document.getElementById('analysisResults');
+            let html = '';
+
+            Object.values(analysisResults).forEach(analysis => {
+                const typeClass = analysis.documentType.toLowerCase().replace(/\s+/g, '-');
+                
+                html += `
+                    <div class="analysis-item">
+                        <h4>${analysis.fileName}</h4>
+                        <div class="document-type type-${typeClass}">${analysis.documentType}</div>
+                        <span class="risk-badge risk-${analysis.riskLevel.toLowerCase()}">${analysis.riskLevel} Riesgo</span>
+                        
+                        <div style="margin: 15px 0;">
+                            <strong>Confianza de clasificación:</strong> ${analysis.confidence}%
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <strong>Elementos legales:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Leyes: ${analysis.legalElements.laws.length}</li>
+                                <li>Artículos: ${analysis.legalElements.articles.length}</li>
+                                <li>Autoridades: ${analysis.legalElements.authorities.length}</li>
+                                <li>Fechas: ${analysis.legalElements.dates.length}</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <strong>Cumplimiento:</strong> ${analysis.compliance.percentage}%
+                            <div style="background: #e9ecef; height: 8px; border-radius: 4px; margin-top: 5px;">
+                                <div style="background: ${analysis.compliance.percentage > 80 ? '#27ae60' : analysis.compliance.percentage > 60 ? '#f39c12' : '#e74c3c'}; 
+                                           width: ${analysis.compliance.percentage}%; height: 100%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        
+                        ${analysis.riskFactors.length > 0 ? 
+                            `<div style="margin: 15px 0;">
+                                <strong>Factores de riesgo:</strong>
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    ${analysis.riskFactors.map(factor => `<li>${factor}</li>`).join('')}
+                                </ul>
+                            </div>` : ''
+                        }
+                        
+                        <div style="margin: 15px 0; font-size: 14px; color: #6c757d;">
+                            <strong>Estadísticas:</strong> ${analysis.wordCount} palabras | ${analysis.pageCount} páginas aprox.
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultsContainer.innerHTML = html;
+
+            // Actualizar elementos legales
+            updateLegalElements();
+            updateMatterClassification();
+        }
+
+        function updateLegalElements() {
+            const container = document.getElementById('legalElements');
+            const allElements = {
+                laws: new Set(),
+                articles: new Set(), 
+                codes: new Set(),
+                authorities: new Set()
+            };
+
+            Object.values(analysisResults).forEach(analysis => {
+                analysis.legalElements.laws.forEach(law => allElements.laws.add(law));
+                analysis.legalElements.articles.forEach(art => allElements.articles.add(art));
+                analysis.legalElements.codes.forEach(code => allElements.codes.add(code));
+                analysis.legalElements.authorities.forEach(auth => allElements.authorities.add(auth));
+            });
+
+            container.innerHTML = `
+                <div class="legal-element">
+                    <h5>Leyes y Decretos</h5>
+                    <p>${Array.from(allElements.laws).slice(0, 5).join(', ') || 'Ninguna identificada'}</p>
+                </div>
+                <div class="legal-element">
+                    <h5>Artículos</h5>
+                    <p>${Array.from(allElements.articles).slice(0, 5).join(', ') || 'Ninguno identificado'}</p>
+                </div>
+                <div class="legal-element">
+                    <h5>Códigos</h5>
+                    <p>${Array.from(allElements.codes).slice(0, 5).join(', ') || 'Ninguno identificado'}</p>
+                </div>
+                <div class="legal-element">
+                    <h5>Autoridades</h5>
+                    <p>${Array.from(allElements.authorities).slice(0, 5).join(', ') || 'Ninguna identificada'}</p>
+                </div>
+            `;
+        }
+
+        function updateMatterClassification() {
+            const container = document.getElementById('matterClassification');
+            const classification = {};
+
+            Object.values(analysisResults).forEach(analysis => {
+                const type = analysis.documentType;
+                classification[type] = (classification[type] || 0) + 1;
+            });
+
+            let html = '<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">';
+            
+            Object.entries(classification).forEach(([type, count]) => {
+                const typeClass = type.toLowerCase().replace(/\s+/g, '-');
+                html += `
+                    <div class="stat-item">
+                        <div class="document-type type-${typeClass}" style="margin-bottom: 10px;">${type}</div>
+                        <div class="stat-number" style="font-size: 2em;">${count}</div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function generateReports() {
+            generateExecutiveReport();
+            generateTechnicalReport();
+            generateComplianceReport();
+        }
+
+        function generateExecutiveReport() {
+            const container = document.getElementById('executiveReport');
+            const totalDocs = Object.keys(analysisResults).length;
+            const riskDistribution = getRiskDistribution();
+            const avgCompliance = getAverageCompliance();
+
+            container.innerHTML = `
+                <h4>Resumen General</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">${totalDocs}</div>
+                        <div class="stat-label">Documentos Analizados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${riskDistribution.Alto || 0}</div>
+                        <div class="stat-label">Alto Riesgo</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${avgCompliance}%</div>
+                        <div class="stat-label">Cumplimiento Promedio</div>
+                    </div>
+                </div>
+                
+                <h5>Recomendaciones Principales:</h5>
+                <ul>
+                    ${generateExecutiveRecommendations().map(rec => `<li>${rec}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        function generateTechnicalReport() {
+            const container = document.getElementById('technicalReport');
+            let html = '<h4>Análisis Técnico Detallado</h4>';
+            
+            Object.values(analysisResults).forEach(analysis => {
+                html += `
+                    <div class="analysis-item" style="margin: 20px 0;">
+                        <h5>${analysis.fileName}</h5>
+                        <p><strong>Tipo:</strong> ${analysis.documentType} (${analysis.confidence}% confianza)</p>
+                        <p><strong>Riesgo:</strong> ${analysis.riskLevel} (${analysis.riskLevel === 'Alto' ? 'Requiere atención inmediata' : 'En seguimiento'})</p>
+                        
+                        <div style="margin: 10px 0;">
+                            <strong>Verificaciones de cumplimiento:</strong>
+                            ${analysis.compliance.checks.map(check => 
+                                `<div style="margin: 5px 0; color: ${check.status === 'Cumple' ? '#27ae60' : '#e74c3c'};">
+                                    ${check.status === 'Cumple' ? '✓' : '✗'} ${check.name}
+                                </div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function generateComplianceReport() {
+            const container = document.getElementById('complianceReport');
+            const allChecks = {};
+            let totalCompliance = 0;
+            let docCount = 0;
+
+            Object.values(analysisResults).forEach(analysis => {
+                totalCompliance += analysis.compliance.percentage;
+                docCount++;
+                
+                analysis.compliance.checks.forEach(check => {
+                    if (!allChecks[check.name]) {
+                        allChecks[check.name] = { passed: 0, total: 0, required: check.required };
+                    }
+                    allChecks[check.name].total++;
+                    if (check.status === 'Cumple') {
+                        allChecks[check.name].passed++;
+                    }
+                });
+            });
+
+            const avgCompliance = docCount > 0 ? Math.round(totalCompliance / docCount) : 0;
+
+            let html = `
+                <h4>Reporte de Cumplimiento Legal</h4>
+                <div class="stat-item" style="margin: 20px 0;">
+                    <div class="stat-number" style="color: ${avgCompliance > 80 ? '#27ae60' : avgCompliance > 60 ? '#f39c12' : '#e74c3c'};">
+                        ${avgCompliance}%
+                    </div>
+                    <div class="stat-label">Cumplimiento Promedio</div>
+                </div>
+                
+                <h5>Detalle por Verificación:</h5>
+            `;
+
+            Object.entries(allChecks).forEach(([checkName, data]) => {
+                const percentage = Math.round((data.passed / data.total) * 100);
+                html += `
+                    <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <strong>${checkName}</strong> ${data.required ? '(Requerido)' : '(Opcional)'}
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <div style="background: #e9ecef; height: 8px; border-radius: 4px; flex: 1; margin-right: 15px;">
+                                <div style="background: ${percentage > 80 ? '#27ae60' : percentage > 60 ? '#f39c12' : '#e74c3c'}; 
+                                           width: ${percentage}%; height: 100%; border-radius: 4px;"></div>
+                            </div>
+                            <span style="font-weight: 600;">${data.passed}/${data.total} (${percentage}%)</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function getRiskDistribution() {
+            const distribution = {};
+            Object.values(analysisResults).forEach(analysis => {
+                distribution[analysis.riskLevel] = (distribution[analysis.riskLevel] || 0) + 1;
+            });
+            return distribution;
+        }
+
+        function getAverageCompliance() {
+            if (Object.keys(analysisResults).length === 0) return 0;
+            const total = Object.values(analysisResults).reduce((sum, analysis) => sum + analysis.compliance.percentage, 0);
+            return Math.round(total / Object.keys(analysisResults).length);
+        }
+
+        function generateExecutiveRecommendations() {
+            const recommendations = [];
+            const riskDist = getRiskDistribution();
+            
+            if (riskDist.Alto > 0) {
+                recommendations.push(`Revisar urgentemente ${riskDist.Alto} documento(s) de alto riesgo legal`);
+            }
+            
+            const lowCompliance = Object.values(analysisResults).filter(a =>
