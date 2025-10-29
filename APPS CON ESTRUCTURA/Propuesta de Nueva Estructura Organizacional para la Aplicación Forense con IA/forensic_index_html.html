@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Forense IA - Sistema Offline</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => console.log('SW registrado:', registration))
+                    .catch(error => console.log('SW error:', error));
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🔬 Laboratorio Forense IA</h1>
+                    <span class="version">v2.0 - Sistema Offline</span>
+                </div>
+                <div class="header-controls">
+                    <button class="btn-icon" id="themeToggle" title="Cambiar tema">🌙</button>
+                    <button class="btn-icon" id="settingsBtn" title="Configuración">⚙️</button>
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot offline"></span>
+                        <span class="status-text">Modo Offline</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="nav-section">
+                <h3>🎯 Análisis</h3>
+                <button class="nav-btn active" data-view="evidence">📸 Análisis de Evidencia</button>
+                <button class="nav-btn" data-view="documents">📄 Documentoscopia</button>
+                <button class="nav-btn" data-view="digital">💻 Informática Forense</button>
+                <button class="nav-btn" data-view="photography">📷 Fotografía Forense</button>
+            </div>
+
+            <div class="nav-section">
+                <h3>📋 Gestión</h3>
+                <button class="nav-btn" data-view="cases">📁 Casos</button>
+                <button class="nav-btn" data-view="reports">📊 Informes</button>
+                <button class="nav-btn" data-view="knowledge">🧠 Base de Conocimientos</button>
+            </div>
+
+            <div class="nav-section">
+                <h3>🔧 Sistema</h3>
+                <button class="nav-btn" data-view="templates">📝 Templates</button>
+                <button class="nav-btn" data-view="embeddings">🔗 Embeddings</button>
+                <button class="nav-btn" data-view="models">🤖 Modelos IA</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Evidence Analysis View -->
+            <div class="view active" id="evidenceView">
+                <div class="view-header">
+                    <h2>📸 Análisis de Evidencia Fotográfica</h2>
+                    <div class="view-controls">
+                        <select id="analysisType" class="form-select">
+                            <option value="general">Análisis General</option>
+                            <option value="ballistics">Análisis Balístico</option>
+                            <option value="biometric">Análisis Biométrico</option>
+                            <option value="scene">Escena del Crimen</option>
+                            <option value="entomology">Entomología Forense</option>
+                        </select>
+                        <button class="btn btn-primary" id="newCaseBtn">➕ Nuevo Caso</button>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Evidence Upload Area -->
+                    <div class="card upload-section">
+                        <div class="card-header">
+                            <h3>📁 Carga de Evidencia</h3>
+                            <div class="upload-stats">
+                                <span id="fileCount">0 archivos</span>
+                                <span id="totalSize">0 MB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">📸</div>
+                            <h4>Arrastra evidencias aquí</h4>
+                            <p>Imágenes, documentos, videos, archivos digitales</p>
+                            <input type="file" id="evidenceInput" multiple accept="*/*" hidden>
+                            <button class="btn btn-outline" onclick="document.getElementById('evidenceInput').click()">
+                                Seleccionar Archivos
+                            </button>
+                        </div>
+
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+
+                    <!-- AI Analysis Interface -->
+                    <div class="card analysis-section">
+                        <div class="card-header">
+                            <h3>🤖 Análisis IA</h3>
+                            <div class="model-selector">
+                                <select id="modelSelector" class="form-select">
+                                    <option value="local-llama">Llama Local</option>
+                                    <option value="local-mistral">Mistral Local</option>
+                                    <option value="embeddings">Sistema Embeddings</option>
+                                </select>
+                                <div class="model-status" id="modelStatus">
+                                    <span class="status-dot ready"></span>
+                                    <span>Listo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-interface">
+                            <div class="quick-prompts">
+                                <button class="prompt-btn" data-prompt="analiza-metadatos">📊 Analizar Metadatos EXIF</button>
+                                <button class="prompt-btn" data-prompt="fotografia-forense">📷 Análisis Fotográfico</button>
+                                <button class="prompt-btn" data-prompt="escena-crimen">🕵️ Reconstrucción 3D</button>
+                                <button class="prompt-btn" data-prompt="balistica">🎯 Análisis Balístico</button>
+                                <button class="prompt-btn" data-prompt="antropologia">🦴 Antropología Forense</button>
+                                <button class="prompt-btn" data-prompt="entomologia">🐛 Entomología Forense</button>
+                            </div>
+
+                            <div class="chat-interface">
+                                <div class="chat-messages" id="chatMessages">
+                                    <div class="message ai-message">
+                                        <div class="message-header">
+                                            <span class="sender">🤖 Asistente Forense IA</span>
+                                            <span class="timestamp">Iniciado</span>
+                                        </div>
+                                        <div class="message-content">
+                                            <p>Sistema forense iniciado en modo offline. Capacidades disponibles:</p>
+                                            <ul>
+                                                <li>✅ Análisis de metadatos EXIF y georreferenciación</li>
+                                                <li>✅ Procesamiento de evidencia fotográfica</li>
+                                                <li>✅ Generación de informes personalizados</li>
+                                                <li>✅ Base de conocimientos local cargada</li>
+                                                <li>✅ Modelos IA locales activos</li>
+                                            </ul>
+                                            <p>Sube evidencias y comienza el análisis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="chat-input">
+                                    <textarea id="promptInput" placeholder="Describe qué necesitas analizar o qué tipo de informe generar..."></textarea>
+                                    <button class="btn btn-primary" id="analyzeBtn">🔍 Analizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div class="card results-section" id="resultsSection" style="display: none;">
+                    <div class="card-header">
+                        <h3>📊 Resultados del Análisis</h3>
+                        <div class="result-actions">
+                            <button class="btn btn-outline" id="exportBtn">📤 Exportar</button>
+                            <button class="btn btn-outline" id="saveTemplateBtn">💾 Guardar Template</button>
+                        </div>
+                    </div>
+                    <div class="results-content" id="resultsContent"></div>
+                </div>
+            </div>
+
+            <!-- Other Views (Hidden by default) -->
+            <div class="view" id="documentsView">
+                <div class="view-header">
+                    <h2>📄 Análisis Documentoscópico</h2>
+                </div>
+                <div class="card">
+                    <p>Módulo de documentoscopia en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="digitalView">
+                <div class="view-header">
+                    <h2>💻 Informática Forense</h2>
+                </div>
+                <div class="card">
+                    <p>Módulo de informática forense en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="photographyView">
+                <div class="view-header">
+                    <h2>📷 Fotografía Forense Técnica</h2>
+                </div>
+                <div class="card">
+                    <p>Módulo de fotografía forense en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="casesView">
+                <div class="view-header">
+                    <h2>📁 Gestión de Casos</h2>
+                </div>
+                <div class="card">
+                    <p>Gestión de casos en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="reportsView">
+                <div class="view-header">
+                    <h2>📊 Generador de Informes</h2>
+                </div>
+                <div class="card">
+                    <p>Generador de informes en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="knowledgeView">
+                <div class="view-header">
+                    <h2>🧠 Base de Conocimientos</h2>
+                </div>
+                <div class="card">
+                    <p>Base de conocimientos en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="templatesView">
+                <div class="view-header">
+                    <h2>📝 Gestión de Templates</h2>
+                </div>
+                <div class="card">
+                    <p>Gestión de templates en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="embeddingsView">
+                <div class="view-header">
+                    <h2>🔗 Sistema de Embeddings</h2>
+                </div>
+                <div class="card">
+                    <p>Sistema de embeddings en desarrollo...</p>
+                </div>
+            </div>
+
+            <div class="view" id="modelsView">
+                <div class="view-header">
+                    <h2>🤖 Configuración de Modelos IA</h2>
+                </div>
+                <div class="card">
+                    <p>Configuración de modelos en desarrollo...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Configuración -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Configuración del Sistema</h3>
+                <button class="modal-close" id="closeSettings">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>🤖 Modelos IA</h4>
+                    <div class="form-group">
+                        <label>Modelo Principal:</label>
+                        <select id="primaryModel" class="form-select">
+                            <option value="llama">Llama Local</option>
+                            <option value="mistral">Mistral Local</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Modelo de Embeddings:</label>
+                        <select id="embeddingModel" class="form-select">
+                            <option value="sentence-transformers">Sentence Transformers</option>
+                            <option value="universal-encoder">Universal Encoder</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>📁 Almacenamiento</h4>
+                    <div class="form-group">
+                        <label>Ruta de Casos:</label>
+                        <input type="text" id="casesPath" class="form-input" placeholder="data/user-data/cases/">
+                    </div>
+                    <div class="form-group">
+                        <label>Ruta de Templates:</label>
+                        <input type="text" id="templatesPath" class="form-input" placeholder="data/user-data/templates/">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="resetSettings">🔄 Resetear</button>
+                <button class="btn btn-primary" id="saveSettings">💾 Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3>Procesando evidencia...</h3>
+            <p id="loadingText">Iniciando análisis forense</p>
+        </div>
+    </div>
+
+    <!-- Scripts Core -->
+    <script src="libs/external/pdf-lib.min.js"></script>
+    <script src="libs/external/exif-reader.min.js"></script>
+    
+    <!-- Scripts Principales -->
+    <script src="assets/js/core/storage.js"></script>
+    <script src="assets/js/core/embeddings.js"></script>
+    <script src="assets/js/core/local-ai.js"></script>
+    <script src="assets/js/modules/evidence-processor.js"></script>
+    <script src="assets/js/modules/report-generator.js"></script>
+    <script src="assets/js/utils/file-handler.js"></script>
+    <script src="assets/js/core/app.js"></script>
+
+    <script>
+        // Inicialización de la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            ForensicApp.init();
+        });
+    </script>
+</body>
+</html>
