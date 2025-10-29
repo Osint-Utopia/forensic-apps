@@ -1,0 +1,8 @@
+gradio
+pillow
+numpy
+opencv-python-headless
+matplotlib
+scikit-learn
+scipy
+nest-asyncio
