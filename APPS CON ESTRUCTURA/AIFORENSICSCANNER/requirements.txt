@@ -1,0 +1,8 @@
+
+gradio
+torch
+torchvision
+scikit-learn
+joblib
+pillow
+opencv-python

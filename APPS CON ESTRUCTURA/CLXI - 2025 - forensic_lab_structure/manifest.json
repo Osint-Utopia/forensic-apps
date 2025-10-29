@@ -1,0 +1,238 @@
+{
+  "name": "Laboratorio Forense IA",
+  "short_name": "ForenseIA",
+  "description": "Sistema completo de análisis forense con inteligencia artificial local",
+  "version": "2.0.0",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#1a1a2e",
+  "background_color": "#1a1a2e",
+  "lang": "es-ES",
+  "scope": "/",
+  "categories": [
+    "productivity",
+    "forensics",
+    "science",
+    "investigation"
+  ],
+  "icons": [
+    {
+      "src": "assets/images/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/images/screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Interfaz principal de análisis forense"
+    },
+    {
+      "src": "assets/images/screenshots/mobile-1.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista móvil del laboratorio forense"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Análisis de Evidencia",
+      "short_name": "Evidencia",
+      "description": "Analizar nueva evidencia fotográfica",
+      "url": "/index.html#evidence",
+      "icons": [
+        {
+          "src": "assets/images/icons/evidence-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Informática Forense",
+      "short_name": "Digital",
+      "description": "Análisis de evidencia digital",
+      "url": "/index.html#digital",
+      "icons": [
+        {
+          "src": "assets/images/icons/digital-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Gestión de Casos",
+      "short_name": "Casos",
+      "description": "Administrar casos forenses",
+      "url": "/index.html#cases",
+      "icons": [
+        {
+          "src": "assets/images/icons/cases-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Generar Informe",
+      "short_name": "Informe",
+      "description": "Crear informe criminalistico",
+      "url": "/index.html#reports",
+      "icons": [
+        {
+          "src": "assets/images/icons/report-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+forensic",
+      "url": "/index.html?action=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff"],
+        "application/pdf": [".pdf"],
+        "text/*": [".txt", ".log", ".csv", ".json"],
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+        "application/vnd.ms-excel": [".xls"],
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
+      },
+      "icons": [
+        {
+          "src": "assets/images/icons/file-handler-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ],
+      "launch_type": "single-client"
+    }
+  ],
+  "share_target": {
+    "action": "/index.html",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "evidence",
+          "accept": ["image/*", "application/pdf", "text/*"]
+        }
+      ]
+    }
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "permissions": [
+    "camera",
+    "microphone",
+    "storage-access",
+    "local-fonts"
+  ],
+  "features": [
+    "offline-analysis",
+    "local-ai-models", 
+    "evidence-processing",
+    "report-generation",
+    "case-management",
+    "metadata-extraction",
+    "image-analysis",
+    "document-analysis",
+    "digital-forensics"
+  ],
+  "custom": {
+    "ai_models_supported": [
+      "llama-local",
+      "mistral-local",
+      "sentence-transformers"
+    ],
+    "forensic_capabilities": [
+      "EXIF metadata analysis",
+      "Image authentication",
+      "Document examination",
+      "Digital evidence processing",
+      "Ballistic analysis support",
+      "Anthropological measurements",
+      "Entomological timeline estimation"
+    ],
+    "supported_formats": {
+      "images": ["JPG", "PNG", "TIFF", "BMP", "WebP", "RAW"],
+      "documents": ["PDF", "DOCX", "TXT", "RTF"],
+      "data": ["CSV", "JSON", "XML", "Log files"],
+      "multimedia": ["MP4", "AVI", "MOV", "WAV", "MP3"]
+    },
+    "technical_specifications": {
+      "min_storage_required": "2GB",
+      "recommended_ram": "8GB",
+      "supported_browsers": ["Chrome 90+", "Firefox 88+", "Safari 14+", "Edge 90+"],
+      "offline_capabilities": true,
+      "local_processing": true,
+      "encryption_support": true
+    }
+  }
+}

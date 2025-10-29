@@ -1,0 +1,417 @@
+{
+  "forensic_templates": {
+    "informe_criminalistica": {
+      "name": "Informe de Criminalística General",
+      "description": "Template estándar para informes criminalisticos",
+      "structure": {
+        "header": {
+          "title": "INFORME DE CRIMINALÍSTICA",
+          "case_number": "[NÚMERO DE CASO]",
+          "date": "[FECHA]",
+          "expert": "[NOMBRE DEL PERITO]",
+          "institution": "[INSTITUCIÓN]"
+        },
+        "sections": [
+          {
+            "id": "antecedentes",
+            "title": "I. ANTECEDENTES",
+            "content": "Se recibe en este Laboratorio de Criminalística, mediante oficio [NÚMERO], solicitud de análisis de evidencia en el caso [DESCRIPCIÓN BREVE DEL CASO]."
+          },
+          {
+            "id": "objetivo",
+            "title": "II. OBJETIVO",
+            "content": "Determinar mediante análisis técnico-científico [ESPECIFICAR OBJETIVO DEL ANÁLISIS]."
+          },
+          {
+            "id": "metodologia",
+            "title": "III. METODOLOGÍA",
+            "content": "Se aplicaron las siguientes técnicas de análisis:\n- [TÉCNICA 1]\n- [TÉCNICA 2]\n- [TÉCNICA 3]\n\nSe siguieron los protocolos establecidos en [REFERENCIA NORMATIVA]."
+          },
+          {
+            "id": "descripcion_evidencia",
+            "title": "IV. DESCRIPCIÓN DE LA EVIDENCIA",
+            "content": "Se describe la evidencia recibida:\n[DESCRIPCIÓN DETALLADA DE LA EVIDENCIA ANALIZADA]"
+          },
+          {
+            "id": "analisis_resultados",
+            "title": "V. ANÁLISIS Y RESULTADOS",
+            "content": "[DESARROLLO DETALLADO DEL ANÁLISIS REALIZADO Y RESULTADOS OBTENIDOS]"
+          },
+          {
+            "id": "conclusiones",
+            "title": "VI. CONCLUSIONES",
+            "content": "Con base en el análisis técnico-científico realizado, se concluye:\n[CONCLUSIONES ESPECÍFICAS]"
+          },
+          {
+            "id": "recomendaciones",
+            "title": "VII. RECOMENDACIONES",
+            "content": "Se recomienda:\n[RECOMENDACIONES ESPECÍFICAS]"
+          }
+        ],
+        "footer": {
+          "signature": "[NOMBRE Y FIRMA DEL PERITO]",
+          "credentials": "[TÍTULO PROFESIONAL Y CERTIFICACIONES]",
+          "date": "[FECHA DE ELABORACIÓN]"
+        }
+      }
+    },
+    "dictamen_fotografico": {
+      "name": "Dictamen de Fotografía Forense",
+      "description": "Template para análisis fotográfico forense",
+      "structure": {
+        "header": {
+          "title": "DICTAMEN FOTOGRÁFICO FORENSE",
+          "case_number": "[NÚMERO DE EXPEDIENTE]",
+          "date": "[FECHA]",
+          "expert": "[PERITO EN FOTOGRAFÍA FORENSE]"
+        },
+        "sections": [
+          {
+            "id": "objeto_estudio",
+            "title": "I. OBJETO DE ESTUDIO",
+            "content": "Análisis técnico de material fotográfico relacionado con [DESCRIPCIÓN DEL CASO]."
+          },
+          {
+            "id": "material_examinado",
+            "title": "II. MATERIAL EXAMINADO",
+            "content": "- Cantidad de imágenes: [NÚMERO]\n- Formato: [DIGITAL/IMPRESO]\n- Resolución: [ESPECIFICACIONES TÉCNICAS]\n- Dispositivo de captura: [INFORMACIÓN DEL DISPOSITIVO]"
+          },
+          {
+            "id": "metadatos_exif",
+            "title": "III. ANÁLISIS DE METADATOS EXIF",
+            "content": "- Fecha y hora de captura: [INFORMACIÓN TEMPORAL]\n- Geolocalización: [COORDENADAS GPS]\n- Parámetros de cámara: [CONFIGURACIÓN TÉCNICA]\n- Posibles alteraciones: [EVALUACIÓN DE AUTENTICIDAD]"
+          },
+          {
+            "id": "analisis_tecnico",
+            "title": "IV. ANÁLISIS TÉCNICO FOTOGRÁFICO",
+            "content": "- Composición y encuadre: [ANÁLISIS DE COMPOSICIÓN]\n- Iluminación y exposición: [EVALUACIÓN LUMÍNICA]\n- Enfoque y nitidez: [CALIDAD DE IMAGEN]\n- Escalas y mediciones: [ANÁLISIS MÉTRICO]"
+          },
+          {
+            "id": "elementos_interes",
+            "title": "V. ELEMENTOS DE INTERÉS FORENSE",
+            "content": "[IDENTIFICACIÓN Y DESCRIPCIÓN DE ELEMENTOS PROBATORIOS VISIBLES EN LAS IMÁGENES]"
+          },
+          {
+            "id": "conclusiones_fotograficas",
+            "title": "VI. CONCLUSIONES",
+            "content": "Del análisis fotográfico forense realizado se determina:\n[CONCLUSIONES ESPECÍFICAS DEL ANÁLISIS]"
+          }
+        ]
+      }
+    },
+    "analisis_documentoscopia": {
+      "name": "Análisis Documentoscópico",
+      "description": "Template para análisis de documentos cuestionados",
+      "structure": {
+        "header": {
+          "title": "PERITAJE DOCUMENTOSCÓPICO",
+          "subtitle": "Análisis de Documentos Cuestionados",
+          "case_number": "[NÚMERO DE CAUSA]",
+          "expert": "[PERITO DOCUMENTÓLOGO]"
+        },
+        "sections": [
+          {
+            "id": "planteamiento",
+            "title": "I. PLANTEAMIENTO DEL PROBLEMA",
+            "content": "Se solicita el análisis documentoscópico para determinar [OBJETIVO ESPECÍFICO DEL ANÁLISIS]."
+          },
+          {
+            "id": "material_cuestionado",
+            "title": "II. MATERIAL CUESTIONADO",
+            "content": "- Descripción del documento: [TIPO DE DOCUMENTO]\n- Estado de conservación: [CONDICIÓN FÍSICA]\n- Dimensiones: [MEDIDAS]\n- Características generales: [DESCRIPCIÓN VISUAL]"
+          },
+          {
+            "id": "material_comparacion",
+            "title": "III. MATERIAL DE COMPARACIÓN",
+            "content": "- Muestras de cotejo: [DESCRIPCIÓN DE MUESTRAS]\n- Procedencia: [ORIGEN DE LAS MUESTRAS]\n- Cantidad: [NÚMERO DE MUESTRAS]"
+          },
+          {
+            "id": "examen_papel",
+            "title": "IV. EXAMEN DEL SOPORTE (PAPEL)",
+            "content": "- Tipo de papel: [CLASIFICACIÓN]\n- Gramaje: [PESO]\n- Filigrana: [PRESENCIA/AUSENCIA]\n- Alteraciones físicas: [EVALUACIÓN]"
+          },
+          {
+            "id": "examen_tintas",
+            "title": "V. EXAMEN DE TINTAS",
+            "content": "- Tipo de tinta: [CLASIFICACIÓN]\n- Color y tonalidad: [DESCRIPCIÓN CROMÁTICA]\n- Comportamiento bajo luz UV: [FLUORESCENCIA]\n- Pruebas de solubilidad: [RESULTADOS]"
+          },
+          {
+            "id": "examen_escritura",
+            "title": "VI. EXAMEN DE ESCRITURA MANUSCRITA",
+            "content": "- Características generales: [ASPECTOS MORFOLÓGICOS]\n- Elementos discriminatorios: [PARTICULARIDADES]\n- Grado de habilidad gráfica: [EVALUACIÓN TÉCNICA]\n- Alteraciones evidentes: [OBSERVACIONES]"
+          },
+          {
+            "id": "analisis_comparativo",
+            "title": "VII. ANÁLISIS COMPARATIVO",
+            "content": "[DESARROLLO DETALLADO DE LA COMPARACIÓN ENTRE MUESTRAS CUESTIONADAS Y DE COTEJO]"
+          },
+          {
+            "id": "conclusion_documentoscopica",
+            "title": "VIII. CONCLUSIÓN",
+            "content": "Basado en el análisis documentoscópico realizado:\n[CONCLUSIÓN TÉCNICA ESPECÍFICA]"
+          }
+        ]
+      }
+    },
+    "informe_informatica_forense": {
+      "name": "Informe de Informática Forense",
+      "description": "Template para análisis de evidencia digital",
+      "structure": {
+        "header": {
+          "title": "INFORME DE INFORMÁTICA FORENSE",
+          "subtitle": "Análisis de Evidencia Digital",
+          "case_number": "[NÚMERO DE INVESTIGACIÓN]",
+          "expert": "[PERITO EN INFORMÁTICA FORENSE]",
+          "certification": "[CERTIFICACIONES PROFESIONALES]"
+        },
+        "sections": [
+          {
+            "id": "resumen_ejecutivo",
+            "title": "I. RESUMEN EJECUTIVO",
+            "content": "Análisis forense de evidencia digital en el marco de [DESCRIPCIÓN BREVE DEL CASO]. Se examinaron [NÚMERO] dispositivos/archivos digitales."
+          },
+          {
+            "id": "cadena_custodia",
+            "title": "II. CADENA DE CUSTODIA DIGITAL",
+            "content": "- Fecha de recepción: [FECHA]\n- Responsable de entrega: [NOMBRE]\n- Estado del dispositivo: [CONDICIÓN AL RECIBIR]\n- Hash MD5: [HASH DE INTEGRIDAD]\n- Hash SHA-256: [HASH ALTERNATIVO]"
+          },
+          {
+            "id": "dispositivos_analizados",
+            "title": "III. DISPOSITIVOS/ARCHIVOS ANALIZADOS",
+            "content": "- Tipo de dispositivo: [ESPECIFICACIÓN]\n- Marca y modelo: [INFORMACIÓN TÉCNICA]\n- Número de serie: [IDENTIFICACIÓN]\n- Capacidad de almacenamiento: [TAMAÑO]\n- Sistema operativo: [VERSIÓN DE OS]"
+          },
+          {
+            "id": "metodologia_forense",
+            "title": "IV. METODOLOGÍA FORENSE APLICADA",
+            "content": "- Herramientas utilizadas: [SOFTWARE FORENSE]\n- Técnicas de extracción: [MÉTODOS APLICADOS]\n- Preservación de evidencia: [PROCEDIMIENTOS]\n- Documentación del proceso: [REGISTROS MANTENIDOS]"
+          },
+          {
+            "id": "analisis_archivos",
+            "title": "V. ANÁLISIS DE ARCHIVOS",
+            "content": "- Archivos recuperados: [CANTIDAD Y TIPOS]\n- Archivos eliminados: [RECUPERACIÓN DE DATOS]\n- Metadatos relevantes: [INFORMACIÓN TEMPORAL]\n- Archivos de interés: [EVIDENCIA SIGNIFICATIVA]"
+          },
+          {
+            "id": "analisis_temporal",
+            "title": "VI. LÍNEA TEMPORAL DE ACTIVIDAD",
+            "content": "[CRONOLOGÍA DE EVENTOS DIGITALES BASADA EN METADATOS Y LOGS DEL SISTEMA]"
+          },
+          {
+            "id": "comunicaciones",
+            "title": "VII. ANÁLISIS DE COMUNICACIONES",
+            "content": "- Correos electrónicos: [ANÁLISIS DE EMAIL]\n- Mensajes instantáneos: [CONVERSACIONES]\n- Historial de navegación: [ACTIVIDAD WEB]\n- Redes sociales: [ACTIVIDAD EN PLATAFORMAS]"
+          },
+          {
+            "id": "hallazgos",
+            "title": "VIII. HALLAZGOS PRINCIPALES",
+            "content": "[DESCRIPCIÓN DETALLADA DE LOS ELEMENTOS DE PRUEBA DIGITAL ENCONTRADOS]"
+          },
+          {
+            "id": "conclusiones_digitales",
+            "title": "IX. CONCLUSIONES",
+            "content": "Del análisis forense digital realizado se establece:\n[CONCLUSIONES TÉCNICAS BASADAS EN LA EVIDENCIA]"
+          },
+          {
+            "id": "anexos",
+            "title": "X. ANEXOS",
+            "content": "- Imágenes forenses creadas\n- Hash de verificación\n- Logs de herramientas utilizadas\n- Capturas de pantalla relevantes"
+          }
+        ]
+      }
+    },
+    "informe_balistica": {
+      "name": "Informe Balístico Forense",
+      "description": "Template para análisis balístico",
+      "structure": {
+        "header": {
+          "title": "INFORME BALÍSTICO FORENSE",
+          "case_number": "[NÚMERO DE SUMARIO]",
+          "expert": "[PERITO BALÍSTICO]",
+          "institution": "[LABORATORIO DE BALÍSTICA]"
+        },
+        "sections": [
+          {
+            "id": "antecedentes_balisticos",
+            "title": "I. ANTECEDENTES",
+            "content": "Se someten a examen balístico los elementos secuestrados en el marco de la investigación [DESCRIPCIÓN DEL CASO]."
+          },
+          {
+            "id": "material_balistico",
+            "title": "II. MATERIAL BALÍSTICO EXAMINADO",
+            "content": "- Armas de fuego: [DESCRIPCIÓN DE ARMAS]\n- Proyectiles: [CANTIDAD Y DESCRIPCIÓN]\n- Vainas servidas: [CANTIDAD Y CALIBRE]\n- Residuos de disparo: [MUESTRAS TOMADAS]"
+          },
+          {
+            "id": "examen_armas",
+            "title": "III. EXAMEN DE ARMAS DE FUEGO",
+            "content": "- Marca y modelo: [IDENTIFICACIÓN]\n- Número de serie: [REGISTRO]\n- Calibre: [ESPECIFICACIÓN]\n- Estado de funcionamiento: [EVALUACIÓN TÉCNICA]\n- Mecanismo de disparo: [ANÁLISIS FUNCIONAL]"
+          },
+          {
+            "id": "examen_proyectiles",
+            "title": "IV. EXAMEN DE PROYECTILES",
+            "content": "- Cantidad: [NÚMERO]\n- Calibre: [MEDICIÓN]\n- Peso: [GRAMAJE]\n- Características morfológicas: [DESCRIPCIÓN]\n- Estrías y campos: [ANÁLISIS MICROSCÓPICO]"
+          },
+          {
+            "id": "examen_vainas",
+            "title": "V. EXAMEN DE VAINAS SERVIDAS",
+            "content": "- Cantidad: [NÚMERO]\n- Calibre: [ESPECIFICACIÓN]\n- Marca del fabricante: [IDENTIFICACIÓN]\n- Improntas del percutor: [CARACTERÍSTICAS]\n- Marcas del extractor y eyector: [ANÁLISIS]"
+          },
+          {
+            "id": "residuos_disparo",
+            "title": "VI. ANÁLISIS DE RESIDUOS DE DISPARO",
+            "content": "- Técnica aplicada: [SEM-EDX/OTRAS]\n- Muestras analizadas: [UBICACIÓN DE TOMAS]\n- Partículas características: [COMPOSICIÓN]\n- Interpretación: [RESULTADOS DEL ANÁLISIS]"
+          },
+          {
+            "id": "reconstruccion",
+            "title": "VII. RECONSTRUCCIÓN BALÍSTICA",
+            "content": "- Trayectorias de disparo: [ANÁLISIS DIRECCIONAL]\n- Distancia de disparo: [ESTIMACIÓN]\n- Ángulo de incidencia: [CÁLCULOS]\n- Compatibilidad arma-proyectil: [COTEJO]"
+          },
+          {
+            "id": "conclusiones_balisticas",
+            "title": "VIII. CONCLUSIONES",
+            "content": "Del análisis balístico realizado se determina:\n[CONCLUSIONES TÉCNICAS ESPECÍFICAS]"
+          }
+        ]
+      }
+    },
+    "informe_antropologia_forense": {
+      "name": "Informe de Antropología Forense",
+      "description": "Template para análisis antropológico forense",
+      "structure": {
+        "header": {
+          "title": "INFORME ANTROPOLÓGICO FORENSE",
+          "subtitle": "Análisis de Restos Óseos Humanos",
+          "case_number": "[NÚMERO DE CASO]",
+          "expert": "[ANTROPÓLOGO FORENSE]"
+        },
+        "sections": [
+          {
+            "id": "circunstancias_hallazgo",
+            "title": "I. CIRCUNSTANCIAS DEL HALLAZGO",
+            "content": "Los restos fueron hallados en [UBICACIÓN] el día [FECHA], bajo las circunstancias [DESCRIPCIÓN DEL CONTEXTO]."
+          },
+          {
+            "id": "inventario_oseo",
+            "title": "II. INVENTARIO ÓSEO",
+            "content": "- Cráneo: [ESTADO Y COMPLETITUD]\n- Mandíbula: [PRESENCIA/AUSENCIA]\n- Columna vertebral: [VÉRTEBRAS PRESENTES]\n- Costillas: [CANTIDAD RECUPERADA]\n- Huesos largos: [INVENTARIO DETALLADO]\n- Huesos cortos: [ESTADO DE CONSERVACIÓN]"
+          },
+          {
+            "id": "tafonomia",
+            "title": "III. ANÁLISIS TAFONÓMICO",
+            "content": "- Estado de conservación: [EVALUACIÓN GENERAL]\n- Alteraciones post-mortem: [CAMBIOS OBSERVADOS]\n- Acción de factores ambientales: [METEORIZACIÓN]\n- Actividad animal: [MARCAS DE CARNÍVOROS/ROEDORES]"
+          },
+          {
+            "id": "determinacion_sexo",
+            "title": "IV. DETERMINACIÓN DEL SEXO",
+            "content": "- Cráneo: [CARACTERÍSTICAS DIMÓRFICAS]\n- Pelvis: [ANÁLISIS PÉLVICO]\n- Huesos largos: [ROBUSTEZ Y DIMENSIONES]\n- Conclusión: [DETERMINACIÓN SEXUAL]"
+          },
+          {
+            "id": "estimacion_edad",
+            "title": "V. ESTIMACIÓN DE LA EDAD",
+            "content": "- Fusión epifisiaria: [ESTADO DE FUSIÓN]\n- Desgaste dental: [GRADO DE DESGASTE]\n- Cambios degenerativos: [OSTEOARTROSIS]\n- Metamorfosis sínfisis púbica: [ANÁLISIS]\n- Estimación final: [RANGO DE EDAD]"
+          },
+          {
+            "id": "estimacion_estatura",
+            "title": "VI. ESTIMACIÓN DE LA ESTATURA",
+            "content": "- Huesos largos medidos: [FÉMUR, TIBIA, HÚMERO]\n- Fórmulas aplicadas: [METODOLOGÍA UTILIZADA]\n- Estatura estimada: [RANGO EN CM]"
+          },
+          {
+            "id": "ancestralidad",
+            "title": "VII. EVALUACIÓN DE ANCESTRALIDAD",
+            "content": "- Características craneales: [MORFOLOGÍA]\n- Índices craneométricos: [MEDICIONES]\n- Características dentales: [RASGOS OBSERVADOS]\n- Conclusión: [AFINIDAD POBLACIONAL]"
+          },
+          {
+            "id": "patologias",
+            "title": "VIII. PATOLOGÍAS Y TRAUMATISMOS",
+            "content": "- Patologías ante-mortem: [ENFERMEDADES]\n- Traumatismos peri-mortem: [LESIONES ASOCIADAS A LA MUERTE]\n- Modificaciones post-mortem: [CAMBIOS DESPUÉS DE LA MUERTE]"
+          },
+          {
+            "id": "identificacion_individual",
+            "title": "IX. CARACTERÍSTICAS INDIVIDUALIZANTES",
+            "content": "- Particularidades anatómicas: [VARIANTES]\n- Trabajo dental: [TRATAMIENTOS ODONTOLÓGICOS]\n- Fracturas consolidadas: [LESIONES PREVIAS]\n- Otras características: [ELEMENTOS DISTINTIVOS]"
+          },
+          {
+            "id": "conclusiones_antropologicas",
+            "title": "X. CONCLUSIONES ANTROPOLÓGICAS",
+            "content": "Del análisis antropológico forense se concluye:\n[PERFIL BIOLÓGICO COMPLETO]"
+          }
+        ]
+      }
+    }
+  },
+  "prompt_templates": {
+    "analysis_contexts": {
+      "general": "Realiza un análisis forense general de la evidencia proporcionada, siguiendo protocolos científicos estándar.",
+      "ballistics": "Analiza la evidencia desde la perspectiva de la balística forense, considerando trayectorias, residuos y características balísticas.",
+      "biometric": "Realiza análisis biométrico forense, incluyendo reconocimiento facial, antropometría y características individualizantes.",
+      "scene": "Analiza la evidencia para reconstrucción de la escena del crimen, considerando posicionamiento, trayectorias y cronología.",
+      "entomology": "Interpreta la evidencia entomológica para estimación de intervalo post-mortem y condiciones ambientales.",
+      "digital": "Analiza la evidencia digital siguiendo protocolos de informática forense, preservando la cadena de custodia.",
+      "photography": "Realiza análisis técnico de fotografía forense, evaluando metadatos, autenticidad y elementos probatorios.",
+      "documents": "Examina documentos bajo perspectiva documentoscópica, evaluando autenticidad y posibles alteraciones."
+    },
+    "report_formats": {
+      "executive_summary": "Genera un resumen ejecutivo conciso que destaque los hallazgos más importantes y las conclusiones principales.",
+      "technical_detailed": "Proporciona un análisis técnico detallado con metodología, procedimientos y fundamentación científica completa.",
+      "court_ready": "Estructura el informe para presentación en tribunales, con lenguaje claro y fundamentación jurídico-técnica.",
+      "preliminary": "Genera un informe preliminar con hallazgos iniciales y recomendaciones para análisis adicionales."
+    }
+  },
+  "quality_standards": {
+    "iso_17025": {
+      "name": "ISO/IEC 17025:2017",
+      "description": "Requisitos generales para la competencia de laboratorios de ensayo y calibración",
+      "requirements": [
+        "Trazabilidad de mediciones",
+        "Control de calidad",
+        "Incertidumbre de medida",
+        "Validación de métodos",
+        "Competencia técnica"
+      ]
+    },
+    "astm_standards": {
+      "name": "Estándares ASTM Forenses",
+      "description": "Estándares ASTM aplicables a ciencias forenses",
+      "relevant_standards": [
+        "ASTM E1459 - Fotografía forense",
+        "ASTM E1188 - Escritura manuscrita",
+        "ASTM E1492 - Informática forense",
+        "ASTM E1610 - Terminología forense"
+      ]
+    }
+  },
+  "legal_framework": {
+    "chain_of_custody": {
+      "definition": "Documentación cronológica que registra la secuencia de custodia, control, transferencia, análisis y disposición de evidencia.",
+      "requirements": [
+        "Identificación única de evidencia",
+        "Fecha y hora de cada transferencia",
+        "Identidad de todos los custodios",
+        "Propósito de cada transferencia",
+        "Condiciones de almacenamiento"
+      ]
+    },
+    "expert_testimony": {
+      "admissibility_criteria": [
+        "Relevancia para el caso",
+        "Fiabilidad científica",
+        "Competencia del perito",
+        "Metodología validada",
+        "Control de calidad adecuado"
+      ]
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "last_updated": "2024-01-15",
+    "created_by": "Laboratorio Forense IA",
+    "language": "es-ES",
+    "template_count": 6,
+    "categories": [
+      "Criminalística General",
+      "Fotografía Forense",
+      "Documentoscopia",
+      "Informática Forense", 
+      "Balística Forense",
+      "Antropología Forense"
+    ]
+  }
+}
