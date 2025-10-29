@@ -1,0 +1,163 @@
+<!-- Sección OSINT para integrar en la landing page -->
+<section id="osint-generator" class="osint-section">
+    <div class="container">
+        <!-- Encabezado de la sección -->
+        <div class="osint-header">
+            <div class="osint-icon">🤖</div>
+            <h2 class="osint-title">Generador de Búsquedas OSINT Inteligente</h2>
+            <p class="osint-subtitle">Crea plantillas de búsqueda personalizadas con IA - Solo describe lo que necesitas encontrar</p>
+        </div>
+
+        <!-- Área principal de entrada -->
+        <div class="osint-input-section">
+            <div class="input-container">
+                <textarea 
+                    id="osint-description" 
+                    class="osint-textarea"
+                    placeholder="Ejemplo: 'Buscar información sobre Juan Pérez, desarrollador de software, en LinkedIn y GitHub. Necesito su historial laboral y proyectos.'"
+                    rows="4"
+                ></textarea>
+                <div class="character-counter">
+                    <span id="char-count">0</span> / 500 caracteres
+                </div>
+                <div class="ai-indicator">
+                    <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Botones de acción principales -->
+            <div class="action-buttons">
+                <button id="generate-dorks-btn" class="btn btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    Generar Dorks
+                </button>
+                <button id="generate-template-btn" class="btn btn-secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                    Generar Plantilla JSON
+                </button>
+            </div>
+
+            <!-- Ejemplos rápidos -->
+            <div class="quick-examples">
+                <span class="examples-label">Ejemplos rápidos:</span>
+                <div class="example-buttons">
+                    <button class="example-btn" data-example="candidate">
+                        <span class="example-icon">👤</span>
+                        Candidato
+                    </button>
+                    <button class="example-btn" data-example="brand">
+                        <span class="example-icon">🏢</span>
+                        Marca
+                    </button>
+                    <button class="example-btn" data-example="security">
+                        <span class="example-icon">🔒</span>
+                        Seguridad
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Área de resultados -->
+        <div id="results-section" class="results-section" style="display: none;">
+            <!-- Pestañas de resultados -->
+            <div class="results-tabs">
+                <button class="tab-btn active" data-tab="dorks">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    Dorks Generados
+                </button>
+                <button class="tab-btn" data-tab="json">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                    Plantilla JSON
+                </button>
+                <button class="tab-btn" data-tab="preview">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Vista Previa
+                </button>
+            </div>
+
+            <!-- Contenido de las pestañas -->
+            <div class="tab-content">
+                <!-- Pestaña de Dorks -->
+                <div id="dorks-tab" class="tab-pane active">
+                    <div class="dorks-header">
+                        <h3>Dorks de Búsqueda Generados</h3>
+                        <button id="copy-all-dorks" class="btn btn-outline">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            Copiar Todos
+                        </button>
+                    </div>
+                    <div id="dorks-list" class="dorks-list">
+                        <!-- Los dorks se insertarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Pestaña de JSON -->
+                <div id="json-tab" class="tab-pane">
+                    <div class="json-header">
+                        <h3>Plantilla JSON Generada</h3>
+                        <button id="download-json" class="btn btn-outline">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Descargar
+                        </button>
+                    </div>
+                    <pre id="json-content" class="json-content">
+                        <!-- El JSON se insertará aquí -->
+                    </pre>
+                </div>
+
+                <!-- Pestaña de Vista Previa -->
+                <div id="preview-tab" class="tab-pane">
+                    <div class="preview-header">
+                        <h3>Resumen de la Búsqueda</h3>
+                    </div>
+                    <div id="preview-content" class="preview-content">
+                        <!-- El resumen se insertará aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div id="notification" class="notification" style="display: none;">
+            <div class="notification-content">
+                <span id="notification-text"></span>
+                <button id="notification-close" class="notification-close">×</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Generando resultados...</p>
+    </div>
+</div>
+
