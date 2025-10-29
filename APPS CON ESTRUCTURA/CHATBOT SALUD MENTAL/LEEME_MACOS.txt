@@ -1,0 +1,104 @@
+═══════════════════════════════════════════════════════════════════════════════
+                        CHATBOT DE SALUD MENTAL
+                           GUÍA SÚPER FÁCIL PARA MAC
+═══════════════════════════════════════════════════════════════════════════════
+
+¡Hola! Este es tu Chatbot de Salud Mental para Mac. Es MUY FÁCIL de usar.
+
+🎯 ¿QUÉ HACE ESTE CHATBOT?
+   - Responde preguntas sobre salud mental
+   - Funciona en español e inglés
+   - Tiene 3,607 conversaciones de expertos
+   - Es completamente privado (no envía datos a internet)
+
+🚀 INSTALACIÓN SÚPER FÁCIL (Solo 1 paso):
+
+   1. Doble click en: INSTALAR_MACOS_FACIL.command
+   
+   ¡ESO ES TODO! El instalador hace el resto automáticamente.
+
+📋 REQUISITOS MÍNIMOS:
+   - macOS 10.14 (Mojave) o más nuevo
+   - 4GB de RAM
+   - Conexión a internet (solo para instalar)
+
+🤖 COMO USAR EL CHATBOT:
+
+   Después de instalar, tienes estos archivos SÚPER FÁCILES:
+
+   🤖 ABRIR CHATBOT.command     ← Doble click para usar el chatbot
+   🧪 PROBAR CHATBOT.command    ← Doble click para probar que funciona  
+   📦 CREAR APLICACION.command  ← Doble click para crear aplicación .app
+   ❓ AYUDA.command             ← Doble click para ver más ayuda
+
+💡 EJEMPLOS DE PREGUNTAS QUE PUEDES HACER:
+
+   En Español:
+   - "¿Qué es la ansiedad?"
+   - "¿Cómo manejar el estrés?"
+   - "Síntomas de depresión"
+   - "¿Qué hacer en un ataque de pánico?"
+
+   En Inglés:
+   - "What is anxiety?"
+   - "How to manage stress?"
+   - "Depression symptoms"
+   - "Panic attack help"
+
+🆘 SI TIENES PROBLEMAS:
+
+   Problema: "No tengo Python"
+   Solución: Ve a https://www.python.org/downloads/macos/
+            Descarga Python 3.11 para macOS
+            Instala normalmente (doble click en el .pkg)
+
+   Problema: "No funciona el instalador"
+   Solución: Click derecho en INSTALAR_MACOS_FACIL.command
+            Selecciona "Abrir"
+            Si dice "no identificado", click "Abrir" otra vez
+
+   Problema: "Error con tkinter"
+   Solución: Si tienes Homebrew: brew install python-tk
+            O reinstala Python desde python.org
+
+   Problema: "El chatbot no abre"
+   Solución: Ejecuta 🧪 PROBAR CHATBOT.command primero
+            Si falla, ejecuta INSTALAR_MACOS_FACIL.command otra vez
+
+📦 CREAR APLICACIÓN .APP (OPCIONAL):
+
+   Si quieres una aplicación nativa de macOS:
+
+   1. Doble click en: 📦 CREAR APLICACION.command
+   2. Espera 5-10 minutos (es normal que tarde)
+   3. Se crea: Chatbot Salud Mental.app
+   4. Puedes arrastrarla a /Applications
+   5. Puedes compartir esta .app con otros Macs
+
+🔒 PRIVACIDAD:
+   - Todas tus conversaciones son privadas
+   - No se envía información a internet
+   - Los datos se quedan en tu Mac
+
+🍎 NOTAS ESPECIALES PARA MAC:
+
+   - Si macOS bloquea la aplicación:
+     Sistema > Privacidad y Seguridad > Permitir
+   
+   - Los archivos .command son seguros
+     Son scripts de instalación normales
+   
+   - Si tienes problemas con permisos:
+     Click derecho > Abrir (en lugar de doble click)
+
+🎉 ¡DISFRUTA USANDO TU CHATBOT DE SALUD MENTAL!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 SOPORTE:
+   Si necesitas ayuda adicional, contacta al equipo técnico.
+
+📅 Versión: 2.0 Final
+📅 Fecha: Octubre 2024
+
+═══════════════════════════════════════════════════════════════════════════════

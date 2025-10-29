@@ -1,0 +1,86 @@
+Para construir un chatbot portátil que pueda interactuar con el informe PDF y enviar un archivo ejecutable, necesitaríamos utilizar tecnologías como Python con bibliotecas específicas para la lectura de PDFs, construcción de interfaces gráficas y empaquetado de la aplicación. A continuación, te proporcionaré un esqueleto del código que podrías utilizar para crear este chatbot.
+
+Lectura y procesamiento del PDF:
+Utilizaremos PyMuPDF para leer y buscar en el PDF.
+
+Construcción de la interfaz gráfica:
+Utilizaremos tkinter para crear una interfaz gráfica simple.
+
+Empaquetado como ejecutable:
+Utilizaremos PyInstaller para convertir el script de Python en un archivo ejecutable.
+
+Paso 1: Instalación de bibliotecas necesarias
+
+Primero, instala las bibliotecas necesarias:
+
+pip install PyMuPDF tkinter pyinstaller
+
+Paso 2: Script de Python
+
+A continuación, el script de Python que realiza la lectura del PDF y la interacción con el usuario.
+
+import fitz  # PyMuPDF
+import tkinter as tk
+from tkinter import scrolledtext
+from tkinter import messagebox
+
+class PDFChatbot:
+    def __init__(self, pdf_path):
+        self.doc = fitz.open(pdf_path)
+        
+    def search_pdf(self, query):
+        results = []
+        for page_num in range(len(self.doc)):
+            page = self.doc.load_page(page_num)
+            text = page.get_text("text")
+            if query.lower() in text.lower():
+                results.append(f"Page {page_num + 1}:\n{text}\n")
+        return results if results else ["No se encontraron resultados."]
+
+class ChatbotApp:
+    def __init__(self, root, chatbot):
+        self.chatbot = chatbot
+        self.root = root
+        self.root.title("Chatbot Sentido de Vida - Uli")
+        
+        self.lbl = tk.Label(root, text="Pregunta a Uli:")
+        self.lbl.pack()
+        
+        self.txt = tk.Entry(root, width=100)
+        self.txt.pack()
+        
+        self.btn = tk.Button(root, text="Buscar", command=self.on_search)
+        self.btn.pack()
+        
+        self.scr = scrolledtext.ScrolledText(root, width=100, height=20)
+        self.scr.pack()
+        
+    def on_search(self):
+        query = self.txt.get()
+        if query:
+            results = self.chatbot.search_pdf(query)
+            self.scr.delete(1.0, tk.END)
+            for result in results:
+                self.scr.insert(tk.END, result + "\n")
+        else:
+            messagebox.showwarning("Advertencia", "Por favor, ingrese una pregunta.")
+            
+def main():
+    pdf_path = "Reporte de viabilidad-2-1.pdf"
+    chatbot = PDFChatbot(pdf_path)
+    
+    root = tk.Tk()
+    app = ChatbotApp(root, chatbot)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+Paso 3: Empaquetado del script como ejecutable
+
+Usaremos PyInstaller para convertir el script en un archivo ejecutable. Desde la línea de comandos, ejecuta:
+
+pyinstaller --onefile --windowed your_script_name.py
+
+
+Este comando generará un archivo ejecutable.
