@@ -1,0 +1,91 @@
+═══════════════════════════════════════════════════════════════════════════════
+                        CHATBOT DE SALUD MENTAL
+                           GUÍA SÚPER FÁCIL
+═══════════════════════════════════════════════════════════════════════════════
+
+¡Hola! Este es tu Chatbot de Salud Mental. Es MUY FÁCIL de usar.
+
+🎯 ¿QUÉ HACE ESTE CHATBOT?
+   - Responde preguntas sobre salud mental
+   - Funciona en español e inglés
+   - Tiene 3,607 conversaciones de expertos
+   - Es completamente privado (no envía datos a internet)
+
+🚀 INSTALACIÓN SÚPER FÁCIL (Solo 1 paso):
+
+   1. Doble click en: INSTALAR_WINDOWS_FACIL.bat
+   
+   ¡ESO ES TODO! El instalador hace el resto automáticamente.
+
+📋 REQUISITOS MÍNIMOS:
+   - Windows 10 o más nuevo
+   - 4GB de RAM
+   - Conexión a internet (solo para instalar)
+
+🤖 COMO USAR EL CHATBOT:
+
+   Después de instalar, tienes estos archivos SÚPER FÁCILES:
+
+   🤖 ABRIR CHATBOT.bat     ← Doble click para usar el chatbot
+   🧪 PROBAR CHATBOT.bat    ← Doble click para probar que funciona  
+   📦 CREAR EJECUTABLE.bat  ← Doble click para crear archivo .exe
+   ❓ AYUDA.bat             ← Doble click para ver más ayuda
+
+💡 EJEMPLOS DE PREGUNTAS QUE PUEDES HACER:
+
+   En Español:
+   - "¿Qué es la ansiedad?"
+   - "¿Cómo manejar el estrés?"
+   - "Síntomas de depresión"
+   - "¿Qué hacer en un ataque de pánico?"
+
+   En Inglés:
+   - "What is anxiety?"
+   - "How to manage stress?"
+   - "Depression symptoms"
+   - "Panic attack help"
+
+🆘 SI TIENES PROBLEMAS:
+
+   Problema: "No tengo Python"
+   Solución: Ve a https://www.python.org/downloads/
+            Descarga Python 3.11
+            Durante instalación marca "Add Python to PATH"
+
+   Problema: "No funciona el instalador"
+   Solución: Click derecho en INSTALAR_WINDOWS_FACIL.bat
+            Selecciona "Ejecutar como administrador"
+
+   Problema: "Error al instalar"
+   Solución: Verifica conexión a internet
+            Ejecuta INSTALAR_WINDOWS_FACIL.bat otra vez
+
+   Problema: "El chatbot no abre"
+   Solución: Ejecuta 🧪 PROBAR CHATBOT.bat primero
+            Si falla, ejecuta INSTALAR_WINDOWS_FACIL.bat otra vez
+
+📦 CREAR EJECUTABLE (OPCIONAL):
+
+   Si quieres un archivo .exe que funcione sin Python:
+
+   1. Doble click en: 📦 CREAR EJECUTABLE.bat
+   2. Espera 5-10 minutos (es normal que tarde)
+   3. Se crea: ChatbotSaludMental.exe
+   4. Puedes compartir este .exe con otros
+
+🔒 PRIVACIDAD:
+   - Todas tus conversaciones son privadas
+   - No se envía información a internet
+   - Los datos se quedan en tu computadora
+
+🎉 ¡DISFRUTA USANDO TU CHATBOT DE SALUD MENTAL!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 SOPORTE:
+   Si necesitas ayuda adicional, contacta al equipo técnico.
+
+📅 Versión: 2.0 Final
+📅 Fecha: Octubre 2024
+
+═══════════════════════════════════════════════════════════════════════════════
