@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visor Interactivo - Ley de Amparo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+          background-image: linear-gradient(to right top, #ff7e5f, #feb47b);
+          color: #415B7E;
+        }
+        .sidebar {
+          background-color: #FAFBF0;
+        }
+        .tag {
+          background-color: #e3e2d1;
+          color: #36190A;
+        }
+        .titulo-seccion {
+          color: #001f92;
+        }
+        .destacado {
+          color: #E7473C;
+        }
+        .intro-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-item:hover {
+          background-color: #e3e2d1;
+          transform: translateX(5px);
+          transition: all 0.3s ease;
+        }
+        .hero-section {
+          background: linear-gradient(135deg, rgba(0, 31, 146, 0.9), rgba(231, 71, 60, 0.8));
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header de bienvenida -->
+    <header class="hero-section text-white p-8 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4">🏛️ Visor Interactivo - Ley de Amparo</h1>
+            <p class="text-xl mb-2">Herramienta de consulta y navegación especializada</p>
+            <p class="text-lg opacity-90">Sistema completo de artículos, procedimientos y jurisprudencia</p>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Navegación lateral -->
+        <nav class="w-64 sidebar h-screen p-4 shadow sticky top-0 overflow-y-auto hidden md:block">
+            <div class="mb-6">
+                <h2 class="text-lg font-bold titulo-seccion mb-4">📋 Navegación Principal</h2>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#introduccion" class="nav-item block p-2 rounded hover:underline">🏠 Introducción</a></li>
+                    <li><a href="#indice-tematico" class="nav-item block p-2 rounded hover:underline">📑 Índice Temático</a></li>
+                    <li><a href="#mapa-mental" class="nav-item block p-2 rounded hover:underline">🧠 Mapa Mental</a></li>
+                    <li><a href="#tipos-amparo" class="nav-item block p-2 rounded hover:underline">⚖️ Tipos de Amparo</a></li>
+                </ul>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-md font-semibold titulo-seccion mb-3">🔍 Acceso Rápido</h3>
+                <ul class="space-y-1 text-xs">
+                    <li><a href="#disposiciones-fundamentales" class="nav-item block p-1 rounded hover:underline">Art. 1°-4° Fundamentos</a></li>
+                    <li><a href="#capacidad-personeria" class="nav-item block p-1 rounded hover:underline">Art. 5°-16 Capacidad</a></li>
+                    <li><a href="#plazos" class="nav-item block p-1 rounded hover:underline">Art. 17-23 Plazos</a></li>
+                    <li><a href="#competencia" class="nav-item block p-1 rounded hover:underline">Art. 33-50 Competencia</a></li>
+                    <li><a href="#amparo-indirecto" class="nav-item block p-1 rounded hover:underline">Art. 107-169 A. Indirecto</a></li>
+                    <li><a href="#amparo-directo" class="nav-item block p-1 rounded hover:underline">Art. 170-174 A. Directo</a></li>
+                </ul>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-md font-semibold titulo-seccion mb-3">🛠️ Herramientas</h3>
+                <button onclick="toggleBuscador()" class="nav-item w-full text-left p-2 rounded hover:underline text-xs">🔍 Búsqueda Avanzada</button>
+                <button onclick="mostrarComparativo()" class="nav-item w-full text-left p-2 rounded hover:underline text-xs">⚖️ Comparar Amparos</button>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="flex-1 p-6 space-y-10 max-w-5xl">
+            
+            <!-- Sección: Introducción de la App -->
+            <section id="introduccion" class="intro-card rounded-lg p-8 shadow-lg">
+                <h2 class="text-2xl font-bold titulo-seccion mb-6 flex items-center">
+                    <span class="text-3xl mr-3">🏛️</span>
+                    Bienvenido al Visor Interactivo de la Ley de Amparo
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold destacado mb-3">📋 ¿Qué encontrarás aquí?</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start"><span class="destacado mr-2">•</span>Navegación completa por los 271 artículos de la Ley de Amparo</li>
+                            <li class="flex items-start"><span class="destacado mr-2">•</span>Mapa mental interactivo de procedimientos</li>
+                            <li class="flex items-start"><span class="destacado mr-2">•</span>Comparativo entre Amparo Directo e Indirecto</li>
+                            <li class="flex items-start"><span class="destacado mr-2">•</span>Búsqueda avanzada por tema, artículo o concepto</li>
+                            <li class="flex items-start"><span class="destacado mr-2">•</span>Referencias cruzadas y jurisprudencia relevante</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold destacado mb-3">⚖️ Características principales</h3>
+                        <div class="space-y-3">
+                            <div class="tag rounded-full px-3 py-1 text-xs inline-block mr-2">Interfaz Intuitiva</div>
+                            <div class="tag rounded-full px-3 py-1 text-xs inline-block mr-2">Búsqueda Rápida</div>
+                            <div class="tag rounded-full px-3 py-1 text-xs inline-block mr-2">Navegación Visual</div>
+                            <div class="tag rounded-full px-3 py-1 text-xs inline-block mr-2">Referencias Cruzadas</div>
+                            <div class="tag rounded-full px-3 py-1 text-xs inline-block mr-2">Casos Prácticos</div>
+                        </div>
+                        
+                        <div class="mt-4 p-4 bg-blue-50 rounded border-l-4 border-blue-500">
+                            <p class="text-sm"><strong>💡 Tip de navegación:</strong> Utiliza el menú lateral para acceso rápido, o la búsqueda avanzada para encontrar temas específicos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <button onclick="scrollToSection('indice-tematico')" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Comenzar Navegación 📋
+                    </button>
+                </div>
+            </section>
+
+            <!-- Sección: Índice Temático -->
+            <section id="indice-tematico" class="intro-card rounded-lg p-8 shadow-lg">
+                <h2 class="text-2xl font-bold titulo-seccion border-b-2 border-blue-200 pb-3 mb-6 flex items-center">
+                    <span class="text-3xl mr-3">📑</span>
+                    Índice Temático Completo
+                </h2>
+                
+                <!-- Búsqueda en índice -->
+                <div class="mb-6">
+                    <input type="text" id="busqueda-indice" placeholder="Buscar en el índice..." 
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           onkeyup="filtrarIndice()">
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div id="indice-lista">
+                        <ul class="text-sm font-medium list-none space-y-2" id="lista-articulos">
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer" onclick="expandirSeccion('disposiciones')">
+                                <span class="destacado">📋</span> <strong>Disposiciones Fundamentales</strong> → Art. 1°–4°
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer" onclick="expandirSeccion('capacidad')">
+                                <span class="destacado">👤</span> <strong>Capacidad Y Personería</strong> → Art. 5°–16
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer" onclick="expandirSeccion('plazos')">
+                                <span class="destacado">⏰</span> <strong>Plazos</strong> → Art. 17–23
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer" onclick="expandirSeccion('notificaciones')">
+                                <span class="destacado">📬</span> <strong>Notificaciones</strong> → Art. 24–32
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer" onclick="expandirSeccion('competencia')">
+                                <span class="destacado">⚖️</span> <strong>Competencia</strong> → Art. 33–50
+                                <ul class="ml-4 mt-2 text-xs text-gray-600">
+                                    <li>→ Reglas de Competencia → 33–40</li>
+                                    <li>→ Conflictos Competenciales → 41–50</li>
+                                </ul>
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">🚫</span> <strong>Impedimentos, Excusas Y Recusaciones</strong> → Art. 51–60
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">❌</span> <strong>Improcedencia</strong> → Art. 61–62
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">⏹️</span> <strong>Sobreseimiento</strong> → Art. 63–65
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">📋</span> <strong>Incidentes</strong> → Art. 66–72
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">⚖️</span> <strong>Sentencia</strong> → Art. 73–79
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">📤</span> <strong>Medios De Impugnación</strong> → Art. 80–80 Bis
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">🔄</span> <strong>Recurso De Revisión</strong> → Art. 81–96
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">❓</span> <strong>Recurso De Queja</strong> → Art. 97–103
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">📢</span> <strong>Recurso De Reclamación</strong> → Art. 104–106
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <ul class="text-sm font-medium list-none space-y-2">
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer bg-blue-50">
+                                <span class="destacado">🔵</span> <strong>El Amparo Indirecto</strong> → Art. 107–169
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer bg-green-50">
+                                <span class="destacado">🟢</span> <strong>El Amparo Directo</strong> → Art. 170–174
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">⚖️</span> <strong>Sistema De Justicia Penal</strong>
+                                <ul class="ml-4 mt-2 text-xs text-gray-600">
+                                    <li>Apartado A → Sistema Mixto</li>
+                                    <li>Apartado B → Sistema Acusatorio Y Oral</li>
+                                </ul>
+                            </li>
+                            <li class="indice-item hover:bg-gray-50 p-2 rounded cursor-pointer">
+                                <span class="destacado">
+								
+								
+								
+								{
+  "articulos": {
+    "1": {
+      "titulo": "TÍTULO PRIMERO",
+      "capitulo": "CAPÍTULO I - Disposiciones Fundamentales", 
+      "numero": 1,
+      "texto": "El juicio de amparo tiene por objeto resolver toda controversia que se suscite:",
+      "fracciones": [
+        "I. Por normas generales, actos u omisiones de autoridad que violen los derechos humanos reconocidos y las garantías otorgadas para su protección por la Constitución Política de los Estados Unidos Mexicanos, así como por los tratados internacionales de los que el Estado Mexicano sea parte; ",
+        "II. Por normas generales, actos u omisiones de la autoridad federal que vulneren o restrinjan la soberanía de los Estados o la esfera de competencias de la Ciudad de México, siempre y cuando se violen los derechos humanos reconocidos y las garantías otorgadas para su protección por la Constitución Política de los Estados Unidos Mexicanos, y "
+		"III. Por normas generales, actos u omisiones de las autoridades de los Estados o de la Ciudad de México, que invadan la esfera de competencia de la autoridad federal, siempre y cuando se violen los derechos humanos reconocidos y las garantías otorgadas por la Constitución Política de los Estados Unidos Mexicanos. 
+			El amparo protege a las personas frente a normas generales, actos u omisiones por parte de los poderes públicos o de particulares en los casos señalados en la presente Ley. 
+      ],
+      " ARTICULOS RELACIONADOS": [Artículos relacionados: 5: Amparo contra particulares, 61: Improcedencia del juicio de amparo, 107: Procedencia del juicio de amparo indirecto.],
+      "tema": "Objeto del amparo",
+      "tesis": ["2019001", "2020015"]
+    }
+  },
+  "TESIS RELACIONADAS": {
+    "Articulo 1": {
+      "rubro": "SISTEMA DE CONTROL CONSTITUCIONAL EN EL ORDEN JURÍDICO MEXICANO.",
+      "registro": (160480, P. LXX/2011 (9ª.)). ",
+      "rubro": "LEYES, AMPARO CONTRA. CUANDO SE REFORMA UNA LEY DECLARADA INCONSTITUCIONAL O SE SUSTITUYE POR UNA DE CONTENIDO SIMILAR O IGUAL, PROCEDE UN NUEVO JUICIO POR TRATARSE DE UN ACTO LEGISLATIVO DISTINTO. .",
+      "registro": "(197244, P./J. 89/97 (9ª.)). "
+    }
+  }
+}
+
+
+{
+  "articulos": {
+    "1": {
+      "titulo": "TÍTULO PRIMERO",
+      "capitulo": "CAPÍTULO I - Disposiciones Fundamentales", 
+      "numero": 1,
+      "texto": "El juicio de amparo tiene por objeto resolver toda controversia que se suscite:",
+      "fracciones": [
+        "I. Por normas generales, actos u omisiones de autoridad que violen los derechos humanos reconocidos y las garantías otorgadas para su protección por la Constitución Política de los Estados Unidos Mexicanos, así como por los tratados internacionales de los que el Estado Mexicano sea parte;",
+        "II. Por normas generales, actos u omisiones de la autoridad federal que vulneren o restrinjan la soberanía de los Estados o la esfera de competencias de la Ciudad de México, siempre y cuando se violen los derechos humanos reconocidos y las garantías otorgadas para su protección por la Constitución Política de los Estados Unidos Mexicanos, y",
+        "III. Por normas generales, actos u omisiones de las autoridades de los Estados o de la Ciudad de México, que invadan la esfera de competencia de la autoridad federal, siempre y cuando se violen los derechos humanos reconocidos y las garantías otorgadas por la Constitución Política de los Estados Unidos Mexicanos."
+      ],
+      "texto_adicional": "El amparo protege a las personas frente a normas generales, actos u omisiones por parte de los poderes públicos o de particulares en los casos señalados en la presente Ley.",
+      "articulos_relacionados": [
+        {
+          "numero": 5,
+          "descripcion": "Amparo contra particulares"
+        },
+        {
+          "numero": 61,
+          "descripcion": "Improcedencia del juicio de amparo"
+        },
+        {
+          "numero": 107,
+          "descripcion": "Procedencia del juicio de amparo indirecto"
+        }
+      ],
+      "tema_general": "Objeto del amparo",
+      "tesis_relacionadas": ["art1_tesis1", "art1_tesis2", "art1_tesis3"]
+    },
+    "2": {
+      "titulo": "TÍTULO PRIMERO",
+      "capitulo": "CAPÍTULO I - Disposiciones Fundamentales",
+      "numero": 2,
+      "texto": "Texto del artículo 2...",
+      "fracciones": [],
+      "texto_adicional": "",
+      "articulos_relacionados": [
+        {
+          "numero": 1,
+          "descripcion": "Objeto del amparo"
+        }
+      ],
+      "tema_general": "Disposiciones fundamentales",
+      "tesis_relacionadas": ["art2_tesis1"]
+    }
+  },
+  "tesis": {
+    "art1_tesis1": {
+      "articulo": 1,
+      "rubro": "SISTEMA DE CONTROL CONSTITUCIONAL EN EL ORDEN JURÍDICO MEXICANO",
+      "registro": "160480, P. LXX/2011 (9ª.)",
+      "texto": "Texto completo de la tesis...",
+      "materia": "Constitucional",
+      "organo": "Pleno",
+      "epoca": "Décima Época"
+    },
+    "art1_tesis2": {
+      "articulo": 1,
+      "rubro": "LEYES, AMPARO CONTRA. CUANDO SE REFORMA UNA LEY DECLARADA INCONSTITUCIONAL O SE SUSTITUYE POR UNA DE CONTENIDO SIMILAR O IGUAL, PROCEDE UN NUEVO JUICIO POR TRATARSE DE UN ACTO LEGISLATIVO DISTINTO",
+      "registro": "197244, P./J. 89/97 (9ª.)",
+      "texto": "Texto completo de la tesis...",
+      "materia": "Constitucional",
+      "organo": "Pleno",
+      "epoca": "Novena Época"
+    },
+    "art1_tesis3": {
+      "articulo": 1,
+      "rubro": "TERCERA TESIS DE EJEMPLO",
+      "registro": "123456, 1a./J. 15/2019",
+      "texto": "Texto completo de la tesis...",
+      "materia": "Constitucional",
+      "organo": "Primera Sala",
+      "epoca": "Décima Época"
+    }
+  },
+  "configuracion": {
+    "max_tesis_por_articulo": 3,
+    "total_articulos": 271,
+    "version": "1.0"
+  }
+}
