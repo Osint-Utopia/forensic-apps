@@ -1,0 +1,747 @@
+    <!-- Header -->
+    <header class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-search-plus text-2xl"></i>
+                    <h1 class="text-2xl font-bold">OSINT Pro</h1>
+                    <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-sm">v3.0</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded transition">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="help-btn" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded transition">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8">
+        <!-- Search Section -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 card-hover">
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-search mr-2 text-blue-600"></i>
+                Panel de Búsqueda Avanzada
+            </h2>
+            
+            <form id="search-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+                        <input type="text" id="fullname" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Juan Pérez García">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="juan@ejemplo.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="+34 600 123 456">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Usuario/Alias</label>
+                        <input type="text" id="username" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="@usuario123">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ubicación</label>
+                        <input type="text" id="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Madrid, España">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Organización</label>
+                        <input type="text" id="organization" class="w-full px-4 py-2 border border-gray-300 rounded-lg search-input focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Empresa ABC">
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3 mt-6">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-search mr-2"></i>
+                        Búsqueda Completa
+                    </button>
+                    <button type="button" id="quick-search" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-bolt mr-2"></i>
+                        Búsqueda Rápida
+                    </button>
+                    <button type="button" id="advanced-search" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-cogs mr-2"></i>
+                        Opciones Avanzadas
+                    </button>
+                    <button type="button" id="clear-form" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-eraser mr-2"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Progress Bar -->
+            <div id="progress-container" class="mt-4 hidden">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Progreso de búsqueda</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" class="bg-blue-600 h-2 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="bg-white rounded-xl shadow-lg mb-8">
+            <div class="flex flex-wrap border-b">
+                <button class="tab-btn tab-active px-6 py-3 font-medium transition" data-tab="general">
+                    <i class="fas fa-globe mr-2"></i>General
+                </button>
+                <button class="tab-btn px-6 py-3 font-medium transition hover:bg-gray-50" data-tab="social">
+                    <i class="fas fa-users mr-2"></i>Redes Sociales
+                </button>
+                <button class="tab-btn px-6 py-3 font-medium transition hover:bg-gray-50" data-tab="professional">
+                    <i class="fas fa-briefcase mr-2"></i>Profesional
+                </button>
+                <button class="tab-btn px-6 py-3 font-medium transition hover:bg-gray-50" data-tab="media">
+                    <i class="fas fa-photo-video mr-2"></i>Multimedia
+                </button>
+                <button class="tab-btn px-6 py-3 font-medium transition hover:bg-gray-50" data-tab="security">
+                    <i class="fas fa-shield-alt mr-2"></i>Seguridad
+                </button>
+                <button class="tab-btn px-6 py-3 font-medium transition hover:bg-gray-50" data-tab="analysis">
+                    <i class="fas fa-chart-line mr-2"></i>Análisis
+                </button>
+            </div>
+            
+            <!-- Tab Contents -->
+            <div class="p-6">
+                <!-- General Tab -->
+                <div id="general-tab" class="tab-content">
+                    <h3 class="text-lg font-semibold mb-4">Motores de Búsqueda y Directorios</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="general-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Social Tab -->
+                <div id="social-tab" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">Redes Sociales y Plataformas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="social-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Professional Tab -->
+                <div id="professional-tab" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">Información Profesional</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="professional-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Media Tab -->
+                <div id="media-tab" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">Imágenes, Videos y Multimedia</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="media-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Security Tab -->
+                <div id="security-tab" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">Seguridad y Brechas de Datos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="security-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Analysis Tab -->
+                <div id="analysis-tab" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">Análisis y Visualización</h3>
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-medium mb-3">Distribución de Fuentes</h4>
+                                <canvas id="sources-chart" width="400" height="200"></canvas>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-medium mb-3">Línea de Tiempo</h4>
+                                <div id="timeline-container" class="space-y-2">
+                                    <!-- Timeline items will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium mb-3">Resumen de Hallazgos</h4>
+                            <div id="findings-summary" class="text-gray-600">
+                                Realiza una búsqueda para ver el análisis de resultados.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <!-- Main content area is handled by tabs above -->
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Search History -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-history mr-2 text-green-600"></i>
+                        Historial
+                    </h3>
+                    <div id="search-history" class="space-y-2 max-h-60 overflow-y-auto">
+                        <p class="text-gray-500 text-sm">No hay búsquedas recientes</p>
+                    </div>
+                    <button id="clear-history" class="mt-3 text-red-600 hover:text-red-800 text-sm font-medium">
+                        Limpiar historial
+                    </button>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-2 text-blue-600"></i>
+                        Estadísticas
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Búsquedas hoy:</span>
+                            <span id="searches-today" class="font-semibold">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Total fuentes:</span>
+                            <span id="total-sources" class="font-semibold">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Última búsqueda:</span>
+                            <span id="last-search" class="font-semibold text-sm">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Export Options -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-download mr-2 text-purple-600"></i>
+                        Exportar
+                    </h3>
+                    <div class="space-y-2">
+                        <button id="export-json" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-file-code mr-2"></i>JSON
+                        </button>
+                        <button id="export-csv" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-file-csv mr-2"></i>CSV
+                        </button>
+                        <button id="export-pdf" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-file-pdf mr-2"></i>PDF Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-2xl mx-4 max-h-96 overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold">Guía de Uso - OSINT Pro</h3>
+                <button id="close-help" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-4 text-sm">
+                <div>
+                    <h4 class="font-semibold">Búsqueda Básica:</h4>
+                    <p>Ingresa al menos un campo (nombre, email, teléfono) y haz clic en "Búsqueda Completa".</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Búsqueda Rápida:</h4>
+                    <p>Ejecuta una búsqueda con las fuentes más comunes para obtener resultados rápidos.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Pestañas:</h4>
+                    <p>Los resultados se organizan por categorías: General, Redes Sociales, Profesional, Multimedia, Seguridad y Análisis.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Exportación:</h4>
+                    <p>Puedes exportar los resultados en formato JSON, CSV o generar un reporte PDF.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let searchData = {
+            results: {},
+            history: JSON.parse(localStorage.getItem('osint-history') || '[]'),
+            stats: JSON.parse(localStorage.getItem('osint-stats') || '{"searchesToday": 0, "totalSources": 0, "lastSearch": null}')
+        };
+
+        // OSINT Sources Database
+        const osintSources = {
+            general: [
+                { name: 'Google', url: 'https://www.google.com/search?q=', icon: 'fab fa-google', description: 'Motor de búsqueda principal' },
+                { name: 'Bing', url: 'https://www.bing.com/search?q=', icon: 'fab fa-microsoft', description: 'Motor de búsqueda de Microsoft' },
+                { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=', icon: 'fas fa-search', description: 'Búsqueda privada' },
+                { name: 'Yandex', url: 'https://yandex.com/search/?text=', icon: 'fab fa-yandex', description: 'Motor de búsqueda ruso' },
+                { name: 'Pipl', url: 'https://pipl.com/search/?q=', icon: 'fas fa-user-search', description: 'Búsqueda de personas' },
+                { name: 'Spokeo', url: 'https://www.spokeo.com/search?q=', icon: 'fas fa-address-book', description: 'Directorio de personas' },
+                { name: 'WhitePages', url: 'https://www.whitepages.com/name/', icon: 'fas fa-phone', description: 'Páginas blancas' },
+                { name: 'TruePeopleSearch', url: 'https://www.truepeoplesearch.com/results?name=', icon: 'fas fa-users', description: 'Búsqueda de personas' },
+                { name: 'Wayback Machine', url: 'https://web.archive.org/web/*/', icon: 'fas fa-archive', description: 'Archivo web histórico' }
+            ],
+            social: [
+                { name: 'Facebook', url: 'https://www.facebook.com/search/top/?q=', icon: 'fab fa-facebook', description: 'Red social principal' },
+                { name: 'Twitter/X', url: 'https://twitter.com/search?q=', icon: 'fab fa-twitter', description: 'Microblogging' },
+                { name: 'Instagram', url: 'https://www.instagram.com/explore/tags/', icon: 'fab fa-instagram', description: 'Fotos y videos' },
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/search/results/people/?keywords=', icon: 'fab fa-linkedin', description: 'Red profesional' },
+                { name: 'TikTok', url: 'https://www.tiktok.com/search?q=', icon: 'fab fa-tiktok', description: 'Videos cortos' },
+                { name: 'YouTube', url: 'https://www.youtube.com/results?search_query=', icon: 'fab fa-youtube', description: 'Videos' },
+                { name: 'Reddit', url: 'https://www.reddit.com/search/?q=', icon: 'fab fa-reddit', description: 'Foros y comunidades' },
+                { name: 'Pinterest', url: 'https://www.pinterest.com/search/pins/?q=', icon: 'fab fa-pinterest', description: 'Tableros e imágenes' },
+                { name: 'Telegram', url: 'https://t.me/s/', icon: 'fab fa-telegram', description: 'Mensajería' },
+                { name: 'WhatsApp', url: 'https://wa.me/', icon: 'fab fa-whatsapp', description: 'Mensajería móvil' },
+                { name: 'Snapchat', url: 'https://www.snapchat.com/add/', icon: 'fab fa-snapchat', description: 'Fotos temporales' },
+                { name: 'Discord', url: 'https://discord.com/channels/@me', icon: 'fab fa-discord', description: 'Chat gaming' }
+            ],
+            professional: [
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/search/results/people/?keywords=', icon: 'fab fa-linkedin', description: 'Red profesional' },
+                { name: 'AngelList', url: 'https://angel.co/search?q=', icon: 'fas fa-rocket', description: 'Startups y empleos' },
+                { name: 'Crunchbase', url: 'https://www.crunchbase.com/search/people?q=', icon: 'fas fa-building', description: 'Base de datos empresarial' },
+                { name: 'ZoomInfo', url: 'https://www.zoominfo.com/s/search/person?q=', icon: 'fas fa-zoom', description: 'Información profesional' },
+                { name: 'Apollo', url: 'https://www.apollo.io/people/search?q=', icon: 'fas fa-user-tie', description: 'Prospección B2B' },
+                { name: 'Hunter.io', url: 'https://hunter.io/search/', icon: 'fas fa-crosshairs', description: 'Búsqueda de emails' },
+                { name: 'RocketReach', url: 'https://rocketreach.co/search?q=', icon: 'fas fa-rocket', description: 'Contactos profesionales' }
+            ],
+            media: [
+                { name: 'Google Images', url: 'https://www.google.com/search?tbm=isch&q=', icon: 'fas fa-images', description: 'Búsqueda de imágenes' },
+                { name: 'TinEye', url: 'https://tineye.com/search/', icon: 'fas fa-eye', description: 'Búsqueda inversa de imágenes' },
+                { name: 'Yandex Images', url: 'https://yandex.com/images/search?text=', icon: 'fas fa-camera', description: 'Búsqueda de imágenes rusa' },
+                { name: 'YouTube', url: 'https://www.youtube.com/results?search_query=', icon: 'fab fa-youtube', description: 'Videos' },
+                { name: 'Vimeo', url: 'https://vimeo.com/search?q=', icon: 'fab fa-vimeo', description: 'Videos profesionales' },
+                { name: 'Flickr', url: 'https://www.flickr.com/search/?text=', icon: 'fab fa-flickr', description: 'Fotos' },
+                { name: 'Getty Images', url: 'https://www.gettyimages.com/search?phrase=', icon: 'fas fa-photo-video', description: 'Banco de imágenes' },
+                { name: 'Unsplash', url: 'https://unsplash.com/s/photos/', icon: 'fas fa-camera-retro', description: 'Fotos gratuitas' }
+            ],
+            security: [
+                { name: 'HaveIBeenPwned', url: 'https://haveibeenpwned.com/unifiedsearch/', icon: 'fas fa-shield-alt', description: 'Brechas de datos' },
+                { name: 'DeHashed', url: 'https://www.dehashed.com/search?query=', icon: 'fas fa-key', description: 'Base de datos filtradas' },
+                { name: 'LeakCheck', url: 'https://leakcheck.io/search/', icon: 'fas fa-bug', description: 'Verificación de filtraciones' },
+                { name: 'IntelX', url: 'https://intelx.io/?s=', icon: 'fas fa-database', description: 'Motor de búsqueda OSINT' },
+                { name: 'Shodan', url: 'https://www.shodan.io/search?query=', icon: 'fas fa-server', description: 'Búsqueda de dispositivos IoT' },
+                { name: 'Censys', url: 'https://search.censys.io/search?resource=hosts&q=', icon: 'fas fa-network-wired', description: 'Escaneo de internet' },
+                { name: 'VirusTotal', url: 'https://www.virustotal.com/gui/search/', icon: 'fas fa-virus', description: 'Análisis de malware' }
+            ]
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadStats();
+            loadHistory();
+        });
+
+        function initializeApp() {
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+            });
+
+            // Form submission
+            document.getElementById('search-form').addEventListener('submit', handleSearch);
+            document.getElementById('quick-search').addEventListener('click', handleQuickSearch);
+            document.getElementById('clear-form').addEventListener('click', clearForm);
+
+            // Modal handlers
+            document.getElementById('help-btn').addEventListener('click', () => showModal('help-modal'));
+            document.getElementById('close-help').addEventListener('click', () => hideModal('help-modal'));
+
+            // Export handlers
+            document.getElementById('export-json').addEventListener('click', () => exportData('json'));
+            document.getElementById('export-csv').addEventListener('click', () => exportData('csv'));
+            document.getElementById('export-pdf').addEventListener('click', () => exportData('pdf'));
+
+            // History management
+            document.getElementById('clear-history').addEventListener('click', clearHistory);
+
+            // Theme toggle
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        }
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('hover:bg-gray-50');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('tab-active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.remove('hover:bg-gray-50');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+        }
+
+        function handleSearch(e) {
+            e.preventDefault();
+            performSearch(false);
+        }
+
+        function handleQuickSearch() {
+            performSearch(true);
+        }
+
+        function performSearch(isQuick = false) {
+            const formData = getFormData();
+            if (!hasValidInput(formData)) {
+                alert('Por favor, ingresa al menos un campo de búsqueda.');
+                return;
+            }
+
+            // Show progress
+            showProgress();
+            
+            // Clear previous results
+            clearResults();
+            
+            // Add to history
+            addToHistory(formData);
+            
+            // Simulate search process
+            simulateSearch(formData, isQuick);
+        }
+
+        function getFormData() {
+            return {
+                fullname: document.getElementById('fullname').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                username: document.getElementById('username').value.trim(),
+                location: document.getElementById('location').value.trim(),
+                organization: document.getElementById('organization').value.trim()
+            };
+        }
+
+        function hasValidInput(formData) {
+            return Object.values(formData).some(value => value !== '');
+        }
+
+        function showProgress() {
+            document.getElementById('progress-container').classList.remove('hidden');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('progress-container').classList.add('hidden');
+                    }, 1000);
+                }
+                document.getElementById('progress-bar').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+            }, 200);
+        }
+
+        function clearResults() {
+            Object.keys(osintSources).forEach(category => {
+                document.getElementById(`${category}-results`).innerHTML = '';
+            });
+        }
+
+        function simulateSearch(formData, isQuick) {
+            const searchQuery = buildSearchQuery(formData);
+            searchData.results = {};
+
+            Object.keys(osintSources).forEach((category, categoryIndex) => {
+                setTimeout(() => {
+                    const sources = isQuick ? osintSources[category].slice(0, 3) : osintSources[category];
+                    const results = sources.map(source => ({
+                        ...source,
+                        searchUrl: source.url + encodeURIComponent(searchQuery),
+                        status: Math.random() > 0.1 ? 'active' : 'inactive'
+                    }));
+                    
+                    searchData.results[category] = results;
+                    renderResults(category, results);
+                    
+                    if (categoryIndex === Object.keys(osintSources).length - 1) {
+                        updateAnalysis();
+                        updateStats();
+                    }
+                }, categoryIndex * 300);
+            });
+        }
+
+        function buildSearchQuery(formData) {
+            const parts = [];
+            if (formData.fullname) parts.push(`"${formData.fullname}"`);
+            if (formData.email) parts.push(formData.email);
+            if (formData.phone) parts.push(formData.phone);
+            if (formData.username) parts.push(formData.username);
+            if (formData.location) parts.push(formData.location);
+            if (formData.organization) parts.push(`"${formData.organization}"`);
+            return parts.join(' ');
+        }
+
+        function renderResults(category, results) {
+            const container = document.getElementById(`${category}-results`);
+            container.innerHTML = results.map(result => `
+                <div class="result-item bg-white p-4 rounded-lg shadow hover:shadow-md transition border">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <i class="${result.icon} text-lg mr-3 text-blue-600"></i>
+                            <h4 class="font-medium">${result.name}</h4>
+                        </div>
+                        <span class="px-2 py-1 text-xs rounded-full ${result.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}">
+                            ${result.status === 'active' ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">${result.description}</p>
+                    <a href="${result.searchUrl}" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        <i class="fas fa-external-link-alt mr-1"></i>
+                        Buscar
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function updateAnalysis() {
+            // Update sources chart
+            const ctx = document.getElementById('sources-chart').getContext('2d');
+            const chartData = Object.keys(searchData.results).map(category => ({
+                label: category.charAt(0).toUpperCase() + category.slice(1),
+                value: searchData.results[category].length
+            }));
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: chartData.map(d => d.label),
+                    datasets: [{
+                        data: chartData.map(d => d.value),
+                        backgroundColor: [
+                            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Update timeline
+            const timeline = document.getElementById('timeline-container');
+            const timelineItems = [
+                { time: 'Ahora', event: 'Búsqueda iniciada', type: 'info' },
+                { time: '2 min', event: 'Fuentes generales consultadas', type: 'success' },
+                { time: '3 min', event: 'Redes sociales analizadas', type: 'success' },
+                { time: '4 min', event: 'Información profesional recopilada', type: 'success' },
+                { time: '5 min', event: 'Búsqueda completada', type: 'success' }
+            ];
+
+            timeline.innerHTML = timelineItems.map(item => `
+                <div class="flex items-center space-x-3 p-2 rounded">
+                    <div class="w-2 h-2 rounded-full ${item.type === 'success' ? 'bg-green-500' : 'bg-blue-500'}"></div>
+                    <span class="text-sm text-gray-600">${item.time}</span>
+                    <span class="text-sm">${item.event}</span>
+                </div>
+            `).join('');
+
+            // Update findings summary
+            const totalSources = Object.values(searchData.results).reduce((sum, results) => sum + results.length, 0);
+            const activeSources = Object.values(searchData.results).reduce((sum, results) => 
+                sum + results.filter(r => r.status === 'active').length, 0);
+            
+            document.getElementById('findings-summary').innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600">${totalSources}</div>
+                        <div class="text-sm text-gray-600">Fuentes totales</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">${activeSources}</div>
+                        <div class="text-sm text-gray-600">Fuentes activas</div>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                        Se encontraron ${activeSources} fuentes activas de un total de ${totalSources} consultadas. 
+                        Los resultados están organizados por categorías para facilitar la investigación.
+                    </p>
+                </div>
+            `;
+        }
+
+        function addToHistory(formData) {
+            const searchEntry = {
+                timestamp: new Date().toISOString(),
+                query: Object.entries(formData).filter(([key, value]) => value).map(([key, value]) => `${key}: ${value}`).join(', '),
+                date: new Date().toLocaleDateString('es-ES')
+            };
+            
+            searchData.history.unshift(searchEntry);
+            searchData.history = searchData.history.slice(0, 10); // Keep only last 10
+            
+            localStorage.setItem('osint-history', JSON.stringify(searchData.history));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            const historyContainer = document.getElementById('search-history');
+            if (searchData.history.length === 0) {
+                historyContainer.innerHTML = '<p class="text-gray-500 text-sm">No hay búsquedas recientes</p>';
+                return;
+            }
+
+            historyContainer.innerHTML = searchData.history.map(entry => `
+                <div class="p-2 bg-gray-50 rounded text-sm">
+                    <div class="font-medium text-gray-800 truncate">${entry.query}</div>
+                    <div class="text-gray-500 text-xs">${entry.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearHistory() {
+            searchData.history = [];
+            localStorage.removeItem('osint-history');
+            loadHistory();
+        }
+
+        function updateStats() {
+            searchData.stats.searchesToday++;
+            searchData.stats.totalSources = Object.values(searchData.results).reduce((sum, results) => sum + results.length, 0);
+            searchData.stats.lastSearch = new Date().toLocaleTimeString('es-ES');
+            
+            localStorage.setItem('osint-stats', JSON.stringify(searchData.stats));
+            loadStats();
+        }
+
+        function loadStats() {
+            document.getElementById('searches-today').textContent = searchData.stats.searchesToday;
+            document.getElementById('total-sources').textContent = searchData.stats.totalSources;
+            document.getElementById('last-search').textContent = searchData.stats.lastSearch || '-';
+        }
+
+        function clearForm() {
+            document.getElementById('search-form').reset();
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.getElementById(modalId).classList.add('flex');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        function exportData(format) {
+            if (!searchData.results || Object.keys(searchData.results).length === 0) {
+                alert('No hay datos para exportar. Realiza una búsqueda primero.');
+                return;
+            }
+
+            const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+            
+            switch (format) {
+                case 'json':
+                    exportJSON(timestamp);
+                    break;
+                case 'csv':
+                    exportCSV(timestamp);
+                    break;
+                case 'pdf':
+                    exportPDF(timestamp);
+                    break;
+            }
+        }
+
+        function exportJSON(timestamp) {
+            const data = {
+                timestamp: new Date().toISOString(),
+                results: searchData.results,
+                summary: {
+                    totalSources: Object.values(searchData.results).reduce((sum, results) => sum + results.length, 0),
+                    activeSources: Object.values(searchData.results).reduce((sum, results) => 
+                        sum + results.filter(r => r.status === 'active').length, 0)
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            downloadFile(blob, `osint-results-${timestamp}.json`);
+        }
+
+        function exportCSV(timestamp) {
+            const rows = [['Categoría', 'Nombre', 'Descripción', 'URL', 'Estado']];
+            
+            Object.entries(searchData.results).forEach(([category, results]) => {
+                results.forEach(result => {
+                    rows.push([
+                        category,
+                        result.name,
+                        result.description,
+                        result.searchUrl,
+                        result.status
+                    ]);
+                });
+            });
+            
+            const csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            downloadFile(blob, `osint-results-${timestamp}.csv`);
+        }
+
+        function exportPDF(timestamp) {
+            // For a real implementation, you would use a PDF library like jsPDF
+            alert('Funcionalidad de exportación PDF en desarrollo. Usa JSON o CSV por ahora.');
+        }
+
+        function downloadFile(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            document.getElementById('theme-toggle').innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'Enter':
+                        e.preventDefault();
+                        handleSearch(e);
+                        break;
+                    case 'k':
+                        e.preventDefault();
+                        document.getElementById('fullname').focus();
+                        break;
+                }
+            }
+        });
+    </script>

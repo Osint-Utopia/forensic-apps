@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analizador CNPP - Carpeta de Investigacion</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .header h1 {
+        color: #1e3c72;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .upload-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .file-drop-zone {
+        border: 3px dashed #2a5298;
+        border-radius: 10px;
+        padding: 40px;
+        text-align: center;
+        transition: all 0.3s ease;
+        background: rgba(42, 82, 152, 0.05);
+      }
+
+      .file-drop-zone:hover {
+        border-color: #1e3c72;
+        background: rgba(42, 82, 152, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .file-drop-zone.dragover {
+        border-color: #28a745;
+        background: rgba(40, 167, 69, 0.1);
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .upload-btn {
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px;
+      }
+
+      .upload-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 4px;
+        margin-top: 20px;
+        overflow: hidden;
+        display: none;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #28a745, #20c997);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .results-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+      }
+
+      .stat-card.warning {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+      }
+
+      .stat-card.danger {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .table-container {
+        overflow-x: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        font-size: 0.9rem;
+      }
+
+      .results-table th {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        padding: 15px 12px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .results-table td {
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+        vertical-align: top;
+      }
+
+      .results-table tr:hover {
+        background: rgba(42, 82, 152, 0.05);
+      }
+
+      .missing-section {
+        background: rgba(220, 53, 69, 0.1);
+        border: 2px solid #dc3545;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .missing-section h3 {
+        color: #dc3545;
+        margin-bottom: 15px;
+      }
+
+      .missing-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .missing-list li {
+        background: rgba(220, 53, 69, 0.1);
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border-left: 4px solid #dc3545;
+      }
+
+      .export-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px 5px;
+      }
+
+      .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        color: #2a5298;
+        font-size: 1.1rem;
+        margin: 20px 0;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(42, 82, 152, 0.3);
+        border-radius: 50%;
+        border-top-color: #2a5298;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .file-list {
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(42, 82, 152, 0.05);
+        border-radius: 8px;
+        display: none;
+      }
+
+      .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(42, 82, 152, 0.1);
+      }
+
+      .file-item:last-child {
+        border-bottom: none;
+      }
+
+      .file-name {
+        font-weight: 500;
+        color: #1e3c72;
+      }
+
+      .file-size {
+        color: #666;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Analizador CNPP</h1>
+        <p>Analisis de Carpetas de Investigaci®Æn - C N P P</p>
+      </div>
+
+      <div class="upload-section">
+        <div class="file-drop-zone" id="dropZone">
+          <h3>Cargar Documentos de la Carpeta</h3>
+          <p>Arrastra y suelta archivos aqui o haz clic para seleccionar</p>
+          <p><small>Formatos soportados: PDF, TXT, DOC, DOCX</small></p>
+          <input
+            type="file"
+            id="fileInput"
+            class="file-input"
+            multiple
+            accept=".pdf,.txt,.doc,.docx"
+          />
+          <button
+            class="upload-btn"
+            onclick="document.getElementById('fileInput').click()"
+          >
+            Seleccionar Archivos
+          </button>
+          <button
+            class="upload-btn"
+            onclick="analyzeFiles()"
+            id="analyzeBtn"
+            style="display: none"
+          >
+            Analizar Carpeta
+          </button>
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          Analizando documentos...
+        </div>
+      </div>
+
+      <div class="results-section" id="resultsSection">
+        <h2>Resultados del Analisis</h2>
+
+        <div class="stats-grid" id="statsGrid">
+          <!-- Stats will be populated here -->
+        </div>
+
+        <div class="table-container">
+          <table class="results-table" id="resultsTable">
+            <thead>
+              <tr>
+                <th>Tipo de Actuacion</th>
+                <th>Fecha</th>
+                <th>Interpretado por</th>
+                <th>Finalidad</th>
+                <th>Base Legal</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+              <!-- Results will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="missing-section" id="missingSection">
+          <h3>Actuaciones Faltantes Criticas</h3>
+          <ul class="missing-list" id="missingList">
+            <!-- Missing items will be populated here -->
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px">
+          <button class="export-btn" onclick="exportToCSV()">
+            Exportar CSV
+          </button>
+          <button class="export-btn" onclick="exportToPDF()">
+            Exportar PDF
+          </button>
+          <button class="export-btn" onclick="generateReport()">
+            Generar Reporte
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+              let uploadedFiles = [];
+              let analysisResults = [];
+
+              // File upload handling
+              const dropZone = document.getElementById('dropZone');
+              const fileInput = document.getElementById('fileInput');
+              const fileList = document.getElementById('fileList');
+              const analyzeBtn = document.getElementById('analyzeBtn');
+
+              dropZone.addEventListener('dragover', (e) => {
+                  e.preventDefault();
+                  dropZone.classList.add('dragover');
+              });
+
+              dropZone.addEventListener('dragleave', () => {
+                  dropZone.classList.remove('dragover');
+              });
+
+              dropZone.addEventListener('drop', (e) => {
+                  e.preventDefault();
+                  dropZone.classList.remove('dragover');
+                  handleFiles(e.dataTransfer.files);
+              });
+
+              fileInput.addEventListener('change', (e) => {
+                  handleFiles(e.target.files);
+              });
+
+              function handleFiles(files) {
+                  uploadedFiles = Array.from(files);
+                  displayFileList();
+                  analyzeBtn.style.display = uploadedFiles.length > 0 ? 'inline-block' : 'none';
+              }
+
+              function displayFileList() {
+                  if (uploadedFiles.length === 0) {
+                      fileList.style.display = 'none';
+                      return;
+                  }
+
+                  fileList.style.display = 'block';
+                  fileList.innerHTML = '<h4> Archivos Seleccionados:</h4>';
+
+                  uploadedFiles.forEach((file, index) => {
+                      const fileItem = document.createElement('div');
+                      fileItem.className = 'file-item';
+                      fileItem.innerHTML = `
+                          <span class="file-name">${file.name}</span>
+                          <span class="file-size">${formatFileSize(file.size)}</span>
+                      `;
+                      fileList.appendChild(fileItem);
+                  });
+              }
+
+              function formatFileSize(bytes) {
+                  if (bytes === 0) return '0 Bytes';
+                  const k = 1024;
+                  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                  const i = Math.floor(Math.log(bytes) / Math.log(k));
+                  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+              }
+
+              // Analysis patterns for different document types
+              const documentPatterns = {
+                  'acta_denuncia': {
+                      keywords: ['denuncia', 'querella', 'hechos delictivos', 'denunciante', 'querellante'],
+                      type: 'Acta de denuncia o querella verbal',
+                      finalidad: 'Iniciar investigaci√≥n por posible delito'
+                  },
+                  'acta_aviso': {
+                      keywords: ['aviso', 'hechos probablemente delictivos', 'notificacion inicial'],
+                      type: 'Acta de aviso de hechos probablemente delictivos',
+                      finalidad: 'Documentar notificaci√≥n inicial de posible delito'
+                  },
+                  'entrevista_testigo': {
+                      keywords: ['entrevista', 'testigo', 'declaraci®Æn', 'presencial', 'testimonio'],
+                      type: 'Acta de entrevista a testigos',
+                      finalidad: 'Obtener datos relevantes sobre el hecho'
+                  },
+                  'inspeccion_lugar': {
+                      keywords: ['inspeccion', 'lugar del hecho', 'escena del crimen', 'levantamiento', 'cadaver'],
+                      type: 'Acta de inspeccion de lugar y levantamiento de cadaver,
+                      finalidad: 'Levantar evidencia fisica del lugar'
+                  },
+                  'control_escena': {
+                      keywords: ['control de escena', 'preservacion', 'acordonamiento', 'resguardo'],
+                      type: 'Acta de control de escena del hecho',
+                      finalidad: 'Registrar preservacion de la escena del delito'
+                  },
+                  'lectura_derechos': {
+                      keywords: ['lectura de derechos', 'derechos del imputado', 'miranda', 'constitucionales'],
+                      type: 'Acta de lectura de derechos',
+                      finalidad: 'Documentar lectura de derechos del imputado'
+                  },
+                  'pericial': {
+                      keywords: ['pericial', 'perito', 'dictamen', 'analisis forense', 'criminalistica'],
+                      type: 'Actas de diligencias periciales',
+                      finalidad: 'Analizar pruebas fisicas y evidencia'
+                  },
+                  'informe_policial': {
+                      keywords: ['informe policial', 'homologado', 'policia', 'investigacion', 'diligencias'],
+                      type: 'Informes policiales homologados',
+                      finalidad: 'Integrar antecedentes y diligencias realizadas'
+                  }
+              };
+
+              const requiredDocuments = [
+                  'Acta de denuncia o querella verbal',
+                  'Acta de entrevista a testigos',
+                  'Acta de inspeccion de lugar y levantamiento de cadaver',
+                  'Actas de diligencias periciales',
+                  'Informes policiales homologados',
+                  'Acta de control de escena del hecho',
+                  'Acta de lectura de derechos'
+              ];
+
+              async function analyzeFiles() {
+                  document.getElementById('loading').style.display = 'block';
+                  document.getElementById('progressBar').style.display = 'block';
+                  analysisResults = [];
+
+                  for (let i = 0; i < uploadedFiles.length; i++) {
+                      const file = uploadedFiles[i];
+                      updateProgress((i / uploadedFiles.length) * 100);
+
+                      try {
+                          const content = await readFileContent(file);
+                          const analysis = analyzeDocument(content, file.name);
+                          if (analysis) {
+                              analysisResults.push(analysis);
+                          }
+                      } catch (error) {
+                          console.error(`Error analyzing ${file.name}:`, error);
+                      }
+
+                      // Simulate processing time
+                      await new Promise(resolve => setTimeout(resolve, 500));
+                  }
+
+                  updateProgress(100);
+                  displayResults();
+                  document.getElementById('loading').style.display = 'none';
+              }
+
+              function readFileContent(file) {
+                  return new Promise((resolve, reject) => {
+                      const reader = new FileReader();
+                      reader.onload = (e) => resolve(e.target.result);
+                      reader.onerror = reject;
+                      reader.readAsText(file);
+                  });
+              }
+
+              function analyzeDocument(content, filename) {
+                  const contentLower = content.toLowerCase();
+
+                  // Extract date from content or filename
+                  const dateRegex = /(\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4})|(\d{2,4}[-\/]\d{1,2}[-\/]\d{1,2})/g;
+                  const dateMatch = content.match(dateRegex) || filename.match(dateRegex);
+                  const date = dateMatch ? dateMatch[0] : 'No especificada';
+
+                  // Extract who performed the action
+                  const performers = ['policia', 'perito', 'fiscal', 'ministerio publico', 'servicios periciales', 'medico forense'];
+                  let performedBy = 'No especificado';
+
+                  for (const performer of performers) {
+                      if (contentLower.includes(performer)) {
+                          performedBy = performer.charAt(0).toUpperCase() + performer.slice(1);
+                          break;
+                      }
+                  }
+
+                  // Classify document type
+                  for (const [key, pattern] of Object.entries(documentPatterns)) {
+                      const matchCount = pattern.keywords.filter(keyword =>
+                          contentLower.includes(keyword.toLowerCase())
+                      ).length;
+
+                      if (matchCount >= 2) {
+                          return {
+                              filename: filename,
+                              type: pattern.type,
+                              date: date,
+                              performedBy: performedBy,
+                              finalidad: pattern.finalidad,
+                              baseLegal: 'Articulo 131 del Codigo Nacional de Procedimientos Penales',
+                              status: 'Presente',
+                              content: content.substring(0, 200) + '...'
+                          };
+                      }
+                  }
+
+                  // If no specific pattern found, classify as general document
+                  return {
+                      filename: filename,
+                      type: 'Documento no clasificado',
+                      date: date,
+                      performedBy: performedBy,
+                      finalidad: 'Requiere revision manual',
+                      baseLegal: 'Articulo 131 del C√≥digo Nacional de Procedimientos Penales',
+                      status: 'Requiere clasificacion',
+                      content: content.substring(0, 200) + '...'
+                  };
+              }
+
+              function updateProgress(percentage) {
+                  document.getElementById('progressFill').style.width = percentage + '%';
+              }
+
+              function displayResults() {
+                  document.getElementById('resultsSection').style.display = 'block';
+
+                  // Generate statistics
+                  generateStatistics();
+
+                  // Populate results table
+                  populateResultsTable();
+
+                  // Check for missing documents
+                  checkMissingDocuments();
+              }
+
+              function generateStatistics() {
+                  const statsGrid = document.getElementById('statsGrid');
+                  const totalDocs = analysisResults.length;
+                  const classifiedDocs = analysisResults.filter(r => r.status === 'Presente').length;
+                  const unclassifiedDocs = analysisResults.filter(r => r.status === 'Requiere clasificacion').length;
+                  const missingCritical = requiredDocuments.filter(req =>
+                      !analysisResults.some(result => result.type === req)
+                  ).length;
+
+                  statsGrid.innerHTML = `
+                      <div class="stat-card">
+                          <div class="stat-number">${totalDocs}</div>
+                          <div class="stat-label">Documentos Analizados</div>
+                      </div>
+                      <div class="stat-card">
+                          <div class="stat-number">${classifiedDocs}</div>
+                          <div class="stat-label">Correctamente Clasificados</div>
+                      </div>
+                      <div class="stat-card warning">
+                          <div class="stat-number">${unclassifiedDocs}</div>
+                          <div class="stat-label">Requieren Revision</div>
+                      </div>
+                      <div class="stat-card danger">
+                          <div class="stat-number">${missingCritical}</div>
+                          <div class="stat-label">Actuaciones Faltantes</div>
+                      </div>
+                  `;
+              }
+
+              function populateResultsTable() {
+                  const tbody = document.getElementById('resultsTableBody');
+                  tbody.innerHTML = '';
+
+                  analysisResults.forEach(result => {
+                      const row = document.createElement('tr');
+                      const statusClass = result.status === 'Presente' ? 'success' : 'warning';
+
+                      row.innerHTML = `
+                          <td><strong>${result.type}</strong><br><small>${result.filename}</small></td>
+                          <td>${result.date}</td>
+                          <td>${result.performedBy}</td>
+                          <td>${result.finalidad}</td>
+                          <td>${result.baseLegal}</td>
+                          <td><span class="status ${statusClass}">${result.status}</span></td>
+                      `;
+                      tbody.appendChild(row);
+                  });
+              }
+
+              function checkMissingDocuments() {
+                  const missingList = document.getElementById('missingList');
+                  const presentTypes = analysisResults.map(r => r.type);
+                  const missing = requiredDocuments.filter(req => !presentTypes.includes(req));
+
+                  missingList.innerHTML = '';
+
+                  if (missing.length === 0) {
+                      document.getElementById('missingSection').innerHTML = `
+                          <h3 style="color: #28a745;">Carpeta Completa</h3>
+                          <p>Todas las actuaciones criticas estan presentes en la carpeta de investigacion.</p>
+                      `;
+                  } else {
+                      missing.forEach(doc => {
+                          const li = document.createElement('li');
+                          li.textContent = doc;
+                          missingList.appendChild(li);
+                      });
+                  }
+              }
+
+              function exportToCSV() {
+                  const headers = ['Tipo de Actuacion', 'Fecha', 'Interpretado por', 'Finalidad', 'Base Legal', 'Estado'];
+                  const csvContent = [
+                      headers.join(','),
+                      ...analysisResults.map(result => [
+                          `"${result.type}"`,
+                          `"${result.date}"`,
+                          `"${result.performedBy}"`,
+                          `"${result.finalidad}"`,
+                          `"${result.baseLegal}"`,
+                          `"${result.status}"`
+                      ].join(','))
+                  ].join('\n');
+
+                  downloadFile(csvContent, 'analisis_carpeta_investigacion.csv', 'text/csv');
+              }
+
+              function exportToPDF() {
+                  alert('Funcionalidad de exportacion a PDF en desarrollo. Por ahora usa la exportacion a CSV.');
+              }
+
+              function generateReport() {
+                  const totalDocs = analysisResults.length;
+                  const classifiedDocs = analysisResults.filter(r => r.status === 'Presente').length;
+                  const missingDocs = requiredDocuments.filter(req =>
+                      !analysisResults.some(result => result.type === req)
+                  );
+
+                  const report = `
+      REPORTE DE ANALISIS - CARPETA DE INVESTIGACION
+      ===============================================
+
+      RESUMEN EJECUTIVO:
+      - Total de documentos analizados: ${totalDocs}
+      - Documentos correctamente clasificados: ${classifiedDocs}
+      - Actuaciones faltantes criticas: ${missingDocs.length}
+
+      ACTUACIONES IDENTIFICADAS:
+      ${analysisResults.map(r => `- ${r.type} (${r.date})`).join('\n')}
+
+      ACTUACIONES FALTANTES:
+      ${missingDocs.map(d => `- ${d}`).join('\n')}
+
+      OBSERVACIONES:
+      - Base Legal: Codigo Nacional de Procedimientos Penales
+      - Fecha de analisis: ${new Date().toLocaleDateString()}
+
+      ===============================================
+      Generado por Analizador CNPP
+                  `;
+
+                  downloadFile(report, 'reporte_analisis_cnpp.txt', 'text/plain');
+              }
+
+              function downloadFile(content, filename, contentType) {
+                  const blob = new Blob([content], { type: contentType });
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = filename;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);
+              }
+    </script>
+  </body>
+</html>
