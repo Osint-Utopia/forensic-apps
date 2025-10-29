@@ -1,0 +1,75 @@
+-----------------------
+IAT Custom Model Maker
+-----------------------
+
+IAT Custom Model Maker allows everyone to create his own custom model easily.
+
+
+# INSTRUCTIONS
+
+Prepare a dataset folder.
+The dataset folder should have a directory structure of this kind:
+
+mushrooms_photos
+|__ amanita_muscaria
+    |______ im_a1.jpg
+    |______ im_a2.jpg
+    |______ ...
+|__ champignons
+    |______ im_c1.jpg
+    |______ im_c2.jpg
+    |______ ...
+|__ boletus
+    |______ im_b1.jpg
+    |______ im_b2.jpg
+    |______ ...
+	
+The subfolder names are also the labels used in metadata to identify the elements, so you should to use appropriate names, 
+the name of various image files isn't important. The images format must be jpeg or png.
+To have good results you need hundreds of images for each category. More appropriately varied data, allow better accuracy.
+The images for each label should be well balanced. 
+E.g., considering the above sample isn't good to have 200 champignons images and 1000 amanita muscaria images, 
+otherwise the dataset will be biased towards the specific class.
+
+When you have a proper dataset, launch the app using the link created by setup. Select the dataset and wait the creation of the model. 
+This is a computationally heavy procedure and requires some time to be completed. 
+
+The model file is named model.tflite, you can rename it using an indicative name (maintaining the extension) e.g. mushrooms.tflite
+This file must be placed in "Image Analysis Toolset\TFModels" path. 
+Done this, it's enough to configure in the settings menu the model name to use it for the custom detection features.
+
+
+
+# SETTINGS:
+
+Optionally you can try to tune the settings rather than using the default configuration.
+
+This tool is a preliminary version and currently supports 2 different neural networks:
+- Deep CNN ENL(used by default) is more efficient and scalable;
+- Deep CNN MNV2 tends to generate smaller model files.
+
+Epochs is a hyperparameter that defines the number of times that the learning algorithm will work through the training dataset.
+The model accuracy is influenced by this parameter: 
+- a too low number will cause underfitting; 
+- a too high number will cause overfitting.
+The optimal number depends on many factors, and should be determined with empirical tests.
+Note that higher is the number, slower is the process. 
+
+Test data split percentage, indicates the percentage of images in the dataset that will be used for the test set during train.
+
+
+
+# MINIMUM SYSTEM REQUIREMENTS:
+
+OS     : Windows 10 x64
+CPU    : Intel or AMD x86_64 processor with support to AVX instruction set
+RAM    : 8GB
+Storage: 3GB free space
+
+
+
+Version: 0.0.1a
+SHA-1  : 76DBD33763A25F829F785D2A9352413CACAA2958
+
+Website:
+https://sites.google.com/view/iat-app/home
