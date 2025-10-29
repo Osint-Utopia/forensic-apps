@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberTools UI Template</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- VARIABLES ---------- */
+:root {
+  --color-bg: #0d1117;
+  --color-panel: rgba(255,255,255,0.06);
+  --color-accent: #00ffff;
+  --color-text: #e6e6e6;
+  --color-success: #00d26a;
+  --color-warning: #f5b70a;
+  --color-error: #ff3c3c;
+  --blur: 20px;
+  --radius: 10px;
+  --transition: 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ---------- RESET ---------- */
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  width: 230px;
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar h1 {
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nav-item {
+  padding: 12px 15px;
+  margin-bottom: 6px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.nav-item i {
+  margin-right: 10px;
+}
+.nav-item:hover, .nav-item.active {
+  background-color: rgba(0,255,255,0.15);
+  color: var(--color-accent);
+}
+
+/* ---------- MAIN AREA ---------- */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- TOP BAR ---------- */
+.topbar {
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.topbar .actions i {
+  margin-left: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.topbar .actions i:hover {
+  color: var(--color-accent);
+}
+
+/* ---------- CONTENT ---------- */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.card {
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,255,255,0.15);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  color: #fff;
+  background-color: var(--color-accent);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn:hover {
+  background-color: #00c4cc;
+}
+
+/* ---------- STATUS COLORS ---------- */
+.status.success { color: var(--color-success); }
+.status.warning { color: var(--color-warning); }
+.status.error { color: var(--color-error); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .sidebar { width: 70px; }
+  .sidebar h1 { display: none; }
+  .nav-item span { display: none; }
+}
+</style>
+</head>
+
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h1>CyberTools</h1>
+    <div class="nav-item active"><i class="fas fa-home"></i><span>Inicio</span></div>
+    <div class="nav-item"><i class="fas fa-shield-alt"></i><span>Seguridad</span></div>
+    <div class="nav-item"><i class="fas fa-database"></i><span>OSINT</span></div>
+    <div class="nav-item"><i class="fas fa-balance-scale"></i><span>Legal</span></div>
+    <div class="nav-item"><i class="fas fa-cogs"></i><span>Herramientas</span></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="title"><i class="fas fa-terminal"></i> Panel de Control</div>
+      <div class="actions">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-sun" id="theme-toggle"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <h2>Bienvenido a la plataforma unificada ⚙️</h2>
+        <p>Este entorno sirve como base para todas tus miniaplicaciones OSINT, ciberseguridad y análisis forense.</p>
+        <button class="btn">Explorar</button>
+      </div>
+
+      <div class="card">
+        <h3>Estado del Sistema</h3>
+        <ul>
+          <li>Conexión: <span class="status success">Activa</span></li>
+          <li>Base de datos: <span class="status success">Sin errores</span></li>
+          <li>API OSINT: <span class="status warning">Latencia alta</span></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+<script>
+  // 🌙 Tema oscuro/claro
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    if (document.body.classList.contains('light')) {
+      document.documentElement.style.setProperty('--color-bg', '#f0f2f5');
+      document.documentElement.style.setProperty('--color-text', '#222');
+      document.documentElement.style.setProperty('--color-panel', 'rgba(0,0,0,0.05)');
+      document.getElementById('theme-toggle').classList.replace('fa-sun', 'fa-moon');
+    } else {
+      document.documentElement.style.setProperty('--color-bg', '#0d1117');
+      document.documentElement.style.setProperty('--color-text', '#e6e6e6');
+      document.documentElement.style.setProperty('--color-panel', 'rgba(255,255,255,0.06)');
+      document.getElementById('theme-toggle').classList.replace('fa-moon', 'fa-sun');
+    }
+  });
+</script>
+</body>
+</html>

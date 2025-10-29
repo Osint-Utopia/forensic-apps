@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suite de Procesamiento de Texto</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --color-bg: #0d1117;
+  --color-panel: rgba(255,255,255,0.06);
+  --color-accent: #00ffff;
+  --color-text: #e6e6e6;
+  --color-success: #00d26a;
+  --color-warning: #f5b70a;
+  --color-error: #ff3c3c;
+  --blur: 20px;
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  border-right: 1px solid rgba(0,255,255,0.1);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0,255,255,0.2);
+}
+
+.sidebar-header h1 {
+  font-size: 1.4rem;
+  color: var(--color-accent);
+  margin-bottom: 5px;
+}
+
+.sidebar-header p {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.nav-section {
+  margin-bottom: 25px;
+}
+
+.nav-section-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.nav-item {
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.nav-item:hover {
+  background: rgba(0,255,255,0.1);
+  transform: translateX(5px);
+}
+
+.nav-item.active {
+  background: rgba(0,255,255,0.2);
+  color: var(--color-accent);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar {
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(0,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.topbar-actions i {
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.topbar-actions i:hover {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.card {
+  background: var(--color-panel);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius);
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0,255,255,0.15);
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: rgba(0,255,255,0.3);
+  box-shadow: 0 8px 25px rgba(0,255,255,0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0,255,255,0.1);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* UPLOAD ZONE */
+.upload-zone {
+  border: 2px dashed rgba(0,255,255,0.4);
+  border-radius: var(--radius);
+  padding: 50px 30px;
+  text-align: center;
+  background: rgba(0,255,255,0.03);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.upload-zone:hover, .upload-zone.dragover {
+  background: rgba(0,255,255,0.08);
+  border-color: var(--color-accent);
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  opacity: 0.6;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* BUTTONS */
+.btn {
+  background: var(--color-accent);
+  color: #0d1117;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:hover {
+  background: #00c4cc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,255,255,0.4);
+}
+
+.btn-secondary {
+  background: rgba(0,255,255,0.15);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.btn-secondary:hover {
+  background: rgba(0,255,255,0.25);
+}
+
+.btn-danger {
+  background: rgba(255,60,60,0.2);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.btn-danger:hover {
+  background: rgba(255,60,60,0.3);
+}
+
+/* INPUT GROUPS */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0,255,255,0.3);
+  background: rgba(0,255,255,0.05);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+}
+
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: rgba(0,255,255,0.1);
+}
+
+/* API CARDS */
+.api-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.api-card {
+  background: rgba(0,255,255,0.05);
+  border: 2px solid rgba(0,255,255,0.2);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.api-card:hover {
+  border-color: var(--color-accent);
+  background: rgba(0,255,255,0.1);
+  transform: translateY(-3px);
+}
+
+.api-card.active {
+  border-color: var(--color-accent);
+  background: rgba(0,255,255,0.15);
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+.api-card i {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* OUTPUT AREA */
+.output-area {
+  background: #000;
+  color: #00ff00;
+  padding: 20px;
+  border-radius: var(--radius);
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid rgba(0,255,255,0.3);
+}
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: rgba(0,255,255,0.08);
+  padding: 20px;
+  border-radius: var(--radius);
+  text-align: center;
+  border: 1px solid rgba(0,255,255,0.2);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+/* COMPARISON VIEW */
+.comparison-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.comparison-panel {
+  background: rgba(0,255,255,0.05);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.comparison-header {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* STATUS */
+.status {
+  padding: 12px;
+  border-radius: var(--radius);
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.status.success {
+  background: rgba(0,210,106,0.2);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.status.error {
+  background: rgba(255,60,60,0.2);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.status.info {
+  background: rgba(0,255,255,0.2);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.status.warning {
+  background: rgba(245,183,10,0.2);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+/* LOADER */
+.loader {
+  border: 4px solid rgba(0,255,255,0.1);
+  border-top: 4px solid var(--color-accent);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* CONNECTION STATUS */
+.connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.connection-status::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.connection-status.connected {
+  background: rgba(0,210,106,0.2);
+  color: var(--color-success);
+}
+
+.connection-status.connected::before {
+  background: var(--color-success);
+  box-shadow: 0 0 10px var(--color-success);
+}
+
+.connection-status.disconnected {
+  background: rgba(255,60,60,0.2);
+  color: var(--color-error);
+}
+
+.connection-status.disconnected::before {
+  background: var(--color-error);
+}
+
+/* HISTORY */
+.history-item {
+  background: rgba(0,255,255,0.05);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: var(--radius);
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.history-item:hover {
+  background: rgba(0,255,255,0.1);
+  border-color: var(--color-accent);
+}
+
+.history-date {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-bottom: 5px;
+}
+
+.history-preview {
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+  .sidebar-header h1,
+  .sidebar-header p,
+  .nav-section-title,
+  .nav-item span {
+    display: none;
+  }
+  .comparison-view {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1><i class="fas fa-language"></i> TextSuite</h1>
+    <p>Suite Completa de Texto</p>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Principal</div>
+    <div class="nav-item active" onclick="showPage('translate')">
+      <i class="fas fa-language"></i>
+      <span>Traducción</span>
+    </div>
+    <div class="nav-item" onclick="showPage('analyze')">
+      <i class="fas fa-chart-bar"></i>
+      <span>Análisis</span>
+    </div>
+    <div class="nav-item" onclick="showPage('summary')">
+      <i class="fas fa-compress-alt"></i>
+      <span>Resumen</span>
+    </div>
+    <div class="nav-item" onclick="showPage('compare')">
+      <i class="fas fa-columns"></i>
+      <span>Comparar</span>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Herramientas</div>
+    <div class="nav-item" onclick="showPage('convert')">
+      <i class="fas fa-file-export"></i>
+      <span>Convertir</span>
+    </div>
+    <div class="nav-item" onclick="showPage('history')">
+      <i class="fas fa-history"></i>
+      <span>Historial</span>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Configuración</div>
+    <div class="nav-item" onclick="showPage('config')">
+      <i class="fas fa-cog"></i>
+      <span>APIs</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title">
+      <i class="fas fa-language"></i>
+      <span id="pageTitle">Traducción Inteligente</span>
+    </div>
+    <div class="topbar-actions">
+      <i class="fas fa-bell" title="Notificaciones"></i>
+      <i class="fas fa-sun" id="themeToggle" title="Cambiar tema"></i>
+      <i class="fas fa-info-circle" title="Ayuda"></i>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- PÁGINA: TRADUCCIÓN -->
+    <div class="page active" id="translate">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-upload"></i> Cargar Contenido
+          </div>
+          <span class="connection-status disconnected" id="connectionStatus">Desconectado</span>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">📄</div>
+          <h3>Arrastra tu archivo aquí</h3>
+          <p style="opacity: 0.7; margin: 10px 0;">o haz clic para seleccionar</p>
+          <button class="btn" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-folder-open"></i> Seleccionar Archivo
+          </button>
+          <input type="file" id="fileInput" accept=".txt,.doc,.docx,.pdf,.csv,.json">
+          <p style="opacity: 0.5; margin-top: 15px; font-size: 0.85rem;">
+            Formatos: TXT, DOC, DOCX, PDF, CSV, JSON
+          </p>
+        </div>
+
+        <div class="file-info" id="fileInfo" style="display: none; margin-top: 20px; padding: 15px; background: rgba(0,255,255,0.05); border-radius: var(--radius);"></div>
+
+        <div class="input-group" style="margin-top: 25px;">
+          <label><i class="fas fa-keyboard"></i> O escribe/pega tu texto:</label>
+          <textarea id="directText" rows="6" placeholder="Escribe o pega tu texto aquí..."></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-cogs"></i> Opciones de Traducción
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>
+            <input type="checkbox" id="useFreeMode" style="width: auto; margin-right: 10px;">
+            <i class="fas fa-gift"></i> Usar Modo Gratuito (IA Local - Sin API)
+          </label>
+          <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">
+            <i class="fas fa-info-circle"></i> Primera carga descarga modelo (~50MB). Luego funciona offline.
+          </p>
+        </div>
+
+        <div class="input-group">
+          <label>Tamaño de fragmentos (caracteres):</label>
+          <input type="number" id="chunkSize" value="3000" min="1000" max="10000">
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button class="btn" onclick="doTranslate()">
+            <i class="fas fa-sync-alt"></i> Traducir Ahora
+          </button>
+          <button class="btn btn-secondary" onclick="downloadTranslation()">
+            <i class="fas fa-download"></i> Descargar
+          </button>
+          <button class="btn btn-secondary" onclick="speakText()">
+            <i class="fas fa-volume-up"></i> Escuchar
+          </button>
+          <button class="btn btn-danger" onclick="clearAll()">
+            <i class="fas fa-trash"></i> Limpiar
+          </button>
+        </div>
+
+        <div class="loader" id="loader"></div>
+        <div id="status"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-file-code"></i> Resultado
+          </div>
+        </div>
+        <div class="output-area" id="output">// La traducción aparecerá aquí...</div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: ANÁLISIS -->
+    <div class="page" id="analyze">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-chart-line"></i> Análisis de Texto
+          </div>
+        </div>
+        <button class="btn" onclick="analyzeText()">
+          <i class="fas fa-search"></i> Analizar Texto Cargado
+        </button>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-key"></i> Palabras Clave
+          </div>
+        </div>
+        <div id="keywords" style="padding: 20px; min-height: 100px;">Carga y analiza un texto primero...</div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: RESUMEN -->
+    <div class="page" id="summary">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-compress"></i> Generador de Resúmenes
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Nivel de compresión:</label>
+          <select id="summaryLevel">
+            <option value="10">10% - Muy breve</option>
+            <option value="30" selected>30% - Resumen medio</option>
+            <option value="50">50% - Resumen extenso</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="generateSummary()">
+          <i class="fas fa-magic"></i> Generar Resumen
+        </button>
+
+        <div class="output-area" id="summaryOutput" style="margin-top: 20px;">// El resumen aparecerá aquí...</div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: COMPARAR -->
+    <div class="page" id="compare">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-columns"></i> Comparación Original vs Traducción
+          </div>
+        </div>
+
+        <div class="comparison-view">
+          <div class="comparison-panel">
+            <div class="comparison-header">
+              <i class="fas fa-file-alt"></i> Original
+            </div>
+            <div id="compareOriginal" style="white-space: pre-wrap; max-height: 500px; overflow-y: auto;">
+              Carga y traduce un texto para verlo aquí...
+            </div>
+          </div>
+
+          <div class="comparison-panel">
+            <div class="comparison-header">
+              <i class="fas fa-language"></i> Traducción
+            </div>
+            <div id="compareTranslated" style="white-space: pre-wrap; max-height: 500px; overflow-y: auto;">
+              La traducción aparecerá aquí...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: CONVERTIR -->
+    <div class="page" id="convert">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-file-export"></i> Exportar en Múltiples Formatos
+          </div>
+        </div>
+
+        <p style="margin-bottom: 20px;">Exporta tu traducción en diferentes formatos:</p>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn" onclick="exportAs('txt')">
+            <i class="fas fa-file-alt"></i> TXT
+          </button>
+          <button class="btn" onclick="exportAs('json')">
+            <i class="fas fa-file-code"></i> JSON
+          </button>
+          <button class="btn" onclick="exportAs('csv')">
+            <i class="fas fa-file-csv"></i> CSV
+          </button>
+          <button class="btn" onclick="exportAs('html')">
+            <i class="fas fa-file-code"></i> HTML
+          </button>
+        </div>
+
+        <div id="exportStatus" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: HISTORIAL -->
+    <div class="page" id="history">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-history"></i> Historial de Traducciones
+          </div>
+          <button class="btn btn-danger" onclick="clearHistory()">
+            <i class="fas fa-trash"></i> Limpiar Historial
+          </button>
+        </div>
+
+        <div id="historyList">
+          <p style="opacity: 0.6; text-align: center; padding: 40px;">
+            No hay traducciones en el historial aún...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: CONFIGURACIÓN -->
+    <div class="page" id="config">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-plug"></i> Configuración de APIs
+          </div>
+        </div>
+
+        <p style="margin-bottom: 20px;">Selecciona tu proveedor de API preferido:</p>
+
+        <div class="api-grid">
+          <div class="api-card" onclick="selectAPI('groq')">
+            <i class="fas fa-bolt"></i>
+            <h3>Groq</h3>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Rápido y eficiente</p>
+          </div>
+
+          <div class="api-card active" onclick="selectAPI('openrouter')">
+            <i class="fas fa-route"></i>
+            <h3>OpenRouter</h3>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Multi-modelo</p>
+          </div>
+
+          <div class="api-card" onclick="selectAPI('gemini')">
+            <i class="fas fa-gem"></i>
+            <h3>Gemini</h3>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Google AI</p>
+          </div>
+
+          <div class="api-card" onclick="selectAPI('openai')">
+            <i class="fas fa-brain"></i>
+            <h3>OpenAI</h3>
+            <p style="font-size: 0.8rem; opacity: 0.7;">GPT-4</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-key"></i> API Key:</label>
+          <input type="password" id="apiKey" placeholder="Ingresa tu API key aquí...">
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button class="btn" onclick="saveConfig()">
+            <i class="fas fa-save"></i> Guardar Configuración
+          </button>
+          <button class="btn btn-secondary" onclick="testConnection()">
+            <i class="fas fa-plug"></i> Probar Conexión
+          </button>
+        </div>
+
+        <div id="configStatus" style="margin-top: 20px;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-info-circle"></i> Información
+          </div>
+        </div>
+
+        <p style="line-height: 1.8;">
+          <strong>Modo Gratuito:</strong> Usa modelos de IA que corren directamente en tu navegador. No requiere API key ni costos.<br><br>
+          <strong>Modo API:</strong> Usa servicios externos más rápidos y precisos. Requiere API key de algún proveedor.<br><br>
+          <strong>Obtén API Keys gratuitas:</strong><br>
+          • <a href="https://console.groq.com" target="_blank" style="color: var(--color-accent);">Groq</a> - Rápido y generoso<br>
+          • <a href="https://openrouter.ai" target="_blank" style="color: var(--color-accent);">OpenRouter</a> - Multi-modelo<br>
+          • <a href="https://aistudio.google.com" target="_blank" style="color: var(--color-accent);">Google Gemini</a> - Gratuito para uso personal
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ============ VARIABLES GLOBALES ============
+let currentFile = null;
+let originalText = '';
+let translatedText = '';
+let apiProvider = 'openrouter';
+let apiKey = '';
+let translationHistory = [];
+let transformer = null;
+
+// API Configurations
+const API_CONFIGS = {
+  groq: {
+    name: 'Groq',
+    endpoint: 'https://api.groq.com/openai/v1/chat/completions',
+    model: 'llama-3.3-70b-versatile',
+    maxChars: 30000,
+    headers: (key) => ({
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json'
+    })
+  },
+  openrouter: {
+    name: 'OpenRouter',
+    endpoint: 'https://openrouter.ai/api/v1/chat/completions',
+    model: 'anthropic/claude-3.5-sonnet',
+    maxChars: 30000,
+    headers: (key) => ({
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin
+    })
+  },
+  gemini: {
+    name: 'Gemini',
+    endpoint: (key) => `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${key}`,
+    model: 'gemini-2.0-flash-exp',
+    maxChars: 30000,
+    isGemini: true
+  },
+  openai: {
+    name: 'OpenAI',
+    endpoint: 'https://api.openai.com/v1/chat/completions',
+    model: 'gpt-4o-mini',
+    maxChars: 20000,
+    headers: (key) => ({
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json'
+    })
+  }
+};
+
+// ============ INICIALIZACIÓN ============
+window.onload = function() {
+  const saved = localStorage.getItem('translator_config');
+  if (saved) {
+    const config = JSON.parse(saved);
+    apiProvider = config.provider || 'openrouter';
+    apiKey = config.key || '';
+    document.getElementById('apiKey').value = apiKey;
+    selectAPI(apiProvider, false);
+    if (apiKey) updateConnectionStatus('connected');
+  }
+  
+  loadHistory();
+};
+
+// ============ NAVEGACIÓN ============
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  event.target.closest('.nav-item').classList.add('active');
+  
+  const titles = {
+    translate: 'Traducción Inteligente',
+    analyze: 'Análisis de Texto',
+    summary: 'Generador de Resúmenes',
+    compare: 'Comparación de Textos',
+    convert: 'Exportar Formatos',
+    history: 'Historial',
+    config: 'Configuración de APIs'
+  };
+  
+  document.getElementById('pageTitle').textContent = titles[pageId] || 'TextSuite';
+}
+
+// ============ TEMA ============
+document.getElementById('themeToggle').addEventListener('click', function() {
+  const root = document.documentElement;
+  const currentBg = getComputedStyle(root).getPropertyValue('--color-bg').trim();
+  
+  if (currentBg === '#0d1117') {
+    root.style.setProperty('--color-bg', '#f5f7fa');
+    root.style.setProperty('--color-text', '#2d3748');
+    root.style.setProperty('--color-panel', 'rgba(255,255,255,0.8)');
+    this.classList.replace('fa-sun', 'fa-moon');
+    document.body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%)';
+  } else {
+    root.style.setProperty('--color-bg', '#0d1117');
+    root.style.setProperty('--color-text', '#e6e6e6');
+    root.style.setProperty('--color-panel', 'rgba(255,255,255,0.06)');
+    this.classList.replace('fa-moon', 'fa-sun');
+    document.body.style.background = 'linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%)';
+  }
+});
+
+// ============ CONFIGURACIÓN API ============
+function selectAPI(provider, clickEvent = true) {
+  apiProvider = provider;
+  
+  document.querySelectorAll('.api-card').forEach(el => {
+    el.classList.remove('active');
+  });
+  
+  if (clickEvent) {
+    event.target.closest('.api-card').classList.add('active');
+  } else {
+    const index = {groq: 0, openrouter: 1, gemini: 2, openai: 3}[provider];
+    document.querySelectorAll('.api-card')[index].classList.add('active');
+  }
+  
+  updateConnectionStatus('disconnected');
+}
+
+function updateConnectionStatus(status) {
+  const indicator = document.getElementById('connectionStatus');
+  indicator.className = `connection-status ${status}`;
+  indicator.textContent = status === 'connected' ? 'Conectado' : 'Desconectado';
+}
+
+async function testConnection() {
+  const inputKey = document.getElementById('apiKey').value.trim();
+  if (!inputKey) {
+    showStatusMsg('⚠️ Ingresa tu API key primero', 'error', 'configStatus');
+    return;
+  }
+
+  apiKey = inputKey;
+  showStatusMsg('🔌 Probando conexión...', 'info', 'configStatus');
+
+  try {
+    const config = API_CONFIGS[apiProvider];
+    await translateWithAPI("Test", config);
+    
+    updateConnectionStatus('connected');
+    showStatusMsg(`✅ Conexión exitosa con ${config.name}`, 'success', 'configStatus');
+    saveConfig();
+  } catch (error) {
+    updateConnectionStatus('disconnected');
+    showStatusMsg(`❌ Error: ${error.message}`, 'error', 'configStatus');
+  }
+}
+
+function saveConfig() {
+  const inputKey = document.getElementById('apiKey').value.trim();
+  if (!inputKey) {
+    showStatusMsg('⚠️ Ingresa tu API key', 'error', 'configStatus');
+    return;
+  }
+
+  apiKey = inputKey;
+  localStorage.setItem('translator_config', JSON.stringify({
+    provider: apiProvider,
+    key: apiKey
+  }));
+  showStatusMsg('✅ Configuración guardada', 'success', 'configStatus');
+}
+
+// ============ DRAG & DROP ============
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('fileInput');
+
+uploadZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadZone.classList.add('dragover');
+});
+
+uploadZone.addEventListener('dragleave', () => {
+  uploadZone.classList.remove('dragover');
+});
+
+uploadZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length > 0) {
+    handleFile(e.dataTransfer.files[0]);
+  }
+});
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    handleFile(e.target.files[0]);
+  }
+});
+
+function handleFile(file) {
+  currentFile = file;
+  const fileInfo = document.getElementById('fileInfo');
+  fileInfo.innerHTML = `
+    <p><strong><i class="fas fa-file"></i> Archivo:</strong> ${file.name}</p>
+    <p><strong><i class="fas fa-hdd"></i> Tamaño:</strong> ${(file.size / 1024).toFixed(2)} KB</p>
+    <p><strong><i class="fas fa-info"></i> Tipo:</strong> ${file.type || file.name.split('.').pop().toUpperCase()}</p>
+  `;
+  fileInfo.style.display = 'block';
+  showStatusMsg('✅ Archivo listo para traducir', 'success', 'status');
+}
+
+// ============ LECTURA DE ARCHIVOS ============
+async function readFile(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  
+  switch(ext) {
+    case 'txt':
+      return await readAsText(file);
+    case 'csv':
+      return await readCSV(file);
+    case 'json':
+      return await readJSON(file);
+    case 'docx':
+      return await readDOCX(file);
+    case 'pdf':
+      return await readAsText(file);
+    default:
+      throw new Error('Formato no soportado');
+  }
+}
+
+function readAsText(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsText(file);
+  });
+}
+
+async function readCSV(file) {
+  return new Promise((resolve, reject) => {
+    Papa.parse(file, {
+      complete: (results) => {
+        const text = results.data.map(row => row.join(' ')).join('\n');
+        resolve(text);
+      },
+      error: reject
+    });
+  });
+}
+
+async function readJSON(file) {
+  const text = await readAsText(file);
+  try {
+    const json = JSON.parse(text);
+    return JSON.stringify(json, null, 2);
+  } catch {
+    return text;
+  }
+}
+
+async function readDOCX(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const result = await mammoth.extractRawText({ 
+          arrayBuffer: e.target.result 
+        });
+        resolve(result.value);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// ============ TRADUCCIÓN ============
+async function doTranslate() {
+  let textToTranslate = '';
+
+  if (currentFile) {
+    showLoader(true);
+    showStatusMsg('📖 Leyendo archivo...', 'info', 'status');
+    try {
+      textToTranslate = await readFile(currentFile);
+    } catch (error) {
+      showStatusMsg('❌ Error leyendo archivo: ' + error.message, 'error', 'status');
+      showLoader(false);
+      return;
+    }
+  } else {
+    textToTranslate = document.getElementById('directText').value.trim();
+  }
+
+  if (!textToTranslate) {
+    showStatusMsg('⚠️ Carga un archivo o escribe texto', 'error', 'status');
+    return;
+  }
+
+  originalText = textToTranslate;
+  showLoader(true);
+  showStatusMsg('🌐 Traduciendo...', 'info', 'status');
+
+  try {
+    const useFreeMode = document.getElementById('useFreeMode').checked;
+    
+    if (useFreeMode) {
+      translatedText = await translateWithTransformers(textToTranslate);
+    } else {
+      if (!apiKey) {
+        showStatusMsg('⚠️ Configura tu API key o usa Modo Gratuito', 'error', 'status');
+        showLoader(false);
+        return;
+      }
+      
+      const config = API_CONFIGS[apiProvider];
+      const maxChars = config.maxChars;
+      
+      if (textToTranslate.length <= maxChars) {
+        translatedText = await translateWithAPI(textToTranslate, config);
+      } else {
+        const chunks = smartSplit(textToTranslate, maxChars);
+        showStatusMsg(`🌐 Traduciendo ${chunks.length} partes...`, 'info', 'status');
+        
+        const translations = [];
+        for (let i = 0; i < chunks.length; i++) {
+          showStatusMsg(`🌐 Parte ${i + 1} de ${chunks.length}...`, 'info', 'status');
+          const translation = await translateWithAPI(chunks[i], config);
+          translations.push(translation);
+          
+          if (i < chunks.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+          }
+        }
+        
+        translatedText = translations.join('\n\n');
+      }
+    }
+
+    document.getElementById('output').textContent = translatedText;
+    updateComparison();
+    saveToHistory(originalText, translatedText);
+    showStatusMsg('✅ ¡Traducción completada!', 'success', 'status');
+  } catch (error) {
+    showStatusMsg('❌ Error: ' + error.message, 'error', 'status');
+    console.error(error);
+  } finally {
+    showLoader(false);
+  }
+}
+
+function smartSplit(text, maxChars) {
+  const chunks = [];
+  const paragraphs = text.split('\n\n');
+  let currentChunk = '';
+
+  for (const para of paragraphs) {
+    if ((currentChunk + '\n\n' + para).length <= maxChars) {
+      currentChunk += (currentChunk ? '\n\n' : '') + para;
+    } else {
+      if (currentChunk) chunks.push(currentChunk);
+      
+      if (para.length > maxChars) {
+        const sentences = para.match(/[^.!?]+[.!?]+/g) || [para];
+        let sentChunk = '';
+        
+        for (const sent of sentences) {
+          if ((sentChunk + sent).length <= maxChars) {
+            sentChunk += sent;
+          } else {
+            if (sentChunk) chunks.push(sentChunk);
+            sentChunk = sent;
+          }
+        }
+        if (sentChunk) chunks.push(sentChunk);
+        currentChunk = '';
+      } else {
+        currentChunk = para;
+      }
+    }
+  }
+  if (currentChunk) chunks.push(currentChunk);
+  return chunks;
+}
+
+async function translateWithAPI(text, config) {
+  if (config.isGemini) {
+    const response = await fetch(config.endpoint(apiKey), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: `Traduce este texto del inglés al español. Solo devuelve la traducción:\n\n${text}`
+          }]
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`${config.name} error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text.trim();
+  } else {
+    const response = await fetch(config.endpoint, {
+      method: 'POST',
+      headers: config.headers(apiKey),
+      body: JSON.stringify({
+        model: config.model,
+        messages: [{
+          role: 'user',
+          content: `Traduce este texto del inglés al español. Solo devuelve la traducción:\n\n${text}`
+        }],
+        temperature: 0.3,
+        max_tokens: 16000
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`${config.name}: ${errorData.error?.message || response.status}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content.trim();
+  }
+}
+
+async function translateWithTransformers(text) {
+  showStatusMsg('🔄 Cargando modelo de IA (primera vez ~50MB)...', 'info', 'status');
+  
+  try {
+    if (!transformer) {
+      const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0');
+      transformer = await pipeline('translation', 'Xenova/opus-mt-en-es');
+    }
+    
+    showStatusMsg('🌐 Traduciendo con IA local...', 'info', 'status');
+    
+    const maxChunk = 500;
+    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+    const translations = [];
+    
+    for (let i = 0; i < sentences.length; i++) {
+      const result = await transformer(sentences[i].trim(), {
+        max_length: maxChunk
+      });
+      translations.push(result[0].translation_text);
+      
+      if (i % 5 === 0) {
+        showStatusMsg(`🌐 Traduciendo... ${Math.round((i/sentences.length)*100)}%`, 'info', 'status');
+      }
+    }
+    
+    return translations.join(' ');
+  } catch (error) {
+    throw new Error('Error en traducción local: ' + error.message);
+  }
+}
+
+// ============ ANÁLISIS DE TEXTO ============
+function analyzeText() {
+  const text = originalText || document.getElementById('directText').value.trim();
+  
+  if (!text) {
+    showStatusMsg('⚠️ Carga un texto primero', 'error', 'status');
+    return;
+  }
+  
+  const words = text.split(/\s+/).filter(w => w.length > 0);
+  const chars = text.length;
+  const charsNoSpaces = text.replace(/\s/g, '').length;
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+  const paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0).length;
+  const avgWordLength = words.reduce((sum, w) => sum + w.length, 0) / words.length || 0;
+  const uniqueWords = new Set(words.map(w => w.toLowerCase())).size;
+  const lexicalDensity = ((uniqueWords / words.length) * 100).toFixed(1);
+  
+  const statsGrid = document.getElementById('statsGrid');
+  statsGrid.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-value">${words.length}</div>
+      <div class="stat-label">Palabras</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${chars}</div>
+      <div class="stat-label">Caracteres</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${sentences}</div>
+      <div class="stat-label">Oraciones</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${paragraphs}</div>
+      <div class="stat-label">Párrafos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${avgWordLength.toFixed(1)}</div>
+      <div class="stat-label">Longitud Prom.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${lexicalDensity}%</div>
+      <div class="stat-label">Densidad Léxica</div>
+    </div>
+  `;
+  
+  extractKeywords(text);
+  showPage('analyze');
+}
+
+function extractKeywords(text) {
+  const stopWords = new Set(['el', 'la', 'de', 'que', 'y', 'a', 'en', 'un', 'ser', 'se', 'no', 'haber', 'por', 'con', 'su', 'para', 'como', 'estar', 'tener', 'le', 'lo', 'todo', 'pero', 'más', 'hacer', 'o', 'poder', 'decir', 'este', 'ir', 'otro', 'ese', 'la', 'si', 'me', 'ya', 'ver', 'porque', 'dar', 'cuando', 'él', 'muy', 'sin', 'vez', 'mucho', 'saber', 'qué', 'sobre', 'mi', 'alguno', 'mismo', 'yo', 'también', 'hasta', 'año', 'dos', 'querer', 'entre', 'así', 'primero', 'desde', 'grande', 'eso', 'ni', 'nos', 'llegar', 'pasar', 'tiempo', 'ella', 'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their']);
+  
+  const words = text.toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .split(/\s+/)
+    .filter(w => w.length > 3 && !stopWords.has(w));
+  
+  const freq = {};
+  words.forEach(w => {
+    freq[w] = (freq[w] || 0) + 1;
+  });
+  
+  const sorted = Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15);
+  
+  const keywordsDiv = document.getElementById('keywords');
+  keywordsDiv.innerHTML = sorted.map(([word, count]) => 
+    `<span style="display: inline-block; background: rgba(0,255,255,0.2); padding: 8px 15px; margin: 5px; border-radius: 20px; border: 1px solid var(--color-accent);">
+      ${word} <strong>(${count})</strong>
+    </span>`
+  ).join('');
+}
+
+// ============ RESUMEN ============
+async function generateSummary() {
+  const text = originalText || document.getElementById('directText').value.trim();
+  
+  if (!text) {
+    showStatusMsg('⚠️ Carga un texto primero', 'error', 'status');
+    return;
+  }
+  
+  const level = parseInt(document.getElementById('summaryLevel').value);
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+  const targetCount = Math.ceil(sentences.length * (level / 100));
+  
+  const summary = sentences.slice(0, targetCount).join(' ');
+  
+  document.getElementById('summaryOutput').textContent = summary;
+  showStatusMsg(`✅ Resumen generado (${targetCount} de ${sentences.length} oraciones)`, 'success', 'status');
+}
+
+// ============ COMPARACIÓN ============
+function updateComparison() {
+  document.getElementById('compareOriginal').textContent = originalText;
+  document.getElementById('compareTranslated').textContent = translatedText;
+}
+
+// ============ EXPORTAR ============
+function exportAs(format) {
+  if (!translatedText) {
+    showStatusMsg('⚠️ Traduce algo primero', 'error', 'exportStatus');
+    return;
+  }
+  
+  let blob, filename;
+  
+  switch(format) {
+    case 'txt':
+      blob = new Blob([translatedText], { type: 'text/plain' });
+      filename = 'traduccion.txt';
+      break;
+      
+    case 'json':
+      const jsonData = {
+        original: originalText,
+        translated: translatedText,
+        timestamp: new Date().toISOString()
+      };
+      blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+      filename = 'traduccion.json';
+      break;
+      
+    case 'csv':
+      const csvContent = `"Original","Traducción"\n"${originalText.replace(/"/g, '""')}","${translatedText.replace(/"/g, '""')}"`;
+      blob = new Blob([csvContent], { type: 'text/csv' });
+      filename = 'traduccion.csv';
+      break;
+      
+    case 'html':
+      const htmlContent = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Traducción</title>
+<style>body{font-family:Arial;padding:40px;max-width:800px;margin:auto;}h2{color:#00ffff;}</style>
+</head>
+<body>
+<h2>Original:</h2><p>${originalText}</p>
+<h2>Traducción:</h2><p>${translatedText}</p>
+</body>
+</html>`;
+      blob = new Blob([htmlContent], { type: 'text/html' });
+      filename = 'traduccion.html';
+      break;
+  }
+  
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  showStatusMsg(`✅ Exportado como ${format.toUpperCase()}`, 'success', 'exportStatus');
+}
+
+// ============ HISTORIAL ============
+function saveToHistory(original, translated) {
+  const entry = {
+    id: Date.now(),
+    date: new Date().toLocaleString('es-MX'),
+    original: original.substring(0, 100) + (original.length > 100 ? '...' : ''),
+    translated: translated.substring(0, 100) + (translated.length > 100 ? '...' : ''),
+    fullOriginal: original,
+    fullTranslated: translated
+  };
+  
+  translationHistory.unshift(entry);
+  if (translationHistory.length > 10) translationHistory.pop();
+  
+  localStorage.setItem('translation_history', JSON.stringify(translationHistory));
+  loadHistory();
+}
+
+function loadHistory() {
+  const saved = localStorage.getItem('translation_history');
+  if (saved) {
+    translationHistory = JSON.parse(saved);
+  }
+  
+  const historyList = document.getElementById('historyList');
+  if (translationHistory.length === 0) {
+    historyList.innerHTML = '<p style="opacity: 0.6; text-align: center; padding: 40px;">No hay traducciones en el historial aún...</p>';
+    return;
+  }
+  
+  historyList.innerHTML = translationHistory.map(entry => `
+    <div class="history-item" onclick="loadFromHistory(${entry.id})">
+      <div class="history-date"><i class="fas fa-clock"></i> ${entry.date}</div>
+      <div class="history-preview"><strong>Original:</strong> ${entry.original}</div>
+      <div class="history-preview"><strong>Traducción:</strong> ${entry.translated}</div>
+    </div>
+  `).join('');
+}
+
+function loadFromHistory(id) {
+  const entry = translationHistory.find(e => e.id === id);
+  if (entry) {
+    originalText = entry.fullOriginal;
+    translatedText = entry.fullTranslated;
+    document.getElementById('directText').value = originalText;
+    document.getElementById('output').textContent = translatedText;
+    updateComparison();
+    showPage('translate');
+    showStatusMsg('✅ Traducción cargada del historial', 'success', 'status');
+  }
+}
+
+function clearHistory() {
+  if (confirm('¿Seguro que quieres limpiar todo el historial?')) {
+    translationHistory = [];
+    localStorage.removeItem('translation_history');
+    loadHistory();
+    showStatusMsg('✅ Historial limpiado', 'success', 'status');
+  }
+}
+
+// ============ UTILIDADES ============
+function downloadTranslation() {
+  if (!translatedText) {
+    showStatusMsg('⚠️ Traduce algo primero', 'error', 'status');
+    return;
+  }
+  
+  const blob = new Blob([translatedText], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = currentFile ? 
+    currentFile.name.replace(/\.[^.]+$/, '_traducido.txt') : 
+    'traduccion.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  showStatusMsg('📥 Descargado', 'success', 'status');
+}
+
+function speakText() {
+  if (!translatedText) {
+    showStatusMsg('⚠️ Traduce algo primero', 'error', 'status');
+    return;
+  }
+  
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(translatedText);
+    utterance.lang = 'es-ES';
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    
+    showStatusMsg('🔊 Reproduciendo audio...', 'info', 'status');
+  } else {
+    showStatusMsg('⚠️ Tu navegador no soporta Text-to-Speech', 'error', 'status');
+  }
+}
+
+function clearAll() {
+  currentFile = null;
+  originalText = '';
+  translatedText = '';
+  fileInput.value = '';
+  document.getElementById('directText').value = '';
+  document.getElementById('fileInfo').style.display = 'none';
+  document.getElementById('output').textContent = '// La traducción aparecerá aquí...';
+  document.getElementById('compareOriginal').textContent = 'Carga y traduce un texto para verlo aquí...';
+  document.getElementById('compareTranslated').textContent = 'La traducción aparecerá aquí...';
+  showStatusMsg('🔄 Todo limpiado', 'info', 'status');
+}
+
+function showStatusMsg(message, type, elementId = 'status') {
+  const statusEl = document.getElementById(elementId);
+  if (!statusEl) return;
+  
+  statusEl.innerHTML = `<div class="status ${type}">${message}</div>`;
+}
+
+function showLoader(show) {
+  document.getElementById('loader').style.display = show ? 'block' : 'none';
+}
+</script>
+<footer>
+      <p>Copyright &copy; 2025 Lic. Al Azua, <a href="https://www.abogadosforenses.org">AbogadosForenses.org</a></p>
+    </footer>
+</body>
+</html>
