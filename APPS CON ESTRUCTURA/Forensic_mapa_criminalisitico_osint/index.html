@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa Criminalístico OSINT</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🧭 Mapa Criminalístico OSINT</h1>
+    <div id="form">
+        <input type="text" id="nombre" placeholder="Nombre del caso">
+        <input type="text" id="fecha" placeholder="Fecha (YYYY-MM-DD)">
+        <input type="text" id="lat" placeholder="Latitud">
+        <input type="text" id="lon" placeholder="Longitud">
+        <textarea id="descripcion" placeholder="Descripción"></textarea>
+        <button onclick="agregarPunto()">Agregar Caso</button>
+        <button onclick="exportarJSON()">Exportar JSON</button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
