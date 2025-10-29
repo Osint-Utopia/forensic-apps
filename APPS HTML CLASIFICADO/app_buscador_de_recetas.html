@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Recetas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+    <header class="bg-white shadow-md p-4">
+        <h1 class="text-3xl font-bold text-center">Buscador de Recetas</h1>
+    </header>
+    <main class="flex-1 p-6">
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Selecciona las tareas</h2>
+            <form id="osintForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres">
+                        <span class="ml-2">Nombres</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="emails">
+                        <span class="ml-2">Emails</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="redes_sociales">
+                        <span class="ml-2">Redes Sociales</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="numeros_telefono">
+                        <span class="ml-2">Números de teléfono</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres_usuario">
+                        <span class="ml-2">Nombres de Usuario</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="archivos">
+                        <span class="ml-2">Archivos (doc, pdf, xlsx, txt)</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Búsqueda:</label>
+                    <input type="text" id="searchQuery" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ej: Juan Pérez">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Buscar</button>
+            </form>
+        </div>
+        <div id="results" class="mt-6 max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+            <h2 class="text-2xl font-semibold mb-4">Resultados</h2>
+            <div id="searchResults" class="space-y-4">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+            <div class="mt-6 flex justify-end space-x-4">
+                <button id="generateReport" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Generar Reporte</button>
+                <button id="downloadReport" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Descargar</button>
+                <button id="shareReport" class="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Compartir</button>
+            </div>
+        </div>
+        <div id="overview" class="mt-6 max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+            <h2 class="text-2xl font-semibold mb-4">Vista General de los Datos Obtenidos</h2>
+            <div id="overviewData" class="space-y-4">
+                <!-- Overview data will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+    <footer class="bg-white shadow-md p-4 text-center">
+        <p>&copy; 2023 Buscador de Recetas</p>
+    </footer>
+    <script>
+        document.getElementById('osintForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('overview').classList.add('hidden');
+            // Here you would add the logic to fetch data from the selected search engines
+            // For demonstration, we'll just show a mock result
+            const mockResults = [
+                { engine: 'Carrot2 Search', result: 'Resultado de Carrot2 Search' },
+                { engine: 'Fagan Finder', result: 'Resultado de Fagan Finder' },
+                { engine: 'Yandex', result: 'Resultado de Yandex' },
+                { engine: 'Zapmeta', result: 'Resultado de Zapmeta' },
+                { engine: 'PDF Search Engine', result: 'Resultado de PDF Search Engine' },
+                { engine: 'Metacrawler', result: 'Resultado de Metacrawler' },
+                { engine: 'Dogpile', result: 'Resultado de Dogpile' },
+                { engine: 'WebCrawler', result: 'Resultado de WebCrawler' },
+                { engine: 'Google Search (Example)', result: 'Resultado de Google Search (Example)' },
+                { engine: 'Social Searcher API', result: 'Resultado de Social Searcher API' },
+                { engine: 'Bing (MX)', result: 'Resultado de Bing (MX)' },
+                { engine: 'Hunter.io Search (Jalisco)', result: 'Resultado de Hunter.io Search (Jalisco)' },
+                { engine: 'Social Searcher Google Search', result: 'Resultado de Social Searcher Google Search' },
+                { engine: 'BuzzSumo API', result: 'Resultado de BuzzSumo API' },
+                { engine: 'SEO Técnico', result: 'Resultado de SEO Técnico' },
+                { engine: 'Papeles de Inteligencia (Correo)', result: 'Resultado de Papeles de Inteligencia (Correo)' },
+                { engine: 'Odin', result: 'Resultado de Odin' },
+                { engine: 'Localizar Personas (Por Nombre)', result: 'Resultado de Localizar Personas (Por Nombre)' },
+                { engine: 'Namechk', result: 'Resultado de Namechk' },
+                { engine: 'Google Dataset Search', result: 'Resultado de Google Dataset Search' }
+            ];
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+            mockResults.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('p-4', 'bg-gray-50', 'rounded-lg', 'shadow-sm', 'flex', 'justify-between');
+                resultElement.innerHTML = `<strong>${result.engine}:</strong> ${result.result} <button class="bg-gray-300 text-gray-800 py-1 px-2 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Vista Previa</button>`;
+                resultsContainer.appendChild(resultElement);
+            });
+        });
+
+        document.getElementById('generateReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Generando reporte... Guardado como Receta_${timestamp}.pdf en el directorio de descargas.`);
+        });
+
+        document.getElementById('downloadReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Descargando reporte... Guardado como Receta_${timestamp}.pdf en el directorio de descargas.`);
+        });
+
+        document.getElementById('shareReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Compartiendo reporte... Archivo: Receta_${timestamp}.pdf`);
+        });
+
+        document.getElementById('searchResults').addEventListener('click', function(event) {
+            if (event.target && event.target.matches('button')) {
+                alert('Mostrando vista previa del resultado...');
+            }
+        });
+    </script>
+</body>
+</html>

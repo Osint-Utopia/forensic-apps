@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP Seven SaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body class="h-screen bg-gray-100 flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-blue-500 text-white p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">UP Seven SaaS</h1>
+        <ul class="flex items-center space-x-4">
+            <li><a href="#" class="text-white hover:text-gray-300">Panel Inteligente</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Central de Aprobación de Medios</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Calendario de Contenido</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Marketplace de Servicios</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido -->
+    <main class="flex-1 overflow-y-auto p-4">
+        <!-- Panel Inteligente -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Panel Inteligente</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Leads</h3>
+                            <p class="text-gray-600">10 nuevos leads esta semana</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Engagement</h3>
+                            <p class="text-gray-600">20% aumento en engagement en redes sociales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Alianzas</h3>
+                            <p class="text-gray-600">5 nuevas alianzas esta semana</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Central de Aprobación de Medios -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Central de Aprobación de Medios</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Subida de Archivos</h3>
+                            <input type="file" class="form-control" id="uploadArchivo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Comentarios y Feedbacks</h3>
+                            <textarea class="form-control" rows="4" id="comentario"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Historial de Cambios</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">Cambio 1</li>
+                                <li class="list-group-item">Cambio 2</li>
+                                <li class="list-group-item">Cambio 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendario de Contenido -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Calendario de Contenido</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="text-lg font-bold mb-2">Planificación Visual</h3>
+                            <div class="calendar">
+                                <div class="day">Lunes</div>
+                                <div class="day">Martes</div>
+                                <div class="day">Miércoles</div>
+                                <div class="day">Jueves</div>
+                                <div class="day">Viernes</div>
+                                <div class="day">Sábado</div>
+                                <div class="day">Domingo</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="text-lg font-bold mb-2">Marcación de Estado</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="panel panel-success">
+                                        <div class="panel-body">
+                                            <h4 class="text-lg font-bold mb-2">Programado</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-body">
+                                            <h4 class="text-lg font-bold mb-2">Publicado</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel panel-warning">
+                                        <div class="panel-body">
+                                            <h4 class="text-lg font-bold mb-2">Pendiente</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketplace de Servicios -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Marketplace de Servicios</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Gestión de Tráfico Pago</h3>
+                            <p class="text-gray-600">Aumenta tu visibilidad en línea con nuestra gestión de tráfico pago</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Creación de Sitios Web</h3>
+                            <p class="text-gray-600">Crea un sitio web profesional con nuestro equipo de expertos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Branding</h3>
+                            <p class="text-gray-600">Desarrolla tu marca con nuestro equipo de expertos en branding</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Asistente IA y Notificaciones -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Asistente IA y Notificaciones</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Chatbot</h3>
+                            <p class="text-gray-600">Obtén respuestas rápidas y precisas con nuestro chatbot</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Notificaciones</h3>
+                            <p class="text-gray-600">Recibe notificaciones personalizadas sobre tus campañas y métricas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Autenticación y Gestión de Usuarios -->
+        <section class="mb-4">
+            <h2 class="text-2xl font-bold mb-4">Autenticación y Gestión de Usuarios</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Ingreso con Google/Facebook</h3>
+                            <p class="text-gray-600">Accede a tu cuenta con facilidad usando tu inicio de sesión de Google o Facebook</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-lg font-bold mb-2">Autenticación via Token JWT</h3>
+                            <p class="text-gray-600">Accede a tu cuenta de forma segura usando nuestra autenticación via token JWT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

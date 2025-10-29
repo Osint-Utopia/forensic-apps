@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)file:///K:/DepInteligency/matriz-de-evaluacion-viabilidad.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Matriz de Evaluación de Viabilidad</title>
+    <script src="./Matriz de Evaluación de Viabilidad_files/jspdf.umd.min.js.descarga"></script>
+    <script src="./Matriz de Evaluación de Viabilidad_files/xlsx.full.min.js.descarga"></script>
+    <script src="./Matriz de Evaluación de Viabilidad_files/html2canvas.min.js.descarga"></script>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #f1f3f4;
+            --accent-color: #4285f4;
+            --text-color: #202124;
+            --border-color: #dadce0;
+            --success-color: #0f9d58;
+            --warning-color: #f4b400;
+            --error-color: #d93025;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .accordion {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-header:hover {
+            background-color: #e8eaed;
+        }
+        
+        .accordion-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1769e0;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e8eaed;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #0c8c4d;
+        }
+        
+        .btn-search {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-search:hover {
+            background-color: #3b78e7;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-info {
+            background-color: #e8f0fe;
+            color: #1967d2;
+            border-left: 4px solid #1967d2;
+        }
+        
+        .alert-success {
+            background-color: #e6f4ea;
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .alert-warning {
+            background-color: #fef7e0;
+            color: var(--warning-color);
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .alert-error {
+            background-color: #fce8e6;
+            color: var(--error-color);
+            border-left: 4px solid var(--error-color);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .cell-with-search {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .search-icon {
+            cursor: pointer;
+            color: var(--accent-color);
+            font-size: 18px;
+        }
+        
+        .resultado-viabilidad {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .resultado-alto {
+            background-color: #e6f4ea;
+            color: var(--success-color);
+        }
+        
+        .resultado-medio {
+            background-color: #fef7e0;
+            color: var(--warning-color);
+        }
+        
+        .resultado-bajo {
+            background-color: #fce8e6;
+            color: var(--error-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 8px;
+                font-size: 13px;
+            }
+            
+            .cell-with-search {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Matriz de Evaluación de Viabilidad de una Acción Civil</h1>
+            <p>Sistema de evaluación y cálculo de viabilidad para acciones legales</p>
+			<p>Azua Mercado y Asociados Firma Legal</p><p>
+			</p><p>Lic. Azua | https://www.abogadosforenses.org</p><p>
+        </p></header>
+        
+        <div id="notifications" class="hidden"></div>
+        
+        <div class="accordion">
+            <div class="accordion-header">
+                <span>Matriz de Evaluación de Viabilidad</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="accordion-content active">
+                <div class="alert alert-info">
+                    Complete los campos de la matriz para evaluar la viabilidad de la acción civil. Los campos se guardarán automáticamente.
+                </div>
+                
+                <table id="matriz-principal">
+                    <thead>
+                        <tr>
+                            <th>Elemento Evaluado</th>
+                            <th>Peso (%)</th>
+                            <th>Fuente Legal</th>
+                            <th>Descripción</th>
+                            <th>Indicadores De Evaluación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="elemento" value="1. Legitimación activa"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art. CCF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Que quien demanda tenga derecho subjetivo legítimo."></td>
+                            <td><input type="text" name="indicador" value="¿Es el propietario o titular de derecho?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="2. Legitimación pasiva"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art. 80 de la CNPCyF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Que el demandado"></td>
+                            <td><input type="text" name="indicador" value="¿Es el poseedor del bien o posesión derivada o vinculada?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="3. Acreditación plena del derecho (propiedad)"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art. CCF.">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Presentación de escritura, inscripción registral, etc."></td>
+                            <td><input type="text" name="indicador" value="¿Hay título de propiedad, escritura?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="4. Identificación del bien"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art. CCF.">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Descripción precisa y técnica del inmueble."></td>
+                            <td><input type="text" name="indicador" value="¿Se puede individualizar?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="5. Posesión ilegítima"></td>
+                            <td><input type="number" name="peso" value="15" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art.s 958-963 del CCF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Que el demandado no tenga título legítimo."></td>
+                            <td><input type="text" name="indicador" value="¿Se prueba la posesión ilegitima?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="6. Pruebas ofrecidas y sustentadas"></td>
+                            <td><input type="number" name="peso" value="15" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art.s 108-144 del CNPCyF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Calidad y variedad"></td>
+                            <td><input type="text" name="indicador" value="¿Las pruebas sustentan cada uno de los hechos?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="7. Técnica procesal y redacción del escrito"</td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art.s de la CNPCyF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Claridad, congruencia, estructura lógica, no ambigüedad."></td>
+                            <td><input type="text" name="indicador" value=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="8. Fundamentación"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art. 90 de la CNPCyF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Correspondencia entre hechos, normas y pretensiones."></td>
+                            <td><input type="text" name="indicador" value="¿Citas correctas y aplicables al caso concreto?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="9. Ausencia de causas"></td>
+                            <td><input type="number" name="peso" value="10" min="0" max="100" class="peso-input"></td>
+                            <td>
+                                <div class="cell-with-search">
+                                    <input type="text" name="fuente" value="Art.s 92-94 de la CNPCyF">
+                                    <span class="search-icon" onclick="buscarEnWeb(this)">🔍</span>
+                                </div>
+                            </td>
+                            <td><input type="text" name="descripcion" value="Prescripción, litispendencia, falta de interés"></td>
+                            <td><input type="text" name="indicador" value="¿El caso es procedente sin obstáculos legales?"></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento" value="10. Total"></td>
+                            <td><input type="number" name="peso-total" value="100" readonly=""></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarComoLocalStorage()">Guardar Datos</button>
+                    <button class="btn btn-primary" onclick="cargarDatos()">Cargar Datos</button>
+                    <button class="btn btn-success" onclick="guardarComoPDF(&#39;matriz-principal&#39;)">Guardar como PDF</button>
+                    <button class="btn btn-success" onclick="exportarExcel(&#39;matriz-principal&#39;)">Exportar como Excel</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion">
+            <div class="accordion-header">
+                <span>Evaluación de Viabilidad con Valores</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+				<button class="btn btn-primary" onclick="actualizarEvaluacion()">Actualizar Evaluación desde Matriz</button>
+                <div class="alert alert-info">
+                    Asigne valores del 0 al 10 para cada elemento evaluado. El porcentaje ponderado se calculará automáticamente.
+                </div>
+                
+                <table id="tabla-evaluacion">
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Valor asignado (0-10)</th>
+                            <th>Porcentaje ponderado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Legitimación activa"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="10" class="valor-input" data-peso="10"></td>
+                            <td><input type="text" name="porcentaje" value="10%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Legitimación pasiva"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="10" class="valor-input" data-peso="10"></td>
+                            <td><input type="text" name="porcentaje" value="10%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Derecho acreditado"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="10" class="valor-input" data-peso="15"></td>
+                            <td><input type="text" name="porcentaje" value="15%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Bien identificado"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="10" class="valor-input" data-peso="10"></td>
+                            <td><input type="text" name="porcentaje" value="10%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Posesión ilegítima"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="6" class="valor-input" data-peso="15"></td>
+                            <td><input type="text" name="porcentaje" value="9%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Pruebas ofrecidas"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="6" class="valor-input" data-peso="15"></td>
+                            <td><input type="text" name="porcentaje" value="9%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Técnica procesal"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="7" class="valor-input" data-peso="10"></td>
+                            <td><input type="text" name="porcentaje" value="7%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Fundación jurídica"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="6" class="valor-input" data-peso="10"></td>
+                            <td><input type="text" name="porcentaje" value="6%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="elemento-eval" value="Improcedencia aparente"></td>
+                            <td><input type="number" name="valor" min="0" max="10" value="9" class="valor-input" data-peso="5"></td>
+                            <td><input type="text" name="porcentaje" value="4.5%" readonly=""></td>
+                            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>% de viabilidad</strong></td>
+                            <td>---</td>
+                            <td><input type="text" id="total-porcentaje" value="80.5%" readonly=""></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="resultado-viabilidad" class="resultado-viabilidad resultado-alto">Viabilidad: 80.5% - Alta probabilidad de éxito</div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarEvaluacionLocalStorage()">Guardar Evaluación</button>
+                    <button class="btn btn-primary" onclick="cargarEvaluacion()">Cargar Evaluación</button>
+                    <button class="btn btn-success" onclick="guardarComoPDF(&#39;tabla-evaluacion&#39;)">Guardar como PDF</button>
+                    <button class="btn btn-success" onclick="exportarExcel(&#39;tabla-evaluacion&#39;)">Exportar como Excel</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion">
+            <div class="accordion-header">
+                <span>Recomendaciones y Observaciones</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="alert alert-info">
+                    Agregue observaciones y recomendaciones basadas en la evaluación de viabilidad.
+                </div>
+                
+                <textarea id="observaciones" rows="6" placeholder="Ingrese observaciones y recomendaciones aquí..."></textarea>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="guardarObservaciones()">Guardar Observaciones</button>
+                    <button class="btn btn-primary" onclick="cargarObservaciones()">Cargar Observaciones</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            © 2025 Matriz de Evaluación de Viabilidad | Todos los derechos reservados | Lic. Al Azua | https://www.abogadosforenses.org
+        </footer>
+    </div>
+	<script>
+        // Activar primera sección al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si hay datos guardados
+            checkLocalStorage();
+            
+            // Asignar eventos a los headers de acordeón
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('active');
+                    const icon = this.querySelector('.toggle-icon');
+                    icon.textContent = content.classList.contains('active') ? '▼' : '►';
+                });
+            });
+            
+			// Asignar eventos a los campos de valor y peso
+            const valorInputs = document.querySelectorAll('.valor-input');
+            valorInputs.forEach(input => {
+                input.addEventListener('input', calcularPorcentajes);
+            });
+        const pesoInputs = document.querySelectorAll('.peso-input');
+        pesoInputs.forEach(input => {
+        input.addEventListener('input', validarPesoTotal);
+	});
+            
+            // Calcular porcentajes iniciales
+            calcularPorcentajes();
+            
+            // Cargar datos guardados si existen
+            detectarDatosGuardados();
+        });
+        
+        // Función para buscar en web
+        function buscarEnWeb(element) {
+            let texto = '';
+            const row = element.closest('tr');
+            
+            if (row) {
+                // Obtener texto del elemento o input cercano
+                const elementoInput = row.querySelector('input[name="elemento"], input[name="elemento-eval"]');
+                const fuenteInput = row.querySelector('input[name="fuente"]');
+                
+                if (elementoInput && fuenteInput) {
+                    texto = `${fuenteInput.value} ${elementoInput.value}`;
+                } else if (elementoInput) {
+                    texto = elementoInput.value;
+                } else if (fuenteInput) {
+                    texto = fuenteInput.value;
+                }
+            } else {
+                // Si no se encuentra fila, usar texto del elemento cercano
+                const nearestInput = element.previousElementSibling;
+                if (nearestInput && nearestInput.tagName === 'INPUT') {
+                    texto = nearestInput.value;
+                }
+            }
+            
+            if (texto) {
+                const searchQuery = encodeURIComponent(texto);
+                window.open(`https://www.google.com/search?q=${searchQuery}`, '_blank');
+            }
+        });
+		
+        // Función para validar que el peso total sea 100%
+        function validarPesoTotal() {
+            const pesoInputs = document.querySelectorAll('.peso-input');
+            let total = 0;
+            
+            pesoInputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            
+            const pesoTotal = document.querySelector('input[name="peso-total"]');
+            pesoTotal.value = total;
+            
+            if (total !== 100) {
+                mostrarNotificacion(`¡Atención! El peso total debe ser 100%. Actualmente es ${total}%`, 'warning');
+            } else {
+                ocultarNotificacion();
+			} // Cierre del else en validarPesoTotal()
+        }
+        
+        // Función para calcular porcentajes ponderados
+        function calcularPorcentajes() {
+            const valorInputs = document.querySelectorAll('.valor-input');
+            let totalPorcentaje = 0;
+            
+            valorInputs.forEach(input => {
+                const valor = parseFloat(input.value) || 0;
+                const peso = parseFloat(input.getAttribute('data-peso')) || 0;
+                const porcentaje = (valor / 10) * peso;
+                
+                // Actualizar campo de porcentaje en la misma fila
+                const tdPorcentaje = input.closest('tr').querySelector('input[name="porcentaje"]');
+                if (tdPorcentaje) {
+                    tdPorcentaje.value = porcentaje.toFixed(1) + '%';
+                }
+                
+                totalPorcentaje += porcentaje;
+            });
+            
+            // Actualizar campo de porcentaje total
+            const totalPorcentajeInput = document.getElementById('total-porcentaje');
+            if (totalPorcentajeInput) {
+                totalPorcentajeInput.value = totalPorcentaje.toFixed(1) + '%';
+            }
+            
+            // Actualizar div de resultado de viabilidad
+            const resultadoDiv = document.getElementById('resultado-viabilidad');
+            resultadoDiv.textContent = `Viabilidad: ${totalPorcentaje.toFixed(1)}% - `;
+            
+            // Añadir clasificación según el porcentaje
+            if (totalPorcentaje >= 75) {
+                resultadoDiv.textContent += 'Alta probabilidad de éxito';
+                resultadoDiv.className = 'resultado-viabilidad resultado-alto';
+            } else if (totalPorcentaje >= 50) {
+                resultadoDiv.textContent += 'Probabilidad media de éxito';
+                resultadoDiv.className = 'resultado-viabilidad resultado-medio';
+            } else {
+                resultadoDiv.textContent += 'Baja probabilidad de éxito';
+                resultadoDiv.className = 'resultado-viabilidad resultado-bajo';
+            }
+        }
+        
+        // Función para guardar datos en localStorage
+        function guardarComoLocalStorage() {
+            const filas = document.querySelectorAll('#matriz-principal tbody tr');
+            const datos = [];
+            
+            filas.forEach(fila => {
+                const elemento = fila.querySelector('input[name="elemento"]')?.value || '';
+                const peso = fila.querySelector('input[name="peso"]')?.value || '';
+                const fuente = fila.querySelector('input[name="fuente"]')?.value || '';
+                const descripcion = fila.querySelector('input[name="descripcion"]')?.value || '';
+                const indicador = fila.querySelector('input[name="indicador"]')?.value || '';
+                
+                datos.push({elemento, peso, fuente, descripcion, indicador});
+            });
+            
+            localStorage.setItem('matrizDatos', JSON.stringify(datos));
+            mostrarNotificacion('Datos guardados correctamente', 'success');
+        }
+        
+        // Función para guardar evaluación en localStorage
+        function guardarEvaluacionLocalStorage() {
+            const filas = document.querySelectorAll('#tabla-evaluacion tbody tr:not(.total-row)');
+            const datos = [];
+            
+            filas.forEach(fila => {
+                const elemento = fila.querySelector('input[name="elemento-eval"]')?.value || '';
+                const valor = fila.querySelector('input[name="valor"]')?.value || '';
+                const peso = fila.querySelector('input[name="valor"]')?.getAttribute('data-peso') || '';
+                const porcentaje = fila.querySelector('input[name="porcentaje"]')?.value || '';
+                
+                datos.push({elemento, valor, peso, porcentaje});
+            });
+            
+            localStorage.setItem('evaluacionDatos', JSON.stringify(datos));
+            mostrarNotificacion('Evaluación guardada correctamente', 'success');
+        }
+        
+        // Función para guardar observaciones
+        function guardarObservaciones() {
+            const observaciones = document.getElementById('observaciones').value;
+            localStorage.setItem('observaciones', observaciones);
+            mostrarNotificacion('Observaciones guardadas correctamente', 'success');
+        }
+        
+        // Función para cargar datos desde localStorage
+        function cargarDatos() {
+            const datos = JSON.parse(localStorage.getItem('matrizDatos'));
+            
+            if (datos && datos.length > 0) {
+                const filas = document.querySelectorAll('#matriz-principal tbody tr');
+                
+                datos.forEach((dato, index) => {
+                    if (index < filas.length - 1) { // Excluir la fila de total
+                        const fila = filas[index];
+                        if (fila.querySelector('input[name="elemento"]')) fila.querySelector('input[name="elemento"]').value = dato.elemento;
+                        if (fila.querySelector('input[name="peso"]')) fila.querySelector('input[name="peso"]').value = dato.peso;
+                        if (fila.querySelector('input[name="fuente"]')) fila.querySelector('input[name="fuente"]').value = dato.fuente;
+                        if (fila.querySelector('input[name="descripcion"]')) fila.querySelector('input[name="descripcion"]').value = dato.descripcion;
+                        if (fila.querySelector('input[name="indicador"]')) fila.querySelector('input[name="indicador"]').value = dato.indicador;
+                    }
+                });
+                
+                validarPesoTotal();
+                mostrarNotificacion('Datos cargados correctamente', 'success');
+            } else {
+                mostrarNotificacion('No hay datos guardados para cargar', 'warning');
+            }
+        }
+        
+        // Función para cargar evaluación desde localStorage
+        function cargarEvaluacion() {
+            const datos = JSON.parse(localStorage.getItem('evaluacionDatos'));
+            
+            if (datos && datos.length > 0) {
+                const filas = document.querySelectorAll('#tabla-evaluacion tbody tr:not(.total-row)');
+                
+                datos.forEach((dato, index) => {
+                    if (index < filas.length) {
+                        const fila = filas[index];
+                        if (fila.querySelector('input[name="elemento-eval"]')) fila.querySelector('input[name="elemento-eval"]').value = dato.elemento;
+                        if (fila.querySelector('input[name="valor"]')) {
+                            fila.querySelector('input[name="valor"]').value = dato.valor;
+                            fila.querySelector('input[name="valor"]').setAttribute('data-peso', dato.peso);
+                        }
+                        if (fila.querySelector('input[name="porcentaje"]')) fila.querySelector('input[name="porcentaje"]').value = dato.porcentaje;
+                    }
+                });
+                
+                calcularPorcentajes();
+                mostrarNotificacion('Evaluación cargada correctamente', 'success');
+            } else {
+                mostrarNotificacion('No hay evaluación guardada para cargar', 'warning');
+            }
+        }
+        
+        // Función para cargar observaciones
+        function cargarObservaciones() {
+            const observaciones = localStorage.getItem('observaciones');
+            
+            if (observaciones) {
+                document.getElementById('observaciones').value = observaciones;
+                mostrarNotificacion('Observaciones cargadas correctamente', 'success');
+            } else {
+                mostrarNotificacion('No hay observaciones guardadas', 'warning');
+            }
+        }
+        
+        // Función para verificar si hay datos guardados al iniciar
+        function checkLocalStorage() {
+            const hayDatosMatriz = localStorage.getItem('matrizDatos') !== null;
+            const hayDatosEvaluacion = localStorage.getItem('evaluacionDatos') !== null;
+            const hayObservaciones = localStorage.getItem('observaciones') !== null;
+            
+            if (hayDatosMatriz || hayDatosEvaluacion || hayObservaciones) {
+                mostrarNotificacion('Se han detectado datos guardados. Puede cargarlos utilizando los botones correspondientes.', 'info');
+            }
+        }
+        
+        // Función para detectar y ofrecer cargar datos guardados
+        function detectarDatosGuardados() {
+            const hayDatosMatriz = localStorage.getItem('matrizDatos') !== null;
+            const hayDatosEvaluacion = localStorage.getItem('evaluacionDatos') !== null;
+            
+            if (hayDatosMatriz || hayDatosEvaluacion) {
+                const notifications = document.getElementById('notifications');
+                notifications.innerHTML = "";
+                <div class="alert alert-info">('Se han detectado datos guardados previamente.', 'info'); 
+                <button class="btn btn-secondary" onclick="cargarTodosDatos()">
+				Cargar Todos los Datos</button></div>;
+				notifications.classList.remove('hidden');
+            }
+        }
+        
+        // Función para cargar todos los datos guardados
+        function cargarTodosDatos() {
+            cargarDatos();
+            cargarEvaluacion();
+            cargarObservaciones();
+            const notifications = document.getElementById('notifications');
+            notifications.classList.add('hidden');
+        }
+        
+        // Funciones para mostrar y ocultar notificaciones
+        function mostrarNotificacion(mensaje, tipo) {
+            const notifications = document.getElementById('notifications');
+            notifications.innerHTML = `<div class="alert alert-${tipo}">${mensaje}</div>`;
+            notifications.classList.remove('hidden');
+            
+            // Ocultar después de 5 segundos
+            setTimeout(() => {
+                ocultarNotificacion();
+            }, 5000);
+        }
+        
+        function ocultarNotificacion() {
+            const notifications = document.getElementById('notifications');
+            notifications.classList.add('hidden');
+        }
+        
+		function actualizarEvaluacion() {
+			const matrizRows = document.querySelectorAll("#matriz-principal tbody tr:not(:last-child)");
+			const evalTable = document.querySelector("#tabla-evaluacion tbody");
+			evalTable.innerHTML = "";
+
+		let totalPeso = 0;
+
+		matrizRows.forEach(row => {
+        const elemento = row.querySelector('input[name="elemento"]')?.value || '';
+        const peso = row.querySelector('input[name="peso"]')?.value || '';
+        if (!elemento || !peso) return;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = "";
+            <td><input type="text" name="elemento-eval" value="${elemento}"></td>
+            <td><input type="number" name="valor" min="0" max="10" value="0" class="valor-input" data-peso="${peso}"></td>
+            <td><input type="text" name="porcentaje" value="0%" readonly></td>
+            <td><button class="btn btn-search" onclick="buscarEnWeb(this)">Buscar</button></td>
+        `;
+        evalTable.appendChild(tr);
+        totalPeso += parseInt(peso) || 0;
+    });
+
+    document.querySelector('input[name="peso-total"]').value = totalPeso;
+    calcularPorcentajes();
+		}		
+		
+		
+        // Función para guardar como PDF
+        function guardarComoPDF(tableId) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const table = document.getElementById(tableId);
+            
+            // Título del documento
+            doc.setFontSize(16);
+            doc.text('Matriz de Evaluación de Viabilidad', 105, 15, { align: 'center' });
+            
+            // Fecha
+            const fecha = new Date().toLocaleDateString();
+            doc.setFontSize(10);
+            doc.text(`Fecha: ${fecha}`, 10, 25);
+            
+            // Capturar la tabla como imagen
+            html2canvas(table).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 190;
+                const pageHeight = 290;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 30;
+                
+                // Primera página
+                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Páginas adicionales si la tabla es grande
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Si hay un div de resultados y estamos guardando la tabla de evaluación
+                if (tableId === 'tabla-evaluacion') {
+                    const resultadoDiv = document.getElementById('resultado-viabilidad');
+                    if (resultadoDiv) {
+                        doc.addPage();
+                        doc.setFontSize(14);
+                        doc.text('Resultado de Viabilidad', 105, 20, { align: 'center' });
+                        doc.setFontSize(12);
+                        doc.text(resultadoDiv.textContent, 105, 30, { align: 'center' });
+                    }
+                    
+                    // Observaciones
+                    const observaciones = document.getElementById('observaciones').value;
+                    if (observaciones) {
+                        doc.setFontSize(14);
+                        doc.text('Observaciones', 105, 50, { align: 'center' });
+                        doc.setFontSize(10);
+                        
+                        const splitText = doc.splitTextToSize(observaciones, 180);
+                        doc.text(splitText, 10, 60);
+                    }
+                }
+                
+                // Guardar PDF
+                doc.save(`matriz-evaluacion-${tableId}-${fecha}.pdf`);
+                mostrarNotificacion('PDF generado correctamente', 'success');
+            });
+        }
+        
+        // Función para exportar a Excel
+        function exportarExcel(tableId) {
+            const table = document.getElementById(tableId);
+            const wb = XLSX.utils.book_new();
+            
+            // Crear una hoja con los datos de la tabla
+            const ws = XLSX.utils.table_to_sheet(table);
+            
+            // Añadir hoja al libro
+            XLSX.utils.book_append_sheet(wb, ws, "Matriz de Evaluación");
+            
+            // Si estamos exportando la tabla de evaluación, agregar otra hoja con el resultado
+            if (tableId === 'tabla-evaluacion') {
+                const resultadoDiv = document.getElementById('resultado-viabilidad');
+                if (resultadoDiv) {
+                    const wsResultado = XLSX.utils.aoa_to_sheet([
+                        ["Resultado de Viabilidad"],
+                        [resultadoDiv.textContent]
+                    ]);
+                    XLSX.utils.book_append_sheet(wb, wsResultado, "Resultado");
+                }
+                
+                // Observaciones
+                const observaciones = document.getElementById('observaciones').value;
+                if (observaciones) {
+                    const wsObservaciones = XLSX.utils.aoa_to_sheet([
+                        ["Observaciones"],
+                        [observaciones]
+                    ]);
+                    XLSX.utils.book_append_sheet(wb, wsObservaciones, "Observaciones");
+                }
+            }
+            
+            // Generar archivo y descargar
+            const fecha = new Date().toLocaleDateString().replace(/\//g, '-');
+            XLSX.writeFile(wb, `matriz-evaluacion-${tableId}-${fecha}.xlsx`);
+            
+            mostrarNotificacion('Archivo Excel generado correctamente', 'success');
+        }
+    </script>
+
+	</body></html>

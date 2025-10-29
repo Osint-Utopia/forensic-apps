@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso-Taller Adicciones - Lic. Al Ulises Azua Castellanos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .flyer {
+            width: 800px;
+            margin: 0 auto 40px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        /* OPCIÓN 1 - ESTILO DIRECTO */
+        .option1 {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+        }
+        
+        .option1 .header {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .option1 .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><linearGradient id="v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%23000" stop-opacity="0"/><stop offset="1" stop-color="%23000" stop-opacity=".1"/></linearGradient></defs><rect fill="url(%23v)" width="100" height="20"/></svg>');
+        }
+        
+        .option1 h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .option1 .subtitle {
+            font-size: 1.1em;
+            margin-top: 10px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .option1 .content {
+            padding: 40px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 6px solid #fff;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* OPCIÓN 2 - ESTILO CONVERSACIONAL */
+        .option2 {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+        
+        .option2 .header {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .option2 h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 300;
+            line-height: 1.3;
+        }
+        
+        .option2 .content {
+            padding: 40px;
+        }
+        
+        .coffee-invitation {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* ESTILOS COMUNES */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .topic {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            border-left: 4px solid #3498db;
+        }
+        
+        .option1 .topic {
+            border-left-color: #ff4444;
+        }
+        
+        .footer {
+            background: rgba(0,0,0,0.2);
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .contact-info {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .offer-badge {
+            background: #ff4444;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .confirmation {
+            background: #27ae60;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .note {
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+        
+        @media (max-width: 850px) {
+            .flyer {
+                width: 95%;
+                margin: 0 auto 30px;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .option1 h1, .option2 h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- OPCIÓN 1: ENFOQUE DIRECTO -->
+    <div class="flyer option1">
+        <div class="header">
+            <h1>CURSO-TALLER INTENSIVO</h1>
+            <div class="subtitle">ADICCIÓN • DESINTOXICACIÓN • RECAÍDA • CÓMPLICES</div>
+        </div>
+        
+        <div class="content">
+            <div class="warning-box">
+                TRES PASOS PARA QUE YA NO PAGUES POR REHABILITARTE<br>
+                Y MEJOR COMPRES UN GASTO FUNERARIO
+            </div>
+            
+            <p style="font-size: 1.1em; line-height: 1.6; margin: 25px 0;">
+                <strong>Sin filtros. Sin mentiras piadosas. Sin esperanzas falsas.</strong><br>
+                Un abordaje brutal pero necesario sobre la realidad de las adicciones.
+            </p>
+            
+            <div class="topics-grid">
+                <div class="topic"><strong>Secuestro Cerebral:</strong> Cómo la dopamina se vuelve cadena</div>
+                <div class="topic"><strong>Desintoxicación Real:</strong> El infierno sin maquillaje</div>
+                <div class="topic"><strong>Anatomía de la Recaída:</strong> Los gatillos invisibles</div>
+                <div class="topic"><strong>Ejército de Cómplices:</strong> Familia que hunde</div>
+                <div class="topic"><strong>Autodestrucción Consciente:</strong> Placer culposo</div>
+                <div class="topic"><strong>Cuerpo Devastado:</strong> La factura física real</div>
+                <div class="topic"><strong>Identidad Rota:</strong> La persona tras el consumo</div>
+                <div class="topic"><strong>Economía del Adicto:</strong> Mentiras, robos, traiciones</div>
+                <div class="topic"><strong>Soledad en Recuperación:</strong> El vacío después</div>
+                <div class="topic"><strong>Después de la Tormenta:</strong> ¿Renacer o resignarse?</div>
+            </div>
+            
+            <div class="offer-badge">OFERTAS DE ESTE MES</div>
+            
+            <div class="note">
+                Para quienes están cansados de terapias que no funcionan y promesas que no se cumplen.
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="contact-info">Lic. Al Ulises Azua Castellanos</div>
+            <div>Especialista en Adicciones | Enfoque Sin Filtros</div>
+        </div>
+    </div>
+    
+    <!-- OPCIÓN 2: ENFOQUE CONVERSACIONAL -->
+    <div class="flyer option2">
+        <div class="header">
+            <h1>Acompáñame a platicar sin pretensiones<br>con un café en la mano</h1>
+        </div>
+        
+        <div class="content">
+            <div class="coffee-invitation">
+                <p style="font-size: 1.2em; margin: 0 0 20px 0; line-height: 1.5;">
+                    <strong>No pagas nada. Yo invito el café.</strong><br>
+                    Justifico tu ausencia en el trabajo, escuela... 
+                </p>
+                <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">
+                    Al final, tú decides si vale la pena depositar el costo, 
+                    o mejor lo utilizas en otra "petit"...
+                </p>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.1em; margin: 25px 0;">
+                <em>Igualmente seguiré siendo tu conocido, y al final puede que hasta amigos.</em>
+            </p>
+            
+            <div class="topics-grid">
+                <div class="topic">La adicción como secuestro cerebral, no placer</div>
+                <div class="topic">Desintoxicación: el infierno sin maquillaje</div>
+                <div class="topic">Por qué la recaída no es casualidad</div>
+                <div class="topic">Cómplices y aplaudidores invisibles</div>
+                <div class="topic">Autodestrucción consciente explicada</div>
+                <div class="topic">El cuerpo devastado: factura física</div>
+                <div class="topic">Identidad rota: quién eres realmente</div>
+                <div class="topic">La economía moral del adicto</div>
+                <div class="topic">Soledad en la recuperación</div>
+                <div class="topic">La vida después de la tormenta</div>
+            </div>
+            
+            <div class="confirmation">
+                CONFIRMA TU ASISTENCIA
+            </div>
+            
+            <div style="text-align: center; margin: 20px 0; font-size: 1.1em; color: #3498db;">
+                <strong>Gracias por esta segunda llamada... vas bien.</strong>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="contact-info">Lic. Al Ulises Azua Castellanos</div>
+            <div>Conversaciones Reales sobre Adicciones | Sin Pretensiones</div>
+        </div>
+    </div>
+</body>
+</html>

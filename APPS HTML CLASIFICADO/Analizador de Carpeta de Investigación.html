@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analizador de Carpeta de Investigación</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #eff6ff 0%,
+          #ffffff 50%,
+          #eef2ff 100%
+        );
+        min-height: 100vh;
+        color: #374151;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .header p {
+        font-size: 1.125rem;
+        color: #6b7280;
+        max-width: 48rem;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .card-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .upload-area {
+        border: 2px dashed #3b82f6;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        text-align: center;
+        background: #eff6ff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .upload-area:hover {
+        background: #dbeafe;
+        border-color: #2563eb;
+      }
+
+      .upload-area input {
+        display: none;
+      }
+
+      .upload-icon {
+        width: 4rem;
+        height: 4rem;
+        color: #60a5fa;
+        margin: 0 auto 1rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #2563eb;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat-card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+
+      .stat-card.blue {
+        background: #eff6ff;
+      }
+      .stat-card.green {
+        background: #f0fdf4;
+      }
+      .stat-card.yellow {
+        background: #fefce8;
+      }
+      .stat-card.purple {
+        background: #faf5ff;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-number.blue {
+        color: #3b82f6;
+      }
+      .stat-number.green {
+        color: #22c55e;
+      }
+      .stat-number.yellow {
+        color: #eab308;
+      }
+      .stat-number.purple {
+        color: #a855f7;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 0.75rem;
+        background: #e5e7eb;
+        border-radius: 9999px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 9999px;
+        transition: width 0.3s ease;
+      }
+
+      .progress-fill.green {
+        background: #22c55e;
+      }
+      .progress-fill.yellow {
+        background: #eab308;
+      }
+      .progress-fill.red {
+        background: #ef4444;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .table th,
+      .table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .table th {
+        background: #f9fafb;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      .table tr:hover {
+        background: #f9fafb;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .badge-blue {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .badge-red {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .alert-warning {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        color: #92400e;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .search-input {
+        padding: 0.5rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        width: 16rem;
+      }
+
+      .select {
+        padding: 0.5rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: white;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .spinner {
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid #e5e7eb;
+        border-top: 2px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .file-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #f9fafb;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media (max-width: 768px) {
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .search-input {
+          width: 100%;
+        }
+      }
+
+      .missing-item {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .missing-item h3 {
+        color: #991b1b;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .missing-item p {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .missing-item .meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.75rem;
+        color: #dc2626;
+      }
+
+      .category-section {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .category-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+      }
+
+      .category-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
+      }
+
+      .category-item {
+        background: #f9fafb;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      .legal-item {
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .legal-item h3 {
+        color: #3730a3;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .legal-item p {
+        color: #4338ca;
+        font-size: 0.875rem;
+      }
+
+      .success-message {
+        text-align: center;
+        padding: 2rem;
+        color: #22c55e;
+      }
+
+      .success-icon {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>
+          <svg
+            class="upload-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-5v.01M12 7v.01"
+            ></path>
+          </svg>
+          Analizador de Carpeta de Investigación
+        </h1>
+        <p>
+          Análisis integral basado en el Código Nacional de Procedimientos
+          Penales (CNPP) completo - Arts. 131-134, 216-272 y disposiciones
+          relacionadas con la integración de carpetas de investigación
+        </p>
+      </div>
+
+      <!-- Upload Section -->
+      <div class="card">
+        <div class="card-header">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+            ></path>
+          </svg>
+          <h2>Subir Carpeta de Investigación</h2>
+        </div>
+        <div class="card-content">
+          <div
+            class="upload-area"
+            onclick="document.getElementById('file-upload').click()"
+          >
+            <input
+              type="file"
+              multiple
+              accept=".pdf,.txt,.doc,.docx"
+              id="file-upload"
+            />
+            <svg
+              class="upload-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+            <p
+              style="
+                font-size: 1.125rem;
+                font-weight: 500;
+                color: #374151;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Selecciona los archivos de la carpeta de investigación
+            </p>
+            <p style="font-size: 0.875rem; color: #6b7280">
+              Formatos admitidos: PDF, TXT, DOC, DOCX
+            </p>
+          </div>
+
+          <div id="file-list" class="hidden">
+            <h3
+              style="font-weight: 500; color: #374151; margin: 1rem 0 0.5rem 0"
+            >
+              Archivos seleccionados:
+            </h3>
+            <div class="file-list" id="selected-files"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p style="color: #6b7280">
+          Analizando archivos según legislación CNPP...
+        </p>
+      </div>
+
+      <!-- Analysis Results -->
+      <div id="analysis-results" class="hidden">
+        <!-- Resumen General -->
+        <div class="card">
+          <div class="card-header">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h2>Resumen del Análisis</h2>
+          </div>
+          <div class="card-content">
+            <div class="stats-grid">
+              <div class="stat-card blue">
+                <div class="stat-number blue" id="total-files">0</div>
+                <div style="font-size: 0.875rem; color: #6b7280">
+                  Archivos analizados
+                </div>
+              </div>
+              <div class="stat-card green">
+                <div class="stat-number green" id="found-actions">0</div>
+                <div style="font-size: 0.875rem; color: #6b7280">
+                  Actuaciones encontradas
+                </div>
+              </div>
+              <div class="stat-card yellow">
+                <div class="stat-number yellow" id="missing-actions">0</div>
+                <div style="font-size: 0.875rem; color: #6b7280">
+                  Actuaciones faltantes
+                </div>
+              </div>
+              <div class="stat-card purple">
+                <div class="stat-number purple" id="completeness">0%</div>
+                <div style="font-size: 0.875rem; color: #6b7280">
+                  Completitud
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1rem">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.875rem;
+                  color: #6b7280;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                <span>Completitud de la carpeta</span>
+                <span id="progress-text">0%</span>
+              </div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  id="progress-fill"
+                  style="width: 0%"
+                ></div>
+              </div>
+            </div>
+
+            <div id="recommendations" class="hidden alert alert-warning">
+              <h3
+                style="font-weight: 600; color: #92400e; margin-bottom: 0.5rem"
+              >
+                🔍 Observaciones Críticas:
+              </h3>
+              <ul id="recommendations-list" style="padding-left: 1rem"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="card">
+          <div class="card-content">
+            <div class="controls">
+              <div style="display: flex; align-items: center; gap: 0.5rem">
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Buscar actuaciones..."
+                  class="search-input"
+                  id="search-input"
+                />
+              </div>
+              <select class="select" id="category-filter">
+                <option value="todos">Todas las categorías</option>
+              </select>
+              <button class="btn btn-primary" onclick="exportarResultados()">
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                Exportar Análisis
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actuaciones Encontradas -->
+        <div class="card">
+          <div class="card-header">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h2>Actuaciones Identificadas (<span id="found-count">0</span>)</h2>
+          </div>
+          <div class="card-content">
+            <div style="overflow-x: auto">
+              <table class="table" id="found-table">
+                <thead>
+                  <tr>
+                    <th>Actuación</th>
+                    <th>Categoría</th>
+                    <th>Archivo</th>
+                    <th>Arts. CNPP</th>
+                    <th>Responsable</th>
+                    <th>Confianza</th>
+                  </tr>
+                </thead>
+                <tbody id="found-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actuaciones Faltantes -->
+        <div class="card">
+          <div class="card-header">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h2>
+              Actuaciones Obligatorias Faltantes (<span id="missing-count"
+                >0</span
+              >)
+            </h2>
+          </div>
+          <div class="card-content">
+            <div id="missing-content"></div>
+          </div>
+        </div>
+
+        <!-- Análisis por Categoría -->
+        <div class="card">
+          <div class="card-header">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              ></path>
+            </svg>
+            <h2>Análisis por Categoría</h2>
+          </div>
+          <div class="card-content">
+            <div id="category-analysis"></div>
+          </div>
+        </div>
+
+        <!-- Marco Legal -->
+        <div class="card">
+          <div class="card-header">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+            <h2>Marco Legal CNPP</h2>
+          </div>
+          <div class="card-content">
+            <div id="legal-framework"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+            // Variables globales
+            let files = [];
+            let analysis = null;
+            let allFoundActions = [];
+
+            // Catálogo de legislación CNPP
+            const legislacionCNPP = {
+                'Art_131': {
+                    nombre: 'Integración de la investigación',
+                    descripcion: 'La investigación deberá contener todos los registros de las diligencias',
+                    obligatorio: true,
+                    categoria: 'Base Legal'
+                },
+                'Art_132': {
+                    nombre: 'Dirección de la investigación',
+                    descripcion: 'Corresponde al MP dirigir la investigación',
+                    obligatorio: true,
+                    categoria: 'Dirección'
+                },
+                'Art_133': {
+                    nombre: 'Colaboración en la investigación',
+                    descripcion: 'Policías y servicios periciales colaboran bajo dirección del MP',
+                    obligatorio: true,
+                    categoria: 'Colaboración'
+                },
+                'Art_134': {
+                    nombre: 'Registro de actuaciones',
+                    descripcion: 'Todas las actuaciones deben registrarse en la carpeta',
+                    obligatorio: true,
+                    categoria: 'Registro'
+                },
+                'Art_218': {
+                    nombre: 'Cadena de custodia',
+                    descripcion: 'Registro de quién recolecta y maneja los indicios',
+                    obligatorio: true,
+                    categoria: 'Evidencia'
+                },
+                'Art_227': {
+                    nombre: 'Inspección del lugar del hecho',
+                    descripcion: 'Registro detallado de la inspección y evidencias',
+                    obligatorio: true,
+                    categoria: 'Inspección'
+                },
+                'Art_242': {
+                    nombre: 'Declaración del imputado',
+                    descripcion: 'Registro de la declaración con todas las formalidades',
+                    obligatorio: true,
+                    categoria: 'Declaraciones'
+                }
+            };
+
+            // Catálogo de actuaciones
+            const actuacionesCatalogo = {
+                'aviso_hechos': {
+                    nombre: 'Acta de aviso de hechos probablemente delictivos',
+                    categoria: 'Inicio de investigación',
+                    obligatoria: true,
+                    articulos: ['131', '132', '216'],
+                    keywords: ['aviso', 'hechos', 'delictivos', 'notificación inicial', 'reporte', 'conocimiento', 'primer aviso', 'conocimiento de hechos', 'posible delito', 'probable delito', 'comisión de delito', 'hechos posiblemente constitutivos', 'noticia criminal', 'C4', 'central de comunicaciones', '066', '911', 'emergencias', 'reporte ciudadano', 'llamada de auxilio', 'solicitud de apoyo'],
+                    plazo: 'Inmediato',
+                    responsable: 'Policía/MP',
+                    observaciones: 'Debe contener circunstancias de tiempo, modo y lugar'
+                },
+                'denuncia_querella': {
+                    nombre: 'Acta de denuncia o querella',
+                    categoria: 'Inicio de investigación',
+                    obligatoria: true,
+                    articulos: ['131', '224', '225', '226'],
+                    keywords: ['denuncia', 'querella', 'verbal', 'escrita', 'víctima', 'denunciante', 'hechos', 'comparece', 'compareció', 'manifiesta', 'manifestó', 'expone', 'expuso', 'ratifica', 'ratificó', 'declara', 'declaró', 'acude', 'acudió', 'pone en conocimiento', 'hace del conocimiento', 'por medio del presente', 'ante esta representación social', 'ministerio público', 'agencia especializada', 'fiscalía', 'agencia del mp', 'unidad de investigación'],
+                    plazo: 'Inmediato',
+                    responsable: 'MP',
+                    observaciones: 'Debe contener identificación del denunciante y relato de hechos'
+                },
+                'preservacion_lugar': {
+                    nombre: 'Acta de preservación del lugar de los hechos',
+                    categoria: 'Preservación',
+                    obligatoria: true,
+                    articulos: ['131', '227', '228'],
+                    keywords: ['preservación', 'acordonamiento', 'lugar', 'escena', 'contaminación'],
+                    plazo: 'Inmediato',
+                    responsable: 'Primer respondiente',
+                    observaciones: 'Fundamental para mantener integridad de evidencias'
+                },
+                'control_escena': {
+                    nombre: 'Acta de control de acceso a la escena',
+                    categoria: 'Preservación',
+                    obligatoria: true,
+                    articulos: ['131', '227'],
+                    keywords: ['control', 'acceso', 'escena', 'registro', 'ingreso', 'salida'],
+                    plazo: 'Continuo durante investigación',
+                    responsable: 'Policía',
+                    observaciones: 'Registro de todas las personas que ingresan'
+                },
+                'inspeccion_lugar': {
+                    nombre: 'Acta de inspección del lugar de los hechos',
+                    categoria: 'Inspecciones',
+                    obligatoria: true,
+                    articulos: ['131', '227', '228', '229'],
+                    keywords: ['inspección', 'lugar', 'hechos', 'descripción', 'observaciones', 'croquis'],
+                    plazo: 'Inmediato (máximo 72 horas)',
+                    responsable: 'Servicios periciales',
+                    observaciones: 'Debe incluir descripción detallada y documentación fotográfica'
+                },
+                'inspeccion_cadaver': {
+                    nombre: 'Acta de inspección y levantamiento de cadáver',
+                    categoria: 'Inspecciones',
+                    obligatoria: true,
+                    articulos: ['131', '227', '230'],
+                    keywords: ['levantamiento', 'cadáver', 'inspección', 'posición', 'lesiones', 'identificación'],
+                    plazo: 'Inmediato',
+                    responsable: 'Médico legista/Perito',
+                    observaciones: 'Requiere autorización del MP y presencia de perito médico'
+                },
+                'cadena_custodia': {
+                    nombre: 'Registro de cadena de custodia',
+                    categoria: 'Evidencia',
+                    obligatoria: true,
+                    articulos: ['218', '219', '220', '221'],
+                    keywords: ['cadena', 'custodia', 'indicios',
+      		plazo: 'Continuo durante investigación',
+                    responsable: 'Policía',
+                    observaciones: 'Registro de todas las personas que ingresan'
+                },
+			}
+      }
+</script>
+ </body>
+</html>

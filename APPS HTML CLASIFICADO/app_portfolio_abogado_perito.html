@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lic. Al Ulises Azúa Castellanos - Abogado y Perito Especialista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #3498db;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #3498db;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .about-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .specialties {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .specialty-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .specialty-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .specialty-card i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            margin-left: 2rem;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-item h4 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .period {
+            color: #bdc3c7;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 10px;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cert-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .cert-item h5 {
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h4 {
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .contact-card a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: #3498db;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .diploma-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Lic. Al Ulises Azúa</a>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                <li><a href="#especialidades" class="nav-link">Especialidades</a></li>
+                <li><a href="#experiencia" class="nav-link">Experiencia</a></li>
+                <li><a href="#certificaciones" class="nav-link">Certificaciones</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Lic. Al Ulises Azúa Castellanos</h1>
+            <p>Abogado Litigante | Perito Especialista en Criminalística | Experto en Documentoscopía y Grafoscopía</p>
+            <a href="#sobre-mi" class="btn">Conoce mi Trayectoria</a>
+        </div>
+    </section>
+
+    <section id="sobre-mi" class="section">
+        <h2 class="section-title">Sobre Mí</h2>
+        <div class="about-grid">
+            <div class="about-image">
+                <div class="profile-pic">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class="about-content">
+                <h3>Perfil Profesional</h3>
+                <p>Licenciado en Derecho con más de 25 años de experiencia en el ejercicio profesional, especializado en criminalística aplicada, documentoscopía y grafoscopía. Certificado como perito en múltiples estados de la República Mexicana.</p>
+                
+                <p>Mi trayectoria abarca desde la investigación criminal hasta la representación litigiosa en diversas materias del derecho, combinando el rigor académico con la experiencia práctica en el campo forense.</p>
+                
+                <div style="margin-top: 2rem;">
+                    <p><i class="fas fa-map-marker-alt" style="color: #3498db; margin-right: 10px;"></i> Guadalajara, Jalisco</p>
+                    <p><i class="fas fa-graduation-cap" style="color: #3498db; margin-right: 10px;"></i> Licenciado en Derecho + Especialidades Forenses</p>
+                    <p><i class="fas fa-certificate" style="color: #3498db; margin-right: 10px;"></i> Perito Certificado en 5 Estados</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="specialties">
+            <div class="specialty-card">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Servicios Legales</h3>
+                <p>Representación litigiosa en materias penal, civil, mercantil, laboral y administrativa. Asesoría jurídica integral para personas físicas y morales.</p>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-search"></i>
+                <h3>Peritajes Criminalísticos</h3>
+                <p>Dictámenes especializados en criminalística de campo y gabinete, análisis de documentos cuestionados y estudios grafoscópicos.</p>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-user-secret"></i>
+                <h3>Investigación Forense</h3>
+                <p>Perfilación criminológica, análisis de psicopatías, investigación criminal por violencia de género y técnicas OSINT.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia" class="section">
+        <h2 class="section-title">Experiencia Profesional</h2>
+        <div class="experience-timeline">
+            <div class="timeline-item">
+                <h4>Director Jurídico - Azúa Mercado y Asociados</h4>
+                <p class="period">Abril 1995 - Presente</p>
+                <p>Administración y coordinación en materia legal. Representación litigiosa en áreas laboral, contractual, penal, civil, hipotecario especial y mercantil. Capacitación técnica de abogados.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h4>Docente - Universidad UTEG</h4>
+                <p class="period">Enero 2020 - Presente</p>
+                <p>Impartición de materias en derecho penal, civil, mercantil y constitucional. Formación de nuevas generaciones de abogados.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h4>Director Jurídico - Fundación Donde Riviera Maya</h4>
+                <p class="period">Abril 2020 - Mayo 2022</p>
+                <p>Coordinación legal y representación litigiosa. Asesoría en relaciones laborales y localización de bienes.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h4>Director Jurídico - Sistema DIF Tlaquepaque</h4>
+                <p class="period">Octubre 2015 - Junio 2019</p>
+                <p>Administración y dirección del equipo jurídico. Representación en juicios laborales, administrativos y contenciosos.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h4>Actuario - Procuraduría General de la República</h4>
+                <p class="period">1994 - 1998</p>
+                <p>Manejo de equipo de inteligencia preventiva y correctiva. Operaciones especializadas y administración de casos federales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificaciones" class="section">
+        <h2 class="section-title">Certificaciones y Diplomas</h2>
+        <p style="text-align: center; color: white; margin-bottom: 2rem; font-size: 1.1rem;">
+            Haz clic en cualquier certificación para ver el diploma correspondiente
+        </p>
+        <div class="certifications-grid">
+            <div class="cert-item" onclick="openModal('Especialidad en Documentos Cuestionados y Grafoscopía - I.J.C.F. (2023)')">
+                <h5>Documentos Cuestionados y Grafoscopía</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2023</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Diplomado Teórico Práctico de Juicios Orales en Materia Penal - I.E.P.C.P. (2023)')">
+                <h5>Juicios Orales Penales</h5>
+                <p>Instituto de Estudios Profesionales en Ciencias Penales - 2023</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Diplomado en Mediación - Centro Público de Mediación Municipal (2023)')">
+                <h5>Mediación</h5>
+                <p>Centro Público de Mediación Municipal - 2023</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Genética Forense - I.J.C.F. (2019)')">
+                <h5>Genética Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2019</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Balística Forense - I.J.C.F. (2018)')">
+                <h5>Balística Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2018</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Química Forense - I.J.C.F. (2017)')">
+                <h5>Química Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2017</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Planimetría Forense - I.J.C.F. (2016)')">
+                <h5>Planimetría Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2016</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Fotografía Forense - I.J.C.F. (2015)')">
+                <h5>Fotografía Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2015</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Reconstrucción Facial - I.J.C.F. (2014)')">
+                <h5>Reconstrucción Facial</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2014</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Psicología Forense - I.J.C.F. (2012)')">
+                <h5>Psicología Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2012</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Antropología Forense - I.J.C.F. (2011)')">
+                <h5>Antropología Forense</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2011</p>
+            </div>
+            <div class="cert-item" onclick="openModal('Diplomado en Criminalística - I.J.C.F. (2008)')">
+                <h5>Criminalística</h5>
+                <p>Instituto Jalisciense de Ciencias Forenses - 2008</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section">
+        <h2 class="section-title">Contacto Profesional</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h4>Teléfonos</h4>
+                <p><a href="tel:9983963827">998 396 3827</a></p>
+                <p><a href="tel:3337785120">333 778 5120</a></p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h4>Correos Electrónicos</h4>
+                <p><a href="mailto:lic.azua@gmx.com">lic.azua@gmx.com</a></p>
+                <p><a href="mailto:lic.azua@criminis.com.mx">lic.azua@criminis.com.mx</a></p>
+                <p><a href="mailto:lic.azua@abogadosforenses.org">lic.azua@abogadosforenses.org</a></p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-briefcase"></i>
+                <h4>Servicios Especializados</h4>
+                <p>Consultoría Legal</p>
+                <p>Peritajes Criminalísticos</p>
+                <p>Documentoscopía y Grafoscopía</p>
+                <p>Investigación Forense</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-certificate"></i>
+                <h4>Certificaciones Vigentes</h4>
+                <p>Jalisco • Yucatán • Quintana Roo</p>
+                <p>Nuevo León • Tamaulipas</p>
+                <p>Visa de Negocios Vigente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para mostrar diplomas -->
+    <div id="diplomaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modalTitle">Certificación</h3>
+            <div class="diploma-placeholder">
+                <div style="text-align: center;">
+                    <i class="fas fa-certificate" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;"></i>
+                    <p>Aquí se mostraría el diploma correspondiente</p>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
+                        Para agregar el diploma real, reemplaza este contenido con:<br>
+                        &lt;img src="ruta/a/tu/diploma.jpg" alt="Diploma" style="width: 100%; height: auto;"&gt;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efecto de navbar al hacer scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(26, 35, 126, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(26, 35, 126, 0.95)';
+            }
+        });
+
+        // Modal para diplomas
+        const modal = document.getElementById('diplomaModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        function openModal(title) {
+            modal.style.display = 'block';
+            modalTitle.textContent = title;
+            document.body.style.overflow = 'hidden';
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animaciones
+        document.querySelectorAll('.specialty-card, .timeline-item, .cert-item, .contact-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

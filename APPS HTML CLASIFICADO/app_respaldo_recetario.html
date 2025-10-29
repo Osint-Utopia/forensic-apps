@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Recetas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+    <header class="bg-white shadow-md p-4">
+        <h1 class="text-3xl font-bold text-center">Buscador de Recetas</h1>
+    </header>
+    <main class="flex-1 p-6">
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Selecciona las tareas</h2>
+            <form id="osintForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres">
+                        <span class="ml-2">Nombres</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="emails">
+                        <span class="ml-2">Emails</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="redes_sociales">
+                        <span class="ml-2">Redes Sociales</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="numeros_telefono">
+                        <span class="ml-2">Números de teléfono</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres_usuario">
+                        <span class="ml-2">Nombres de Usuario</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="archivos">
+                        <span class="ml-2">Archivos (doc, pdf, xlsx, txt)</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Búsqueda:</label>
+                    <input type="text" id="searchQuery" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ej: Juan Pérez">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Operadores Booleanos y Dorks:</label>
+                    <select id="dorks" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="">Selecciona un dork</option>
+                        <option value='Filetype:pdf OR docx "Tema" OR "Libro"'>Filetype:pdf OR docx "Tema" OR "Libro"</option>
+                        <option value='En "español" "search Tema"'>En "español" "search Tema"</option>
+                        <option value='Filetype:pdf (librerias OR bibliotecas) de "search Tema"'>Filetype:pdf (librerias OR bibliotecas) de "search Tema"</option>
+                        <option value='Inurl:español Site:.es Filetype:txt "search" OR "search1" OR "search2" OR "search3"'>Inurl:español Site:.es Filetype:txt "search" OR "search1" OR "search2" OR "search3"</option>
+                        <option value='Filetype:txt intext:"search4" "descargar libro"'>Filetype:txt intext:"search4" "descargar libro"</option>
+                        <option value='Intitle: "search Tema" Filetype:pdf'>Intitle: "search Tema" Filetype:pdf</option>
+                        <option value='Intitle: "index of" (pdf|epub|txt) "libros" "search Tema" -Site:.gov -Site:.edu'>Intitle: "index of" (pdf|epub|txt) "libros" "search Tema" -Site:.gov -Site:.edu</option>
+                        <option value='Intitle: "descargar libros gratuitos" intext:"search Tema" Filetype:pdf'>Intitle: "descargar libros gratuitos" intext:"search Tema" Filetype:pdf</option>
+                        <option value='Intitle: "index of" "search tema" Site:com.mx "search lugar" -Site:mexico.com'>Intitle: "index of" "search tema" Site:com.mx "search lugar" -Site:mexico.com</option>
+                        <option value='Filetype:pdf Intitle: "index of" "search tema" Site:github.com'>Filetype:pdf Intitle: "index of" "search tema" Site:github.com</option>
+                        <option value='intext:"OSINT tools" Site:mx ("search 1" OR "search 2") "search 3"'>intext:"OSINT tools" Site:mx ("search 1" OR "search 2") "search 3"</option>
+                        <option value='Site:mx ("search 1" OR "search 2") "search 3"'>Site:mx ("search 1" OR "search 2") "search 3"</option>
+                        <option value='Google Shopping'>Google Shopping</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Buscar</button>
+            </form>
+        </div>
+        <div id="results" class="mt-6 max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+            <h2 class="text-2xl font-semibold mb-4">Resultados</h2>
+            <div id="searchResults" class="space-y-4">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+            <div class="mt-6 flex justify-between">
+                <button id="clearResults" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Limpiar</button>
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Guardar</button>
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Salir</button>
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">PDF</button>
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">DOC</button>
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">TXT</button>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-white shadow-md p-4 text-center">
+        <p>&copy; 2023 Buscador de Recetas</p>
+    </footer>
+    <!-- Modal -->
+    <div id="previewModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-md w-3/4 max-w-4xl">
+            <h3 class="text-2xl font-semibold mb-4">Vista Previa</h3>
+            <div id="previewContent" class="mb-4">
+                <!-- Preview content will be inserted here -->
+            </div>
+            <button id="closeModal" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Cerrar</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('osintForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('results').classList.remove('hidden');
+            const searchQuery = document.getElementById('searchQuery').value;
+            const selectedDork = document.getElementById('dorks').value;
+            const tasks = Array.from(document.querySelectorAll('input[name="task"]:checked')).map(checkbox => checkbox.value);
+
+            if (tasks.length === 0) {
+                alert('Seleccione al menos una tarea.');
+                return;
+            }
+
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                let url = "";
+                switch(task) {
+                    case "nombres":
+                        url = "https://search.carrot2.org/#/search/web?q=" + encodeURIComponent(searchQuery);
+                        break;
+                    case "emails":
+                        url = "https://hunter.io/search?q=" + encodeURIComponent(searchQuery);
+                        break;
+                    case "redes_sociales":
+                        url = "https://www.social-searcher.com/google-social-search/?q=" + encodeURIComponent(searchQuery);
+                        break;
+                    case "numeros_telefono":
+                        url = "https://www.searchpeoplefree.com/?q=" + encodeURIComponent(searchQuery);
+                        break;
+                    case "nombres_usuario":
+                        url = "https://namechk.com/";
+                        break;
+                    case "archivos":
+                        url = "https://www.google.com/search?q=" + encodeURIComponent(selectedDork);
+                        break;
+                }
+                window.open(url, '_blank');
+
+                const resultado = document.createElement("div");
+                resultado.className = "bg-gray-200 p-2 m-1 rounded";
+                resultado.innerHTML = `Resultados para: ${task} - <a href="${url}" target="_blank" class="text-blue-600 underline">Abrir búsqueda</a>`;
+                resultsContainer.appendChild(resultado);
+            });
+        });
+
+        document.getElementById('searchResults').addEventListener('click', function(event) {
+            if (event.target && event.target.matches('.previewButton')) {
+                const result = event.target.getAttribute('data-result');
+                document.getElementById('previewContent').innerText = result;
+                document.getElementById('previewModal').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('dorks').addEventListener('change', function() {
+            const selectedDork = this.value;
+            const searchQuery = document.getElementById('searchQuery');
+            if (selectedDork) {
+                searchQuery.value = selectedDork;
+            }
+        });
+
+        document.getElementById('clearResults').addEventListener('click', function() {
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('searchResults').innerHTML = '';
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('previewModal').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

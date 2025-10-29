@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList Mary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-500 text-white p-4 text-center">
+        <h1 class="text-3xl font-bold">ToDoList Mary</h1>
+    </header>
+    <main class="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24">
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Alarma Recordatorio</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <label for="alarm-time" class="block text-gray-700 font-bold mb-2">Hora de la alarma:</label>
+                    <input type="time" id="alarm-time" value="05:00" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Calendario</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <label for="calendar-date" class="block text-gray-700 font-bold mb-2">Fecha:</label>
+                    <input type="date" id="calendar-date" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                </div>
+            </div>
+        </section>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">To-Do List</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <ul id="todo-list" class="list-none mb-4">
+                        <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                            <input type="text" placeholder="Tarea" class="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                            <select class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                                <option value="">Estado</option>
+                                <option value="en_proceso">En proceso</option>
+                                <option value="realizado">Realizado</option>
+                                <option value="retrasado">Retrasado</option>
+                                <option value="terminado">Terminado</option>
+                            </select>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar</button>
+                        </li>
+                    </ul>
+                    <button id="add-task" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar tarea</button>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Programador de Eventos</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <label for="event-date" class="block text-gray-700 font-bold mb-2">Fecha del evento:</label>
+                    <input type="date" id="event-date" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="event-time" class="block text-gray-700 font-bold mb-2">Hora del evento:</label>
+                    <input type="time" id="event-time" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="event-description" class="block text-gray-700 font-bold mb-2">Descripción del evento:</label>
+                    <textarea id="event-description" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"></textarea>
+                </div>
+            </div>
+        </section>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Recordatorio de Llamada</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <label for="call-reminder" class="block text-gray-700 font-bold mb-2">Recordatorio de llamada:</label>
+                    <input type="text" id="call-reminder" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Reportar a:</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <label for="report-to" class="block text-gray-700 font-bold mb-2">Reportar a:</label>
+                    <input type="text" id="report-to" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="report-concept" class="block text-gray-700 font-bold mb-2">Concepto:</label>
+                    <input type="text" id="report-concept" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="report-date" class="block text-gray-700 font-bold mb-2">Fecha:</label>
+                    <input type="date" id="report-date" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="report-time" class="block text-gray-700 font-bold mb-2">Hora:</label>
+                    <input type="time" id="report-time" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                </div>
+            </div>
+        </section>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Lista de Gastos por Día</h2>
+                <div class="bg-white p-4 rounded shadow-md">
+                    <table class="w-full table-auto">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2">Fecha</th>
+                                <th class="px-4 py-2">Gasto</th>
+                                <th class="px-4 py-2">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-list">
+                            <tr>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="add-expense" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar gasto</button>
+                </div>
+            </div>
+        </section>
+        <button id="export-pdf" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Exportar a PDF</button>
+        <button id="export-word" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Exportar a Word</button>
+        <button id="print" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Imprimir</button>
+        <button id="share-whatsapp" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Compartir en WhatsApp</button>
+    </main>
+    <script>
+        // Agregar tarea
+        document.getElementById('add-task').addEventListener('click', function() {
+            var task = document.createElement('li');
+            task.className = 'flex justify-between items-center py-2 border-b border-gray-200';
+            task.innerHTML = '<input type="text" placeholder="Tarea" class="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"><select class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"><option value="">Estado</option><option value="en_proceso">En proceso</option><option value="realizado">Realizado</option><option value="retrasado">Retrasado</option><option value="terminado">Terminado</option></select><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar</button>';
+            document.getElementById('todo-list').appendChild(task);
+        });
+
+        // Agregar gasto
+        document.getElementById('add-expense').addEventListener('click', function() {
+            var expense = document.createElement('tr');
+            expense.innerHTML = '<td class="px-4 py-2 border-b border-gray-200"><input type="date" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"></td><td class="px-4 py-2 border-b border-gray-200"><input type="text" placeholder="Gasto" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"></td><td class="px-4 py-2 border-b border-gray-200"><input type="number" placeholder="Cantidad" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"></td>';
+            document.getElementById('expenses-list').appendChild(expense);
+        });
+
+        // Exportar a PDF
+        document.getElementById('export-pdf').addEventListener('click', function() {
+            var doc = new jsPDF();
+            doc.text('ToDoList Mary', 10, 10);
+            doc.text('Alarma Recordatorio: ' + document.getElementById('alarm-time').value, 10, 20);
+            doc.text('Calendario: ' + document.getElementById('calendar-date').value, 10, 30);
+            doc.text('To-Do List:', 10, 40);
+            var tasks = document.getElementById('todo-list').children;
+            for (var i = 0; i < tasks.length; i++) {
+                doc.text(tasks[i].children[0].value + ' - ' + tasks[i].children[1].value, 10, 50 + (i * 10));
+            }
+            doc.text('Programador de Eventos:', 10, 70);
+            doc.text('Fecha del evento: ' + document.getElementById('event-date').value, 10, 80);
+            doc.text('Hora del evento: ' + document.getElementById('event-time').value, 10, 90);
+            doc.text('Descripción del evento: ' + document.getElementById('event-description').value, 10, 100);
+            doc.save('todolist.pdf');
+        });
+
+        // Exportar a Word
+        document.getElementById('export-word').addEventListener('click', function() {
+            var doc = new jsPDF();
+            doc.text('ToDoList Mary', 10, 10);
+            doc.text('Alarma Recordatorio: ' + document.getElementById('alarm-time').value, 10, 20);
+            doc.text('Calendario: ' + document.getElementById('calendar-date').value, 10, 30);
+            doc.text('To-Do List:', 10, 40);
+            var tasks = document.getElementById('todo-list').children;
+            for (var i = 0; i < tasks.length; i++) {
+                doc.text(tasks[i].children[0].value + ' - ' + tasks[i].children[1].value, 10, 50 + (i * 10));
+            }
+            doc.text('Programador de Eventos:', 10, 70);
+            doc.text('Fecha del evento: ' + document.getElementById('event-date').value, 10, 80);
+            doc.text('Hora del evento: ' + document.getElementById('event-time').value, 10, 90);
+            doc.text('Descripción del evento: ' + document.getElementById('event-description').value, 10, 100);
+            doc.save('todolist.doc');
+        });
+
+        // Imprimir
+        document.getElementById('print').addEventListener('click', function() {
+            window.print();
+        });
+
+        // Compartir en WhatsApp
+        document.getElementById('share-whatsapp').addEventListener('click', function() {
+            var message = 'ToDoList Mary\n';
+            message += 'Alarma Recordatorio: ' + document.getElementById('alarm-time').value + '\n';
+            message += 'Calendario: ' + document.getElementById('calendar-date').value + '\n';
+            message += 'To-Do List:\n';
+            var tasks = document.getElementById('todo-list').children;
+            for (var i = 0; i < tasks.length; i++) {
+                message += tasks[i].children[0].value + ' - ' + tasks[i].children[1].value + '\n';
+            }
+            message += 'Programador de Eventos:\n';
+            message += 'Fecha del evento: ' + document.getElementById('event-date').value + '\n';
+            message += 'Hora del evento: ' + document.getElementById('event-time').value + '\n';
+            message += 'Descripción del evento: ' + document.getElementById('event-description').value;
+            window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank');
+        });
+    </script>
+</body>
+</html>
+
+
+
+Compartir
+
+Inmediato
+
+<html actual><!DOCTYPE html>
+<html lang="es">
+<cabeza>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="ancho=ancho-del-dispositivo, escala-inicial=1.0">
+    <title>Lista de tareas pendientes Mary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</cabeza>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-500 text-white p-4 text-center">
+        Lista de tareas pendientes, Mary
+    </encabezado>
+    <main class="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24">
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Alarma Recordatorio</h2>
+                <div class="bg-white p-4 sombra redondeada-md">
+                    <label for="alarm-time" class="block text-gray-700 font-bold mb-2">Hora de la alarma:</label>
+                    <tipo de entrada="tiempo" id="tiempo de alarma" valor="05:00" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-medio foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                Calendario
+                <div class="bg-white p-4 sombra redondeada-md">
+                    Fecha:
+                    <input type="date" id="calendario-fecha" value="" class="bloque w-full p-2 pl-10 texto-sm texto-gris-700 borde borde-gris-200 redondeado-md foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                </div>
+            </div>
+        </sección>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                Lista de tareas pendientes
+                <div class="bg-white p-4 sombra redondeada-md">
+                    <ul id="lista-de-tareas" clase="lista-ninguna mb-4">
+                        <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                            <input type="text" placeholder="Tarea" class="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                            <select class="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                                <option value="">Estado</option>
+                                <option value="en_proceso">En proceso</option>
+                                <option value="realizado">Realizado</option>
+                                <option value="retrasado">Retrasado</option>
+                                <option value="terminado">Terminado</option>
+                            </seleccionar>
+                            Agregar
+                        </li>
+                    </ul>
+                    Agregar tarea
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Programador de Eventos</h2>
+                <div class="bg-white p-4 sombra redondeada-md">
+                    Fecha del evento:
+                    <input type="fecha" id="fecha-del-evento" value="" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                    <label for="event-time" class="block text-gray-700 font-bold mb-2">Hora del evento:</label>
+                    <tipo de entrada="tiempo" id="tiempo del evento" valor="" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                    Descripción del evento:
+                    <textarea id="descripción-del-evento" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500"></textarea>
+                </div>
+            </div>
+        </sección>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Recordatorio de Llamada</h2>
+                <div class="bg-white p-4 sombra redondeada-md">
+                    <label for="call-reminder" class="block text-gray-700 font-bold mb-2">Recordatorio de llamada:</label>
+                    <input type="text" id="recordatorio de llamada" value="" class="bloque w-full p-2 pl-10 texto-sm texto-gris-700 borde borde-gris-200 redondeado-md foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Reportar a:</h2>
+                <div class="bg-white p-4 sombra redondeada-md">
+                    <label for="report-to" class="block text-gray-700 font-bold mb-2">Reportar a:</label>
+                    <input type="text" id="report-to" value="" class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                    <label for="report-concept" class="block text-gray-700 font-bold mb-2">Concepto:</label>
+                    <input type="text" id="concepto-de-informe" value="" class="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                    Fecha:
+                    <input type="fecha" id="fecha-del-informe" value="" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                    <label for="report-time" class="block text-gray-700 font-bold mb-2">Hora:</label>
+                    <tipo de entrada="tiempo" id="tiempo-de-informe" valor="" clase="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:borde-gris-500">
+                </div>
+            </div>
+        </sección>
+        <section class="flex flex-wrap justify-center mb-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 p-6">
+                <h2 class="text-2xl font-bold mb-4">Lista de Gastos por Día</h2>
+                <div class="bg-white p-4 sombra redondeada-md">
+                    <tabla clase="w-full tabla-auto">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2">Fecha</th>
+                                Gasto
+                                <th class="px-4 py-2">Cantidad</th>
+                            </tr>
+                        </cabeza>
+                        <tbody id="lista-de-gastos">
+                            <tr>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                                <td class="px-4 py-2 border-b border-gray-200"></td>
+                            </tr>
+                        </tbody>
+                    </tabla>
+                    Agregar gastos
+                </div>
+            </div>
+        </sección>
+        Exportar a PDF
+        Exportar una palabra
+        Imprimir
+        Compartir en WhatsApp
+    </principal>
+    <guión>
+        // Agregar tarea
+        document.getElementById('add-task').addEventListener('click', function() {
+            var tarea = document.createElement('li');
+            tarea.className = 'flex justificar-entre elementos-centro py-2 borde-b borde-gris-200';
+            tarea.innerHTML = '<input type="text" placeholder="Tarea" class="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"><select class="block w-full p-2 pl-10 text-sm text-gray-700 border border-gray-200 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"><option value="">Estado</option><option value="en_proceso">En proceso</option><option value="realizado">Realizado</option><option value="retrasado">Retrasado</option><option value="terminado">Terminado</option></select><button clase="bg-blue-500 hover:bg-blue-700 texto-blanco fuente-negrita py-2 px-4 redondeado">Agregar</button>';
+            document.getElementById('lista-de-todos').appendChild(tarea);
+        });
+
+        // Agregar gasto
+        document.getElementById('add-expense').addEventListener('click', function() {
+            var gasto = document.createElement('tr');
+            gasto.innerHTML = '<td class="px-4 py-2 border-b border-gray-200"><input type="fecha" class="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:border-gris-500"></td><td class="px-4 py-2 border-b border-gray-200"><input type="text" placeholder="Gasto" class="bloque w-completo p-2 pl-10 texto-pequeño texto-gris-700 borde borde-gris-200 redondeado-mediano foco:contorno-ninguno foco:anillo-gris-500 foco:border-gris-500"></td><td class="px-4 py-2 border-b borde-gris-200"><input type="number" placeholder="Cantidad" class="block w-full p-2 pl-10 text-sm text-gray-700 border borde-gris-200 redondeado-md foco:contorno-ninguno foco:anillo-gris-500 foco:border-gris-500"></td>';
+            document.getElementById('lista-de-gastos').appendChild(gasto);
+        });
+
+        // Exportar a PDF
+        document.getElementById('export-pdf').addEventListener('clic', función() {
+            var doc = nuevo jsPDF();
+            doc.text('Lista de tareas Mary', 10, 10);
+            doc.text('Alarma registrada: ' + document.getElementById('alarm-time').value, 10, 20);
+            doc.text('Calendario: ' + document.getElementById('calendario-fecha').value, 10, 30);
+            doc.text('Lista de tareas pendientes:', 10, 40);
+            var tareas = document.getElementById('lista-de-todos').children;
+            para (var i = 0; i < tareas.longitud; i++) {
+                doc.text(tareas[i].hijos[0].valor + ' - ' + tareas[i].hijos[1].valor, 10, 50 + (i * 10));
+            }
+            doc.text('Programador de Eventos:', 10, 70);
+            doc.text('Fecha del evento: ' + document.getElementById('event-date').value, 10, 80);
+            doc.text('Hora del evento: ' + document.getElementById('event-time').value, 10, 90);
+            doc.text('Descripción del evento: ' + document.getElementById('descripción-del evento').value, 10, 100);
+            doc.save('todolist.pdf');
+        });
+
+        // Exportar una palabra
+        document.getElementById('export-word').addEventListener('clic', función() {
+            var doc = nuevo jsPDF();
+            doc.text('Lista de tareas Mary', 10, 10);
+            doc.text('Alarma registrada: ' + document.getElementById('alarm-time').value, 10, 20);
+            doc.text('Calendario: ' + document.getElementById('calendario-fecha').value, 10, 30);
+            doc.text('Lista de tareas pendientes:', 10, 40);
+            var tareas = document.getElementById('lista-de-todos').children;
+            para (var i = 0; i < tareas.longitud; i++) {
+                doc.text(tareas[i].hijos[0].valor + ' - ' + tareas[i].hijos[1].valor, 10, 50 + (i * 10));
+            }
+            doc.text('Programador de Eventos:', 10, 70);
+            doc.text('Fecha del evento: ' + document.getElementById('event-date').value, 10, 80);
+            doc.text('Hora del evento: ' + document.getElementById('event-time').value, 10, 90);
+            doc.text('Descripción del evento: ' + document.getElementById('descripción-del evento').value, 10, 100);
+            doc.save('todolist.doc');
+        });
+
+        // Imprimir
+        document.getElementById('imprimir').addEventListener('clic', función() {
+            ventana.print();
+        });
+
+        // Compartir en WhatsApp
+        document.getElementById('compartir-whatsapp').addEventListener('clic', función() {
+            var mensaje = 'Lista de tareas Mary\n';
+            mensaje += 'Alarma Recordatorio: ' + document.getElementById('alarm-time').value + '\n';
+            mensaje += 'Calendario: ' + document.getElementById('calendar-date').value + '\n';
+            mensaje += 'Lista de tareas pendientes:\n';
+            var tareas = document.getElementById('lista-de-todos').children;
+            para (var i = 0; i < tareas.longitud; i++) {
+                mensaje += tareas[i].hijos[0].valor + ' - ' + tareas[i].hijos[1].valor + '\n';
+            }
+            mensaje += 'Programador de Eventos:\n';
+            mensaje += 'Fecha del evento: ' + document.getElementById('event-date').value + '\n';
+            mensaje += 'Hora del evento: ' + document.getElementById('event-time').value + '\n';
+            mensaje += 'Descripción del evento: ' + document.getElementById('evento-descripción').value;
+            ventana.open('https://wa.me/?text=' + encodeURIComponent(mensaje), '_blank');
+        });
+    </script>
+</cuerpo>
+</html></html actual>
+
+<query>Genere un solo archivo HTML basado en esta consulta: "Creame una alarma recordatorio que suene todos los días a las 05:00 am.. ya un lado un to do list. expandible con campos editables y 4 opciones de campo editables con en proceso realizado retrasado terminado, un calendario cob la fecha de falla del día y un programador de eventos ahi. recordatorio de llamara a. un apartado de reportar a: concepto. día y hora. y un alista de gastos por día. . Todo es grabable y exportable en pdf o Word, con estos colotes y título principal ToDoList Mary"</query>.
+<instrucciones de salida>
+El resultado debe ser HTML válido, creativo y bien estructurado. Use Tailwind CSS y cárguelo en la etiqueta <head> con <script src="https://cdn.tailwindcss.com"></script>.
+
+La aplicación debe seguir la preferencia del usuario por un tema claro. Use colores de fondo más claros y colores de texto más oscuros. Asegúrese de que los colores tengan buen contraste y sean accesibles.
+
+Devuelve el contenido HTML entre comillas triples con el especificador de lenguaje 'html', de la siguiente manera:
+``html
+<tu código html aquí>
+```
+</instrucciones de salida>

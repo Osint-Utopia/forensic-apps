@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>Designer: Uli Azua 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIC.SERGIO MERCADO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .board {
+            background-color: var(--bg-color, #f9fafb);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid red;
+        }
+        
+        .column {
+            background-color: var(--bg-color, #ffffff);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            width: 250px;
+            height: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid red;
+        }
+        
+        .card {
+            background-color: var(--bg-color, #e2e8f0);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            cursor: move;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid red;
+        }
+        
+        .card:hover {
+            background-color: var(--bg-color, #cbd5e0);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .card-body {
+            padding: 10px;
+        }
+        
+        .add-card-btn {
+            background-color: var(--accent-color, #4CAF50);
+            color: #fff;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+        }
+        
+        .add-card-btn:hover {
+            background-color: var(--accent-color-hover, #3e8e41);
+        }
+        
+        .edit-card-btn {
+            background-color: var(--accent-color, #03A9F4);
+            color: #fff;
+            padding: 2px 4px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 10px;
+            margin-right: 5px;
+        }
+        
+        .edit-card-btn:hover {
+            background-color: var(--accent-color-hover, #039BE5);
+        }
+        
+        .delete-card-btn {
+            background-color: var(--accent-color, #FF5722);
+            color: #fff;
+            padding: 2px 4px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 10px;
+        }
+        
+        .delete-card-btn:hover {
+            background-color: var(--accent-color-hover, #FF4081);
+        }
+        
+        .calendar, .domain-section, .reminder-section {
+            background-color: var(--bg-color, #f9fafb);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-family: 'Noto Sans JP', sans-serif;
+            border: 1px solid red;
+        }
+        
+        .delete-reminder-btn {
+            background-color: var(--accent-color, #FF5722);
+            color: #fff;
+            padding: 2px 4px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 10px;
+        }
+        
+        .delete-reminder-btn:hover {
+            background-color: var(--accent-color-hover, #FF4081);
+        }
+        
+        input, textarea {
+            border: 1px solid red;
+        }
+        
+        button {
+            margin: 2px;
+        }
+        
+        .today {
+            background-color: #cbd5e0;
+        }
+        
+        .search-engine {
+            background-color: #ffff00;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        
+        .search-engine:hover {
+            background-color: #ff0000;
+        }
+        
+        .designer-info {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #3abbc8;
+            font-weight: normal;
+        }
+        
+        .osint-framework {
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid red;
+        }
+        
+        .header {
+            background-color: #1f1f1f;
+            padding: 10px;
+            text-align: center;
+            color: #3abbc8;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+    </style>
+</head>
+<body class="h-screen bg-gray-100 text-gray-900 flex flex-col items-center" id="body">
+    <div class="header w-full">
+        <h1 class="text-3xl designer-info">LIC. SERGIO MERCADO</h1>
+    </div>
+    <div class="flex w-full justify-center items-center">
+        <div class="flex flex-col w-full">
+            <div class="flex justify-between">
+                <div class="flex flex-col space-y-4">
+                    <div class="calendar border border-red-500">
+                        <p class="text-lg font-bold mb-2">Calendario</p>
+                        <div id="calendar">
+                            <!-- Calendar will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="domain-section border border-red-500">
+                        <h2 class="text-lg font-bold mb-2">Registrar Dominios</h2>
+                        <div class="flex items-center mb-2">
+                            <input type="text" id="domain-input" class="w-full p-2 border rounded-l" placeholder="Ejemplo.com">
+                            <button id="add-domain-btn" class="bg-blue-500 text-white p-1 px-2 rounded-r">Agregar</button>
+                        </div>
+                        <ul id="domain-list" class="list-disc pl-5">
+                            <!-- Domains will be listed here -->
+                        </ul>
+                    </div>
+                    <div class="reminder-section border border-red-500">
+                        <h2 class="text-lg font-bold mb-2">Agregar Recordatorio</h2>
+                        <form id="reminderForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Fecha y Hora:</label>
+                                <input type="datetime-local" id="reminderDateTime" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Nota:</label>
+                                <textarea id="reminderNote" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Escribe tu nota aquí..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-1 px-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Grabar</button>
+                        </form>
+                        <div id="reminders" class="mt-6">
+                            <ul id="reminderList" class="space-y-4">
+                                <!-- Reminders will be dynamically inserted here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <div class="board border border-red-500 w-full h-full flex justify-center">
+                        <div class="column border border-red-500" id="to-do" draggable="false">
+                            <h2 class="text-lg font-bold mb-2">Mis Broncas de hoy?</h2>
+                            <div id="to-do-cards" class="flex flex-col">
+                                <div class="card border border-red-500" id="card-1" draggable="true">
+                                    <div class="card-header">
+                                        <h3 class="text-md font-bold mb-1">Urge</h3>
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="edit-card-btn">Editar</button>
+                                            <button class="delete-card-btn">Borrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-sm">Escribo; Luego existo</p>
+                                    </div>
+                                </div>
+                                <div class="card border border-red-500" id="card-2" draggable="true">
+                                    <div class="card-header">
+                                        <h3 class="text-md font-bold mb-1">Aguanta</h3>
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="edit-card-btn">Editar</button>
+                                            <button class="delete-card-btn">Borrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-sm">¿Irene que olvidas?</p>
+                                    </div>
+                                </div>
+                                <button class="add-card-btn" id="add-card-to-do">Agregar Tarjeta</button>
+                            </div>
+                        </div>
+                        <div class="column border border-red-500" id="in-progress" draggable="false">
+                            <h2 class="text-lg font-bold mb-2">Ya empece...</h2>
+                            <div id="in-progress-cards" class="flex flex-col">
+                                <button class="add-card-btn" id="add-card-in-progress">Agregar Tarjeta</button>
+                            </div>
+                        </div>
+                        <div class="column border border-red-500" id="done" draggable="false">
+                            <h2 class="text-lg font-bold mb-2">Hecho</h2>
+                            <div id="done-cards" class="flex flex-col">
+                                <button class="add-card-btn" id="add-card-done">Agregar Tarjeta</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 w-full max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md border border-red-500">
+                        <h2 class="text-2xl font-semibold mb-4">Buscador de Recetas</h2>
+                        <form id="osintForm" class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres">
+                                    <span class="ml-2">Nombres</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="emails">
+                                    <span class="ml-2">Emails</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="redes_sociales">
+                                    <span class="ml-2">Redes Sociales</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="numeros_telefono">
+                                    <span class="ml-2">Números de teléfono</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="nombres_usuario">
+                                    <span class="ml-2">Nombres de Usuario</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="archivos">
+                                    <span class="ml-2">Archivos (doc, pdf, xlsx, txt)</span>
+                                </label>
+                                <label class="flex items-center search-engine">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="task" value="osint_framework">
+                                    <span class="ml-2">OSINT Framework</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Búsqueda:</label>
+                                <input type="text" id="searchQuery" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ej: Juan Pérez">
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-1 px-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Buscar</button>
+                        </form>
+                        <div id="results" class="mt-6 hidden">
+                            <h2 class="text-2xl font-semibold mb-4">Resultados</h2>
+                            <div id="searchResults" class="space-y-4">
+                                <!-- Results will be dynamically inserted here -->
+                            </div>
+                            <div class="mt-6 flex justify-end space-x-4">
+                                <button id="generateReport" class="bg-green-600 text-white py-1 px-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Generar Reporte</button>
+                                <button id="downloadReport" class="bg-blue-600 text-white py-1 px-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Descargar</button>
+                                <button id="shareReport" class="bg-purple-600 text-white py-1 px-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Compartir</button>
+                            </div>
+                        </div>
+                        <div id="overview" class="mt-6 hidden">
+                            <h2 class="text-2xl font-semibold mb-4">Vista General de los Datos Obtenidos</h2>
+                            <div id="overviewData" class="space-y-4">
+                                <!-- Overview data will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <div class="osint-framework">
+                            <h2 class="text-lg font-bold mb-2">OSINT Framework</h2>
+                            <p class="text-sm">Para más información, visite <a href="https://osintframework.com" target="_blank">https://osintframework.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Make the cards draggable
+        const cards = document.querySelectorAll('.card');
+        const columns = document.querySelectorAll('.column');
+
+        cards.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text', card.id);
+            });
+        });
+
+        columns.forEach(column => {
+            column.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            column.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const cardId = e.dataTransfer.getData('text');
+                const card = document.getElementById(cardId);
+                column.querySelector('.flex.flex-col').appendChild(card);
+            });
+        });
+
+        // Add card functionality
+        const addCardBtns = document.querySelectorAll('.add-card-btn');
+
+        addCardBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const column = btn.parentNode;
+                const cardId = `card-${Math.floor(Math.random() * 1000)}`;
+                const card = document.createElement('div');
+                card.classList.add('card', 'border', 'border-red-500');
+                card.id = cardId;
+                card.innerHTML = `
+                    <div class="card-header">
+                        <h3 class="text-md font-bold mb-1">New Card</h3>
+                        <div class="flex justify-end space-x-2">
+                            <button class="edit-card-btn">Edit</button>
+                            <button class="delete-card-btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-sm">This is a new card.</p>
+                    </div>
+                `;
+                column.appendChild(card);
+                card.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text', cardId);
+                });
+            });
+        });
+
+        // Edit card functionality
+        const editCardBtns = document.querySelectorAll('.edit-card-btn');
+
+        editCardBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.parentNode.parentNode.parentNode;
+                const cardBody = card.querySelector('.card-body');
+                const cardHeader = card.querySelector('.card-header');
+                const cardTitle = cardHeader.querySelector('h3');
+                const cardText = cardBody.querySelector('p');
+                const newCardTitle = prompt('Enter new card title:', cardTitle.textContent);
+                const newCardText = prompt('Enter new card text:', cardText.textContent);
+                if (newCardTitle) {
+                    cardTitle.textContent = newCardTitle;
+                }
+                if (newCardText) {
+                    cardText.textContent = newCardText;
+                }
+            });
+        });
+
+        // Delete card functionality
+        const deleteCardBtns = document.querySelectorAll('.delete-card-btn');
+
+        deleteCardBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.parentNode.parentNode.parentNode;
+                card.remove();
+            });
+        });
+
+        // Calendar functionality
+        const calendar = document.getElementById('calendar');
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDay = new Date(year, month, 1).getDay();
+
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const dayNames = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
+
+        calendar.innerHTML = `
+            <div class="flex justify-between mb-2">
+                <p>${monthNames[month]} ${year}</p>
+            </div>
+            <div class="grid grid-cols-7 gap-2">
+                ${dayNames.map(day => `<div class="text-center">${day}</div>`).join('')}
+                ${Array(firstDay).fill('<div></div>').join('')}
+                ${Array.from({ length: daysInMonth }, (_, i) => {
+                    const day = i + 1;
+                    const date = new Date(year, month, day);
+                    const isToday = date.toDateString() === today.toDateString();
+                    return `<div class="text-center ${isToday ? 'today' : ''}">${day}</div>`;
+                }).join('')}
+            </div>
+        `;
+
+        // Domain registration functionality
+        const domainInput = document.getElementById('domain-input');
+        const addDomainBtn = document.getElementById('add-domain-btn');
+        const domainList = document.getElementById('domain-list');
+
+        addDomainBtn.addEventListener('click', () => {
+            const domain = domainInput.value.trim();
+            if (domain) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `https://${domain}`;
+                domainList.appendChild(listItem);
+                domainInput.value = '';
+            }
+        });
+
+        // Buscador de Recetas functionality
+        document.getElementById('osintForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('searchQuery').value;
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const selectedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+            selectedCheckboxes.forEach(checkbox => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('p-4', 'bg-gray-50', 'rounded-lg', 'shadow-sm', 'flex', 'justify-between');
+                resultElement.innerHTML = `<strong>${checkbox}:</strong> Resultado de ${checkbox} para ${searchQuery} <a href="${getSearchLink(checkbox, searchQuery)}" target="_blank">Ver resultado</a>`;
+                resultsContainer.appendChild(resultElement);
+            });
+            document.getElementById('results').classList.remove('hidden');
+        });
+
+        function getSearchLink(checkbox, searchQuery) {
+            switch (checkbox) {
+                case 'nombres':
+                    return `https://www.google.com/search?q=${searchQuery}`;
+                case 'emails':
+                    return `https://hunter.io/search?q=${searchQuery}`;
+                case 'redes_sociales':
+                    return `https://www.facebook.com/search/top/?q=${searchQuery}`;
+                case 'numeros_telefono':
+                    return `https://www.truecaller.com/search/${searchQuery}`;
+                case 'nombres_usuario':
+                    return `https://www.instagram.com/${searchQuery}`;
+                case 'archivos':
+                    return `https://www.google.com/search?q=filetype:pdf+${searchQuery}`;
+                case 'osint_framework':
+                    return `https://osintframework.com`;
+                default:
+                    return '';
+            }
+        }
+
+        document.getElementById('generateReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Generando reporte... Guardado como Receta_${timestamp}.pdf en el directorio de descargas.`);
+        });
+
+        document.getElementById('downloadReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Descargando reporte... Guardado como Receta_${timestamp}.pdf en el directorio de descargas.`);
+        });
+
+        document.getElementById('shareReport').addEventListener('click', function() {
+            const timestamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 14);
+            alert(`Compartiendo reporte... Archivo: Receta_${timestamp}.pdf`);
+        });
+
+        document.getElementById('searchResults').addEventListener('click', function(event) {
+            if (event.target && event.target.matches('a')) {
+                event.target.click();
+            }
+        });
+
+        // Reminder functionality
+        const reminderForm = document.getElementById('reminderForm');
+        const reminderList = document.getElementById('reminderList');
+
+        reminderForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const dateTime = document.getElementById('reminderDateTime').value;
+            const note = document.getElementById('reminderNote').value;
+            if (dateTime && note) {
+                const reminderItem = document.createElement('li');
+                reminderItem.classList.add('p-4', 'bg-gray-50', 'rounded-lg', 'shadow-sm', 'flex', 'justify-between');
+                reminderItem.innerHTML = `
+                    <div>
+                        <p>Fecha y Hora: ${dateTime}</p>
+                        <p>Nota: ${note}</p>
+                    </div>
+                    <div>
+                        <button class="bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 delete-reminder-btn">Borrar</button>
+                    </div>
+                `;
+                reminderList.appendChild(reminderItem);
+                document.getElementById('reminderDateTime').value = '';
+                document.getElementById('reminderNote').value = '';
+            }
+        });
+
+        reminderList.addEventListener('click', function(event) {
+            if (event.target && event.target.matches('.delete-reminder-btn')) {
+                const reminderItem = event.target.parentNode.parentNode;
+                reminderItem.remove();
+            }
+        });
+    </script>
+</body>
+</html>

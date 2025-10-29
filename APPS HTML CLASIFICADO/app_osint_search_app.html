@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Search - Búsquedas de Inteligencia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: white;
+            color: #495057;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .search-form {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        input, select, textarea {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .api-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .api-card.enabled {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .api-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .api-toggle input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .api-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: #495057;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-container {
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result-api {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .result-time {
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .result-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 OSINT Search</h1>
+            <p>Búsquedas de inteligencia con múltiples APIs</p>
+        </div>
+
+        <div class="main-panel">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('search')">🔍 Búsqueda</button>
+                <button class="tab" onclick="switchTab('config')">⚙️ Configuración</button>
+                <button class="tab" onclick="switchTab('results')">📊 Resultados</button>
+            </div>
+
+            <div id="search-tab" class="tab-content active">
+                <h2>Nueva Búsqueda OSINT</h2>
+                
+                <form class="search-form" id="searchForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="targetName">Nombre Completo</label>
+                            <input type="text" id="targetName" placeholder="ej. JULIO LEONARDO BLANCO QUINTANA" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyName">Empresa (opcional)</label>
+                            <input type="text" id="companyName" placeholder="ej. JUKIISA S.A. de C.V.">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Teléfono (opcional)</label>
+                            <input type="text" id="phone" placeholder="ej. 8179737599">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Ubicación (opcional)</label>
+                            <input type="text" id="location" placeholder="ej. Cancún, Quintana Roo">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalTerms">Términos adicionales</label>
+                        <textarea id="additionalTerms" rows="3" placeholder="Otros términos de búsqueda separados por comas"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">🚀 Iniciar Búsqueda</button>
+                </form>
+            </div>
+
+            <div id="config-tab" class="tab-content">
+                <h2>Configuración de APIs</h2>
+                
+                <div class="alert alert-warning">
+                    <strong>⚠️ Importante:</strong> Las API keys se almacenan temporalmente en tu navegador y no se envían a ningún servidor.
+                </div>
+
+                <div class="api-grid">
+                    <div class="api-card" id="openai-card">
+                        <div class="api-toggle">
+                            <input type="checkbox" id="openai-enabled" onchange="toggleApi('openai')">
+                            <span class="api-name">OpenAI GPT-4</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="openai-key">API Key</label>
+                            <input type="password" id="openai-key" placeholder="sk-...">
+                        </div>
+                    </div>
+
+                    <div class="api-card" id="openrouter-card">
+                        <div class="api-toggle">
+                            <input type="checkbox" id="openrouter-enabled" onchange="toggleApi('openrouter')">
+                            <span class="api-name">OpenRouter</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="openrouter-key">API Key</label>
+                            <input type="password" id="openrouter-key" placeholder="sk-or-...">
+                        </div>
+                    </div>
+
+                    <div class="api-card" id="gemini-card">
+                        <div class="api-toggle">
+                            <input type="checkbox" id="gemini-enabled" onchange="toggleApi('gemini')">
+                            <span class="api-name">Google Gemini</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gemini-key">API Key</label>
+                            <input type="password" id="gemini-key" placeholder="AI...">
+                        </div>
+                    </div>
+
+                    <div class="api-card" id="xai-card">
+                        <div class="api-toggle">
+                            <input type="checkbox" id="xai-enabled" onchange="toggleApi('xai')">
+                            <span class="api-name">xAI Grok</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="xai-key">API Key</label>
+                            <input type="password" id="xai-key" placeholder="xai-...">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveConfig()">💾 Guardar Configuración</button>
+            </div>
+
+            <div id="results-tab" class="tab-content">
+                <h2>Resultados de Búsqueda</h2>
+                <div id="results-container">
+                    <div class="alert alert-warning">
+                        No hay búsquedas realizadas aún. Ve a la pestaña de Búsqueda para empezar.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación
+        let currentSearch = null;
+        let searchResults = [];
+
+        // Cambiar entre pestañas
+        function switchTab(tabName) {
+            // Remover clase active de todos los tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Activar tab seleccionado
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Toggle API habilitada/deshabilitada
+        function toggleApi(apiName) {
+            const card = document.getElementById(apiName + '-card');
+            const checkbox = document.getElementById(apiName + '-enabled');
+            
+            if (checkbox.checked) {
+                card.classList.add('enabled');
+            } else {
+                card.classList.remove('enabled');
+            }
+        }
+
+        // Guardar configuración
+        function saveConfig() {
+            const config = {};
+            const apis = ['openai', 'openrouter', 'gemini', 'xai'];
+            
+            apis.forEach(api => {
+                config[api] = {
+                    enabled: document.getElementById(api + '-enabled').checked,
+                    key: document.getElementById(api + '-key').value
+                };
+            });
+            
+            // En una implementación real, esto se almacenaría de forma segura
+            console.log('Configuración guardada:', config);
+            
+            showAlert('success', '✅ Configuración guardada correctamente');
+        }
+
+        // Mostrar alertas
+        function showAlert(type, message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = message;
+            
+            const container = document.querySelector('.tab-content.active');
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Generar consultas de búsqueda
+        function generateSearchQueries(formData) {
+            const queries = [];
+            const { targetName, companyName, phone, location, additionalTerms } = formData;
+            
+            // Consulta base con nombre
+            if (targetName) {
+                queries.push(`"${targetName}" filetype:(pdf|doc|docx) -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info`);
+                
+                // Con empresa
+                if (companyName) {
+                    queries.push(`"${targetName}" AND "${companyName}" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info`);
+                }
+                
+                // Con teléfono
+                if (phone) {
+                    queries.push(`"${targetName}" AND "${phone}" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info`);
+                }
+                
+                // Con ubicación
+                if (location) {
+                    queries.push(`"${targetName}" AND "${location}" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info`);
+                }
+                
+                // Términos adicionales
+                if (additionalTerms) {
+                    const terms = additionalTerms.split(',').map(t => t.trim());
+                    terms.forEach(term => {
+                        if (term) {
+                            queries.push(`"${targetName}" AND "${term}" filetype:pdf -inurl:(jsp|php|html|aspx|htm|cf|shtml|ebooks|ebook) -site:.info`);
+                        }
+                    });
+                }
+            }
+            
+            return queries;
+        }
+
+        // Simular llamada a API
+        async function callApi(apiName, query) {
+            // Simular delay de API
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+            
+            // Simular respuesta
+            const responses = [
+                `Resultados encontrados para: ${query}\n\nDocumento PDF encontrado: registro_empresarial_2023.pdf\nContenido: Información sobre registros empresariales y vínculos comerciales.\n\nFuente: Registro Público de Comercio`,
+                `Búsqueda completada: ${query}\n\nEncontrados 3 documentos relevantes:\n1. Acta constitutiva - PDF\n2. Estados financieros - DOC\n3. Registro de socios - DOCX\n\nAlgunos documentos pueden requerir verificación adicional.`,
+                `Análisis de información pública: ${query}\n\nSe encontraron referencias en:\n- Boletín Oficial del Estado\n- Registros mercantiles\n- Bases de datos públicas\n\nNo se encontró información sensible o privada.`
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // Ejecutar búsqueda
+        async function executeSearch(formData) {
+            const queries = generateSearchQueries(formData);
+            const enabledApis = [];
+            
+            // Obtener APIs habilitadas
+            ['openai', 'openrouter', 'gemini', 'xai'].forEach(api => {
+                if (document.getElementById(api + '-enabled').checked) {
+                    enabledApis.push(api);
+                }
+            });
+            
+            if (enabledApis.length === 0) {
+                showAlert('error', '❌ Debes habilitar al menos una API en la configuración');
+                return;
+            }
+            
+            // Mostrar loading
+            showLoading();
+            
+            const results = [];
+            
+            for (const query of queries) {
+                const queryResults = {
+                    query,
+                    timestamp: new Date().toISOString(),
+                    results: {}
+                };
+                
+                // Ejecutar en todas las APIs habilitadas
+                for (const api of enabledApis) {
+                    try {
+                        const result = await callApi(api, query);
+                        queryResults.results[api] = result;
+                    } catch (error) {
+                        queryResults.results[api] = `Error: ${error.message}`;
+                    }
+                }
+                
+                results.push(queryResults);
+            }
+            
+            displayResults(results);
+        }
+
+        // Mostrar loading
+        function showLoading() {
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Ejecutando búsquedas en múltiples APIs...</p>
+                    <p><small>Esto puede tomar varios minutos</small></p>
+                </div>
+            `;
+            
+            // Cambiar a tab de resultados
+            switchTab('results');
+            document.querySelector('.tab[onclick="switchTab(\'results\')"]').classList.add('active');
+        }
+
+        // Mostrar resultados
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('results-container');
+            let html = `<div class="alert alert-success">✅ Búsqueda completada. ${results.length} consultas ejecutadas.</div>`;
+            
+            results.forEach((queryResult, index) => {
+                html += `
+                    <div class="result-card">
+                        <div class="result-header">
+                            <span class="result-api">Consulta ${index + 1}</span>
+                            <span class="result-time">${new Date(queryResult.timestamp).toLocaleString()}</span>
+                        </div>
+                        <div style="margin-bottom: 15px; font-weight: 600; color: #495057;">
+                            ${queryResult.query}
+                        </div>
+                `;
+                
+                Object.entries(queryResult.results).forEach(([api, result]) => {
+                    html += `
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 600; color: #667eea; margin-bottom: 5px; text-transform: uppercase;">
+                                ${api}
+                            </div>
+                            <div class="result-content">${result}</div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+            
+            resultsContainer.innerHTML = html;
+            searchResults = results;
+        }
+
+        // Manejar envío del formulario
+        document.getElementById('searchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                targetName: document.getElementById('targetName').value,
+                companyName: document.getElementById('companyName').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                additionalTerms: document.getElementById('additionalTerms').value
+            };
+            
+            await executeSearch(formData);
+        });
+
+        // Cargar configuración guardada al inicio
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aquí podrías cargar configuración guardada
+            console.log('App OSINT iniciada');
+        });
+    </script>
+</body>
+</html>

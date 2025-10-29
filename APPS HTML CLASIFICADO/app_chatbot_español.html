@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f9fafb; /* Fondo claro para tema claro */
+            color: #1f2937; /* Texto oscuro para tema claro */
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .user-message {
+            background-color: #e0f7fa;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background-color: #f1f5f9;
+            align-self: flex-start;
+        }
+        .timestamp {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 4px;
+            background-color: #1f2937;
+            border-radius: 50%;
+            animation: blink 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="chat-container">
+        <div class="chat-history flex flex-col space-y-2" id="chat-history">
+            <!-- Mensajes de ejemplo -->
+            <div class="message user-message flex flex-col items-end">
+                <p>Hola, ¿cómo puedo ayudarte hoy?</p>
+                <span class="timestamp">10:20 AM</span>
+            </div>
+            <div class="message bot-message flex flex-col items-start">
+                <p>¡Hola! Puedo ayudarte con una variedad de tareas. ¿Qué necesitas?</p>
+                <span class="timestamp">10:21 AM</span>
+            </div>
+            <!-- Fin de mensajes de ejemplo -->
+        </div>
+        <div class="typing-indicator mt-4">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="input-area mt-4">
+            <input type="text" id="user-input" placeholder="Escribe un mensaje..." class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="sendMessage()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatHistory = document.getElementById('chat-history');
+            const message = userInput.value.trim();
+
+            if (message === '') return;
+
+            // Crear elemento de mensaje del usuario
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message flex flex-col items-end';
+            userMessage.innerHTML = `
+                <p>${message}</p>
+                <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+            `;
+
+            // Agregar mensaje del usuario al historial de chat
+            chatHistory.appendChild(userMessage);
+
+            // Limpiar campo de entrada
+            userInput.value = '';
+
+            // Simular respuesta del bot
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot-message flex flex-col items-start';
+                botMessage.innerHTML = `
+                    <p>Gracias por tu mensaje. Te responderé pronto.</p>
+                    <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+                `;
+                chatHistory.appendChild(botMessage);
+            }, 1000);
+        }
+
+        // Enfocar en el campo de entrada al cargar la página
+        window.onload = () => {
+            document.getElementById('user-input').focus();
+        };
+    </script>
+</body>
+</html>

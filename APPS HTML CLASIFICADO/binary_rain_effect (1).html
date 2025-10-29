@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Rain - Focus24x7® Final</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Canvas para la lluvia binaria */
+        #binaryCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Texto final */
+        .final-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInText 3s ease-in-out 2s forwards;
+        }
+
+        .company-name {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #00ffff, #ffffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 32px;
+            color: #00ffff;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            opacity: 0;
+            animation: fadeInTagline 2s ease-in-out 4s forwards;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeInText {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes fadeInTagline {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto de implosión inicial */
+        .implosion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 0%, #000000 70%);
+            z-index: 5;
+            opacity: 0;
+            animation: implosionEffect 1.5s ease-in-out forwards;
+        }
+
+        @keyframes implosionEffect {
+            0% { 
+                opacity: 0; 
+                transform: scale(3);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(0.1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .company-name {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+            .tagline {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+            .tagline {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas para lluvia binaria -->
+    <canvas id="binaryCanvas"></canvas>
+    
+    <!-- Efecto de implosión -->
+    <div class="implosion-overlay"></div>
+    
+    <!-- Texto final -->
+    <div class="final-text">
+        <div class="company-name">Focus24x7®</div>
+        <div class="tagline">Éticamente Intrusiva</div>
+    </div>
+
+    <script>
+        // Configuración de la lluvia binaria
+        const canvas = document.getElementById('binaryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Ajustar canvas al tamaño de ventana
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Configuración
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        // Inicializar gotas
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+
+        // Caracteres binarios y algunos caracteres especiales
+        const binaryChars = '01';
+        const specialChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        
+        function getRandomChar() {
+            // 90% binario, 10% caracteres especiales
+            if (Math.random() < 0.9) {
+                return binaryChars[Math.floor(Math.random() * binaryChars.length)];
+            } else {
+                return specialChars[Math.floor(Math.random() * specialChars.length)];
+            }
+        }
+
+        // Función de dibujo
+        function draw() {
+            // Fondo negro semitransparente para efecto de desvanecimiento
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Configurar texto
+            ctx.font = `${fontSize}px 'Courier New', monospace`;
+
+            // Dibujar caracteres
+            for (let i = 0; i < drops.length; i++) {
+                const char = getRandomChar();
+                
+                // Gradiente de color azul cian
+                const y = drops[i] * fontSize;
+                const opacity = Math.max(0, 1 - (y / canvas.height) * 0.7);
+                
+                // Color principal cian eléctrico
+                if (Math.random() < 0.1) {
+                    // Caracteres brillantes ocasionales
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.shadowBlur = 10;
+                } else {
+                    // Color cian normal
+                    ctx.fillStyle = `rgba(0, 255, 255, ${opacity})`;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.shadowBlur = 2;
+                }
+
+                // Dibujar caracter
+                ctx.fillText(char, i * fontSize, y);
+                
+                // Resetear shadow
+                ctx.shadowBlur = 0;
+
+                // Reiniciar gota si llegó al final
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                // Mover gota hacia abajo
+                drops[i]++;
+            }
+        }
+
+        // Iniciar animación
+        let animationId;
+        function animate() {
+            draw();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Iniciar después de un breve delay
+        setTimeout(() => {
+            animate();
+        }, 1500);
+
+        // Parar animación después de 8 segundos para el fade del texto
+        setTimeout(() => {
+            cancelAnimationFrame(animationId);
+            
+            // Fade out gradual de la lluvia
+            const fadeOut = setInterval(() => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }, 50);
+            
+            setTimeout(() => {
+                clearInterval(fadeOut);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }, 2000);
+            
+        }, 8000);
+
+        // Efectos de audio (opcional)
+        function playCodeSound() {
+            // Crear contexto de audio si es necesario
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                const audioContext = new (AudioContext || webkitAudioContext)();
+                
+                // Sonido de "implosión"
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 1);
+            }
+        }
+
+        // Activar sonido al cargar (opcional)
+        // playCodeSound();
+
+        // Easter egg: click para reiniciar efecto
+        canvas.addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
