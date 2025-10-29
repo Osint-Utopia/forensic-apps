@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acortador URLs - Lic. Azua</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .button-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .button-secondary {
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+
+        .button-secondary:hover {
+            background-color: #d1d5db;
+        }
+
+        .button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .results {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .law-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .url-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .url-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .url-text {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #3b82f6;
+            word-break: break-all;
+        }
+
+        .code-badge {
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .copy-btn.copied {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .library-section {
+            grid-column: 1 / -1;
+            margin-top: 16px;
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .library-item {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+        }
+
+        .library-item:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .info-section {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .info-section h3 {
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            color: #1e40af;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .info-section li:before {
+            content: "• ";
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Acortador URLs - Lic. Azua</h1>
+            <p>Sistema especializado para leyes mexicanas con biblioteca integrada</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Sección del Acortador -->
+            <div class="section">
+                <h2>🔗 Acortar URLs</h2>
+                <div class="input-group">
+                    <label for="urlInput">Pega las URLs de leyes (una por línea):</label>
+                    <textarea 
+                        id="urlInput" 
+                        class="textarea" 
+                        placeholder="https://levime.com.mx/documento/ver/105/LEY-ORGÁNICA-DEL-TRIBUNAL-FEDERAL-DE-JUSTICIA-ADMINISTRATIVA&#10;https://levime.com.mx/documento/ver/106/LEY-REGLAMENTARIA-DE-LA-FRACCIÓN-XIII-BIS"></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="processBtn" class="button button-primary">✂️ Acortar URLs</button>
+                    <button id="clearBtn" class="button button-secondary">🗑️ Limpiar</button>
+                </div>
+                <div id="results" class="results" style="display: none;"></div>
+            </div>
+
+            <!-- Sección de Biblioteca -->
+            <div class="section">
+                <h2>📖 Biblioteca Legislativa</h2>
+                <p style="margin-bottom: 16px; color: #6b7280; font-size: 0.9rem;">
+                    Leyes preconfiguradas listas para usar
+                </p>
+                <div id="libraryGrid" class="library-grid"></div>
+            </div>
+        </div>
+
+        <!-- Información del Sistema -->
+        <div class="info-section">
+            <h3>💡 Sistema de Codificación Inteligente</h3>
+            <ul>
+                <li><strong>Formato:</strong> https://short.ly/lic_azua/LEY-REG-FRA-ART-105</li>
+                <li><strong>Método:</strong> Primeras 3 letras de cada palabra significativa</li>
+                <li><strong>Filtros:</strong> Elimina palabras vacías (DE, LA, EL, Y, etc.)</li>
+                <li><strong>Identificación:</strong> Incluye apellido para rastrear el origen</li>
+                <li><strong>Biblioteca:</strong> Leyes preconfiguradas para acceso rápido</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // ==================== BIBLIOTECA LEGISLATIVA ====================
+        // Aquí puedes agregar todas las leyes que quieras preconfiguradas
+        const BIBLIOTECA_LEYES = [
+            {
+                titulo: "LEY ORGÁNICA DEL TRIBUNAL FEDERAL DE JUSTICIA ADMINISTRATIVA",
+                url_original: "https://levime.com.mx/documento/ver/105/LEY-ORGÁNICA-DEL-TRIBUNAL-FEDERAL-DE-JUSTICIA-ADMINISTRATIVA",
+                url_corta: "https://short.ly/lic_azua/LEY-ORG-TRI-FED-JUS-ADM",
+                codigo: "LEY-ORG-TRI-FED-JUS-ADM"
+            },
+            {
+                titulo: "LEY REGLAMENTARIA DE LA FRACCIÓN XIII BIS DEL APARTADO B",
+                url_original: "https://levime.com.mx/documento/ver/106/LEY-REGLAMENTARIA-DE-LA-FRACCIÓN-XIII-BIS-DEL-APARTADO-B,-DEL-ARTÍCULO-123-DE-LA-CONSTITUCIÓN-POLÍTICA-DE-LOS-ESTADOS-UNIDOS-MEXICANOS",
+                url_corta: "https://short.ly/lic_azua/LEY-REG-FRA-XIII-BIS-APA-ART-123",
+                codigo: "LEY-REG-FRA-XIII-BIS-APA-ART-123"
+            },
+            {
+                titulo: "LEY REGLAMENTARIA DE LAS FRACCIONES I Y II DEL ARTÍCULO 105",
+                url_original: "https://levime.com.mx/documento/ver/107/LEY-REGLAMENTARIA-DE-LAS-FRACCIONES-I-Y-II-DEL-ARTÍCULO-105-DE-LA-CONSTITUCIÓN-POLÍTICA-DE-LOS-ESTADOS-UNIDOS-MEXICANOS",
+                url_corta: "https://short.ly/lic_azua/LEY-REG-FRA-ART-105",
+                codigo: "LEY-REG-FRA-ART-105"
+            },
+            {
+                titulo: "LEY FEDERAL DE PROTECCIÓN A LA PROPIEDAD INDUSTRIAL",
+                url_original: "https://levime.com.mx/documento/ver/1132/LEY-FEDERAL-DE-PROTECCIÓN-A-LA-PROPIEDAD-INDUSTRIAL",
+                url_corta: "https://short.ly/lic_azua/LEY-FED-PRO-PRO-IND",
+                codigo: "LEY-FED-PRO-PRO-IND"
+            }
+            // Aquí puedes agregar más leyes siguiendo el mismo formato
+        ];
+
+        // ==================== FUNCIONES DEL ACORTADOR ====================
+        function generarCodigoLey(url) {
+            try {
+                const urlParts = url.split('/');
+                const lawName = urlParts[urlParts.length - 1];
+                
+                const stopWords = [
+                    'A', 'AL', 'ANTE', 'BAJO', 'CON', 'CONTRA', 'DE', 'DEL', 'DESDE', 'DURANTE', 
+                    'EN', 'ENTRE', 'HACIA', 'HASTA', 'MEDIANTE', 'PARA', 'POR', 'SEGÚN', 'SIN', 
+                    'SO', 'SOBRE', 'TRAS', 'VERSUS', 'VÍA', 'Y', 'E', 'NI', 'O', 'U', 'PERO',
+                    'MAS', 'AUNQUE', 'SINO', 'SIQUIERA', 'LA', 'LAS', 'EL', 'LOS', 'UN', 'UNA',
+                    'UNOS', 'UNAS', 'QUE', 'QUIEN', 'QUIENES', 'CUAL', 'CUALES', 'CUYO', 'CUYA',
+                    'CUYOS', 'CUYAS', 'APARTADO', 'ARTÍCULO', 'FRACCIÓN', 'INCISO', 'PÁRRAFO',
+                    'CONSTITUCIÓN', 'POLÍTICA', 'ESTADOS', 'UNIDOS', 'MEXICANOS'
+                ];
+                
+                const cleanName = lawName
+                    .replace(/-/g, ' ')
+                    .replace(/,/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .toUpperCase();
+
+                const words = cleanName.split(' ').filter(word => 
+                    word.length > 0 && !stopWords.includes(word)
+                );
+                
+                const codeParts = words.map(word => word.substring(0, 3));
+                return codeParts.join('-');
+                
+            } catch (error) {
+                return 'LEY-SIN-NOM';
+            }
+        }
+
+        function extraerTituloLey(url) {
+            try {
+                const urlParts = url.split('/');
+                const lawName = urlParts[urlParts.length - 1];
+                return lawName.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+            } catch (error) {
+                return 'Ley sin título';
+            }
+        }
+
+        function esUrlValida(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function procesarUrls() {
+            const input = document.getElementById('urlInput');
+            const resultsDiv = document.getElementById('results');
+            const processBtn = document.getElementById('processBtn');
+            
+            if (!input.value.trim()) return;
+
+            processBtn.disabled = true;
+            processBtn.textContent = 'Procesando...';
+
+            const urlList = input.value.split('\n').filter(url => url.trim());
+            const processed = urlList.map(url => {
+                const trimmedUrl = url.trim();
+                if (esUrlValida(trimmedUrl)) {
+                    const lawCode = generarCodigoLey(trimmedUrl);
+                    const lawTitle = extraerTituloLey(trimmedUrl);
+                    return {
+                        original: trimmedUrl,
+                        shortened: `https://short.ly/lic_azua/${lawCode}`,
+                        lawTitle: lawTitle,
+                        lawCode: lawCode,
+                        status: 'success'
+                    };
+                } else {
+                    return {
+                        original: trimmedUrl,
+                        status: 'error'
+                    };
+                }
+            });
+
+            setTimeout(() => {
+                mostrarResultados(processed);
+                processBtn.disabled = false;
+                processBtn.textContent = '✂️ Acortar URLs';
+            }, 1000);
+        }
+
+        function mostrarResultados(results) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            results.forEach((item, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+
+                if (item.status === 'success') {
+                    resultItem.innerHTML = `
+                        <div class="law-title">${item.lawTitle}</div>
+                        <div class="url-row">
+                            <div>
+                                <div class="url-label">URL Acortada:</div>
+                                <div class="url-text">${item.shortened}</div>
+                            </div>
+                            <button class="copy-btn" onclick="copiarUrl('${item.shortened}', this)">
+                                📋 Copiar
+                            </button>
+                        </div>
+                        <div style="margin-top: 8px;">
+                            <span class="code-badge">lic_azua/${item.lawCode}</span>
+                        </div>
+                    `;
+                } else {
+                    resultItem.innerHTML = `
+                        <div style="color: #dc2626;">
+                            <strong>❌ Error:</strong> URL inválida
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280; margin-top: 4px;">
+                            ${item.original}
+                        </div>
+                    `;
+                }
+
+                resultsDiv.appendChild(resultItem);
+            });
+
+            resultsDiv.style.display = 'block';
+        }
+
+        function copiarUrl(url, button) {
+            navigator.clipboard.writeText(url).then(() => {
+                button.textContent = '✅ Copiado';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = '📋 Copiar';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar:', err);
+            });
+        }
+
+        function limpiarTodo() {
+            document.getElementById('urlInput').value = '';
+            document.getElementById('results').style.display = 'none';
+        }
+
+        // ==================== FUNCIONES DE LA BIBLIOTECA ====================
+        function cargarBiblioteca() {
+            const libraryGrid = document.getElementById('libraryGrid');
+            libraryGrid.innerHTML = '';
+
+            BIBLIOTECA_LEYES.forEach(ley => {
+                const libraryItem = document.createElement('div');
+                libraryItem.className = 'library-item';
+                libraryItem.innerHTML = `
+                    <div class="law-title" style="margin-bottom: 12px;">${ley.titulo}</div>
+                    <div style="margin-bottom: 8px;">
+                        <span class="code-badge">${ley.codigo}</span>
+                    </div>
+                    <div class="url-row">
+                        <div class="url-text" style="font-size: 0.75rem;">${ley.url_corta}</div>
+                        <button class="copy-btn" onclick="copiarUrl('${ley.url_corta}', this)">
+                            📋
+                        </button>
+                    </div>
+                `;
+                libraryGrid.appendChild(libraryItem);
+            });
+        }
+
+        // ==================== EVENTOS ====================
+        document.getElementById('processBtn').addEventListener('click', procesarUrls);
+        document.getElementById('clearBtn').addEventListener('click', limpiarTodo);
+
+        // Cargar biblioteca al iniciar
+        document.addEventListener('DOMContentLoaded', cargarBiblioteca);
+    </script>
+</body>
+</html>

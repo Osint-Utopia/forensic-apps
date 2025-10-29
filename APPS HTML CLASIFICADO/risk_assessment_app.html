@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluador de Riesgo - Juegos Mecánicos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .risk-low {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .risk-medium {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .risk-high {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .risk-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+        }
+        
+        .factor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .factor-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Abogados Forenses Firma Legal</h1>
+            <p>Lic. Alejo Ramon | alejo-mr@hotmail.com</p>
+            <p>Lic. Al Azúa | lic.azua@gmx.com</p>
+            <p>Lic. Sergio Mercado | lic.mercado@gmx.com</p>
+            <p>Jalisco – Quintana Roo – Yucatán – Nuevo León</p>
+            <p><a href="https://www.abogadosforenses.org" target="_blank" style="color: white; text-decoration: underline;">www.abogadosforenses.org</a></p>
+            <br>
+            <h2>🎢 Evaluador de Riesgo</h2>
+            <p>Análisis de Seguridad para Juegos Mecánicos Semi-Extremos</p>
+        </div>
+        
+        <div class="content">
+            <form id="riskForm">
+                <div class="form-group">
+                    <label for="gameType">Tipo de Juego Mecánico:</label>
+                    <select id="gameType" required>
+                        <option value="">Selecciona un juego...</option>
+                        <option value="alberca-bolas">Alberca de Bolas de Vinil</option>
+                        <option value="tirolesa">Tirolesa de 1/2 Camino</option>
+                        <option value="escalada">Escalada en Pared Plana</option>
+                        <option value="tobogan">Tobogán Inflable</option>
+                        <option value="trampolines">Cama Elástica/Trampolín</option>
+                        <option value="laberinto">Laberinto Inflable</option>
+                        <option value="obstaculos">Circuito de Obstáculos</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ageGroup">Grupo de Edad:</label>
+                    <select id="ageGroup" required>
+                        <option value="">Selecciona edad...</option>
+                        <option value="3-5">3-5 años (Preescolar)</option>
+                        <option value="6-8">6-8 años (Primera Infancia)</option>
+                        <option value="9-12">9-12 años (Infancia)</option>
+                        <option value="13-17">13-17 años (Adolescentes)</option>
+                        <option value="18+">18+ años (Adultos)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="supervision">Nivel de Supervisión:</label>
+                    <select id="supervision" required>
+                        <option value="">Selecciona supervisión...</option>
+                        <option value="constante">Supervisión Constante (1:3 ratio)</option>
+                        <option value="frecuente">Supervisión Frecuente (1:6 ratio)</option>
+                        <option value="periodica">Supervisión Periódica (1:10 ratio)</option>
+                        <option value="minima">Supervisión Mínima</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maintenance">Estado de Mantenimiento:</label>
+                    <select id="maintenance" required>
+                        <option value="">Selecciona estado...</option>
+                        <option value="excelente">Excelente (Mantenimiento semanal)</option>
+                        <option value="bueno">Bueno (Mantenimiento quincenal)</option>
+                        <option value="regular">Regular (Mantenimiento mensual)</option>
+                        <option value="deficiente">Deficiente (Sin mantenimiento regular)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="capacity">Capacidad de Usuarios:</label>
+                    <input type="number" id="capacity" placeholder="Número máximo de usuarios simultáneos" min="1" max="100" required>
+                </div>
+                
+                <button type="submit" class="btn">🔍 Evaluar Riesgo</button>
+            </form>
+            
+            <div id="result" class="result">
+                <div class="risk-title" id="riskLevel"></div>
+                <div id="riskDescription"></div>
+                <div class="recommendations" id="recommendations"></div>
+                <div class="factor-list" id="factors"></div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button onclick="exportHTML()" class="btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #28a745, #20c997);">
+                        📄 Exportar HTML
+                    </button>
+                    <button onclick="exportPDF()" class="btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #dc3545, #fd7e14);">
+                        📑 Exportar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameRiskData = {
+            'alberca-bolas': {
+                name: 'Alberca de Bolas de Vinil',
+                baseRisk: 2,
+                factors: ['Asfixia por inmersión', 'Lesiones por caídas', 'Contaminación bacteriana', 'Atrapamiento'],
+                ageMultiplier: {'3-5': 1.5, '6-8': 1.2, '9-12': 1.0, '13-17': 0.8, '18+': 0.7}
+            },
+            'tirolesa': {
+                name: 'Tirolesa de 1/2 Camino',
+                baseRisk: 4,
+                factors: ['Caídas desde altura', 'Fallas en equipos', 'Colisiones', 'Lesiones en extremidades'],
+                ageMultiplier: {'3-5': 2.0, '6-8': 1.8, '9-12': 1.3, '13-17': 1.0, '18+': 0.9}
+            },
+            'escalada': {
+                name: 'Escalada en Pared Plana',
+                baseRisk: 3,
+                factors: ['Caídas', 'Lesiones musculares', 'Golpes en extremidades', 'Fatiga extrema'],
+                ageMultiplier: {'3-5': 1.8, '6-8': 1.5, '9-12': 1.2, '13-17': 0.9, '18+': 0.8}
+            },
+            'tobogan': {
+                name: 'Tobogán Inflable',
+                baseRisk: 2,
+                factors: ['Caídas laterales', 'Colisiones múltiples', 'Quemaduras por fricción', 'Lesiones en aterrizaje'],
+                ageMultiplier: {'3-5': 1.4, '6-8': 1.1, '9-12': 1.0, '13-17': 0.9, '18+': 0.8}
+            },
+            'trampolines': {
+                name: 'Cama Elástica/Trampolín',
+                baseRisk: 4,
+                factors: ['Fracturas por caída', 'Lesiones cervicales', 'Colisiones entre usuarios', 'Caídas fuera del área'],
+                ageMultiplier: {'3-5': 1.7, '6-8': 1.4, '9-12': 1.2, '13-17': 1.1, '18+': 1.0}
+            },
+            'laberinto': {
+                name: 'Laberinto Inflable',
+                baseRisk: 1,
+                factors: ['Pérdida/desorientación', 'Asfixia en espacios cerrados', 'Pánico claustrofóbico', 'Caídas menores'],
+                ageMultiplier: {'3-5': 1.6, '6-8': 1.2, '9-12': 0.9, '13-17': 0.8, '18+': 0.7}
+            },
+            'obstaculos': {
+                name: 'Circuito de Obstáculos',
+                baseRisk: 3,
+                factors: ['Múltiples tipos de lesiones', 'Fatiga extrema', 'Caídas variadas', 'Golpes diversos'],
+                ageMultiplier: {'3-5': 1.6, '6-8': 1.3, '9-12': 1.1, '13-17': 0.9, '18+': 0.8}
+            }
+        };
+
+        document.getElementById('riskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateRisk();
+        });
+
+        function calculateRisk() {
+            const gameType = document.getElementById('gameType').value;
+            const ageGroup = document.getElementById('ageGroup').value;
+            const supervision = document.getElementById('supervision').value;
+            const maintenance = document.getElementById('maintenance').value;
+            const capacity = parseInt(document.getElementById('capacity').value);
+
+            const game = gameRiskData[gameType];
+            let riskScore = game.baseRisk;
+
+            // Multiplicador por edad
+            riskScore *= game.ageMultiplier[ageGroup];
+
+            // Factor de supervisión
+            const supervisionMultiplier = {
+                'constante': 0.6,
+                'frecuente': 0.8,
+                'periodica': 1.0,
+                'minima': 1.4
+            };
+            riskScore *= supervisionMultiplier[supervision];
+
+            // Factor de mantenimiento
+            const maintenanceMultiplier = {
+                'excelente': 0.7,
+                'bueno': 0.9,
+                'regular': 1.2,
+                'deficiente': 1.6
+            };
+            riskScore *= maintenanceMultiplier[maintenance];
+
+            // Factor de capacidad
+            if (capacity > 20) riskScore *= 1.2;
+            if (capacity > 50) riskScore *= 1.3;
+
+            displayResult(riskScore, game, ageGroup, supervision, maintenance, capacity);
+        }
+
+        function displayResult(score, game, age, supervision, maintenance, capacity) {
+            const resultDiv = document.getElementById('result');
+            const riskLevel = document.getElementById('riskLevel');
+            const riskDescription = document.getElementById('riskDescription');
+            const recommendations = document.getElementById('recommendations');
+            const factors = document.getElementById('factors');
+
+            let level, className, description, recs;
+
+            if (score <= 2) {
+                level = '🟢 RIESGO BAJO';
+                className = 'risk-low';
+                description = 'El juego presenta riesgo mínimo bajo las condiciones actuales.';
+                recs = 'Mantener supervisión estándar y protocolos básicos de seguridad.';
+            } else if (score <= 4) {
+                level = '🟡 RIESGO MODERADO';
+                className = 'risk-medium';
+                description = 'El juego requiere atención especial y medidas preventivas adicionales.';
+                recs = 'Incrementar supervisión, revisar equipos frecuentemente, y establecer límites claros de uso.';
+            } else {
+                level = '🔴 RIESGO ALTO';
+                className = 'risk-high';
+                description = 'El juego presenta riesgo significativo y requiere medidas de seguridad estrictas.';
+                recs = 'Supervisión constante obligatoria, restricciones de edad/capacidad, y protocolos de emergencia activos.';
+            }
+
+            resultDiv.className = `result ${className}`;
+            riskLevel.textContent = level;
+            riskDescription.innerHTML = `
+                <p><strong>${game.name}</strong></p>
+                <p>${description}</p>
+                <p><strong>Puntuación de Riesgo:</strong> ${score.toFixed(1)}/10</p>
+            `;
+            
+            recommendations.innerHTML = `
+                <h4>📋 Recomendaciones:</h4>
+                <p>${recs}</p>
+            `;
+
+            factors.innerHTML = game.factors.map(factor => `
+                <div class="factor-item">
+                    <strong>⚠️ ${factor}</strong>
+                </div>
+            `).join('');
+
+            // Guardar datos para exportación
+            window.currentReport = {
+                gameName: game.name,
+                riskLevel: level,
+                riskScore: score.toFixed(1),
+                description: description,
+                recommendations: recs,
+                factors: game.factors,
+                parameters: {
+                    age: age,
+                    supervision: supervision,
+                    maintenance: maintenance, 
+                    capacity: capacity
+                },
+                date: new Date().toLocaleDateString('es-MX')
+            };
+
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exportHTML() {
+            if (!window.currentReport) return;
+            
+            var report = window.currentReport;
+            var riskClass = report.riskScore <= 2 ? 'risk-low' : report.riskScore <= 4 ? 'risk-medium' : 'risk-high';
+            var factorsHtml = '';
+            for (var i = 0; i < report.factors.length; i++) {
+                factorsHtml += '<div class="factor">⚠️ ' + report.factors[i] + '</div>';
+            }
+            
+            var htmlContent = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Reporte de Evaluación de Riesgo</title>';
+            htmlContent += '<style>body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }';
+            htmlContent += '.header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }';
+            htmlContent += '.risk-high { color: #721c24; background: #f8d7da; padding: 15px; border-radius: 8px; }';
+            htmlContent += '.risk-medium { color: #856404; background: #fff3cd; padding: 15px; border-radius: 8px; }';
+            htmlContent += '.risk-low { color: #155724; background: #d4edda; padding: 15px; border-radius: 8px; }';
+            htmlContent += '.section { margin: 20px 0; }';
+            htmlContent += '.factor { background: #f8f9fa; padding: 10px; margin: 5px 0; border-left: 4px solid #007bff; }';
+            htmlContent += '</style></head><body>';
+            htmlContent += '<div class="header"><h1>Abogados Forenses Firma Legal</h1>';
+            htmlContent += '<p>Lic. Alejo Ramon | alejo-mr@hotmail.com</p>';
+            htmlContent += '<p>Lic. Al Azúa | lic.azua@gmx.com</p>';
+            htmlContent += '<p>Lic. Sergio Mercado | lic.mercado@gmx.com</p>';
+            htmlContent += '<p>Jalisco – Quintana Roo – Yucatán – Nuevo León</p>';
+            htmlContent += '<p><a href="https://www.abogadosforenses.org">www.abogadosforenses.org</a></p>';
+            htmlContent += '<h2>Reporte de Evaluación de Riesgo</h2>';
+            htmlContent += '<p>Fecha: ' + report.date + '</p></div>';
+            htmlContent += '<div class="section"><h3>Juego Evaluado: ' + report.gameName + '</h3>';
+            htmlContent += '<div class="' + riskClass + '"><h2>' + report.riskLevel + '</h2>';
+            htmlContent += '<p><strong>Puntuación:</strong> ' + report.riskScore + '/10</p>';
+            htmlContent += '<p>' + report.description + '</p></div></div>';
+            htmlContent += '<div class="section"><h3>Parámetros de Evaluación</h3>';
+            htmlContent += '<p><strong>Grupo de Edad:</strong> ' + report.parameters.age + '</p>';
+            htmlContent += '<p><strong>Supervisión:</strong> ' + report.parameters.supervision + '</p>';
+            htmlContent += '<p><strong>Mantenimiento:</strong> ' + report.parameters.maintenance + '</p>';
+            htmlContent += '<p><strong>Capacidad:</strong> ' + report.parameters.capacity + ' usuarios</p></div>';
+            htmlContent += '<div class="section"><h3>Recomendaciones</h3><p>' + report.recommendations + '</p></div>';
+            htmlContent += '<div class="section"><h3>Factores de Riesgo Identificados</h3>' + factorsHtml + '</div>';
+            htmlContent += '<div class="section" style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 20px; font-size: 12px; color: #666;">';
+            htmlContent += '<p>Reporte generado automáticamente por el Sistema de Evaluación de Riesgo - Abogados Forenses Firma Legal</p></div>';
+            htmlContent += '</body></html>';
+            
+            var blob = new Blob([htmlContent], { type: 'text/html' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Reporte_Riesgo_' + report.gameName.replace(/\s+/g, '_') + '_' + report.date.replace(/\//g, '-') + '.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function exportPDF() {
+            if (!window.currentReport) return;
+            
+            var report = window.currentReport;
+            var factorsList = '';
+            for (var i = 0; i < report.factors.length; i++) {
+                factorsList += '<div style="background: #f8f9fa; padding: 10px; margin: 5px 0; border-left: 4px solid #007bff;">⚠️ ' + report.factors[i] + '</div>';
+            }
+            
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Reporte de Evaluación de Riesgo</title></head><body>');
+            printWindow.document.write('<div style="font-family: Arial, sans-serif; margin: 20px; line-height: 1.6;">');
+            printWindow.document.write('<div style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px;">');
+            printWindow.document.write('<h1>Abogados Forenses Firma Legal</h1>');
+            printWindow.document.write('<p>Lic. Alejo Ramon | alejo-mr@hotmail.com</p>');
+            printWindow.document.write('<p>Lic. Al Azúa | lic.azua@gmx.com</p>');
+            printWindow.document.write('<p>Lic. Sergio Mercado | lic.mercado@gmx.com</p>');
+            printWindow.document.write('<p>Jalisco – Quintana Roo – Yucatán – Nuevo León</p>');
+            printWindow.document.write('<p>www.abogadosforenses.org</p>');
+            printWindow.document.write('<h2>Reporte de Evaluación de Riesgo</h2>');
+            printWindow.document.write('<p>Fecha: ' + report.date + '</p></div>');
+            printWindow.document.write('<h3>Juego Evaluado: ' + report.gameName + '</h3>');
+            printWindow.document.write('<div style="padding: 15px; border: 2px solid #ccc; margin: 10px 0;">');
+            printWindow.document.write('<h2>' + report.riskLevel + '</h2>');
+            printWindow.document.write('<p><strong>Puntuación:</strong> ' + report.riskScore + '/10</p>');
+            printWindow.document.write('<p>' + report.description + '</p></div>');
+            printWindow.document.write('<h3>Parámetros de Evaluación</h3>');
+            printWindow.document.write('<p><strong>Grupo de Edad:</strong> ' + report.parameters.age + '</p>');
+            printWindow.document.write('<p><strong>Supervisión:</strong> ' + report.parameters.supervision + '</p>');
+            printWindow.document.write('<p><strong>Mantenimiento:</strong> ' + report.parameters.maintenance + '</p>');
+            printWindow.document.write('<p><strong>Capacidad:</strong> ' + report.parameters.capacity + ' usuarios</p>');
+            printWindow.document.write('<h3>Recomendaciones</h3><p>' + report.recommendations + '</p>');
+            printWindow.document.write('<h3>Factores de Riesgo Identificados</h3>' + factorsList);
+            printWindow.document.write('</div>');
+            printWindow.document.write('<script>window.onload = function() { window.print(); setTimeout(function() { window.close(); }, 1000); }<\/script>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+        }
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>üî¨ Laboratorio Forense - Asistente IA</title>
+    <title>Laboratorio Forense - Asistente IA</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +13,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: #ffffff;
             min-height: 100vh;
@@ -53,7 +54,9 @@
             font-weight: bold;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 12px;
             border: 2px solid #333;
@@ -63,7 +66,9 @@
             font-size: 14px;
         }
 
-        input:focus, textarea:focus, select:focus {
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: #00d4aa;
         }
@@ -177,24 +182,93 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .loading {
             animation: pulse 1.5s infinite;
         }
-    </style>
+        
+        /* Agregar al final de tu CSS existente */
+        .file-upload-area {
+            margin-bottom: 15px;
+            border: 2px dashed #00d4aa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 212, 170, 0.1);
+            transition: background 0.3s;
+        }
+
+        .file-upload-area:hover {
+            background: rgba(0, 212, 170, 0.2);
+        }
+
+        .file-upload-area.dragover {
+            background: rgba(0, 212, 170, 0.3);
+            border-color: #ffffff;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .upload-label {
+            cursor: pointer;
+            color: #00d4aa;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .file-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .remove-file {
+            background: #ff4545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <h1>üî¨ Laboratorio Forense - Asistente IA</h1>
-            <p>Asistente especializado en an√°lisis criminal√≠stico y forense</p>
+            <h1>Laboratorio Forense - Asistente IA</h1>
+            <p>Asistente especializado en analisis criminalistico y forense
+            </p>
         </div>
 
         <div class="api-config">
-            <h3>‚öôÔ∏è Configuraci√≥n de API</h3>
+            <h3>Configuracion de API</h3>
             <div class="input-group">
                 <label for="apiKey">API Key de OpenRouter:</label>
                 <input type="password" id="apiKey" placeholder="Ingresa tu API key de OpenRouter">
@@ -202,52 +276,87 @@
             <div class="input-group">
                 <label for="model">Modelo:</label>
                 <select id="model">
+                    <option value="anthropic/claude-3-sonnet">Claude 3 Sonnet </option>
+                    <option value="anthropic/claude-3-5-sonnet">Claude 3.5 Sonnet (CON VISI®ÆN)</option>
                     <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet (Gratis)</option>
-                    <option value="anthropic/claude-3-sonnet">Claude 3 Sonnet</option>
-                    <option value="anthropic/claude-3-haiku">Claude 3 Haiku (M√°s econ√≥mico)</option>
+                    <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet (Solo texto)</option>
+                    <option value="anthropic/claude-3-haiku">Claude 3 Haiku (Mas economico)</option>
+                    <option value="openai/gpt-4o">GPT-4 Vision (CON VISI®ÆN)</option>
                 </select>
             </div>
-            <button class="btn" onclick="testConnection()">üîó Probar Conexi√≥n</button>
+            <button class="btn" onclick="testConnection()">Probar Conexion
+            </button>
         </div>
 
         <div id="status"></div>
 
         <div class="forensic-prompts">
-            <button class="prompt-btn" onclick="usePrompt('Analiza esta evidencia fotogr√°fica desde perspectiva criminal√≠stica')">üì∏ An√°lisis de Evidencia</button>
-            <button class="prompt-btn" onclick="usePrompt('Explica el procedimiento forense para esta situaci√≥n')">üî¨ Procedimiento Forense</button>
-            <button class="prompt-btn" onclick="usePrompt('Qu√© informaci√≥n EXIF es relevante para esta investigaci√≥n?')">üó∫Ô∏è An√°lisis EXIF</button>
-            <button class="prompt-btn" onclick="usePrompt('Interpreta estos patrones entomol√≥gicos')">üêõ Entomolog√≠a Forense</button>
-            <button class="prompt-btn" onclick="usePrompt('Genera un reporte criminal√≠stico basado en estos datos')">üìã Generar Reporte</button>
-            <button class="prompt-btn" onclick="usePrompt('Sugiere pr√≥ximos pasos en esta investigaci√≥n')">üîç Pr√≥ximos Pasos</button>
+            <button class="prompt-btn" onclick="usePrompt('Busca en en la web la informacion existente respecto de: ')">Busqueda web</button>
+            <button class="prompt-btn" onclick="usePrompt('Ayuda con la reconstruccion tridimensional de la escena del crimen')">Reconstruccion 3D</button>
+            <button class="prompt-btn" onclick="usePrompt('Analiza estos metadatos digitales y dispositivos electronicos')">Metadatos y Dispositivos</button>
+            <button class="prompt-btn" onclick="usePrompt('Analiza esta evidencia fotografica desde perspectiva criminalistica')">Analisis Evidencia Foto</button>
+            <button class="prompt-btn" onclick="usePrompt('Evalua la calidad de esta fotografia como evidencia forense')">Evalua Foto</button>
+            <button class="prompt-btn" onclick="usePrompt('Sugiere mejores angulos y tecnicas fotograficas para esta evidencia')">Mejora Foto</button>
+            <button class="prompt-btn" onclick="usePrompt('Interpreta las condiciones de iluminacion y sombras en esta escena')">Interpreta Evidencia</button>
+            <button class="prompt-btn" onclick="usePrompt('Analiza la escala y proporciones en esta fotografia forense')">Escala foto</button>
+            <button class="prompt-btn" onclick="usePrompt('Analiza esta fotografia desde perspectiva de fotografia forense tecnica')">Fotografia Forense</button>
+            <button class="prompt-btn" onclick="usePrompt('Examina este documento para detectar posibles alteraciones o falsificaciones')">Documentoscopia</button>
+            <button class="prompt-btn" onclick="usePrompt('Analiza los metadatos y evidencia digital de estos archivos')">Informatica Forense</button>
+            <button class="prompt-btn" onclick="usePrompt('Analisis antropologico forense de restos humanos')">Antropologia Forense</button>
+            <button class="prompt-btn" onclick="usePrompt('Interpreta patrones balisticos y residuos de disparo')">Analisis Balistico</button>
+            <button class="prompt-btn" onclick="usePrompt('Realiza analisis biometrico y reconocimiento facial forense')">Biometria Facial</button>
+            <button class="prompt-btn" onclick="usePrompt('Explica el procedimiento forense para esta situacion')">Procedimiento Forense</button>
+            <button class="prompt-btn" onclick="usePrompt('Que informacion EXIF es relevante para esta investigacion?')">Analisis EXIF</button>
+            <button class="prompt-btn" onclick="usePrompt('Investiga patrones de comportamiento digital y redes sociales')">Ciberinteligencia</button>
+            <button class="prompt-btn" onclick="usePrompt('Interpreta estos patrones entomologicos')">Entomologia Forense</button>
+            <button class="prompt-btn" onclick="usePrompt('Genera un reporte criminalistico basado en estos datos')">Generar Reporte</button>
+            <button class="prompt-btn" onclick="usePrompt('Sugiere proximos pasos en esta investigacion')">Proximos Pasos</button>
         </div>
 
         <div class="chat-container" id="chatContainer">
             <div class="ai-message">
-                <strong>ü§ñ Asistente Forense IA:</strong><br>
-                ¬°Hola! Soy tu asistente especializado en an√°lisis criminal√≠stico y forense. Puedo ayudarte con:
+                <strong>Asistente Forense IA:</strong>
+                <br> Hola! Soy tu asistente especializado en analisis criminalistico y forense. Puedo ayudarte con:
                 <ul style="margin: 10px 0; padding-left: 20px;">
-                    <li>An√°lisis de evidencias fotogr√°ficas</li>
-                    <li>Interpretaci√≥n de metadatos EXIF</li>
-                    <li>Procedimientos forenses est√°ndar</li>
-                    <li>An√°lisis entomol√≥gico forense</li>
-                    <li>Generaci√≥n de reportes criminal√≠sticos</li>
-                    <li>Identificaci√≥n de patrones geoespaciales</li>
+                    <li>Busqueda Forense</li>
+                    <li>Analisis de evidencias fotograficas</li>
+                    <li>Interpretacion de metadatos EXIF</li>
+                    <li>Procedimientos forenses estandar</li>
+                    <li>Analisis entomologico forense</li>
+                    <li>Generacion de reportes criminalisticos</li>
+                    <li>Identificacion de patrones geoespaciales</li>
                 </ul>
                 Configura tu API key y comencemos a trabajar.
             </div>
         </div>
 
         <div class="loading" id="loading">
-            üîÑ Analizando informaci√≥n forense...
+            Analizando informacion forense...
+        </div>
+
+        <!-- 2. AGREGAR ESTE HTML antes de tu div class="input-area" -->
+        <div class="file-upload-area" id="fileUploadArea">
+            <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt" multiple>
+            <label for="fileInput" class="upload-label">
+                ?? Adjuntar imagen/documento para an®¢lisis forense
+            </label>
+            <p style="font-size: 12px; color: #ccc; margin: 5px 0;">
+                Formatos: JPG, PNG, PDF, DOC, DOCX, TXT (M®¢x: 5MB c/u)
+            </p>
+            <div class="file-preview" id="filePreview"></div>
         </div>
 
         <div class="input-area">
-            <textarea id="userInput" placeholder="Describe la evidencia, situaci√≥n o consulta forense que necesitas analizar..."></textarea>
-            <button class="btn" onclick="sendMessage()" id="sendBtn">üöÄ Analizar</button>
+            <textarea id="userInput" placeholder="Describe la busqueda o evidencia, situacion o consulta forense que necesitas analizar..."></textarea>
+            <button class="btn" onclick="sendMessage()" id="sendBtn">Analizar</button>
         </div>
     </div>
 
     <script>
+        // 4. AGREGAR ESTAS VARIABLES GLOBALES al inicio de tu <script>
+        let uploadedFiles = [];
+        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+        
         let conversationHistory = [];
 
         function usePrompt(prompt) {
@@ -267,7 +376,7 @@
         async function testConnection() {
             const apiKey = document.getElementById('apiKey').value;
             if (!apiKey) {
-                showStatus('‚ùå Por favor ingresa tu API key', 'error');
+                showStatus('Por favor ingresa tu API key', 'error');
                 return;
             }
 
@@ -279,104 +388,139 @@
                 });
 
                 if (response.ok) {
-                    showStatus('‚úÖ Conexi√≥n exitosa con OpenRouter', 'success');
+                    showStatus('Conexion exitosa con OpenRouter', 'success');
                 } else {
-                    showStatus('‚ùå Error en la conexi√≥n. Verifica tu API key', 'error');
+                    showStatus('Error en la conexion. Verifica tu API key', 'error');
                 }
             } catch (error) {
-                showStatus('‚ùå Error de conectividad', 'error');
+                showStatus('Error de conectividad', 'error');
             }
         }
+
+        // 6. MODIFICAR tu funci®Æn sendMessage() existente
+        // Reemplaza tu funci®Æn sendMessage actual con esta versi®Æn actualizada:
 
         async function sendMessage() {
             const apiKey = document.getElementById('apiKey').value;
             const model = document.getElementById('model').value;
             const userInput = document.getElementById('userInput').value;
+            
+            console.log('Modelo seleccionado:', model);
+            console.log('?Tiene archivos?', uploadedFiles.length > 0);
 
             if (!apiKey) {
-                showStatus('‚ùå Configura tu API key primero', 'error');
+                showStatus('? Configura tu API key primero', 'error');
                 return;
             }
 
-            if (!userInput.trim()) {
-                showStatus('‚ùå Escribe tu consulta forense', 'error');
+            if (!userInput.trim() && uploadedFiles.length === 0) {
+                showStatus('? Escribe tu consulta o adjunta archivos', 'error');
                 return;
             }
 
-            // Mostrar mensaje del usuario
-            addMessage(userInput, 'user');
-            document.getElementById('userInput').value = '';
+        // Mostrar mensaje del usuario
+        let displayMessage = userInput;
+        if (uploadedFiles.length > 0) {
+            displayMessage += `\n\n?? Archivos adjuntos: ${uploadedFiles.map(f => f.name).join(', ')}`;
+        }
+        addMessage(displayMessage, 'user');
+        document.getElementById('userInput').value = '';
             
-            // Mostrar loading
-            document.getElementById('loading').classList.add('show');
-            document.getElementById('sendBtn').disabled = true;
+        // Mostrar loading
+        document.getElementById('loading').classList.add('show');
+        document.getElementById('sendBtn').disabled = true;
 
-            // Preparar el contexto forense
-            const forensicContext = `Eres un asistente especializado en criminal√≠stica y ciencias forenses. Tu rol es ayudar con an√°lisis t√©cnico, procedimientos forenses, interpretaci√≥n de evidencias, y generaci√≥n de reportes criminal√≠sticos. 
+        // Preparar el contexto forense actualizado
+    const forensicContext = `Eres un asistente especializado en criminal®™stica y ciencias forenses. Tu rol es ayudar con an®¢lisis t®¶cnico, procedimientos forenses, interpretaci®Æn de evidencias, y generaci®Æn de reportes criminal®™sticos. 
 
-Contexto de la aplicaci√≥n: Esta es una herramienta m√≥vil forense que incluye m√≥dulos para:
-- An√°lisis de metadatos EXIF georreferenciados
-- Emulaci√≥n UV para identificaci√≥n de fluidos
-- Lofoscop√≠a (an√°lisis de huellas dactilares)
-- Entomolog√≠a forense
-- Media filiaci√≥n
-- An√°lisis de patrones geoespaciales
-- Documentaci√≥n de evidencias
+Especialidades principales:
+- Fotograf®™a Forense: An®¢lisis t®¶cnico de im®¢genes, planos, ®¢ngulos, iluminaci®Æn, escalas
+- Documentoscop®™a: An®¢lisis de documentos, detecci®Æn de alteraciones, autenticidad
+- Inform®¢tica Forense: An®¢lisis de metadatos, evidencia digital, dispositivos electr®Ænicos
+- An®¢lisis de metadatos EXIF georreferenciados
+- Emulaci®Æn UV para identificaci®Æn de fluidos
+- Lofoscop®™a (an®¢lisis de huellas dactilares)
+- Entomolog®™a forense
+- Media filiaci®Æn
+- An®¢lisis de patrones geoespaciales
 
-Responde de manera t√©cnica pero accesible, con fundamento cient√≠fico y siguiendo protocolos forenses est√°ndar.`;
+Responde de manera t®¶cnica pero accesible, con fundamento cient®™fico y siguiendo protocolos forenses est®¢ndar.`;
 
-            // Construir mensajes
-            const messages = [
-                { role: "system", content: forensicContext },
-                ...conversationHistory,
-                { role: "user", content: userInput }
-            ];
-
-            try {
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': window.location.origin,
-                        'X-Title': 'Laboratorio Forense Mobile App'
-                    },
-                    body: JSON.stringify({
-                        model: model,
-                        messages: messages,
-                        max_tokens: 1000,
-                        temperature: 0.3,
-                        top_p: 0.9
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+    try {
+        // Preparar contenido del mensaje
+        let messageContent = userInput;
+        
+        // Procesar archivos adjuntos
+        if (uploadedFiles.length > 0) {
+            messageContent += "\n\nArchivos adjuntos para an®¢lisis forense:";
+            
+            for (const fileObj of uploadedFiles) {
+                if (fileObj.type.startsWith('image/')) {
+                    // Convertir imagen a base64
+                    const base64 = await fileToBase64(fileObj.file);
+                    messageContent += `\n\nImagen: ${fileObj.name}\n[Imagen en base64 para an®¢lisis]`;
+                } else {
+                    // Para documentos no imagen
+                    messageContent += `\n\nDocumento: ${fileObj.name} (${fileObj.type})`;
                 }
-
-                const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
-
-                // Agregar a historial
-                conversationHistory.push(
-                    { role: "user", content: userInput },
-                    { role: "assistant", content: aiResponse }
-                );
-
-                // Mantener historial limitado (√∫ltimas 10 interacciones)
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
-                }
-
-                addMessage(aiResponse, 'ai');
-
-            } catch (error) {
-                console.error('Error:', error);
-                addMessage(`‚ùå Error al conectar con la API: ${error.message}`, 'ai');
-                showStatus('‚ùå Error en la consulta. Verifica tu conexi√≥n y API key', 'error');
             }
+        }
 
-            // Ocultar loading
+        // Construir mensajes
+        const messages = [
+            { role: "system", content: forensicContext },
+            ...conversationHistory,
+            { role: "user", content: messageContent }
+        ];
+
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.origin,
+                'X-Title': 'Laboratorio Forense Mobile App'
+            },
+            body: JSON.stringify({
+                model: model,
+                messages: messages,
+                max_tokens: 1500,
+                temperature: 0.3,
+                top_p: 0.9
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const aiResponse = data.choices[0].message.content;
+
+         // Agregar a historial
+        conversationHistory.push(
+            { role: "user", content: messageContent },
+            { role: "assistant", content: aiResponse }
+        );
+
+        // Mantener historial limitado
+        if (conversationHistory.length > 20) {
+            conversationHistory = conversationHistory.slice(-20);
+        }
+
+        addMessage(aiResponse, 'ai');
+
+        // Limpiar archivos despu®¶s de enviar
+        uploadedFiles = [];
+        updateFilePreview();
+
+        } catch (error) {
+            console.error('Error:', error);
+            addMessage(`? Error al conectar con la API: ${error.message}`, 'ai');
+            showStatus('? Error en la consulta. Verifica tu conexi®Æn y API key', 'error');
+        }
+
+        // Ocultar loading
             document.getElementById('loading').classList.remove('show');
             document.getElementById('sendBtn').disabled = false;
         }
@@ -385,13 +529,13 @@ Responde de manera t√©cnica pero accesible, con fundamento cient√≠fico y siguien
             const chatContainer = document.getElementById('chatContainer');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            
+
             if (sender === 'user') {
-                messageDiv.innerHTML = `<strong>üë§ Usuario:</strong><br>${content}`;
+                messageDiv.innerHTML = `<strong>Usuario:</strong><br>${content}`;
             } else {
-                messageDiv.innerHTML = `<strong>ü§ñ Asistente Forense:</strong><br>${content}`;
+                messageDiv.innerHTML = `<strong>Asistente Forense:</strong><br>${content}`;
             }
-            
+
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
@@ -416,6 +560,95 @@ Responde de manera t√©cnica pero accesible, con fundamento cient√≠fico y siguien
         document.getElementById('apiKey').addEventListener('change', function() {
             localStorage.setItem('openrouter_api_key', this.value);
         });
-    </script>
+
+        // 5. AGREGAR ESTAS FUNCIONES al final de tu JavaScript existente
+
+        // Manejo de archivos
+        document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+        document.getElementById('fileUploadArea').addEventListener('dragover', handleDragOver);
+        document.getElementById('fileUploadArea').addEventListener('drop', handleFileDrop);
+        document.getElementById('fileUploadArea').addEventListener('dragleave', handleDragLeave);
+
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            processFiles(files);
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.remove('dragover');
+        }
+
+        function handleFileDrop(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.remove('dragover');
+            const files = Array.from(event.dataTransfer.files);
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            files.forEach(file => {
+                if (file.size > MAX_FILE_SIZE) {
+                    showStatus(`? Archivo ${file.name} muy grande (m®¢x 5MB)`, 'error');
+                    return;
+                }
+
+                const fileObj = {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    file: file,
+                    id: Date.now() + Math.random()
+                };
+
+                uploadedFiles.push(fileObj);
+                addFileToPreview(fileObj);
+            });
+        }
+
+        function addFileToPreview(fileObj) {
+            const preview = document.getElementById('filePreview');
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'file-item';
+            fileDiv.innerHTML = `
+                ?? ${fileObj.name} (${formatFileSize(fileObj.size)})
+                <button class="remove-file" onclick="removeFile('${fileObj.id}')">°¡</button>
+            `;
+            preview.appendChild(fileDiv);
+        }
+
+        function removeFile(fileId) {
+            uploadedFiles = uploadedFiles.filter(f => f.id != fileId);
+            updateFilePreview();
+        }
+
+        function updateFilePreview() {
+            const preview = document.getElementById('filePreview');
+            preview.innerHTML = '';
+            uploadedFiles.forEach(addFileToPreview);
+        }
+
+        function formatFileSize(bytes) {
+            return bytes < 1024 ? bytes + 'B' : 
+                   bytes < 1048576 ? Math.round(bytes/1024) + 'KB' : 
+                   Math.round(bytes/1048576) + 'MB';
+        }
+        
+        // Funci®Æn auxiliar para convertir archivo a base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+</script>
 </body>
+
 </html>
