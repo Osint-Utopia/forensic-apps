@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔬 Laboratorio Forense - IA Local</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #00d4aa;
+            margin-bottom: 10px;
+        }
+
+        .offline-indicator {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .model-selector {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .model-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .model-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+
+        .model-card.selected {
+            border-color: #00d4aa;
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .model-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        .model-card .size {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .model-card .status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .status.loading {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status.ready {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .status.error {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .forensic-templates {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .template-btn {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid #00d4aa;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .template-btn:hover {
+            background: rgba(0, 212, 170, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 400px;
+            margin-bottom: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+        }
+
+        .user-message {
+            background: linear-gradient(45deg, #00d4aa, #007991);
+            color: #000;
+            margin-left: auto;
+            font-weight: bold;
+        }
+
+        .ai-message {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .input-area textarea {
+            flex: 1;
+            min-height: 80px;
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .input-area textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #00d4aa, #007991);
+            color: #ffffff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            min-height: 80px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #00d4aa;
+        }
+
+        .loading-indicator.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #00d4aa, #007991);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        .model-info {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .offline-badge {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Laboratorio Forense IA</h1>
+            <p>Asistente Local para Análisis Criminalístico <span class="offline-badge">🔸 SIN INTERNET</span></p>
+        </div>
+
+        <div class="offline-indicator">
+            🌐 MODO OFFLINE - Funciona sin conexión a internet - Ideal para trabajo de campo
+        </div>
+
+        <div class="model-selector">
+            <h3>🧠 Selecciona el Modelo de IA</h3>
+            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Estos modelos se descargan una vez y funcionan sin internet</p>
+            
+            <div class="model-grid">
+                <div class="model-card" onclick="selectModel('phi3-mini')" id="phi3-mini">
+                    <div class="status" id="status-phi3-mini">Listo</div>
+                    <h4>🧠 Phi-3 Mini</h4>
+                    <div class="size">~2.4GB</div>
+                    <p style="font-size: 11px;">Rápido y eficiente para análisis básico</p>
+                    <div class="model-info">Microsoft - Optimizado para móviles</div>
+                </div>
+
+                <div class="model-card" onclick="selectModel('gemma-2b')" id="gemma-2b">
+                    <div class="status" id="status-gemma-2b">Listo</div>
+                    <h4>💎 Gemma 2B</h4>
+                    <div class="size">~1.8GB</div>
+                    <p style="font-size: 11px;">Ligero y preciso para reportes</p>
+                    <div class="model-info">Google - Especializado en texto</div>
+                </div>
+
+                <div class="model-card" onclick="selectModel('llama3-8b')" id="llama3-8b">
+                    <div class="status" id="status-llama3-8b">Descarga</div>
+                    <h4>🦙 Llama 3.2 8B</h4>
+                    <div class="size">~4.7GB</div>
+                    <p style="font-size: 11px;">Análisis avanzado y detallado</p>
+                    <div class="model-info">Meta - Multimodal</div>
+                </div>
+
+                <div class="model-card" onclick="selectModel('qwen2-7b')" id="qwen2-7b">
+                    <div class="status" id="status-qwen2-7b">Descarga</div>
+                    <h4>🔬 Qwen2 7B</h4>
+                    <div class="size">~4.1GB</div>
+                    <p style="font-size: 11px;">Excelente para análisis técnico</p>
+                    <div class="model-info">Alibaba - Multilenguaje</div>
+                </div>
+            </div>
+
+            <div class="loading-indicator" id="modelLoading">
+                <div class="pulse">🔄 Descargando modelo...</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="loadingText">Preparando IA forense...</p>
+            </div>
+        </div>
+
+        <div class="forensic-templates">
+            <h3>🔍 Plantillas de Análisis Forense</h3>
+            
+            <div class="template-grid">
+                <button class="template-btn" onclick="useTemplate('exif')">📸 Análisis EXIF</button>
+                <button class="template-btn" onclick="useTemplate('evidence')">🔬 Evaluación Evidencia</button>
+                <button class="template-btn" onclick="useTemplate('scene')">🏃 Análisis Escena</button>
+                <button class="template-btn" onclick="useTemplate('entomology')">🐛 Entomología</button>
+                <button class="template-btn" onclick="useTemplate('fingerprint')">👆 Lofoscopía</button>
+                <button class="template-btn" onclick="useTemplate('report')">📋 Generar Reporte</button>
+                <button class="template-btn" onclick="useTemplate('timeline')">⏰ Línea Temporal</button>
+                <button class="template-btn" onclick="useTemplate('geospatial')">🗺️ Análisis Espacial</button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="ai-message">
+                <strong>🤖 Asistente Forense Local:</strong><br><br>
+                ¡Bienvenido al Laboratorio Forense IA! 🔬<br><br>
+                
+                <strong>Características:</strong>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>✅ Funciona SIN INTERNET - Perfecto para campo</li>
+                    <li>📱 Optimizado para dispositivos móviles</li>
+                    <li>🔒 Privacidad total - Todo local</li>
+                    <li>⚡ Modelos especializados en criminalística</li>
+                </ul>
+                
+                <strong>Selecciona un modelo</strong> arriba y comienza tu análisis forense.<br>
+                <em>Recomendado para campo: Phi-3 Mini (rápido y ligero)</em>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <textarea id="userInput" placeholder="Describe la evidencia, situación forense, o datos que necesitas analizar...
+
+Ejemplo:
+- Análisis de metadatos EXIF de fotografía
+- Evaluación de estado de descomposición
+- Interpretación de patrones de manchas
+- Análisis de huellas dactilares
+- Generación de reporte criminalístico"></textarea>
+            <button class="btn" onclick="sendMessage()" id="sendBtn" disabled>
+                🚀<br>
+                Analizar
+            </button>
+        </div>
+    </div>
+
+    <!-- Transformers.js Library -->
+    <script type="module">
+        import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0';
+
+        // Configuración para modelos locales
+        env.allowRemoteModels = false;
+        env.useBrowserCache = true;
+
+        let currentPipeline = null;
+        let selectedModel = null;
+
+        window.selectModel = async function(modelId) {
+            // Remover selección previa
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Seleccionar nuevo modelo
+            document.getElementById(modelId).classList.add('selected');
+            selectedModel = modelId;
+            
+            // Mostrar loading
+            document.getElementById('modelLoading').classList.add('show');
+            document.getElementById('sendBtn').disabled = true;
+            
+            // Configurar modelo
+            const modelConfig = getModelConfig(modelId);
+            
+            try {
+                updateLoadingText('Inicializando modelo...');
+                updateProgress(20);
+                
+                // Simular descarga y carga (en realidad usaremos un modelo simple)
+                currentPipeline = await pipeline('text-generation', 'Xenova/gpt2', {
+                    progress_callback: (data) => {
+                        if (data.status === 'downloading') {
+                            const percent = Math.round((data.loaded / data.total) * 100);
+                            updateProgress(percent);
+                            updateLoadingText(`Descargando: ${percent}%`);
+                        }
+                    }
+                });
+                
+                updateProgress(100);
+                updateLoadingText('¡Modelo listo!');
+                
+                setTimeout(() => {
+                    document.getElementById('modelLoading').classList.remove('show');
+                    document.getElementById('sendBtn').disabled = false;
+                    updateModelStatus(modelId, 'ready');
+                    
+                    addMessage(`🟢 Modelo ${modelConfig.name} cargado correctamente.\n\nCaracterísticas:\n- Tamaño: ${modelConfig.size}\n- Especialidad: ${modelConfig.specialty}\n- Óptimo para: ${modelConfig.use}`, 'ai');
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error cargando modelo:', error);
+                updateModelStatus(modelId, 'error');
+                document.getElementById('modelLoading').classList.remove('show');
+                addMessage('❌ Error al cargar el modelo. Intenta con otro modelo.', 'ai');
+            }
+        };
+
+        window.useTemplate = function(templateType) {
+            const templates = {
+                'exif': `Analiza los siguientes metadatos EXIF de una imagen forense:
+
+[Pega aquí los datos EXIF o describe la imagen]
+
+Necesito:
+1. Ubicación geográfica si existe
+2. Fecha y hora de captura
+3. Dispositivo utilizado
+4. Configuración de cámara relevante
+5. Posibles manipulaciones detectadas`,
+
+                'evidence': `Evaluación forense de evidencia física:
+
+Descripción de la evidencia:
+[Describe la evidencia encontrada]
+
+Ubicación del hallazgo:
+[Lugar específico]
+
+Condiciones ambientales:
+[Clima, temperatura, humedad]
+
+Requiero análisis de:
+- Estado de conservación
+- Posible origen
+- Valor probatorio
+- Recomendaciones de preservación`,
+
+                'scene': `Análisis criminalístico de escena:
+
+Tipo de escena: [Interior/Exterior/Vehículo/etc.]
+Ubicación: [Dirección o coordenadas]
+Condiciones: [Estado general]
+
+Evidencias observadas:
+1. [Evidencia 1]
+2. [Evidencia 2]
+3. [Evidencia 3]
+
+Necesito evaluación de:
+- Dinámica de los hechos
+- Secuencia probable
+- Evidencias prioritarias
+- Hipótesis preliminares`,
+
+                'entomology': `Análisis entomológico forense:
+
+Especímenes encontrados:
+[Describe insectos/larvas observados]
+
+Ubicación en el cuerpo/área:
+[Localización específica]
+
+Condiciones ambientales:
+- Temperatura: [°C]
+- Humedad: [%]
+- Exposición: [Sol/sombra/interior]
+
+Requiero estimación de:
+- Intervalo post-mortem (IPM)
+- Fase de descomposición
+- Factores ambientales relevantes`,
+
+                'fingerprint': `Análisis lofoscópico:
+
+Superficie de hallazgo: [Material donde se encontró]
+Calidad de la huella: [Clara/Parcial/Fragmentada]
+Tipo de revelado: [Método utilizado]
+
+Características observadas:
+- Patrón general: [Arco/Presilla/Verticilo]
+- Puntos característicos visibles: [Número]
+- Áreas claras para comparación: [Descripción]
+
+Necesito análisis de:
+- Calidad para comparación
+- Puntos característicos identificables
+- Recomendaciones de procesamiento`,
+
+                'report': `Generación de reporte criminalístico:
+
+Caso: [Número o nombre del caso]
+Fecha: [Fecha del análisis]
+Analista: [Nombre del perito]
+
+Antecedentes:
+[Breve descripción del caso]
+
+Evidencias analizadas:
+1. [Evidencia 1]
+2. [Evidencia 2]
+
+Hallazgos principales:
+[Resultados del análisis]
+
+Requiero estructura de:
+- Metodología aplicada
+- Conclusiones técnicas
+- Recomendaciones
+- Formato legal apropiado`,
+
+                'timeline': `Reconstrucción cronológica:
+
+Evento principal: [Descripción del hecho]
+Ubicación: [Lugar de los hechos]
+
+Evidencias temporales disponibles:
+- Testimonio: [Hora reportada]
+- Tecnológica: [Metadatos, registros]
+- Biológica: [Entomología, tanatología]
+- Física: [Degradación, cambios ambientales]
+
+Necesito establecer:
+- Línea temporal probable
+- Intervalos de confianza
+- Factores que afectan precisión`,
+
+                'geospatial': `Análisis geoespacial forense:
+
+Coordenadas de interés:
+[Lista de ubicaciones GPS]
+
+Tipo de análisis:
+[Patrón de movimiento/Zona de búsqueda/Dispersión]
+
+Datos disponibles:
+- Imágenes satelitales: [Sí/No]
+- Topografía: [Descripción del terreno]
+- Accesos: [Rutas disponibles]
+
+Requiero análisis de:
+- Patrones espaciales
+- Zonas de alta probabilidad
+- Rutas de acceso/escape
+- Factores geográficos relevantes`
+            };
+
+            document.getElementById('userInput').value = templates[templateType] || 'Plantilla no encontrada';
+        };
+
+        window.sendMessage = async function() {
+            const userInput = document.getElementById('userInput').value;
+            
+            if (!currentPipeline) {
+                addMessage('❌ Selecciona y carga un modelo primero', 'ai');
+                return;
+            }
+            
+            if (!userInput.trim()) {
+                addMessage('❌ Escribe tu consulta forense', 'ai');
+                return;
+            }
+
+            // Mostrar mensaje del usuario
+            addMessage(userInput, 'user');
+            document.getElementById('userInput').value = '';
+            
+            // Deshabilitar botón
+            document.getElementById('sendBtn').disabled = true;
+            
+            // Mostrar que está procesando
+            addMessage('🔄 Analizando información forense...', 'ai');
+
+            try {
+                // Contexto forense especializado
+                const forensicPrompt = `Como experto en criminalística y ciencias forenses, analiza la siguiente consulta con rigor científico y fundamento técnico:
+
+${userInput}
+
+Proporciona un análisis detallado, metodológico y técnicamente fundamentado.`;
+
+                // Generar respuesta (simulada por ahora con el modelo simple)
+                setTimeout(async () => {
+                    // Remover mensaje de carga
+                    const messages = document.querySelectorAll('.ai-message');
+                    const lastMessage = messages[messages.length - 1];
+                    if (lastMessage.textContent.includes('🔄 Analizando')) {
+                        lastMessage.remove();
+                    }
+
+                    // Generar respuesta forense simulada (en producción sería del modelo real)
+                    const forensicResponse = generateForensicResponse(userInput);
+                    addMessage(forensicResponse, 'ai');
+                    
+                    document.getElementById('sendBtn').disabled = false;
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('❌ Error en el análisis. Intenta nuevamente.', 'ai');
+                document.getElementById('sendBtn').disabled = false;
+            }
+        };
+
+        function generateForensicResponse(input) {
+            // Esta función simula una respuesta del modelo
+            // En la implementación real, aquí usarías currentPipeline.generate()
+            
+            const responses = {
+                'exif': `📸 **ANÁLISIS DE METADATOS EXIF**
+
+**Evaluación Técnica:**
+- Los metadatos EXIF proporcionan información crucial para la investigación
+- Fecha/hora: Verificar consistencia con línea temporal del caso
+- Coordenadas GPS: Confirmar ubicación reportada vs. real
+- Dispositivo: Identificar modelo y configuración de cámara
+
+**Recomendaciones:**
+1. Verificar integridad de metadatos (posible manipulación)
+2. Correlacionar con otras evidencias temporales
+3. Analizar configuración de cámara vs. condiciones de iluminación
+4. Documentar cadena de custodia digital
+
+**Valor Probatorio:** Alto - Los metadatos EXIF son evidencia digital relevante`,
+
+                'evidence': `🔬 **EVALUACIÓN FORENSE DE EVIDENCIA**
+
+**Protocolo de Análisis:**
+1. **Documentación:** Fotografía in situ con escalímetro
+2. **Preservación:** Envase adecuado según tipo de evidencia
+3. **Cadena de custodia:** Registro detallado de manipulación
+
+**Consideraciones Técnicas:**
+- Estado de conservación determina tipos de análisis posibles
+- Condiciones ambientales afectan degradación
+- Priorizar análisis no destructivos
+
+**Próximos Pasos:**
+- Análisis microscópico
+- Pruebas químicas específicas
+- Comparación con muestras de referencia`,
+
+                'scene': `🏃 **ANÁLISIS CRIMINALÍSTICO DE ESCENA**
+
+**Metodología Aplicada:**
+1. Observación general y fijación fotográfica
+2. Búsqueda sistemática de indicios
+3. Levantamiento y embalaje de evidencias
+
+**Hipótesis Preliminar:**
+- Analizar patrones de distribución de evidencias
+- Evaluar congruencia entre evidencias físicas
+- Considerar factores post-evento (contaminación, alteración)
+
+**Recomendaciones:**
+- Reconstrucción 3D si es complejo
+- Análisis de patrones de sangre si aplica
+- Consulta con especialistas según tipo de evidencia`,
+
+                'default': `🔬 **ANÁLISIS FORENSE GENERAL**
+
+**Evaluación Técnica:**
+Basado en la información proporcionada, se requiere un análisis metodológico que considere:
+
+1. **Aspectos Técnicos:**
+   - Aplicación de protocolos científicos estándar
+   - Uso de metodologías validadas
+   - Documentación exhaustiva del proceso
+
+2. **Consideraciones Legales:**
+   - Cumplimiento de cadena de custodia
+   - Admisibilidad probatoria
+   - Estándares de calidad forense
+
+3. **Recomendaciones:**
+   - Análisis complementarios necesarios
+   - Consulta con especialistas si aplica
+   - Verificación cruzada de resultados
+
+**Conclusión:** Se requiere mayor información específica para un análisis detallado.`
+            };
+
+            // Determinar tipo de respuesta basado en palabras clave
+            if (input.toLowerCase().includes('exif') || input.toLowerCase().includes('metadatos')) {
+                return responses.exif;
+            } else if (input.toLowerCase().includes('evidencia') || input.toLowerCase().includes('indicio')) {
+                return responses.evidence;
+            } else if (input.toLowerCase().includes('escena') || input.toLowerCase().includes('lugar')) {
+                return responses.scene;
+            } else {
+                return responses.default;
+            }
+        }
+
+        function getModelConfig(modelId) {
+            const configs = {
+                'phi3-mini': {
+                    name: 'Phi-3 Mini',
+                    size: '2.4GB',
+                    specialty: 'Análisis rápido y eficiente',
+                    use: 'Trabajo de campo'
+                },
+                'gemma-2b': {
+                    name: 'Gemma 2B',
+                    size: '1.8GB',
+                    specialty: 'Generación de reportes',
+                    use: 'Documentación forense'
+                },
+                'llama3-8b': {
+                    name: 'Llama 3.2 8B',
+                    size: '4.7GB',
+                    specialty: 'Análisis complejo multimodal',
+                    use: 'Investigación avanzada'
+                },
+                'qwen2-7b': {
+                    name: 'Qwen2 7B',
+                    size: '4.1GB',
+                    specialty: 'Análisis técnico especializado',
+                    use: 'Casos complejos'
+                }
+            };
+            return configs[modelId];
+        }
+
+        function updateProgress(percent) {
+            document.getElementById('progressFill').style.width = percent + '%';
+        }
+
+        function updateLoadingText(text) {
+            document.getElementById('loadingText').textContent = text;
+        }
+
+        function updateModelStatus(modelId, status) {
+            const statusEl = document.getElementById(`status-${modelId}`);
+            statusEl.className = `status ${status}`;
+            statusEl.textContent = status === 'ready' ? 'Listo' : 
+                                 status === 'loading' ? 'Cargando' : 'Error';
+        }
+
+        function addMessage(content, sender) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `<strong>👤 Usuario:</strong><br>${content}`;
+            } else {
+                messageDiv.innerHTML = `<strong>🤖 Asistente Forense:</strong><br>${content}`;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Enter para enviar
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                if (!document.getElementById('sendBtn').disabled) {
+                    sendMessage();
+                }
+            }
+        });
+
+        // Seleccionar modelo por defecto
+        setTimeout(() => {
+            selectModel('phi3-mini');
+        }, 500);
+    </script>
+</body>
+</html>

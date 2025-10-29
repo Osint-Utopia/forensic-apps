@@ -1,0 +1,228 @@
+INFORME DE INVESTIGACION Y OBTENCION DE INDICIOS Y/O DATOS DE PRUEBA  
+
+
+  1. Portada
+  
+INFORME DE INVESTIGACIÓN OSINT en sus 7 tipos:
+SIGINT: Inteligencia Basada en la Intercepción de Señales.
+HUMINT: Innteligencia Basada en Personas.
+IMINT: 	Inteligencia Basada en Imágenes.
+ELINT: 	Inteligencia Basada en Señales Eléctricas.
+GEOINT: Inteligencia Basada en Imágenes Satelitales. 
+
+RESPECTO DE:PERSONA DE INTERES CON LA SIGUIENTE INFORMACION
+--
+Persona de Interes: 			María Teresa Godinez Villa
+Análisis de Núm. Tel.: 			Celular +52 3221485712
+Email: 							tgodinez1969@gmail.com
+Email: 							teregodinez@viajesbeyabeja.com.mx
+Enlace al Perfil Facebook:		https://facebook.com/tere.godinez.146
+
+---
+
+Fecha de Creación del Informe: 	[Fecha exacta]  
+Cliente/Entidad Solicitante: 	[Nombre del cliente/Entidad/Privado]  
+Investigador Responsable: 		[Nombre del investigador]  
+Credenciales Especialización: 	[Formación académica y certificaciones del investigador]  
+Clasificación del Informe: 		[Confidencial/Publico]  
+Versión: 1.0  
+
+Equipo y Herramientas Utilizadas:  
+- Software de análisis OSINT: 	[Explica]  
+- Equipos informáticos: 		[Descripción de hardware utilizado]  
+- Servidores y redes empleadas: [Infraestructura de red e IPs utilizadas]  
+
+Metodología:  
+- Técnicas de recolección de datos: 			[Explica]
+  
+- Fuentes de información consultadas: 			[Explica]
+  
+- Procesos de análisis y correlación de datos: 	[VARIABLE PARA LA IA]  
+
+Técnicas Aplicadas:  							[Explica]
+- Análisis de metadatos.  
+- Búsqueda avanzada en motores y bases de datos.  
+- Verificación cruzada de información.  
+- Monitoreo de redes y foros en línea.  
+
+Red e Infraestructura:  						[Explica el Investigador]
+- Dirección IP utilizada en la investigación: 	[IP o rango de IPs]  
+- Servidores y proxies empleados: 				[Descripción técnica]  
+
+Advertencia y Confidencialidad:  
+Este documento es estrictamente confidencial y su difusión está restringida a la entidad solicitante y personal autorizado. Cualquier uso indebido de la información contenida en este informe será responsabilidad exclusiva del receptor.  
+
+---
+
+  2. Avisos y Marco Legal
+
+  2.1 Aviso de Privacidad  						
+  Se informa que la recopilación, análisis y tratamiento de datos personales se realiza conforme a los artículos 6, 16 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de Particulares (LFPDPPP), garantizando que la información será utilizada exclusivamente para los fines solicitados y bajo el consentimiento del titular o con fines de seguridad pública y prevención del delito.  
+
+  2.2 Aviso Informado  							
+  El solicitante ha sido informado de que la información recopilada se obtuvo a través de fuentes abiertas (OSINT) y mediante técnicas de análisis cibernético, respetando los principios de proporcionalidad y necesidad.  
+
+  2.3 Aviso de Exclusión de Responsabilidad  	
+  Este informe no garantiza la veracidad absoluta de la información obtenida, debido a que la misma proviene de fuentes públicas y puede estar sujeta a actualización o error. El uso de estos datos es responsabilidad exclusiva del solicitante.  
+
+  2.4 Marco Legal Aplicable y Actualización Automática
+
+  Este informe cumple con las normativas nacionales e internacionales vigentes en materia de protección de datos y privacidad. Además, se ha implementado un sistema de monitoreo legal automatizado que actualiza periódicamente las referencias normativas según cambios en la legislación.
+
+  México: Constitución Política, Código Penal Federal, LFPDPPP, Ley de Ciberseguridad en trámite.
+  Internacional: Convenio de Budapest sobre Cibercrimen, Normas GAFI sobre delitos financieros y ciberseguridad, GDPR de la Unión Europea.
+  Revisión Automatizada: Se realiza un escaneo mensual de las bases de datos jurídicas para garantizar la actualización de este marco legal.  
+
+  2.5 Obtención Lícita de Datos:  
+  Toda la información fue obtenida de manera lícita utilizando herramientas OSINT reconocidas a nivel internacional, sin violar ninguna ley mexicana ni internacional.
+  
+  Se han aplicado procesos de verificación para garantizar que ninguna fuente utilizada infringe normativas de privacidad o derechos fundamentales.
+---
+
+  3. Contrato / Acuerdo: 
+- Objeto del Contrato: Búsqueda, análisis e identificación de información relacionada con Persona de Interes: María Teresa Godinez Villa
+  Análisis de Número Telefónico: Celular +52 3221485712, Email: tgodinez1969@gmail.com, Email: teregodinez@viajesbeyabeja.com.mx
+  Enlace al Perfil Facebook: https://facebook.com/tere.godinez.146, Informacion del número telefónico para determinar titularidad,   ubicación, relaciones y posibles implicaciones legales.
+  
+- Confidencialidad: Ambas partes acuerdan que los hallazgos serán manejados de forma confidencial y solo se divulgarán en caso de ser      - necesario para procesos judiciales o investigaciones.  
+
+---
+
+  4. Introducción: 
+  Este informe tiene como objetivo realizar un análisis exhaustivo de la persona de interes,  número telefónico, Emasil, Redes sociales, y demas informacion existente enla Red,  utilizando técnicas OSINT en sus 7 tipos de investigacion; SIGINT: inteligencia basada en la intercepción de señales, HUMINT: inteligencia basada en personas; IMINT: inteligencia basada en imágenes, ELINT: inteligencia basada en señales eléctricas, GEOINT: inteligencia basada en imágenes satelitales para:  
+
+- Identificar el propietario o titular del número.  
+- Determinar la ubicación probable del dispositivo.  
+- Analizar posibles vínculos con otros números o personas.
+- Explorar actividad en redes sociales y correlación de imágenes.
+- Buscar correos electrónicos en bases de datos filtradas y en plataformas de acceso   abierto.  
+- Generar diagramas de relaciones y correlación de eventos.  
+
+---
+
+  5. Metodología OSINT Utilizada: 
+- Explorar actividad en redes sociales y correlación de imágenes.
+- Buscar correos electrónicos en bases de datos filtradas y en plataformas de acceso abierto.
+
+  5. Metodología OSINT Utilizada
+  5.1 Herramientas Utilizadas
+- Maltego 				(mapas de relación)
+- Kali Linux 			(forense digital)
+- Shodan 				(infraestructura en línea)
+- Whois/DNS Lookup 		(identificación de dominios)
+- Have I Been Pwned?	(búsqueda de filtraciones de correos electrónicos)
+- Google Dorking 		(búsquedas avanzadas en Google)
+- ExifTool 				(análisis de metadatos en imágenes)
+- PimEyes/Tineye 		(búsqueda inversa de imágenes)
+- Social Mapper 		(análisis en redes sociales)  
+
+  5.2 Fuentes Consultadas: 
+- Redes sociales   
+- Bases de datos públicas y registros telefónicos.  
+- Plataformas de búsqueda inversa.  
+- Motores de búsqueda avanzada.
+- Plataformas de filtraciones de datos
+- Web profunda y foros especializados  
+ 
+  ANOTAR AQUI LAS FUENTES DE MAIGRET
+  
+---
+
+  6. Resultados de la Investigación: 
+  6.1 Identificación del Número
+- Número Analizado:				+52 3221485712
+- Identificación del Número 	[Positivo/Negativo]  
+- Compañía Telefónica:			[Nombre de la compañía]  
+- Tipo de Servicio:				[Móvil / Fijo / VoIPv  
+- País y Ubicación Probable:	[País, Ciudad]  
+- Ubicación Aproximada:			[Coordenadas geográficas / Dirección aproximada]
+- Historial de Uso: 			Se identificó actividad desde [Fecha] hasta [Fecha]. 
+- Historial de Vida del numero: Se identificó su primera actividad desde [Fecha] hasta [Fecha].  
+
+  6.2 Posible Titular o Propietario: 
+- Nombre del Propietario:		  
+- Relación con Entidades/Personas:	Se encontraron vínculos con [personas/empresas].  
+
+  6.3 Ubicación Geográfica: 	
+- Última Ubicación Registrada:	[Ubicación aproximada]  
+- Movimientos Geográficos: 		Correlación de datos GPS/torres.  
+
+  6.4 Relaciones con Otros Números/Usuarios: 
+- Números Asociados: [Lista de números relacionados]  
+- Relaciones Identificadas:  
+	Persona A -> Persona B -> Negocio X  
+	Número 1 -> Transacciones sospechosas con Número 2  
+
+  6.5 Identificación de Correos Electrónicos
+
+- Correo: 						tgodinez1969@gmail.com
+- Verificado como:				[Verdacero/Falso] 					[fuente]
+- Presente en filtraciones: 	[Sí/No]								[fuente]
+- Asociado a: 					[Servicios registrados]				[fuente]
+- Correo:						teregodinez@viajesbeyabeja.com.mx	[fuente]
+- Verificado como:				[Verdacero/Falso] 					[fuente]
+- Presente en filtraciones: 	[Sí/No]								[fuente]
+- Asociado a: 					[Servicios registrados]				[fuente]
+
+  6.3 Análisis de Redes Sociales
+
+- Facebook: 								[Enlace a perfil]
+- Amigos en común con 						[Usuarios detectados]
+- Fotografías con geolocalización en 		[Ubicaciones]
+- LinkedIn: 								[Perfil identificado]
+- Cargo en 									[Empresa]
+- Relación con 								[Personas]
+- Instagram/Twitter: 						[Cuentas identificadas]
+- Publicaciones recientes relacionadas con:	[Temática]
+
+---
+
+  7. Análisis Visual y Diagramas: 
+  7.1 Flujos Temporales
+  
+- Línea de tiempo detallada de interacciones del número.  
+
+  7.2 Diagramas de Relación: 
+
+- Mapeo de conexiones personales, sociales y comerciales.  
+
+  7.3 Mapa de Correlación de Eventos: 
+
+- Visualización de movimientos geográficos y actividad del número.  
+
+---
+
+  8. Análisis de Riesgo Legal: 
+  El análisis de los hallazgos indica un riesgo: Real [Sí/No], Moderado [Sí/No], Alto [Sí/No], en caso de que la información obtenida sea presentada como prueba en un proceso judicial debido a los siguientes factores:  
+
+- Cadena de Custodia: La evidencia OSINT debe estar debidamente documentada para evitar impugnaciones.  
+- Autenticidad de la Fuente: La veracidad de la información obtenida de fuentes abiertas puede ser cuestionada.  
+- Marco Legal Internacional: Si la información obtenida involucra transacciones o comunicaciones transfronterizas, podrían aplicarse
+  normativas de protección de datos extranjeras.  
+
+  Recomendación para el cliente:  
+- Incluir un análisis forense de la información para garantizar su validez.  
+- Presentar la evidencia con un peritaje certificado para fortalecer su admisión en juicio.  
+
+---
+
+ 9. Síntesis de Resultados y Conclusión: 
+ Tras la investigación realizada, se ha identificado que:  
+ El número telefónico [NÚMERO] está asociado con [Persona/Entidad] y mantiene relaciones activas con [Números/Empresas].  
+
+ Posible Implicación Legal: Se identificaron indicios de actividades sospechosas que podrían estar relacionadas con:
+ [Fraude, Extorsión,].  
+
+ Sugerencias Finales:  
+- Continuar con una vigilancia activa del número para detectar cambios en sus patrones de actividad.  
+- Presentar los hallazgos ante las autoridades competentes si el análisis de riesgo sugiere actividades ilícitas.  
+
+---
+
+ 10. Anexos: 
+- Capturas de pantalla de evidencia.			[Anexo No.#]
+- Diagrama de relaciones.						[Anexo No.#]	  
+- Diagrama de Tiempo.							[Anexo No.#]
+- Diagrama de relaciones.						[Anexo No.#]  
+- Registros de búsquedas y datos obtenidos.		
+- Credenciales de idoneidad del Investigador: 	[Anexo No.#]

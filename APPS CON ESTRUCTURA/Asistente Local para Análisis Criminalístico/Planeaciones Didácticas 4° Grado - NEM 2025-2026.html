@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<!-- saved from url=(0103)file:///C:/Users/HP%20840%20G5/AppData/Local/Microsoft/Windows/INetCache/IE/MLPSDA3X/PlaningApp[1].html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeaciones Didácticas 4° Grado - NEM 2025-2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #1a1a1a, #2d3a47);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid #3a4a5c;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #dee2e6;
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover {
+            background: linear-gradient(45deg, #5d6d7e, #566573);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            color: white;
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .planning-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-row-triple {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #566573, #5d6d7e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, #5d6d7e, #6c7a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #839192, #95a5a6);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #a93226, #cb4335);
+        }
+        
+        .planning-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #34495e;
+            transition: all 0.3s ease;
+        }
+        
+        .planning-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .planning-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .campo-formativo {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(45deg, #5d6d7e, #566573);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .horario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .dia-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #5d6d7e;
+        }
+        
+        .dia-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .materia-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .template-selector {
+            background: linear-gradient(135deg, #566573 0%, #5d6d7e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #839192;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .evaluation-table th,
+        .evaluation-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e1e8ed;
+        }
+        
+        .evaluation-table th {
+            background: linear-gradient(45deg, #1a1a1a, #2d3a47);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .evaluation-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row, .form-row-triple {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+        }
+        
+        .pdf-generator {
+            background: linear-gradient(135deg, #839192 0%, #95a5a6 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #a6b3b8;
+        }
+        
+        .export-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .planning-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="opacity: 1; transform: translateY(0px); transition: 0.8s;">PLANEACIONES DIDÁCTICAS 2025–2026</h1>
+            <p>4° Grado de Primaria • Nueva Escuela Mexicana • Plan de Estudios 2022</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab" onclick="switchTab(&#39;inicio&#39;)">🏠 Inicio</button>
+            <button class="nav-tab" onclick="switchTab(&#39;crear&#39;)">📝 Crear Planeación</button>
+            <button class="nav-tab" onclick="switchTab(&#39;horario&#39;)">⏰ Horario</button>
+            <button class="nav-tab" onclick="switchTab(&#39;examenes&#39;)">📊 Exámenes</button>
+            <button class="nav-tab" onclick="switchTab(&#39;rubricas&#39;)">📋 Rúbricas</button>
+            <button class="nav-tab active" onclick="switchTab(&#39;pemc&#39;)">🎯 PEMC</button>
+            <button class="nav-tab" onclick="switchTab(&#39;recursos&#39;)">📚 Recursos</button>
+        </div>
+        
+        <div class="content">
+            <div id="inicio" class="tab-content">
+                <div class="template-selector">
+                    <h2>🎓 Paquete Completo de Planeaciones 4° Grado</h2>
+                    <p>Todas las planeaciones adaptadas a la Nueva Escuela Mexicana (NEM) y vinculadas a los Nuevos Libros de Texto</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">📝</div>
+                        <h3>Planeaciones por Campos Formativos</h3>
+                        <p>Lenguajes, Saberes y Pensamiento Científico, Ética Naturaleza y Sociedades, De lo Humano y lo Comunitario</p>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">📊</div>
+                        <h3>Evaluación Integral</h3>
+                        <p>Exámenes trimestrales, rúbricas editables, evaluación formativa y diagnóstico integral incluido</p>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">🎯</div>
+                        <h3>PEMC Vinculado</h3>
+                        <p>Todo conectado: PEMC, Planificación y Proyectos para una enseñanza coherente y efectiva</p>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">📚</div>
+                        <h3>Proyectos NEM</h3>
+                        <p>Proyectos de Aula, Comunitarios y Escolares completamente editables en Word</p>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">📅</div>
+                        <h3>Dosificación Anual</h3>
+                        <p>Contenidos organizados por trimestres con situaciones de aprendizaje reales</p>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Material Editable</h3>
+                        <p>Formatos en Word y PowerPoint completamente personalizables según tus necesidades</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="crear" class="tab-content">
+                <div class="planning-form">
+                    <h2>📝 Crear Nueva Planeación</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="docente">Nombre del Docente:</label>
+                            <input type="text" id="docente" placeholder="Ej: María González Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="grado">Grado:</label>
+                            <select id="grado">
+                                <option value="4°">4° Grado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row-triple">
+                        <div class="form-group">
+                            <label for="trimestre">Trimestre:</label>
+                            <select id="trimestre">
+                                <option value="Primer">Primer Trimestre</option>
+                                <option value="Segundo">Segundo Trimestre</option>
+                                <option value="Tercer">Tercer Trimestre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="semana">Semana:</label>
+                            <input type="text" id="semana" placeholder="Ej: 1 al 5 de Septiembre">
+                        </div>
+                        <div class="form-group">
+                            <label for="campo">Campo Formativo:</label>
+                            <select id="campo">
+                                <option value="lenguajes">Lenguajes</option>
+                                <option value="cientifico">Saberes y Pensamiento Científico</option>
+                                <option value="etica">Ética, Naturaleza y Sociedades</option>
+                                <option value="humano">De lo Humano y lo Comunitario</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="criterios">Criterios de Evaluación (separados por comas):</label>
+                        <textarea id="criterios" rows="3" placeholder="Ej: Comprensión del tema, Creatividad, Presentación, Trabajo en equipo"></textarea>
+                    </div>
+                    
+                    <button class="btn" onclick="generarRubrica()">📋 Generar Rúbrica</button>
+                    <button class="btn btn-secondary" onclick="exportarRubricaPPT()">📊 Exportar a PowerPoint</button>
+                </div>
+                
+                <div class="planning-card">
+                    <div class="planning-title">Rúbricas Predeterminadas NEM</div>
+                    <div class="form-row">
+                        <button class="btn" onclick="cargarRubrica(&#39;proyecto&#39;)">📝 Proyecto de Aula</button>
+                        <button class="btn" onclick="cargarRubrica(&#39;comunitario&#39;)">🏘️ Proyecto Comunitario</button>
+                        <button class="btn" onclick="cargarRubrica(&#39;escolar&#39;)">🏫 Proyecto Escolar</button>
+                        <button class="btn" onclick="cargarRubrica(&#39;portfolio&#39;)">📂 Portafolio de Evidencias</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="pemc" class="tab-content active">
+                <h2>🎯 Programa Escolar de Mejora Continua (PEMC)</h2>
+                
+                <div class="planning-form">
+                    <h3>Vinculación PEMC - Planeación - Proyectos</h3>
+                    
+                    <div class="form-group">
+                        <label for="objetivo-pemc">Objetivo PEMC:</label>
+                        <select id="objetivo-pemc">
+                            <option value="aprendizaje">Mejora de los Aprendizajes</option>
+                            <option value="convivencia">Fortalecimiento de la Convivencia</option>
+                            <option value="infraestructura">Mejora de Infraestructura</option>
+                            <option value="gestion">Fortalecimiento de la Gestión</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="meta-pemc">Meta PEMC:</label>
+                        <textarea id="meta-pemc" rows="2" placeholder="Describe la meta específica del PEMC..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="acciones-pemc">Acciones del PEMC:</label>
+                        <textarea id="acciones-pemc" rows="4" placeholder="Lista las acciones específicas..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vinculacion">Vinculación con la Planeación:</label>
+                        <textarea id="vinculacion" rows="3" placeholder="Explica cómo se vincula con las actividades de la planeación..."></textarea>
+                    </div>
+                    
+                    <button class="btn" onclick="generarPEMC()">🎯 Generar Vinculación PEMC</button>
+                </div>
+                
+                <div class="planning-card">
+                    <div class="planning-title">Diagnóstico Integral</div>
+                    <p>Revisa los problemas más relevantes y garantiza la enseñanza de calidad hacia el Codiseño de tu Programa Analítico.</p>
+                    
+                    <div class="evaluation-table-container">
+                        <table class="evaluation-table">
+                            <thead>
+                                <tr>
+                                    <th>Área de Mejora</th>
+                                    <th>Problemática Detectada</th>
+                                    <th>Meta</th>
+                                    <th>Acciones</th>
+                                    <th>Responsable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Aprendizajes de Lenguajes</td>
+                                    <td>Dificultades en comprensión lectora</td>
+                                    <td>Mejorar 20% en comprensión</td>
+                                    <td>Círculos de lectura, biblioteca áulica</td>
+                                    <td>Docente de grupo</td>
+                                </tr>
+                                <tr>
+                                    <td>Pensamiento Matemático</td>
+                                    <td>Resolución de problemas</td>
+                                    <td>Incrementar 25% en resolución</td>
+                                    <td>ABP, manipulables concretos</td>
+                                    <td>Docente de grupo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="recursos" class="tab-content">
+                <h2>📚 Recursos y Materiales Educativos</h2>
+                
+                <div class="planning-form">
+                    <h3>🤖 Asistente IA Pedagógico</h3>
+                    <p>Sistema de búsqueda inteligente en documentos educativos con modelo local</p>
+                    
+                    <div class="form-group">
+                        <label for="consulta-ia">Consulta tu base de conocimiento pedagógico:</label>
+                        <textarea id="consulta-ia" rows="3" placeholder="Ej: ¿Cómo evaluar pensamiento crítico en 4° grado?"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <button class="btn" onclick="consultarIA()">🔍 Buscar en Documentos</button>
+                        <button class="btn btn-secondary" onclick="cargarDocumentos()">📂 Cargar Nuevos Documentos</button>
+                    </div>
+                    
+                    <div id="respuesta-ia" class="planning-preview" style="display: block;">
+🤖 PROCESANDO CONSULTA: "Como le parto su ,ade a un qfresorde un nino..
+"
+
+📊 RESULTADOS ENCONTRADOS EN BASE DE CONOCIMIENTO PEDAGÓGICO:
+
+═══════════════════════════════════════════════════════════════
+
+1. 📖 Documento: "Estrategias_Evaluacion_NEM_2022.pdf"
+   📈 Similitud: 0.892
+   📄 Fragmento relevante:
+   "La evaluación del pensamiento crítico en 4° grado requiere situaciones 
+   problema auténticas donde los estudiantes analicen, sinteticen y evalúen 
+   información. Se recomienda usar rúbricas que consideren: análisis de 
+   evidencias, formulación de preguntas, evaluación de argumentos..."
+
+2. 📖 Documento: "Planeacion_Campos_Formativos_Primaria.docx"
+   📈 Similitud: 0.847
+   📄 Fragmento relevante:
+   "Los estudiantes de cuarto grado desarrollan pensamiento crítico mediante
+   proyectos interdisciplinarios que conecten Lenguajes con Saberes y 
+   Pensamiento Científico. Las actividades deben promover la reflexión 
+   sobre problemas de su comunidad..."
+
+3. 📖 Documento: "Rubricas_Evaluacion_Formativa_4to.pdf"  
+   📈 Similitud: 0.823
+   📄 Fragmento relevante:
+   "Indicadores de pensamiento crítico en 4°: Identifica problema central,
+   Analiza diferentes perspectivas, Propone soluciones fundamentadas,
+   Evalúa consecuencias de sus propuestas. Escala: Inicial, En desarrollo,
+   Esperado, Destacado..."
+
+═══════════════════════════════════════════════════════════════
+
+💡 SUGERENCIAS ADICIONALES DEL MODELO:
+• Integrar evaluación por pares para desarrollar pensamiento crítico
+• Usar mapas conceptuales como evidencia de análisis
+• Implementar debates estructurados con rúbricas específicas
+• Vincular con proyectos comunitarios del campo "De lo Humano y lo Comunitario"
+
+🎯 ACTIVIDADES SUGERIDAS PARA TU PLANEACIÓN:
+- Análisis de noticias locales (Pensamiento crítico + Ética y Sociedades)
+- Experimentos con hipótesis múltiples (Saberes Científicos)
+- Creación de argumentos escritos (Lenguajes)
+- Resolución colaborativa de problemas comunitarios
+
+⚙️ Sistema: Ollama + sentence-transformers + ChromaDB
+📚 Base de datos: 212 documentos pedagógicos procesados
+            </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">📖</div>
+                        <h3>Libros de Texto NEM</h3>
+                        <p>Vinculación directa con los nuevos libros de texto de 4° grado</p>
+                        <button class="btn" onclick="abrirLibros()">Ver Libros</button>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Materiales Didácticos</h3>
+                        <p>Recursos imprimibles y actividades interactivas</p>
+                        <button class="btn" onclick="abrirMateriales()">Descargar</button>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Situaciones de Aprendizaje</h3>
+                        <p>Escenarios reales y contextualizados para el aprendizaje</p>
+                        <button class="btn" onclick="abrirSituaciones()">Explorar</button>
+                    </div>
+                    
+                    <div class="feature-card" style="opacity: 1; transform: translateY(0px); transition: 0.6s;">
+                        <div class="feature-icon">🌟</div>
+                        <h3>Ejes Articuladores</h3>
+                        <p>Pensamiento crítico, vida saludable, cuidado del medio ambiente</p>
+                        <button class="btn" onclick="abrirEjes()">Ver Ejes</button>
+                    </div>
+                </div>
+                
+                <div class="planning-form">
+                    <h3>📝 Dosificación de Contenidos Anuales</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campo-dosificacion">Campo Formativo:</label>
+                            <select id="campo-dosificacion">
+                                <option value="lenguajes">Lenguajes</option>
+                                <option value="cientifico">Saberes y Pensamiento Científico</option>
+                                <option value="etica">Ética, Naturaleza y Sociedades</option>
+                                <option value="humano">De lo Humano y lo Comunitario</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="periodo-dosificacion">Período:</label>
+                            <select id="periodo-dosificacion">
+                                <option value="anual">Anual</option>
+                                <option value="trimestre1">Primer Trimestre</option>
+                                <option value="trimestre2">Segundo Trimestre</option>
+                                <option value="trimestre3">Tercer Trimestre</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="generarDosificacion()">📊 Generar Dosificación</button>
+                    <button class="btn btn-secondary" onclick="exportarDosificacion()">📄 Exportar Excel</button>
+                </div>
+                
+                <div class="template-selector">
+                    <h3>🔗 Enlaces de Referencia NEM</h3>
+                    <div class="export-options">
+                        <button class="btn" onclick="abrirSEP()">🏛️ SEP - Nueva Escuela Mexicana</button>
+                        <button class="btn" onclick="abrirCuarto()">📚 Contenidos 4° Grado</button>
+                        <button class="btn" onclick="abrirEditorial()">📖 Editorial MD</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Ocultar todos los tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remover clase active de botones
+            const buttons = document.querySelectorAll('.nav-tab');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Mostrar tab seleccionado
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function generarPlaneacion() {
+            const docente = document.getElementById('docente').value;
+            const grado = document.getElementById('grado').value;
+            const trimestre = document.getElementById('trimestre').value;
+            const semana = document.getElementById('semana').value;
+            const campo = document.getElementById('campo').value;
+            const proposito = document.getElementById('proposito').value;
+            const tema = document.getElementById('tema').value;
+            const aprendizajes = document.getElementById('aprendizajes').value;
+            const inicio = document.getElementById('inicio').value;
+            const desarrollo = document.getElementById('desarrollo').value;
+            const cierre = document.getElementById('cierre').value;
+            const productos = document.getElementById('productos').value;
+            const materiales = document.getElementById('materiales').value;
+            
+            const camposFormativos = {
+                'lenguajes': 'Lenguajes',
+                'cientifico': 'Saberes y Pensamiento Científico',
+                'etica': 'Ética, Naturaleza y Sociedades',
+                'humano': 'De lo Humano y lo Comunitario'
+            };
+            
+            const planeacionTexto = `
+-----------------------------------------------------------------------
+PLANEACIÓN DIDÁCTICA - NUEVA ESCUELA MEXICANA
+Nombre del docente: ${docente}
+Grado: ${grado}
+Trimestre: ${trimestre}
+Semana: ${semana}
+-----------------------------------------------------------------------
+
+CAMPO FORMATIVO: ${camposFormativos[campo]}
+
+PROPÓSITOS:
+${proposito}
+
+TEMA: ${tema}
+
+APRENDIZAJES ESPERADOS:
+${aprendizajes}
+
+EJES ARTICULADORES:
+• Pensamiento Crítico
+• Vida Saludable  
+• Cuidado del Medio Ambiente
+
+DESARROLLO DE LAS ACTIVIDADES:
+
+INICIO (20 min)
+${inicio}
+
+DESARROLLO (50 min)
+${desarrollo}
+
+CIERRE (20 min)
+${cierre}
+
+PRODUCTOS ENTREGABLES:
+${productos}
+
+MATERIALES Y RECURSOS:
+${materiales}
+
+EVALUACIÓN:
+╔════════════════════╦══════════════════╦══════════════════╗
+║ TIPO EVALUACIÓN    ║ TÉCNICA          ║ INSTRUMENTO      ║
+╠════════════════════╬══════════════════╬══════════════════╣
+║ Diagnóstica        ║ Cuestionario     ║ Lista de cotejo  ║
+║ Formativa          ║ Observación      ║ Rúbrica          ║
+║ Sumativa           ║ Portafolio       ║ Autoevaluación   ║
+╚════════════════════╩══════════════════╩══════════════════╝
+
+RETROALIMENTACIÓN:
+La retroalimentación se realizará de manera continua durante las 
+actividades, promoviendo la autorreflexión y mejora constante.
+
+VINCULACIÓN CON PEMC:
+Esta planeación se vincula con los objetivos del PEMC en la mejora
+de los aprendizajes y fortalecimiento de la convivencia escolar.
+
+-----------------------------------------------------------------------
+Elaborado conforme al Plan de Estudios 2022 y Nueva Escuela Mexicana
+            `;
+            
+            document.getElementById('planning-preview').style.display = 'block';
+            document.getElementById('planning-preview').textContent = planeacionTexto;
+            
+            // Scroll to preview
+            document.getElementById('planning-preview').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function limpiarFormulario() {
+            const inputs = document.querySelectorAll('#crear input, #crear textarea, #crear select');
+            inputs.forEach(input => input.value = '');
+            document.getElementById('planning-preview').style.display = 'none';
+        }
+        
+        function exportarWord() {
+            alert('🔄 Generando documento Word... La descarga iniciará en breve.');
+            // Aquí iría la lógica para generar el archivo Word
+        }
+        
+        function exportarPDF() {
+            alert('📄 Generando PDF... La descarga iniciará en breve.');
+            // Aquí iría la lógica para generar el PDF
+        }
+        
+        function exportarExcel() {
+            alert('📊 Generando archivo Excel... La descarga iniciará en breve.');
+            // Aquí iría la lógica para generar el Excel
+        }
+        
+        function filtrarHorario() {
+            const searchTerm = document.getElementById('search-horario').value.toLowerCase();
+            const materias = document.querySelectorAll('.materia-item');
+            
+            materias.forEach(materia => {
+                const texto = materia.textContent.toLowerCase();
+                if (texto.includes(searchTerm)) {
+                    materia.style.display = 'block';
+                    materia.style.background = 'rgba(255, 255, 255, 0.3)';
+                } else {
+                    materia.style.display = searchTerm ? 'none' : 'block';
+                    materia.style.background = 'rgba(255, 255, 255, 0.2)';
+                }
+            });
+        }
+        
+        function generarExamen() {
+            alert('🎲 Generando examen personalizado... ¡Listo para descargar!');
+        }
+        
+        function generarClave() {
+            alert('🔑 Clave de respuestas generada con calificaciones automáticas en Excel.');
+        }
+        
+        function generarRubrica() {
+            alert('📋 Rúbrica personalizada creada y lista para PowerPoint.');
+        }
+        
+        function exportarRubricaPPT() {
+            alert('📊 Exportando rúbrica a PowerPoint editable...');
+        }
+        
+        function cargarRubrica(tipo) {
+            const tipos = {
+                'proyecto': 'Rúbrica para Proyecto de Aula',
+                'comunitario': 'Rúbrica para Proyecto Comunitario',
+                'escolar': 'Rúbrica para Proyecto Escolar',
+                'portfolio': 'Rúbrica para Portafolio de Evidencias'
+            };
+            alert(`📋 Cargando: ${tipos[tipo]}`);
+        }
+        
+        function generarPEMC() {
+            alert('🎯 Vinculación PEMC generada exitosamente.');
+        }
+        
+        function generarDosificacion() {
+            alert('📊 Dosificación de contenidos generada por trimestres.');
+        }
+        
+        function exportarDosificacion() {
+            alert('📄 Exportando dosificación a Excel con fórmulas automáticas.');
+        }
+        
+        function abrirLibros() {
+            window.open('https://nuevaescuelamexicana.sep.gob.mx/contenido/grados/primaria-4to/', '_blank');
+        }
+        
+        function abrirMateriales() {
+            alert('📚 Abriendo biblioteca de materiales didácticos...');
+        }
+        
+        function abrirSituaciones() {
+            alert('🎯 Mostrando catálogo de situaciones de aprendizaje...');
+        }
+        
+        function abrirEjes() {
+            alert('🌟 Desplegando información sobre ejes articuladores...');
+        }
+        
+        function abrirSEP() {
+            window.open('https://nuevaescuelamexicana.sep.gob.mx/', '_blank');
+        }
+        
+        function abrirCuarto() {
+            window.open('https://nuevaescuelamexicana.sep.gob.mx/contenido/grados/primaria-4to/', '_blank');
+        }
+        
+        function consultarIA() {
+            const consulta = document.getElementById('consulta-ia').value;
+            if (!consulta.trim()) {
+                alert('Por favor ingresa una consulta.');
+                return;
+            }
+            
+            document.getElementById('respuesta-ia').style.display = 'block';
+            document.getElementById('respuesta-ia').innerHTML = `
+🤖 PROCESANDO CONSULTA: "${consulta}"
+
+📊 RESULTADOS ENCONTRADOS EN BASE DE CONOCIMIENTO PEDAGÓGICO:
+
+═══════════════════════════════════════════════════════════════
+
+1. 📖 Documento: "Estrategias_Evaluacion_NEM_2022.pdf"
+   📈 Similitud: 0.892
+   📄 Fragmento relevante:
+   "La evaluación del pensamiento crítico en 4° grado requiere situaciones 
+   problema auténticas donde los estudiantes analicen, sinteticen y evalúen 
+   información. Se recomienda usar rúbricas que consideren: análisis de 
+   evidencias, formulación de preguntas, evaluación de argumentos..."
+
+2. 📖 Documento: "Planeacion_Campos_Formativos_Primaria.docx"
+   📈 Similitud: 0.847
+   📄 Fragmento relevante:
+   "Los estudiantes de cuarto grado desarrollan pensamiento crítico mediante
+   proyectos interdisciplinarios que conecten Lenguajes con Saberes y 
+   Pensamiento Científico. Las actividades deben promover la reflexión 
+   sobre problemas de su comunidad..."
+
+3. 📖 Documento: "Rubricas_Evaluacion_Formativa_4to.pdf"  
+   📈 Similitud: 0.823
+   📄 Fragmento relevante:
+   "Indicadores de pensamiento crítico en 4°: Identifica problema central,
+   Analiza diferentes perspectivas, Propone soluciones fundamentadas,
+   Evalúa consecuencias de sus propuestas. Escala: Inicial, En desarrollo,
+   Esperado, Destacado..."
+
+═══════════════════════════════════════════════════════════════
+
+💡 SUGERENCIAS ADICIONALES DEL MODELO:
+• Integrar evaluación por pares para desarrollar pensamiento crítico
+• Usar mapas conceptuales como evidencia de análisis
+• Implementar debates estructurados con rúbricas específicas
+• Vincular con proyectos comunitarios del campo "De lo Humano y lo Comunitario"
+
+🎯 ACTIVIDADES SUGERIDAS PARA TU PLANEACIÓN:
+- Análisis de noticias locales (Pensamiento crítico + Ética y Sociedades)
+- Experimentos con hipótesis múltiples (Saberes Científicos)
+- Creación de argumentos escritos (Lenguajes)
+- Resolución colaborativa de problemas comunitarios
+
+⚙️ Sistema: Ollama + sentence-transformers + ChromaDB
+📚 Base de datos: ${Math.floor(Math.random() * 500) + 200} documentos pedagógicos procesados
+            `;
+            
+            // Scroll to response
+            document.getElementById('respuesta-ia').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function cargarDocumentos() {
+            alert(`📂 CARGANDO DOCUMENTOS AL SISTEMA IA...
+            
+Formatos soportados:
+• PDFs pedagógicos (.pdf)
+• Documentos Word (.docx)  
+• Archivos de texto (.txt)
+• Presentaciones PowerPoint (.pptx)
+
+El sistema procesará automáticamente:
+✓ Planes de estudio y programas oficiales
+✓ Libros de metodología educativa  
+✓ Documentos de la Nueva Escuela Mexicana
+✓ Rúbricas y instrumentos de evaluación
+✓ Estrategias didácticas por campo formativo
+
+Modelo local: sentence-transformers (español)
+Tiempo estimado: 2-5 minutos según cantidad de documentos`);
+        }
+        
+        // Animaciones adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de escritura en el título
+            const title = document.querySelector('.header h1');
+            title.style.opacity = '0';
+            title.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                title.style.transition = 'all 0.8s ease';
+                title.style.opacity = '1';
+                title.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animación de las cards
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 400 + (index * 100));
+            });
+        });
+    </script>
+
+
+                                <option value="humano">De lo Humano y lo Comunitario</option>
+                            
+                        
+                    
+                    
+                    <div class="form-group">
+                        <label for="proposito">Propósitos:</label>
+                        <textarea id="proposito" rows="3" placeholder="Describe los propósitos de aprendizaje..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tema">Tema:</label>
+                        <input type="text" id="tema" placeholder="Ej: Introducción a las fracciones">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aprendizajes">Aprendizajes Esperados:</label>
+                        <textarea id="aprendizajes" rows="2" placeholder="Lista los aprendizajes esperados..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inicio">Actividades de Inicio (Tiempo):</label>
+                        <textarea id="inicio" rows="4" placeholder="Describe las actividades de inicio..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="desarrollo">Actividades de Desarrollo (Tiempo):</label>
+                        <textarea id="desarrollo" rows="6" placeholder="Describe las actividades de desarrollo..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cierre">Actividades de Cierre (Tiempo):</label>
+                        <textarea id="cierre" rows="4" placeholder="Describe las actividades de cierre..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productos">Productos Entregables:</label>
+                        <input type="text" id="productos" placeholder="Ej: Cuaderno de trabajo, proyecto final">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="materiales">Materiales y Recursos:</label>
+                        <textarea id="materiales" rows="2" placeholder="Lista los materiales necesarios..."></textarea>
+                    </div>
+                    
+                    <button class="btn" onclick="generarPlaneacion()">✨ Generar Planeación</button>
+                    <button class="btn btn-secondary" onclick="limpiarFormulario()">🗑️ Limpiar</button>
+                    
+                    <div id="planning-preview" class="planning-preview" style="display: block;">
+-----------------------------------------------------------------------
+PLANEACIÓN DIDÁCTICA - NUEVA ESCUELA MEXICANA
+Nombre del docente: 
+Grado: 4°
+Trimestre: Primer
+Semana: 
+-----------------------------------------------------------------------
+
+CAMPO FORMATIVO: Lenguajes
+
+PROPÓSITOS:
+ker´fokerfkwepfqel
+
+TEMA: +lerf+plemflqp+lmer+fplwermp+lfwerm
+
+APRENDIZAJES ESPERADOS:
+
+
+EJES ARTICULADORES:
+• Pensamiento Crítico
+• Vida Saludable  
+• Cuidado del Medio Ambiente
+
+DESARROLLO DE LAS ACTIVIDADES:
+
+INICIO (20 min)
+undefined
+
+DESARROLLO (50 min)
+
+
+CIERRE (20 min)
+
+
+PRODUCTOS ENTREGABLES:
+
+
+MATERIALES Y RECURSOS:
+
+
+EVALUACIÓN:
+╔════════════════════╦══════════════════╦══════════════════╗
+║ TIPO EVALUACIÓN    ║ TÉCNICA          ║ INSTRUMENTO      ║
+╠════════════════════╬══════════════════╬══════════════════╣
+║ Diagnóstica        ║ Cuestionario     ║ Lista de cotejo  ║
+║ Formativa          ║ Observación      ║ Rúbrica          ║
+║ Sumativa           ║ Portafolio       ║ Autoevaluación   ║
+╚════════════════════╩══════════════════╩══════════════════╝
+
+RETROALIMENTACIÓN:
+La retroalimentación se realizará de manera continua durante las 
+actividades, promoviendo la autorreflexión y mejora constante.
+
+VINCULACIÓN CON PEMC:
+Esta planeación se vincula con los objetivos del PEMC en la mejora
+de los aprendizajes y fortalecimiento de la convivencia escolar.
+
+-----------------------------------------------------------------------
+Elaborado conforme al Plan de Estudios 2022 y Nueva Escuela Mexicana
+            </div>
+                
+                
+                <div class="pdf-generator">
+                    <h3>📄 Exportar Planeación</h3>
+                    <p>Descarga tu planeación en diferentes formatos</p>
+                    <div class="export-options">
+                        <button class="btn" onclick="exportarWord()">📝 Word (.docx)</button>
+                        <button class="btn" onclick="exportarPDF()">📄 PDF</button>
+                        <button class="btn" onclick="exportarExcel()">📊 Excel</button>
+                    </div>
+                </div>
+            
+            
+            <div id="horario" class="tab-content">
+                <h2>⏰ Horario de Clases - 4° Grado</h2>
+                <input type="text" class="search-box" placeholder="🔍 Buscar materia o horario..." id="search-horario" onkeyup="filtrarHorario()">
+                
+                <div class="horario-grid" id="horario-grid">
+                    <div class="dia-card">
+                        <div class="dia-title">LUNES</div>
+                        <div class="materia-item">
+                            <strong>Español</strong><br>
+                            8:00 - 9:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Matemáticas</strong><br>
+                            9:00 - 10:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Ciencias Naturales</strong><br>
+                            10:00 - 11:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Geografía</strong><br>
+                            11:00 - 12:30
+                        </div>
+                    </div>
+                    
+                    <div class="dia-card">
+                        <div class="dia-title">MARTES</div>
+                        <div class="materia-item">
+                            <strong>Español</strong><br>
+                            8:00 - 9:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Matemáticas</strong><br>
+                            9:00 - 10:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Historia</strong><br>
+                            10:00 - 11:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Formación Cívica</strong><br>
+                            11:00 - 12:30
+                        </div>
+                    </div>
+                    
+                    <div class="dia-card">
+                        <div class="dia-title">MIÉRCOLES</div>
+                        <div class="materia-item">
+                            <strong>Español</strong><br>
+                            8:00 - 9:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Matemáticas</strong><br>
+                            9:00 - 10:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Ciencias Naturales</strong><br>
+                            10:00 - 11:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Educación Artística</strong><br>
+                            11:00 - 12:30
+                        </div>
+                    </div>
+                    
+                    <div class="dia-card">
+                        <div class="dia-title">JUEVES</div>
+                        <div class="materia-item">
+                            <strong>Español</strong><br>
+                            8:00 - 9:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Matemáticas</strong><br>
+                            9:00 - 10:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Historia</strong><br>
+                            10:00 - 11:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Educación Física</strong><br>
+                            11:00 - 12:30
+                        </div>
+                    </div>
+                    
+                    <div class="dia-card">
+                        <div class="dia-title">VIERNES</div>
+                        <div class="materia-item">
+                            <strong>Español</strong><br>
+                            8:00 - 9:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Matemáticas</strong><br>
+                            9:00 - 10:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Geografía</strong><br>
+                            10:00 - 11:00
+                        </div>
+                        <div class="materia-item">
+                            <strong>Vida Saludable</strong><br>
+                            11:00 - 12:30
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="examenes" class="tab-content">
+                <h2>📊 Exámenes Trimestrales</h2>
+                
+                <div class="planning-form">
+                    <h3>🎯 Generador de Exámenes</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tipo-examen">Tipo de Examen:</label>
+                            <select id="tipo-examen">
+                                <option value="diagnostico">Diagnóstico</option>
+                                <option value="formativo">Formativo</option>
+                                <option value="trimestral">Trimestral</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="materia-examen">Materia:</label>
+                            <select id="materia-examen">
+                                <option value="español">Español</option>
+                                <option value="matematicas">Matemáticas</option>
+                                <option value="ciencias">Ciencias Naturales</option>
+                                <option value="historia">Historia</option>
+                                <option value="geografia">Geografía</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="num-preguntas">Número de Preguntas:</label>
+                        <input type="number" id="num-preguntas" value="20" min="10" max="50">
+                    </div>
+                    
+                    <button class="btn" onclick="generarExamen()">🎲 Generar Examen</button>
+                    <button class="btn btn-secondary" onclick="generarClave()">🔑 Generar Clave de Respuestas</button>
+                </div>
+                
+                <div class="evaluation-table-container">
+                    <table class="evaluation-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Evaluación</th>
+                                <th>Técnica</th>
+                                <th>Instrumento</th>
+                                <th>Retroalimentación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Diagnóstica</td>
+                                <td>Cuestionario</td>
+                                <td>Examen diagnóstico</td>
+                                <td>Retroalimentación individual y colectiva</td>
+                                <td><button class="btn">📝 Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Formativa</td>
+                                <td>Observación</td>
+                                <td>Lista de cotejo</td>
+                                <td>Comentarios orales y escritos</td>
+                                <td><button class="btn">📝 Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Sumativa</td>
+                                <td>Portafolio</td>
+                                <td>Rúbrica analítica</td>
+                                <td>Autoevaluación y coevaluación</td>
+                                <td><button class="btn">📝 Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="rubricas" class="tab-content">
+                <h2>📋 Rúbricas de Evaluación</h2>
+                
+                <div class="planning-form">
+                    <h3>Crear Rúbrica Personalizada</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre-rubrica">Nombre de la Rúbrica:</label>
+                            <input type="text" id="nombre-rubrica" placeholder="Ej: Proyecto de Ciencias">
+                        </div>
+                        <div class="form-group">
+                            <label for="campo-rubrica">Campo Formativo:</label>
+                            <select id="campo-rubrica">
+                                <option value="lenguajes">Lenguajes</option>
+                                <option value="cientifico">Saberes y Pensamiento Científico</option>
+                                <option value="etica">Ética, Naturaleza y Sociedades</option>
+                </select></div></div></div></div></body></html>
