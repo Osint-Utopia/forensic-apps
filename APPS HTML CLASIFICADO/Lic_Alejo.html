@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lic. Miguel Alejo - Abogado Forense</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .business-card {
+      max-width: 800px;
+      width: 100%;
+      height: auto;
+      min-height: 500px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1f2937 50%, #374151 100%);
+      border-radius: 20px;
+      padding: 0;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+      border: 3px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      box-shadow: 0 35px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .card-content {
+      padding: 40px;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+      border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .profile-image i {
+      font-size: 60px;
+      color: white;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .title {
+      font-size: 16px;
+      color: #93c5fd;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #d1d5db;
+      margin-bottom: 24px;
+    }
+
+    .social-connections {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: yellow;
+      text-decoration: none;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .social-btn:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .right-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border-left: 3px solid #3b82f6;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(4px);
+    }
+
+    .contact-item i {
+      font-size: 16px;
+      color: #3b82f6;
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .contact-item .value {
+      font-size: 14px;
+      color: white;
+      font-weight: 500;
+    }
+
+    .contact-item a {
+      color: inherit;
+      text-decoration: shadow;
+    }
+
+    .services-section {
+      margin-top: 16px;
+    }
+
+    .services-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .service-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .service-link:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    .service-link i {
+      margin-right: 6px;
+      font-size: 12px;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      min-height: 60px;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .action-btn:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .action-btn i {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .expand-section {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .expand-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .expand-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .expand-btn i {
+      margin-right: 8px;
+    }
+
+    .qr-section {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .qr-section img {
+      display: block;
+      border-radius: 6px;
+    }
+
+    /* Sitio completo */
+    .full-site {
+      display: none;
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #1e3a8a, #1f2937);
+      padding: 16px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 0.8;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(31, 41, 55, 0.05));
+      padding: 80px 32px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #1e3a8a, #1f2937);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+    }
+
+    .section {
+      padding: 80px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      color: #1f2937;
+      margin-bottom: 48px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a8a, #1f2937);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .profile-pic i {
+      font-size: 80px;
+      color: white;
+    }
+
+    .about-content h3 {
+      font-size: 24px;
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+
+    .about-content p {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .specialties {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .specialty-card {
+      padding: 32px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+
+    .specialty-card i {
+      font-size: 48px;
+      color: #1e3a8a;
+      margin-bottom: 16px;
+    }
+
+    .specialty-card h3 {
+      font-size: 20px;
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+
+    .specialty-card p {
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+
+    .contact-card {
+      padding: 32px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+
+    .contact-card i {
+      font-size: 36px;
+      color: #1e3a8a;
+      margin-bottom: 16px;
+    }
+
+    .contact-card h4 {
+      font-size: 18px;
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+
+    .contact-card p {
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .contact-card a {
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .business-card {
+        max-width: 100%;
+        min-height: auto;
+      }
+
+      .card-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px 20px;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
+
+      .profile-image i {
+        font-size: 50px;
+      }
+
+      .name {
+        font-size: 24px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .expand-section {
+        margin-top: 15px;
+      }
+
+      .qr-section {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto 0;
+        width: fit-content;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .section {
+        padding: 48px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-content {
+        padding: 25px 15px;
+      }
+
+      .action-buttons {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+
+      .action-btn {
+        font-size: 9px;
+        padding: 10px 4px;
+        min-height: 55px;
+      }
+
+      .action-btn i {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="business-card" id="businessCard">
+    <div class="card-content">
+      <div class="left-section">
+        <div class="profile-image">
+          <i class="fa fa-balance-scale" aria-hidden="true"></i>
+        </div>
+        <h1 class="name">Lic. Miguel Alejo Ramón</h1>
+        <div class="title">Abogado Litigante</div>
+        <div class="subtitle">Especialista en Derecho Forense</div>
+        
+        <div class="social-connections">
+          <a href="https://wa.me/5219985935684" target="_blank" class="social-btn" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="mailto:alejo-mr@hotmail.com" class="social-btn" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/miguel-alejo" target="_blank" class="social-btn" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="tel:9985935684" class="social-btn" title="Teléfono">
+            <i class="fas fa-phone"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <div class="value">
+              <a href="mailto:alejo-mr@hotmail.com">alejo-mr@hotmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div class="value">
+              <a href="tel:9985935684">998-593-5684</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="value">Cancún, Quintana Roo</div>
+          </div>
+        </div>
+
+        <div class="services-section">
+          <div class="services-title">Servicios Profesionales</div>
+          <div class="services-grid">
+            <a href="https://azuaymercadoasociados.webnode.mx/" target="_blank" class="service-link">
+              <i class="fas fa-balance-scale"></i>
+              Abogados
+            </a>
+            <a href="https://osint-utopia.github.io/osint-utopia/recursos.html" target="_blank" class="service-link">
+              <i class="fas fa-search"></i>
+              OSINT
+            </a>
+            <a href="https://forensic-kggyz-hrbkd.pyxl.ai/" target="_blank" class="service-link">
+              <i class="fas fa-microscope"></i>
+              Peritajes
+            </a>
+            <a href="https://cienciacriminalistica.blogspot.com/" target="_blank" class="service-link">
+              <i class="fas fa-fingerprint"></i>
+              Criminalística
+            </a>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <a href="https://www.google.com/maps?q=21.164633,-86.826311" target="_blank" class="action-btn">
+            <i class="fas fa-map-marker-alt"></i>
+            Ver Mapa
+          </a>
+          <a href="#" onclick="downloadVCard()" class="action-btn">
+            <i class="fas fa-address-card"></i>
+            Guardar
+          </a>
+          <a href="https://intelx.io/tools?tab=general" target="_blank" class="action-btn">
+            <i class="fas fa-brain"></i>
+            Intel-X
+          </a>
+        </div>
+      </div>
+
+      <div class="expand-section">
+        <a href="#" onclick="mostrarSitioCompleto()" class="expand-btn">
+          <i class="fas fa-external-link-alt"></i>
+          Conoce más sobre mi trabajo
+        </a>
+      </div>
+    </div>
+
+    <div class="qr-section">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://azuaymercadoasociados.webnode.mx/&size=80x80" alt="QR Code" />
+    </div>
+  </div>
+
+  <!-- Sitio completo -->
+  <div class="full-site" id="fullSite">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo">Abogados Forenses</a>
+        <ul class="nav-menu">
+          <li><a href="#inicio" class="nav-link">Inicio</a></li>
+          <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+          <li><a href="#especialidades" class="nav-link">Especialidades</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+        <a href="#" onclick="mostrarTarjeta()" style="color: white; text-decoration: none;">
+          <i class="fas fa-arrow-left"></i> Volver
+        </a>
+      </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+      <div class="hero-content">
+        <h1>Lic. Miguel Alejo Ramón</h1>
+        <p>Abogado Litigante | Derecho Contractual | Asesor Especializado</p>
+        <a href="#sobre-mi" class="btn">Conoce mi Trayectoria</a>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="section">
+      <h2 class="section-title">Sobre Mí</h2>
+      <div class="about-grid">
+        <div class="about-image">
+          <div class="profile-pic">
+            <a href="https://ibb.co/gZPYqcBB"><img src="https://i.ibb.co/fdnJ6TPP/alejo2.png" alt="alejo2" border="0"></a>
+          </div>
+        </div>
+        <div class="about-content">
+          <h3>Perfil Profesional</h3>
+          <p>Licenciado en Derecho con más de 25 años de experiencia en el ejercicio profesional, ejerciendo en múltiples estados de la República Mexicana.</p>
+          
+          <p>Mi trayectoria abarca desde la investigación criminal hasta la representación litigiosa en diversas materias del derecho, combinando el rigor académico con la experiencia práctica en el campo forense.</p>
+          
+          <div style="margin-top: 2rem;">
+            <p><i class="fas fa-map-marker-alt" style="color: #1e3a8a; margin-right: 10px;"></i> Cancún, Quintana Roo</p>
+            <p><i class="fas fa-graduation-cap" style="color: #1e3a8a; margin-right: 10px;"></i> Licenciado en Derecho + Especialidades Forenses</p>
+            <p><i class="fas fa-certificate" style="color: #1e3a8a; margin-right: 10px;"></i> Litigio Especializado</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="specialties">
+        <div class="specialty-card">
+          <i class="fas fa-balance-scale"></i>
+          <h3>Servicios Legales</h3>
+          <p>Representación litigiosa en materias penal, civil, mercantil, laboral y administrativa. Asesoría jurídica integral para personas físicas y morales.</p>
+        </div>
+        <div class="specialty-card">
+          <i class="fas fa-search"></i>
+          <h3>Peritajes Criminalísticos</h3>
+          <p>Dictámenes especializados en criminalística de campo y gabinete, análisis de documentos cuestionados y estudios grafoscópicos.</p>
+        </div>
+        <div class="specialty-card">
+          <i class="fas fa-user-secret"></i>
+          <h3>Investigación Forense</h3>
+          <p>Perfilación criminológica, análisis de psicopatías, investigación criminal por violencia de género y técnicas OSINT.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <h2 class="section-title">Contacto Profesional</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <i class="fas fa-phone"></i>
+          <h4>Teléfono</h4>
+          <p><a href="tel:9985935684">998-593-5684</a></p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h4>Correo Electrónico</h4>
+          <p><a href="mailto:alejo-mr@hotmail.com">alejo-mr@hotmail.com</a></p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-briefcase"></i>
+          <h4>Servicios Especializados</h4>
+          <p>Consultoría Legal</p>
+          <p>Peritajes Criminalísticos</p>
+          <p>Documentoscopía y Grafoscopía</p>
+          <p>Investigación Forense</p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-certificate"></i>
+          <h4>Certificaciones Vigentes</h4>
+          <p>Jalisco • Yucatán • Quintana Roo</p>
+          <p>Nuevo León • Tamaulipas</p>
+          <p>Visa de Negocios Vigente</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function downloadVCard() {
+      const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Lic. Miguel Alejo Ramón
+ORG:Azua Mercado y Asociados
+TEL;TYPE=CELL:998-593-5684
+EMAIL:alejo-mr@hotmail.com
+URL:https://azuaymercadoasociados.webnode.mx/
+END:VCARD`;
+      const blob = new Blob([vcard], { type: "text/vcard" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Miguel_Alejo_Contacto.vcf";
+      link.click();
+    }
+
+    function mostrarSitioCompleto() {
+      document.getElementById('businessCard').style.display = 'none';
+      document.getElementById('fullSite').style.display = 'block';
+      document.body.style.background = '#f9fafb';
+    }
+
+    function mostrarTarjeta() {
+      document.getElementById('fullSite').style.display = 'none';
+      document.getElementById('businessCard').style.display = 'block';
+      document.body.style.background = '#ffffff';
+    }
+
+    // Navegación suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Animaciones de entrada
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observar elementos para animaciones
+    document.querySelectorAll('.specialty-card, .contact-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
