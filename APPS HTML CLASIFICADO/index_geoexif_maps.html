@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#ffffff">
+    <title>📸 Módulo GEO EXIF MAPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifr/dist/full.umd.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f7f7f7;
+            color: #1c1c1c;
+            padding: 20px;
+        }
+        h1 {
+            color: #3498db;
+        }
+        input {
+            margin-bottom: 20px;
+        }
+        #imagePreview img {
+            max-width: 400px;
+            margin-top: 10px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            overflow: auto;
+        }
+        #imagePreview {
+            margin: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+        #exifData {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        #map {
+            height: 200px;
+            margin: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+        }
+        #croquis {
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        #listaIndicios {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #listaIndicios li {
+            padding: 10px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        #listaIndicios li:last-child {
+            border-bottom: none;
+        }
+        .btn-azul {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-verde {
+            background-color: #2ecc71;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-rojo {
+            background-color: #e74c3c;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-3xl text-center mt-10 mb-10">📸 Módulo GEO EXIF MAPS</h1>
+	<p class="text-gray-600 text-center">Explora metadatos de imágenes con ubicación GPS.</p>
+    <input type="file" id="imageInput" accept="image/*" class="block mx-auto p-2 bg-white border border-gray-400 rounded-lg">
+    <div id="imagePreview" class="mx-auto"></div>
+    <div id="map" class="mx-auto"></div>
+    <pre id="exifData" class="mx-auto"></pre>
+    <canvas id="croquis" width="10" height="10"></canvas>
+    <button onclick="limpiar()" class="btn-azul block mx-auto mt-10 mb-10">Limpiar</button>
+
+    <h2 class="text-xl text-center mt-10 mb-10">Registro de Geolocalizacion</h2>
+    <input id="tipo" placeholder="Tipo de indicio" class="block mx-auto p-2 bg-white border border-gray-400 rounded-lg">
+    <input id="ubicacion" placeholder="gps.latitude, -gps.longitude" class="block mx-auto p-2 bg-white border border-gray-400 rounded-lg mt-4"
+    <input id="nota" placeholder="Observaciones" class="block mx-auto p-2 bg-white border border-gray-400 rounded-lg mt-4">
+    <button onclick="agregarIndicio()" class="btn-verde block mx-auto mt-10 mb-10">Agregar</button>
+    <ul id="listaIndicios" class="mx-auto"></ul>
+    <button onclick="exportarIndicios()" class="btn-rojo block mx-auto mt-10 mb-10">Exportar JSON</button>
+
+    <script>
+        const map = L.map('map').setView([23.6345, -102.5528], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetmap</a>',
+            subdomains: ['a', 'b', 'c']
+        }).addTo(map);
+
+        const canvas = document.getElementById("croquis");
+        const ctx = canvas.getContext("2d");
+        let dibujando = false;
+
+        canvas.addEventListener("mousedown", () => dibujando = true);
+        canvas.addEventListener("mouseup", () => dibujando = false);
+        canvas.addEventListener("mousemove", (e) => { 
+            if (dibujando) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                ctx.fillRect(x, y, 2, 2);
+            }
+        });
+
+        document.getElementById('imageInput').addEventListener('change', async function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const imagePreview = document.getElementById('imagePreview');
+            const exifData = document.getElementById('exifData');
+            imagePreview.innerHTML = '';
+            exifData.textContent = '';
+
+            // Mostrar imagen cargada
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Imagen cargada">`;
+            };
+            reader.readAsDataURL(file);
+
+            // Leer metadatos completos EXIF
+            try {
+                const gps = await exifr.gps(file);
+                const fullExif = await exifr.parse(file);
+
+                exifData.textContent = JSON.stringify(fullExif, null, 2);
+
+                if (gps && gps.latitude && gps.longitude) {
+                    const coords = [gps.latitude, gps.longitude];
+                    L.marker(coords).addTo(map)
+                        .bindPopup(`📍 Coordenadas: ${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`)
+                        .openPopup();
+                    map.setView(coords, 15);
+                } else {
+                    alert("⚠️ La imagen no contiene coordenadas GPS.");
+                }
+            } catch (error) {
+                console.error("Error al leer EXIF:", error);
+                alert("❌ No se pudieron leer los metadatos EXIF de la imagen.");
+            }
+        });
+
+        let indicios = [];
+
+        function agregarIndicio() {
+            const tipo = document.getElementById('tipo').value;
+            const ubicacion = document.getElementById('ubicacion').value;
+            const nota = document.getElementById('nota').value;
+
+            const item = { 
+                tipo, 
+                ubicacion, 
+                nota, 
+                hora: new Date().toLocaleString() 
+            };
+            indicios.push(item);
+
+            const li = document.createElement("li");
+            li.textContent = `🚩${tipo} en ${ubicacion} — ${nota}`;
+            document.getElementById("listaIndicios").appendChild(li);
+
+            document.getElementById('tipo').value = '';
+            document.getElementById('ubicacion').value = '';
+            document.getElementById('nota').value = '';
+        }
+
+        function exportarIndicios() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(indicios, null, 2));
+            const a = document.createElement("a");
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", "cadena_de_custodia.json");
+            a.click();
+        }
+
+        function limpiar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    </script>
+</body>
+</html>

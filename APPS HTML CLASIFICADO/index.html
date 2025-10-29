@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorio Forense Integrado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🧬 Laboratorio Forense Integrado</h1>
+
+    <section>
+        <h2>🧤 Registro Lofoscópico</h2>
+        <p>Captura de huellas dactilares básicas y foto de rostro</p>
+        <div class="lofoscopia-grid">
+            <div class="hand-section">
+                <h3>🖐 Mano Derecha</h3>
+                <div class="fingers" id="derecha"></div>
+            </div>
+            <div class="hand-section">
+                <h3>✋ Mano Izquierda</h3>
+                <div class="fingers" id="izquierda"></div>
+            </div>
+        </div>
+        <input type="text" placeholder="Nombre" id="nombre">
+        <input type="date" id="fecha">
+        <input type="file" id="fotoInput" accept="image/*">
+        <div id="fotoPreview"></div>
+        <button onclick="guardarFicha()">Guardar Ficha</button>
+        <pre id="fichaJSON"></pre>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
