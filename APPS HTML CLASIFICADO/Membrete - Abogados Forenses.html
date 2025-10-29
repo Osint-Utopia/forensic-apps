@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membrete - Abogados Forenses</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.letterhead {
+	width: 21cm;
+	min-height: 29.7cm;
+	margin: 0 auto;
+	background: #FAF5F0;
+	font-family: 'Poppins', sans-serif;
+	position: relative;
+	padding: 2cm 2cm 3cm 2cm;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+	border-bottom: 5px solid #ffffff;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+	position: relative;
+}
+
+.firm-name {
+	text-align: center;
+	color: #2A6A92;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.tagline {
+	text-align: center;
+	color: #DA53OD;
+	font-size: 18px;
+	font-weight: 400;
+	margin-bottom: 25px;
+}
+
+.contact-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 30px;
+	margin-bottom: 20px;
+}
+
+.partner-info {
+	background: #131313;
+	padding: 15px;
+	border-left: 4px solid #1e40af;
+	border-radius: 8px;
+}
+
+.partner-name {
+	font-size: 16px;
+	font-weight: 600;
+	color: #f6f6f6;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+
+.specialty {
+	color: #f5f5f5;
+	font-size: 12px;
+	font-weight: 400;
+	margin-bottom: 10px;
+	line-height: 1.4;
+}
+
+.contact-item {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: #f7f7f7;
+	font-weight: 400;
+}
+
+.contact-label {
+	font-weight: 500;
+	color: #ffdd00;
+}
+
+.offices {
+	text-align: center;
+	margin: 20px 0;
+	padding: 15px;
+	background: linear-gradient(135deg, #22d3ee 0%, #2563eb 100%);
+	color: white;
+	border-radius: 12px;
+}
+
+.offices-title {
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.office-locations {
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 2px;
+}
+
+.address-detail {
+	font-size: 11px;
+	font-weight: 300;
+	margin-top: 5px;
+	opacity: 0.9;
+}
+
+.footer-info {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-top: 20px;
+	font-size: 11px;
+	color: #efefef;
+}
+
+.web-info,
+.social-info {
+	padding: 12px;
+	background: #465779;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+	font-weight: 600;
+	color: #EDF5CB;
+	margin-bottom: 5px;
+	font-size: 15px;
+}
+
+.web-link,
+.social-link {
+	display: block;
+	color: #FCFCFC;
+	text-decoration: none;
+	margin-bottom: 8px;
+	word-break: break-all;
+	font-weight: 600;
+}
+
+.web-link: hover,
+.social-link: hover {
+	text-decoration: underline;
+	color: #22d3ee;
+}
+
+.watermark {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-45deg);
+	font-size: 72px;
+	color: rgba(8, 145, 178, 0.05);
+	font-weight: 700;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.content-area {
+	position: relative;
+	z-index: 2;
+	min-height: 400px;
+	padding-top: 50px;
+}
+
+.decorative-line {
+	height: 4px;
+	background: linear-gradient(90deg, #22d3ee 0%, #1e40af 50%, #2563eb 100%);
+	margin: 15px 0;
+}
+
+@media print {
+	.letterhead {
+		box-shadow: 2X;
+		margin: 0;
+	}
+}
+}
+    </style>
+</head>
+
+<body>
+    <div class="letterhead">
+        <div class="header">
+            <h1 class="firm-name">Abogados Forenses, Asesoría Y Consultoría Integral</h1>
+            <div class="tagline">Excelencia Legal • Investigación Forense • Resultados Garantizados</div>
+
+            <div class="contact-grid">
+                <div class="partner-info">
+                    <div class="partner-name">Lic. Miguel Alejo Ramón</div>
+                    <div class="specialty">Especialista en Derecho Contractual y Societario
+                        <br>Cédula Federal y Estatal</div>
+                    <div class="contact-item">
+                        <span class="contact-label">Tel:</span> 998-593-5684
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Email:</span> alejo-mr@hotmail.com
+                    </div>
+                </div>
+
+                <div class="partner-info">
+                    <div class="partner-name">Lic. Al Ulises Azua</div>
+                    <div class="specialty">Especialista en Criminalística, Documentoscopía,
+                        <br>Grafoscopía y Perfilación • Perito Registrado
+                        <br>Cédula Federal y Estatal</div>
+                    <div class="contact-item">
+                        <span class="contact-label">Tel:</span> 333-737-85120
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Email:</span> lic.azua@gmx.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="offices">
+                <div class="offices-title">OFICINAS EN</div>
+                <div class="office-locations">GUADALAJARA • MÉRIDA • CANCÚN</div>
+                <div class="address-detail">
+                    Oficina Cancún: Nachi Cocom, SM 50, Mza. 85, Lote 1, Depto. 2C, Cancún, Q. Roo
+                </div>
+            </div>
+
+            <div class="footer-info">
+                <div class="web-info">
+                    <div class="section-title">SITIOS WEB</div>
+                    <a href="https://azuaymercadoasociados.webnode.mx/" class="web-link">azuaymercadoasociados.webnode.mx</a>
+                    <a href="https://forensic-kggyz-hrbkd.pyxl.ai/" class="web-link">forensic-kggyz-hrbkd.pyxl.ai</a>
+                </div>
+
+                <div class="social-info">
+                    <div class="section-title">REDES SOCIALES</div>
+                    <a href="https://www.facebook.com/azuaymercadoasociados" class="social-link">Facebook: azuaymercadoasociados</a>
+                    <a href="https://www.linkedin.com/in/al-ulises-azua-b050685a" class="social-link">LinkedIn: Al Ulises Azua</a>
+                </div>
+           </div>
+    </div>
+</body>
+
+</html>

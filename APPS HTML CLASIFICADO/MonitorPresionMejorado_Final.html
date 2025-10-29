@@ -1,0 +1,3316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Presión Arterial Pro</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- jsPDF for PDF reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- SortableJS for drag & drop -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        :root {
+            /* Colores principales - Tema oscuro azulado */
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --tertiary-bg: #334155;
+            --accent-bg: #475569;
+            --surface-bg: #64748b;
+            
+            /* Colores de acento */
+            --primary-blue: #3b82f6;
+            --secondary-blue: #1e40af;
+            --accent-cyan: #06b6d4;
+            --accent-teal: #14b8a6;
+            --accent-purple: #8b5cf6;
+            
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            --gradient-surface: linear-gradient(135deg, #334155 0%, #475569 100%);
+            --gradient-card: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.95) 100%);
+            
+            /* Colores de texto */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-accent: #60a5fa;
+            
+            /* Efectos */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.6);
+            
+            /* Bordes */
+            --border-color: rgba(148, 163, 184, 0.2);
+            --border-accent: rgba(59, 130, 246, 0.3);
+            
+            /* Transiciones */
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header mejorado */
+        .header {
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Navegación horizontal mejorada */
+        .nav-container {
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            min-width: max-content;
+        }
+
+        .nav-tab {
+            flex: 0 0 auto;
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: var(--transition-normal);
+            border-radius: 12px;
+        }
+
+        .nav-tab.active {
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-tab.active::before {
+            opacity: 1;
+        }
+
+        .nav-tab:hover:not(.active) {
+            color: var(--text-accent);
+            transform: translateY(-1px);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-tab i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-tab span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Contenido de pestañas */
+        .tab-content {
+            display: none;
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-lg);
+            animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 600px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Formularios mejorados */
+        .form-section {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text-primary);
+            transition: var(--transition-normal);
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), var(--shadow-md);
+            background: rgba(15, 23, 42, 0.95);
+            transform: translateY(-2px);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Botones mejorados */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            margin-right: 12px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-normal);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-accent);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Tarjetas de estadísticas mejoradas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-accent);
+        }
+
+        .stat-value {
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        /* Gráficas mejoradas */
+        .chart-container {
+            position: relative;
+            height: 450px;
+            margin-bottom: 35px;
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Tablas mejoradas */
+        .table-container {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+        }
+
+        .table {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .table thead th {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            padding: 20px 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 13px;
+        }
+
+        .table tbody td {
+            padding: 18px 15px;
+            border-color: var(--border-color);
+            background: rgba(15, 23, 42, 0.3);
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Alertas mejoradas */
+        .alert {
+            border: none;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background: currentColor;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.15) 100%);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(30, 64, 175, 0.15) 100%);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .alert i {
+            font-size: 1.5em;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .alert-message {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            color: currentColor;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: var(--transition-fast);
+        }
+
+        .alert-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-accent);
+            border-radius: 4px;
+            transition: var(--transition-normal);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .nav-tab {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .tab-content {
+                padding: 25px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .chart-container {
+                height: 350px;
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .nav-tab span {
+                display: none;
+            }
+
+            .tab-content {
+                padding: 20px 15px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-value {
+                font-size: 2.2em;
+            }
+        }
+
+        /* ==================== MÓDULO DE NUTRICIÓN ==================== */
+        .nutrition-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--gradient-surface);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .filter-group select {
+            padding: 10px 15px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .recipe-card {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-accent);
+        }
+
+        .recipe-header {
+            padding: 25px;
+            text-align: center;
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .recipe-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .recipe-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .recipe-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .recipe-body {
+            padding: 25px;
+        }
+
+        .recipe-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .recipe-tag {
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--text-accent);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recipe-tag.diabetes {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a855f7;
+        }
+
+        .recipe-tag.hypertension {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .nutrition-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nutrition-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--text-accent);
+            margin-bottom: 5px;
+        }
+
+        .nutrition-label {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recipe-category {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal de receta */
+        .recipe-modal .modal-dialog {
+            max-width: 800px;
+        }
+
+        .recipe-modal .modal-content {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+        }
+
+        .recipe-modal .modal-header {
+            background: var(--gradient-accent);
+            color: white;
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            padding: 30px;
+        }
+
+        .recipe-modal .modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .recipe-modal .modal-body {
+            padding: 30px;
+        }
+
+        .recipe-section {
+            margin-bottom: 30px;
+        }
+
+        .recipe-section h5 {
+            color: var(--text-accent);
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ingredients-list, .steps-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ingredients-list li, .steps-list li {
+            padding: 12px 20px;
+            margin-bottom: 8px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+        }
+
+        .steps-list li {
+            border-left-color: var(--accent-teal);
+            counter-increment: step-counter;
+        }
+
+        .steps-list {
+            counter-reset: step-counter;
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-teal);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-card {
+            text-align: center;
+            padding: 20px;
+            background: var(--gradient-surface);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nutrition-card .value {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--text-accent);
+            margin-bottom: 5px;
+        }
+
+        .nutrition-card .label {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .benefits-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            color: #10b981;
+        }
+
+        /* ==================== MÓDULO DE EJERCICIO ==================== */
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .exercise-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exercise-stat-card {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+        }
+
+        .exercise-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .exercise-stat-value {
+            font-size: 2.2em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-accent);
+        }
+
+        .exercise-stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .weekly-plan {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .weekly-plan h3 {
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .day-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .day-progress {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        .exercises-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+
+        .exercise-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--border-accent);
+        }
+
+        .exercise-info {
+            flex: 1;
+        }
+
+        .exercise-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .exercise-details {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .exercise-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .exercise-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .timer-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-accent);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .timer-btn {
+            background: var(--gradient-accent);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: var(--transition-fast);
+        }
+
+        .timer-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .exercise-calendar {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .calendar-day.header {
+            background: var(--gradient-accent);
+            color: white;
+            font-weight: 700;
+            cursor: default;
+        }
+
+        .calendar-day.today {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .calendar-day.completed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .calendar-day.partial {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .calendar-day.empty {
+            background: rgba(15, 23, 42, 0.3);
+            color: var(--text-muted);
+        }
+
+        .calendar-day:not(.header):hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ==================== SISTEMA KANBAN ==================== */
+        .kanban-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .kanban-column {
+            background: var(--gradient-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            min-height: 600px;
+        }
+
+        .kanban-column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .kanban-column-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .kanban-column-count {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .kanban-tasks {
+            min-height: 500px;
+            padding: 10px 0;
+        }
+
+        .kanban-task {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: move;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kanban-task:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-accent);
+        }
+
+        .kanban-task.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .task-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .task-description {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .task-category {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .task-category.medication {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a855f7;
+        }
+
+        .task-category.appointment {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .task-category.exercise {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .task-category.nutrition {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .task-category.analysis {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .task-priority {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .task-priority.high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .task-priority.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .task-priority.low {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .task-due-date {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-due-date.overdue {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .task-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            transition: var(--transition-fast);
+            font-size: 14px;
+        }
+
+        .task-action-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--text-accent);
+        }
+
+        /* Modal para agregar/editar tareas */
+        .task-modal .modal-dialog {
+            max-width: 600px;
+        }
+
+        .task-modal .modal-content {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+        }
+
+        .task-modal .modal-header {
+            background: var(--gradient-accent);
+            color: white;
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            padding: 25px 30px;
+        }
+
+        .task-modal .modal-body {
+            padding: 30px;
+        }
+
+        .task-modal .modal-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 20px 30px;
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* ==================== BÚSQUEDA GLOBAL ==================== */
+        .global-search {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            background: var(--gradient-surface);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 16px;
+            color: var(--text-primary);
+            transition: var(--transition-normal);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .search-result-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .search-result-description {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .search-result-category {
+            font-size: 0.8em;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== BOTÓN DE AYUDA FLOTANTE ==================== */
+        .help-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-normal);
+            z-index: 1000;
+        }
+
+        .help-button:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Modal de atajos */
+        .shortcuts-modal .modal-dialog {
+            max-width: 700px;
+        }
+
+        .shortcuts-modal .modal-content {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .shortcut-description {
+            color: var(--text-secondary);
+        }
+
+        .shortcut-keys {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        /* ==================== INDICADORES DE ESTADO ==================== */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-indicator.online {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-indicator.offline {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ==================== TIPS ALEATORIOS ==================== */
+        .tip-container {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tip-icon {
+            font-size: 2em;
+            color: var(--text-accent);
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .tip-text {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ==================== RESPONSIVE DESIGN MEJORADO ==================== */
+        @media (max-width: 1200px) {
+            .kanban-board {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .kanban-column {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nutrition-filters {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .filter-group select {
+                min-width: 100%;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .days-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .calendar-grid {
+                gap: 4px;
+            }
+
+            .calendar-day {
+                font-size: 0.8em;
+            }
+
+            .help-button {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exercise-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .nutrition-info {
+                grid-template-columns: 1fr;
+            }
+
+            .task-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .exercise-details {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .timer-controls {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-heartbeat"></i> Monitor de Presión Arterial </h1>
+                <p>Sistema integral de monitoreo cardiovascular con nutrición, ejercicio y gestión de tareas</p>
+            </div>
+        </div>
+
+        <!-- Búsqueda Global -->
+        <div class="global-search">
+            <input type="text" id="globalSearch" class="search-input" placeholder="Buscar en toda la aplicación...">
+            <i class="fas fa-search search-icon"></i>
+            <div id="searchResults" class="search-results" style="display: none;"></div>
+        </div>
+
+        <!-- Tip Aleatorio -->
+        <div id="tipContainer" class="tip-container">
+            <i class="fas fa-lightbulb tip-icon"></i>
+            <div class="tip-content">
+                <div class="tip-title">💡 Tip de Salud</div>
+                <div id="tipText" class="tip-text"></div>
+            </div>
+        </div>
+
+        <!-- Indicador de Estado -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <span id="statusIndicator" class="status-indicator online">
+                <span class="status-dot"></span>
+                <span>En línea</span>
+            </span>
+        </div>
+
+        <!-- Navegación -->
+        <div class="nav-container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('perfil')">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('registro')">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Registro</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('historial')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Historial</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('estadisticas')">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Estadísticas</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('nutricion')">
+                    <i class="fas fa-apple-alt"></i>
+                    <span>Nutrición</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('ejercicio')">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Ejercicio</span>
+                </button>
+                <button class="nav-tab" onclick="showTab('kanban')">
+                    <i class="fas fa-tasks"></i>
+                    <span>Tareas</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenido de las pestañas -->
+        
+        <!-- Pestaña Perfil -->
+        <div id="perfil" class="tab-content active">
+            <div class="form-section">
+                <h3><i class="fas fa-user-circle"></i> Información Personal</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" placeholder="Ingrese su nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" min="1" max="120" placeholder="Años">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="genero">Género</label>
+                        <select id="genero">
+                            <option value="">Seleccionar</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="peso">Peso (kg)</label>
+                        <input type="number" id="peso" step="0.1" placeholder="Peso en kilogramos">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="altura">Altura (cm)</label>
+                        <input type="number" id="altura" placeholder="Altura en centímetros">
+                    </div>
+                    <div class="form-group">
+                        <label for="actividad">Nivel de Actividad</label>
+                        <select id="actividad">
+                            <option value="">Seleccionar</option>
+                            <option value="sedentario">Sedentario</option>
+                            <option value="ligero">Actividad Ligera</option>
+                            <option value="moderado">Actividad Moderada</option>
+                            <option value="intenso">Actividad Intensa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-stethoscope"></i> Información Médica</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="condiciones">Condiciones Médicas</label>
+                        <select id="condiciones" multiple>
+                            <option value="hipertension">Hipertensión</option>
+                            <option value="diabetes">Diabetes</option>
+                            <option value="colesterol">Colesterol Alto</option>
+                            <option value="cardiopatia">Cardiopatía</option>
+                            <option value="obesidad">Obesidad</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicamentos">Medicamentos Actuales</label>
+                        <textarea id="medicamentos" rows="3" placeholder="Liste sus medicamentos actuales"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="medico">Médico Tratante</label>
+                        <input type="text" id="medico" placeholder="Nombre del médico">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de Emergencia</label>
+                        <input type="tel" id="telefono" placeholder="Número de contacto de emergencia">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-cog"></i> Configuración</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recordatorios">Recordatorios</label>
+                        <select id="recordatorios">
+                            <option value="diario">Diario</option>
+                            <option value="bidario">Dos veces al día</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="personalizado">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notificaciones">Notificaciones</label>
+                        <select id="notificaciones">
+                            <option value="activadas">Activadas</option>
+                            <option value="desactivadas">Desactivadas</option>
+                            <option value="solo_alertas">Solo Alertas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="guardarPerfil()">
+                <i class="fas fa-save"></i> Guardar Perfil
+            </button>
+            <button class="btn btn-secondary" onclick="exportarDatos()">
+                <i class="fas fa-download"></i> Exportar Datos
+            </button>
+            <button class="btn btn-secondary" onclick="importarDatos()">
+                <i class="fas fa-upload"></i> Importar Datos
+            </button>
+            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="procesarImportacion(event)">
+        </div>
+
+        <!-- Pestaña Registro -->
+        <div id="registro" class="tab-content">
+            <div class="form-section">
+                <h3><i class="fas fa-heartbeat"></i> Nueva Medición</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sistolica">Presión Sistólica (mmHg)</label>
+                        <input type="number" id="sistolica" min="70" max="250" placeholder="Ej: 120">
+                    </div>
+                    <div class="form-group">
+                        <label for="diastolica">Presión Diastólica (mmHg)</label>
+                        <input type="number" id="diastolica" min="40" max="150" placeholder="Ej: 80">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pulso">Pulso (ppm)</label>
+                        <input type="number" id="pulso" min="40" max="200" placeholder="Ej: 72">
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha y Hora</label>
+                        <input type="datetime-local" id="fecha">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="notas">Notas Adicionales</label>
+                        <textarea id="notas" rows="3" placeholder="Síntomas, actividades, medicamentos tomados, etc."></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="registrarMedicion()">
+                    <i class="fas fa-plus"></i> Registrar Medición
+                </button>
+            </div>
+
+            <div id="alertaResultado" style="display: none;"></div>
+        </div>
+
+        <!-- Pestaña Historial -->
+        <div id="historial" class="tab-content">
+            <div class="form-section">
+                <h3><i class="fas fa-filter"></i> Filtros</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="filtroFechaInicio">Fecha Inicio</label>
+                        <input type="date" id="filtroFechaInicio">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroFechaFin">Fecha Fin</label>
+                        <input type="date" id="filtroFechaFin">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroCategoria">Categoría</label>
+                        <select id="filtroCategoria">
+                            <option value="">Todas</option>
+                            <option value="normal">Normal</option>
+                            <option value="elevada">Elevada</option>
+                            <option value="hipertension1">Hipertensión Etapa 1</option>
+                            <option value="hipertension2">Hipertensión Etapa 2</option>
+                            <option value="crisis">Crisis Hipertensiva</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="aplicarFiltros()">
+                    <i class="fas fa-search"></i> Aplicar Filtros
+                </button>
+                <button class="btn btn-secondary" onclick="limpiarFiltros()">
+                    <i class="fas fa-times"></i> Limpiar
+                </button>
+                <button class="btn btn-success" onclick="generarReportePDF()">
+                    <i class="fas fa-file-pdf"></i> Generar Reporte PDF
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Sistólica</th>
+                            <th>Diastólica</th>
+                            <th>Pulso</th>
+                            <th>Categoría</th>
+                            <th>Notas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHistorial">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pestaña Estadísticas -->
+        <div id="estadisticas" class="tab-content">
+            <div class="form-section">
+                <h3><i class="fas fa-calendar-alt"></i> Período de Análisis</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="periodoAnalisis">Seleccionar Período</label>
+                        <select id="periodoAnalisis" onchange="actualizarEstadisticas()">
+                            <option value="7">Última Semana</option>
+                            <option value="30">Último Mes</option>
+                            <option value="90">Últimos 3 Meses</option>
+                            <option value="365">Último Año</option>
+                            <option value="all">Todos los Registros</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="promedioSistolica">--</div>
+                    <div class="stat-label">Promedio Sistólica</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="promedioDiastolica">--</div>
+                    <div class="stat-label">Promedio Diastólica</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="promedioPulso">--</div>
+                    <div class="stat-label">Promedio Pulso</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalMediciones">--</div>
+                    <div class="stat-label">Total Mediciones</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="graficoTendencias"></canvas>
+            </div>
+
+            <div id="recomendaciones" class="form-section">
+                <h3><i class="fas fa-lightbulb"></i> Recomendaciones Personalizadas</h3>
+                <div id="contenidoRecomendaciones">
+                    <!-- Las recomendaciones se generarán dinámicamente -->
+                </div>
+            </div>
+
+            <div id="analisisTendencias" class="form-section">
+                <h3><i class="fas fa-trending-up"></i> Análisis de Tendencias</h3>
+                <div id="contenidoTendencias">
+                    <!-- El análisis se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Pestaña Nutrición -->
+        <div id="nutricion" class="tab-content">
+            <div class="form-section">
+                <h3><i class="fas fa-apple-alt"></i> Recetas Saludables para Diabéticos e Hipertensos</h3>
+                <p>Descubre recetas específicamente diseñadas para ayudar a controlar la diabetes y la hipertensión, utilizando ingredientes locales y nutritivos.</p>
+            </div>
+
+            <div class="nutrition-filters">
+                <div class="filter-group">
+                    <label>Condición Médica</label>
+                    <select id="conditionFilter" onchange="filterRecipes()">
+                        <option value="">Todas las condiciones</option>
+                        <option value="diabetes">Diabetes</option>
+                        <option value="hypertension">Hipertensión</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Tipo de Comida</label>
+                    <select id="categoryFilter" onchange="filterRecipes()">
+                        <option value="">Todos los tipos</option>
+                        <option value="breakfast">Desayuno</option>
+                        <option value="lunch">Comida</option>
+                        <option value="dinner">Cena</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Calorías Máximas</label>
+                    <select id="caloriesFilter" onchange="filterRecipes()">
+                        <option value="">Sin límite</option>
+                        <option value="100">Hasta 100 cal</option>
+                        <option value="200">Hasta 200 cal</option>
+                        <option value="300">Hasta 300 cal</option>
+                        <option value="500">Hasta 500 cal</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="recipesContainer" class="recipes-grid">
+                <!-- Las recetas se cargarán dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Pestaña Ejercicio -->
+        <div id="ejercicio" class="tab-content">
+            <div class="exercise-header">
+                <h3><i class="fas fa-dumbbell"></i> Plan de Ejercicio Semanal</h3>
+                <button class="btn btn-primary" onclick="resetWeeklyProgress()">
+                    <i class="fas fa-refresh"></i> Reiniciar Semana
+                </button>
+            </div>
+
+            <div class="exercise-stats">
+                <div class="exercise-stat-card">
+                    <div class="exercise-stat-icon">📊</div>
+                    <div class="exercise-stat-value" id="weeklyProgress">0%</div>
+                    <div class="exercise-stat-label">Progreso Semanal</div>
+                </div>
+                <div class="exercise-stat-card">
+                    <div class="exercise-stat-icon">🏃‍♂️</div>
+                    <div class="exercise-stat-value" id="totalWorkouts">0</div>
+                    <div class="exercise-stat-label">Total Entrenamientos</div>
+                </div>
+                <div class="exercise-stat-card">
+                    <div class="exercise-stat-icon">🔥</div>
+                    <div class="exercise-stat-value" id="streakDays">0</div>
+                    <div class="exercise-stat-label">Racha (días)</div>
+                </div>
+                <div class="exercise-stat-card">
+                    <div class="exercise-stat-icon">⚡</div>
+                    <div class="exercise-stat-value" id="caloriesBurned">0</div>
+                    <div class="exercise-stat-label">Calorías Quemadas</div>
+                </div>
+            </div>
+
+            <div class="weekly-plan">
+                <h3><i class="fas fa-calendar-week"></i> Plan Semanal</h3>
+                <div id="weeklyPlanContainer" class="days-grid">
+                    <!-- El plan semanal se cargará dinámicamente -->
+                </div>
+            </div>
+
+            <div class="exercise-calendar">
+                <h3><i class="fas fa-calendar"></i> Calendario de Actividad (Últimos 30 días)</h3>
+                <div id="exerciseCalendar" class="calendar-grid">
+                    <!-- El calendario se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Pestaña Kanban -->
+        <div id="kanban" class="tab-content">
+            <div class="kanban-header">
+                <h3><i class="fas fa-tasks"></i> Gestión de Tareas de Salud</h3>
+                <button class="btn btn-primary" onclick="openTaskModal()">
+                    <i class="fas fa-plus"></i> Nueva Tarea
+                </button>
+            </div>
+
+            <div class="kanban-board">
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title">
+                            <i class="fas fa-clock"></i> Por Hacer
+                        </div>
+                        <div class="kanban-column-count" id="todoCount">0</div>
+                    </div>
+                    <div class="kanban-tasks" id="todoTasks" data-status="todo">
+                        <!-- Las tareas se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title">
+                            <i class="fas fa-play"></i> En Progreso
+                        </div>
+                        <div class="kanban-column-count" id="progressCount">0</div>
+                    </div>
+                    <div class="kanban-tasks" id="progressTasks" data-status="progress">
+                        <!-- Las tareas se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title">
+                            <i class="fas fa-check"></i> Completado
+                        </div>
+                        <div class="kanban-column-count" id="doneCount">0</div>
+                    </div>
+                    <div class="kanban-tasks" id="doneTasks" data-status="done">
+                        <!-- Las tareas se cargarán dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para recetas -->
+    <div class="modal fade recipe-modal" id="recipeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recipeModalTitle">
+                        <span id="recipeModalEmoji"></span>
+                        <span id="recipeModalName"></span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="recipe-section">
+                        <h5><i class="fas fa-info-circle"></i> Información Nutricional</h5>
+                        <div id="recipeNutritionGrid" class="nutrition-grid">
+                            <!-- Información nutricional -->
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h5><i class="fas fa-list"></i> Ingredientes</h5>
+                        <ul id="recipeIngredients" class="ingredients-list">
+                            <!-- Lista de ingredientes -->
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h5><i class="fas fa-utensils"></i> Preparación</h5>
+                        <ol id="recipeSteps" class="steps-list">
+                            <!-- Pasos de preparación -->
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h5><i class="fas fa-heart"></i> Beneficios</h5>
+                        <div id="recipeBenefits" class="benefits-box">
+                            <!-- Beneficios para la salud -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para tareas -->
+    <div class="modal fade task-modal" id="taskModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalTitle">
+                        <i class="fas fa-plus"></i> Nueva Tarea
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taskForm">
+                        <div class="form-group">
+                            <label for="taskTitle">Título de la Tarea</label>
+                            <input type="text" id="taskTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription">Descripción</label>
+                            <textarea id="taskDescription" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="taskCategory">Categoría</label>
+                                <select id="taskCategory" class="form-control" required>
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="medication">Medicación</option>
+                                    <option value="appointment">Citas</option>
+                                    <option value="exercise">Ejercicio</option>
+                                    <option value="nutrition">Nutrición</option>
+                                    <option value="analysis">Análisis</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskPriority">Prioridad</label>
+                                <select id="taskPriority" class="form-control" required>
+                                    <option value="">Seleccionar prioridad</option>
+                                    <option value="high">Alta</option>
+                                    <option value="medium">Media</option>
+                                    <option value="low">Baja</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Fecha Límite (Opcional)</label>
+                            <input type="date" id="taskDueDate" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTask()">Guardar Tarea</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de atajos de teclado -->
+    <div class="modal fade shortcuts-modal" id="shortcutsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-keyboard"></i> Atajos de Teclado
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="shortcuts-grid">
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Perfil</span>
+                            <span class="shortcut-keys">Ctrl + 1</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Registro</span>
+                            <span class="shortcut-keys">Ctrl + 2</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Historial</span>
+                            <span class="shortcut-keys">Ctrl + 3</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Estadísticas</span>
+                            <span class="shortcut-keys">Ctrl + 4</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Nutrición</span>
+                            <span class="shortcut-keys">Ctrl + 5</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Ejercicio</span>
+                            <span class="shortcut-keys">Ctrl + 6</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Ir a Tareas</span>
+                            <span class="shortcut-keys">Ctrl + 7</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Nueva Tarea</span>
+                            <span class="shortcut-keys">Ctrl + N</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Exportar Datos</span>
+                            <span class="shortcut-keys">Ctrl + E</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-description">Cerrar Modal/Búsqueda</span>
+                            <span class="shortcut-keys">Escape</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de ayuda flotante -->
+    <button class="help-button" onclick="showShortcuts()" title="Atajos de teclado">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <script>
+        // ==================== VARIABLES GLOBALES ====================
+        let mediciones = JSON.parse(localStorage.getItem('mediciones')) || [];
+        let perfil = JSON.parse(localStorage.getItem('perfil')) || {};
+        let recipes = [];
+        let exerciseData = JSON.parse(localStorage.getItem('exerciseData')) || {
+            weeklyPlan: {},
+            completedExercises: [],
+            stats: {
+                totalWorkouts: 0,
+                streakDays: 0,
+                caloriesBurned: 0
+            }
+        };
+        let kanbanTasks = JSON.parse(localStorage.getItem('kanbanTasks')) || [];
+        let currentChart = null;
+        let currentEditingTask = null;
+        let exerciseTimers = {};
+
+        // ==================== TIPS ALEATORIOS ====================
+        const healthTips = [
+            "Mide tu presión arterial a la misma hora todos los días para obtener lecturas más consistentes.",
+            "Evita la cafeína y el tabaco al menos 30 minutos antes de medir tu presión arterial.",
+            "Mantén una dieta baja en sodio para ayudar a controlar la hipertensión.",
+            "El ejercicio regular puede reducir la presión arterial sistólica en 4-9 mmHg.",
+            "Practica técnicas de relajación como la respiración profunda para reducir el estrés.",
+            "Mantén un peso saludable: perder incluso 2-3 kg puede hacer una diferencia significativa.",
+            "Limita el alcohol: no más de una bebida al día para mujeres y dos para hombres.",
+            "Duerme de 7-8 horas por noche para mantener una presión arterial saludable.",
+            "Incluye alimentos ricos en potasio como plátanos y espinacas en tu dieta.",
+            "Prefiere carbohidratos complejos como avena, lentejas o camote para controlar tu glucosa.",
+            "Evita alimentos ultraprocesados, ya que suelen contener sodio y azúcares ocultos.",
+            "Camina al menos 30 minutos al día para mejorar tu sensibilidad a la insulina.",
+            "Hidrátate adecuadamente: toma agua en lugar de refrescos o jugos artificiales.",
+            "Revisa tus niveles de glucosa antes y después de hacer ejercicio físico.",
+            "Distribuye tus comidas en 4 o 5 tiempos al día para evitar picos de glucosa.",
+            "Lee las etiquetas: elige productos con menos de 140 mg de sodio por porción.",
+            "Evita añadir sal a tus alimentos después de cocinarlos.",
+            "Controla tus porciones: usar platos pequeños puede ayudarte a comer menos.",
+            "Elige frutas con bajo índice glucémico como manzana, pera o frutos rojos.",
+            "Consulta a un nutriólogo para crear un plan de alimentación personalizado.",
+            "Evita el consumo de grasas trans, presentes en frituras y productos de panadería industrial.",
+            "Practica la meditación o el yoga para reducir el estrés, que puede elevar la presión y la glucosa.",
+            "Prepara tus alimentos en casa para tener mayor control sobre los ingredientes.",
+            "Evita los ayunos prolongados sin supervisión médica.",
+            "Elige lácteos bajos en grasa y sin azúcar añadida.",
+            "Limita el consumo de carnes rojas y prefiere pescado o pollo sin piel.",
+            "No fumes: el tabaco daña tus vasos sanguíneos y empeora la presión arterial.",
+            "Verifica tus pies diariamente si tienes diabetes, para detectar heridas o cambios.",
+            "Programa chequeos médicos periódicos para monitorear tu salud general.",
+            "Elige snacks saludables como nueces sin sal o yogurt natural sin azúcar.",
+            "Reduce el estrés laboral con pausas activas y buena organización del tiempo.",
+            "Mantén tus medicamentos organizados y tómate el tiempo para leer sus indicaciones.",
+            "Evita el uso excesivo de sal de mesa: usa hierbas y especias naturales para dar sabor.",
+            "Controla tu colesterol con una dieta rica en fibra y baja en grasas saturadas.",
+            "Desayuna todos los días para evitar hipoglucemias o atracones más tarde.",
+            "Utiliza calzado cómodo y adecuado para prevenir lesiones en pies.",
+            "Evita bebidas energéticas: suelen contener cafeína y azúcar en exceso.",
+            "Descansa después de comer para evitar fluctuaciones bruscas en tu presión.",
+            "Consulta con tu médico antes de iniciar suplementos o remedios naturales.",
+            "Evita comidas copiosas por la noche que puedan alterar tu descanso.",
+            "Organiza tus compras para evitar alimentos no saludables en casa.",
+            "No repitas plato: sírvete una sola vez y en porciones equilibradas.",
+            "Evita el estrés financiero: haz presupuestos y pide ayuda si es necesario.",
+            "Prioriza la cocción al vapor, hervido o al horno en lugar de frituras.",
+            "Ten una rutina de sueño constante, incluso los fines de semana.",
+            "Utiliza alarmas o apps para recordarte tomar tus medicamentos a tiempo.",
+            "Prefiere pan integral sin azúcar añadida sobre pan blanco o dulce.",
+            "Reduce la cantidad de salsas industriales: muchas contienen sodio y azúcar.",
+            "Evita tomar bebidas alcohólicas con el estómago vacío.",
+            "Consulta si puedes vacunarte contra la gripe y neumonía: son recomendadas para diabéticos.",
+            "No ignores síntomas como visión borrosa, sed excesiva o fatiga.",
+            "Evita comidas 'dietéticas' engañosas: muchas contienen azúcar oculta.",
+            "Ten siempre a la mano una fuente de glucosa si usas medicamentos que bajan el azúcar.",
+            "Elige preparaciones con aguacate, aceite de oliva o semillas en lugar de mantequilla.",
+            "Reduce el uso de productos enlatados, ya que suelen tener mucho sodio.",
+            "Ten un diario de alimentos para conocer qué comidas te afectan más.",
+            "Respeta tus horarios de comida, incluso en días ocupados.",
+            "Evita los postres tradicionales con azúcar y busca versiones más saludables.",
+            "Comparte tus metas de salud con tu familia para que puedan apoyarte.",
+            "Mantén un registro regular de tus mediciones para identificar patrones."
+        ];
+
+        function showRandomTip() {
+            const randomTip = healthTips[Math.floor(Math.random() * healthTips.length)];
+            document.getElementById('tipText').textContent = randomTip;
+        }
+
+        // ==================== FUNCIONES DE INICIALIZACIÓN ====================
+        function inicializar() {
+            cargarPerfil();
+            cargarHistorial();
+            actualizarEstadisticas();
+            initializeRecipes();
+            initializeExercisePlan();
+            initializeKanban();
+            setupGlobalSearch();
+            setupKeyboardShortcuts();
+            setupNotifications();
+            checkOnlineStatus();
+            showRandomTip();
+            
+            // Establecer fecha actual en el campo de registro
+            const ahora = new Date();
+            ahora.setMinutes(ahora.getMinutes() - ahora.getTimezoneOffset());
+            document.getElementById('fecha').value = ahora.toISOString().slice(0, 16);
+        }
+
+        // ==================== GESTIÓN DE PESTAÑAS ====================
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Mostrar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Actualizar navegación
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            event.target.closest('.nav-tab').classList.add('active');
+            
+            // Acciones específicas por pestaña
+            if (tabName === 'estadisticas') {
+                actualizarEstadisticas();
+            } else if (tabName === 'nutricion') {
+                filterRecipes();
+            } else if (tabName === 'ejercicio') {
+                updateExerciseStats();
+                generateExerciseCalendar();
+            } else if (tabName === 'kanban') {
+                renderKanbanBoard();
+            }
+        }
+
+        // ==================== GESTIÓN DE PERFIL ====================
+        function cargarPerfil() {
+            if (perfil.nombre) {
+                document.getElementById('nombre').value = perfil.nombre || '';
+                document.getElementById('edad').value = perfil.edad || '';
+                document.getElementById('genero').value = perfil.genero || '';
+                document.getElementById('peso').value = perfil.peso || '';
+                document.getElementById('altura').value = perfil.altura || '';
+                document.getElementById('actividad').value = perfil.actividad || '';
+                document.getElementById('medicamentos').value = perfil.medicamentos || '';
+                document.getElementById('medico').value = perfil.medico || '';
+                document.getElementById('telefono').value = perfil.telefono || '';
+                document.getElementById('recordatorios').value = perfil.recordatorios || 'diario';
+                document.getElementById('notificaciones').value = perfil.notificaciones || 'activadas';
+                
+                // Cargar condiciones médicas
+                if (perfil.condiciones) {
+                    const condicionesSelect = document.getElementById('condiciones');
+                    Array.from(condicionesSelect.options).forEach(option => {
+                        option.selected = perfil.condiciones.includes(option.value);
+                    });
+                }
+            }
+        }
+
+        function guardarPerfil() {
+            const condicionesSelect = document.getElementById('condiciones');
+            const condicionesSeleccionadas = Array.from(condicionesSelect.selectedOptions).map(option => option.value);
+            
+            perfil = {
+                nombre: document.getElementById('nombre').value,
+                edad: parseInt(document.getElementById('edad').value) || 0,
+                genero: document.getElementById('genero').value,
+                peso: parseFloat(document.getElementById('peso').value) || 0,
+                altura: parseInt(document.getElementById('altura').value) || 0,
+                actividad: document.getElementById('actividad').value,
+                condiciones: condicionesSeleccionadas,
+                medicamentos: document.getElementById('medicamentos').value,
+                medico: document.getElementById('medico').value,
+                telefono: document.getElementById('telefono').value,
+                recordatorios: document.getElementById('recordatorios').value,
+                notificaciones: document.getElementById('notificaciones').value
+            };
+            
+            localStorage.setItem('perfil', JSON.stringify(perfil));
+            mostrarAlerta('Perfil guardado exitosamente', 'success');
+        }
+
+        // ==================== REGISTRO DE MEDICIONES ====================
+        function registrarMedicion() {
+            const sistolica = parseInt(document.getElementById('sistolica').value);
+            const diastolica = parseInt(document.getElementById('diastolica').value);
+            const pulso = parseInt(document.getElementById('pulso').value);
+            const fecha = document.getElementById('fecha').value;
+            const notas = document.getElementById('notas').value;
+            
+            if (!sistolica || !diastolica || !fecha) {
+                mostrarAlerta('Por favor complete todos los campos obligatorios', 'danger');
+                return;
+            }
+            
+            if (sistolica < 70 || sistolica > 250 || diastolica < 40 || diastolica > 150) {
+                mostrarAlerta('Los valores de presión arterial están fuera del rango normal. Verifique los datos.', 'warning');
+            }
+            
+            const medicion = {
+                id: Date.now(),
+                sistolica,
+                diastolica,
+                pulso,
+                fecha: new Date(fecha),
+                notas,
+                categoria: categorizarPresion(sistolica, diastolica)
+            };
+            
+            mediciones.unshift(medicion);
+            localStorage.setItem('mediciones', JSON.stringify(mediciones));
+            
+            // Limpiar formulario
+            document.getElementById('sistolica').value = '';
+            document.getElementById('diastolica').value = '';
+            document.getElementById('pulso').value = '';
+            document.getElementById('notas').value = '';
+            
+            // Establecer nueva fecha actual
+            const ahora = new Date();
+            ahora.setMinutes(ahora.getMinutes() - ahora.getTimezoneOffset());
+            document.getElementById('fecha').value = ahora.toISOString().slice(0, 16);
+            
+            // Mostrar resultado
+            mostrarResultadoMedicion(medicion);
+            
+            // Actualizar vistas
+            cargarHistorial();
+            actualizarEstadisticas();
+        }
+
+        function categorizarPresion(sistolica, diastolica) {
+            if (sistolica < 120 && diastolica < 80) {
+                return { nombre: 'Normal', clase: 'success' };
+            } else if (sistolica < 130 && diastolica < 80) {
+                return { nombre: 'Elevada', clase: 'warning' };
+            } else if (sistolica < 140 || diastolica < 90) {
+                return { nombre: 'Hipertensión Etapa 1', clase: 'warning' };
+            } else if (sistolica < 180 || diastolica < 120) {
+                return { nombre: 'Hipertensión Etapa 2', clase: 'danger' };
+            } else {
+                return { nombre: 'Crisis Hipertensiva', clase: 'danger' };
+            }
+        }
+
+        function mostrarResultadoMedicion(medicion) {
+            const alertaDiv = document.getElementById('alertaResultado');
+            const categoria = medicion.categoria;
+            
+            let mensaje = `Medición registrada: ${medicion.sistolica}/${medicion.diastolica} mmHg`;
+            let recomendacion = '';
+            
+            switch (categoria.nombre) {
+                case 'Normal':
+                    recomendacion = 'Excelente. Mantén tus hábitos saludables.';
+                    break;
+                case 'Elevada':
+                    recomendacion = 'Considera hacer cambios en el estilo de vida para prevenir la hipertensión.';
+                    break;
+                case 'Hipertensión Etapa 1':
+                    recomendacion = 'Consulta con tu médico sobre cambios en el estilo de vida y posible medicación.';
+                    break;
+                case 'Hipertensión Etapa 2':
+                    recomendacion = 'Es importante consultar con tu médico lo antes posible.';
+                    break;
+                case 'Crisis Hipertensiva':
+                    recomendacion = '⚠️ ATENCIÓN: Busca atención médica inmediata.';
+                    break;
+            }
+            
+            alertaDiv.innerHTML = `
+                <div class="alert alert-${categoria.clase}">
+                    <i class="fas fa-heartbeat"></i>
+                    <div class="alert-content">
+                        <div class="alert-title">${categoria.nombre}</div>
+                        <div class="alert-message">${mensaje}<br>${recomendacion}</div>
+                    </div>
+                    <button class="alert-close" onclick="this.parentElement.parentElement.style.display='none'">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            alertaDiv.style.display = 'block';
+        }
+
+        // ==================== HISTORIAL ====================
+        function cargarHistorial() {
+            const tbody = document.getElementById('tablaHistorial');
+            tbody.innerHTML = '';
+            
+            mediciones.forEach(medicion => {
+                const fila = document.createElement('tr');
+                const fecha = new Date(medicion.fecha);
+                
+                fila.innerHTML = `
+                    <td>${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}</td>
+                    <td><strong>${medicion.sistolica}</strong></td>
+                    <td><strong>${medicion.diastolica}</strong></td>
+                    <td>${medicion.pulso || '--'}</td>
+                    <td><span class="badge bg-${medicion.categoria.clase}">${medicion.categoria.nombre}</span></td>
+                    <td>${medicion.notas || '--'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarMedicion(${medicion.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(fila);
+            });
+        }
+
+        function eliminarMedicion(id) {
+            if (confirm('¿Está seguro de que desea eliminar esta medición?')) {
+                mediciones = mediciones.filter(m => m.id !== id);
+                localStorage.setItem('mediciones', JSON.stringify(mediciones));
+                cargarHistorial();
+                actualizarEstadisticas();
+                mostrarAlerta('Medición eliminada exitosamente', 'success');
+            }
+        }
+
+        function aplicarFiltros() {
+            const fechaInicio = document.getElementById('filtroFechaInicio').value;
+            const fechaFin = document.getElementById('filtroFechaFin').value;
+            const categoria = document.getElementById('filtroCategoria').value;
+            
+            let medicionesFiltradas = [...mediciones];
+            
+            if (fechaInicio) {
+                medicionesFiltradas = medicionesFiltradas.filter(m => 
+                    new Date(m.fecha) >= new Date(fechaInicio)
+                );
+            }
+            
+            if (fechaFin) {
+                medicionesFiltradas = medicionesFiltradas.filter(m => 
+                    new Date(m.fecha) <= new Date(fechaFin + 'T23:59:59')
+                );
+            }
+            
+            if (categoria) {
+                medicionesFiltradas = medicionesFiltradas.filter(m => 
+                    m.categoria.nombre.toLowerCase().includes(categoria)
+                );
+            }
+            
+            // Actualizar tabla con mediciones filtradas
+            const tbody = document.getElementById('tablaHistorial');
+            tbody.innerHTML = '';
+            
+            medicionesFiltradas.forEach(medicion => {
+                const fila = document.createElement('tr');
+                const fecha = new Date(medicion.fecha);
+                
+                fila.innerHTML = `
+                    <td>${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}</td>
+                    <td><strong>${medicion.sistolica}</strong></td>
+                    <td><strong>${medicion.diastolica}</strong></td>
+                    <td>${medicion.pulso || '--'}</td>
+                    <td><span class="badge bg-${medicion.categoria.clase}">${medicion.categoria.nombre}</span></td>
+                    <td>${medicion.notas || '--'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarMedicion(${medicion.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(fila);
+            });
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('filtroFechaInicio').value = '';
+            document.getElementById('filtroFechaFin').value = '';
+            document.getElementById('filtroCategoria').value = '';
+            cargarHistorial();
+        }
+
+        // ==================== ESTADÍSTICAS ====================
+        function actualizarEstadisticas() {
+            const periodo = parseInt(document.getElementById('periodoAnalisis').value);
+            let medicionesPeriodo = mediciones;
+            
+            if (periodo !== 'all') {
+                const fechaLimite = new Date();
+                fechaLimite.setDate(fechaLimite.getDate() - periodo);
+                medicionesPeriodo = mediciones.filter(m => new Date(m.fecha) >= fechaLimite);
+            }
+            
+            if (medicionesPeriodo.length === 0) {
+                document.getElementById('promedioSistolica').textContent = '--';
+                document.getElementById('promedioDiastolica').textContent = '--';
+                document.getElementById('promedioPulso').textContent = '--';
+                document.getElementById('totalMediciones').textContent = '0';
+                return;
+            }
+            
+            // Calcular promedios
+            const promedioSistolica = Math.round(
+                medicionesPeriodo.reduce((sum, m) => sum + m.sistolica, 0) / medicionesPeriodo.length
+            );
+            const promedioDiastolica = Math.round(
+                medicionesPeriodo.reduce((sum, m) => sum + m.diastolica, 0) / medicionesPeriodo.length
+            );
+            const promedioPulso = Math.round(
+                medicionesPeriodo.filter(m => m.pulso).reduce((sum, m) => sum + m.pulso, 0) / 
+                medicionesPeriodo.filter(m => m.pulso).length
+            );
+            
+            // Actualizar UI
+            document.getElementById('promedioSistolica').textContent = promedioSistolica;
+            document.getElementById('promedioDiastolica').textContent = promedioDiastolica;
+            document.getElementById('promedioPulso').textContent = promedioPulso || '--';
+            document.getElementById('totalMediciones').textContent = medicionesPeriodo.length;
+            
+            // Actualizar gráfico
+            actualizarGrafico(medicionesPeriodo);
+            
+            // Generar recomendaciones
+            generarRecomendaciones(promedioSistolica, promedioDiastolica);
+            
+            // Análisis de tendencias
+            generarAnalisisTendencias(medicionesPeriodo);
+        }
+
+        function actualizarGrafico(medicionesPeriodo) {
+            const ctx = document.getElementById('graficoTendencias').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const labels = medicionesPeriodo.slice(-20).reverse().map(m => {
+                const fecha = new Date(m.fecha);
+                return fecha.toLocaleDateString();
+            });
+            
+            const sistolicaData = medicionesPeriodo.slice(-20).reverse().map(m => m.sistolica);
+            const diastolicaData = medicionesPeriodo.slice(-20).reverse().map(m => m.diastolica);
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Sistólica',
+                        data: sistolicaData,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Diastólica',
+                        data: diastolicaData,
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f8fafc'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#cbd5e1'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.2)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#cbd5e1'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.2)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function generarRecomendaciones(sistolica, diastolica) {
+            const contenedor = document.getElementById('contenidoRecomendaciones');
+            const categoria = categorizarPresion(sistolica, diastolica);
+            const edad = perfil.edad || 0;
+            
+            let recomendaciones = [];
+            
+            // Recomendaciones basadas en la categoría
+            switch (categoria.nombre) {
+                case 'Normal':
+                    recomendaciones = [
+                        'Mantén tu estilo de vida saludable actual',
+                        'Continúa con ejercicio regular (al menos 150 min/semana)',
+                        'Mantén una dieta balanceada baja en sodio',
+                        'Monitorea tu presión arterial regularmente'
+                    ];
+                    break;
+                case 'Elevada':
+                    recomendaciones = [
+                        'Aumenta la actividad física a 30-45 minutos diarios',
+                        'Reduce el consumo de sodio a menos de 2300mg/día',
+                        'Mantén un peso saludable',
+                        'Limita el alcohol y evita el tabaco',
+                        'Practica técnicas de manejo del estrés'
+                    ];
+                    break;
+                case 'Hipertensión Etapa 1':
+                    recomendaciones = [
+                        'Consulta con tu médico sobre cambios en el estilo de vida',
+                        'Considera medicación si los cambios no son suficientes',
+                        'Reduce el sodio a menos de 1500mg/día',
+                        'Ejercicio aeróbico regular y entrenamiento de resistencia',
+                        'Monitoreo más frecuente de la presión arterial'
+                    ];
+                    break;
+                case 'Hipertensión Etapa 2':
+                    recomendaciones = [
+                        'Consulta médica urgente para evaluación y tratamiento',
+                        'Probable necesidad de medicación antihipertensiva',
+                        'Cambios intensivos en el estilo de vida',
+                        'Monitoreo diario de la presión arterial',
+                        'Evaluación de factores de riesgo cardiovascular'
+                    ];
+                    break;
+                case 'Crisis Hipertensiva':
+                    recomendaciones = [
+                        '🚨 BUSCA ATENCIÓN MÉDICA INMEDIATA',
+                        'No esperes - ve a emergencias ahora',
+                        'Puede requerir hospitalización',
+                        'Riesgo de complicaciones graves'
+                    ];
+                    break;
+            }
+            
+            // Recomendaciones adicionales basadas en la edad
+            if (edad > 65) {
+                recomendaciones.push('Considera ejercicios de equilibrio para prevenir caídas');
+                recomendaciones.push('Monitoreo más frecuente debido a la edad');
+            }
+            
+            // Recomendaciones basadas en condiciones médicas
+            if (perfil.condiciones) {
+                if (perfil.condiciones.includes('diabetes')) {
+                    recomendaciones.push('Control estricto de glucosa para proteger los vasos sanguíneos');
+                }
+                if (perfil.condiciones.includes('colesterol')) {
+                    recomendaciones.push('Mantén niveles óptimos de colesterol con dieta y medicación');
+                }
+            }
+            
+            contenedor.innerHTML = `
+                <div class="alert alert-${categoria.clase}">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="alert-content">
+                        <div class="alert-title">Estado Actual: ${categoria.nombre}</div>
+                        <div class="alert-message">Promedio: ${sistolica}/${diastolica} mmHg</div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    ${recomendaciones.map(rec => `
+                        <li class="list-group-item" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); color: var(--text-primary); margin-bottom: 8px; border-radius: 8px;">
+                            <i class="fas fa-check-circle" style="color: var(--text-accent); margin-right: 10px;"></i>
+                            ${rec}
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        function generarAnalisisTendencias(medicionesPeriodo) {
+            const contenedor = document.getElementById('contenidoTendencias');
+            
+            if (medicionesPeriodo.length < 4) {
+                contenedor.innerHTML = '<p style="color: var(--text-muted);">Se necesitan al menos 4 mediciones para generar análisis de tendencias.</p>';
+                return;
+            }
+            
+            // Dividir en dos períodos para comparar
+            const mitad = Math.floor(medicionesPeriodo.length / 2);
+            const periodo1 = medicionesPeriodo.slice(mitad);
+            const periodo2 = medicionesPeriodo.slice(0, mitad);
+            
+            const promedio1Sis = periodo1.reduce((sum, m) => sum + m.sistolica, 0) / periodo1.length;
+            const promedio1Dia = periodo1.reduce((sum, m) => sum + m.diastolica, 0) / periodo1.length;
+            const promedio2Sis = periodo2.reduce((sum, m) => sum + m.sistolica, 0) / periodo2.length;
+            const promedio2Dia = periodo2.reduce((sum, m) => sum + m.diastolica, 0) / periodo2.length;
+            
+            const tendenciaSis = promedio1Sis - promedio2Sis;
+            const tendenciaDia = promedio1Dia - promedio2Dia;
+            
+            function getTendenciaTexto(valor) {
+                if (Math.abs(valor) < 2) return { texto: 'Estable', icono: '➡️', clase: 'info' };
+                if (valor > 0) return { texto: 'Subiendo', icono: '📈', clase: 'warning' };
+                return { texto: 'Bajando', icono: '📉', clase: 'success' };
+            }
+            
+            const tendenciaSisTexto = getTendenciaTexto(tendenciaSis);
+            const tendenciaDiaTexto = getTendenciaTexto(tendenciaDia);
+            
+            contenedor.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="alert alert-${tendenciaSisTexto.clase}">
+                            <div class="alert-content">
+                                <div class="alert-title">${tendenciaSisTexto.icono} Sistólica: ${tendenciaSisTexto.texto}</div>
+                                <div class="alert-message">Cambio: ${tendenciaSis > 0 ? '+' : ''}${tendenciaSis.toFixed(1)} mmHg</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-${tendenciaDiaTexto.clase}">
+                            <div class="alert-content">
+                                <div class="alert-title">${tendenciaDiaTexto.icono} Diastólica: ${tendenciaDiaTexto.texto}</div>
+                                <div class="alert-message">Cambio: ${tendenciaDia > 0 ? '+' : ''}${tendenciaDia.toFixed(1)} mmHg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <h6 style="color: var(--text-accent);">📊 Interpretación:</h6>
+                    <p style="color: var(--text-secondary);">
+                        ${tendenciaSis > 5 || tendenciaDia > 3 ? 
+                            '⚠️ Se observa una tendencia al alza. Considera consultar con tu médico y revisar tu estilo de vida.' :
+                            tendenciaSis < -5 || tendenciaDia < -3 ?
+                            '✅ Excelente, se observa una tendencia a la baja. Continúa con tus hábitos saludables.' :
+                            '📊 Tus valores se mantienen relativamente estables. Continúa monitoreando regularmente.'
+                        }
+                    </p>
+                </div>
+            `;
+        }
+
+        // ==================== EXPORTAR/IMPORTAR DATOS ====================
+        function exportarDatos() {
+            const datos = {
+                perfil: perfil,
+                mediciones: mediciones,
+                exerciseData: exerciseData,
+                kanbanTasks: kanbanTasks,
+                fechaExportacion: new Date().toISOString(),
+                version: '2.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `monitor-presion-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            mostrarAlerta('Datos exportados exitosamente', 'success');
+        }
+
+        function importarDatos() {
+            document.getElementById('importFile').click();
+        }
+
+        function procesarImportacion(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const datos = JSON.parse(e.target.result);
+                    
+                    if (datos.perfil) perfil = datos.perfil;
+                    if (datos.mediciones) mediciones = datos.mediciones;
+                    if (datos.exerciseData) exerciseData = datos.exerciseData;
+                    if (datos.kanbanTasks) kanbanTasks = datos.kanbanTasks;
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('perfil', JSON.stringify(perfil));
+                    localStorage.setItem('mediciones', JSON.stringify(mediciones));
+                    localStorage.setItem('exerciseData', JSON.stringify(exerciseData));
+                    localStorage.setItem('kanbanTasks', JSON.stringify(kanbanTasks));
+                    
+                    // Recargar vistas
+                    cargarPerfil();
+                    cargarHistorial();
+                    actualizarEstadisticas();
+                    renderKanbanBoard();
+                    updateExerciseStats();
+                    
+                    mostrarAlerta('Datos importados exitosamente', 'success');
+                } catch (error) {
+                    mostrarAlerta('Error al importar datos: archivo inválido', 'danger');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ==================== GENERAR REPORTE PDF ====================
+        function generarReportePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Configuración
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            let yPosition = margin;
+            
+            // Título
+            doc.setFontSize(20);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Reporte de Presión Arterial', margin, yPosition);
+            yPosition += 15;
+            
+            // Información del paciente
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Información del Paciente', margin, yPosition);
+            yPosition += 10;
+            
+            doc.setFontSize(10);
+            if (perfil.nombre) {
+                doc.text(`Nombre: ${perfil.nombre}`, margin, yPosition);
+                yPosition += 6;
+            }
+            if (perfil.edad) {
+                doc.text(`Edad: ${perfil.edad} años`, margin, yPosition);
+                yPosition += 6;
+            }
+            if (perfil.medico) {
+                doc.text(`Médico: ${perfil.medico}`, margin, yPosition);
+                yPosition += 6;
+            }
+            
+            doc.text(`Fecha del reporte: ${new Date().toLocaleDateString()}`, margin, yPosition);
+            yPosition += 15;
+            
+            // Estadísticas generales
+            const periodo = parseInt(document.getElementById('periodoAnalisis').value);
+            let medicionesPeriodo = mediciones;
+            if (periodo !== 'all') {
+                const fechaLimite = new Date();
+                fechaLimite.setDate(fechaLimite.getDate() - periodo);
+                medicionesPeriodo = mediciones.filter(m => new Date(m.fecha) >= fechaLimite);
+            }
+            
+            if (medicionesPeriodo.length > 0) {
+                const promedioSistolica = Math.round(
+                    medicionesPeriodo.reduce((sum, m) => sum + m.sistolica, 0) / medicionesPeriodo.length
+                );
+                const promedioDiastolica = Math.round(
+                    medicionesPeriodo.reduce((sum, m) => sum + m.diastolica, 0) / medicionesPeriodo.length
+                );
+                
+                doc.setFontSize(14);
+                doc.text('Estadísticas del Período', margin, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(10);
+                doc.text(`Promedio Sistólica: ${promedioSistolica} mmHg`, margin, yPosition);
+                yPosition += 6;
+                doc.text(`Promedio Diastólica: ${promedioDiastolica} mmHg`, margin, yPosition);
+                yPosition += 6;
+                doc.text(`Total de mediciones: ${medicionesPeriodo.length}`, margin, yPosition);
+                yPosition += 15;
+                
+                // Últimas 10 mediciones
+                doc.setFontSize(14);
+                doc.text('Últimas 10 Mediciones', margin, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(8);
+                const headers = ['Fecha', 'Sistólica', 'Diastólica', 'Pulso', 'Categoría'];
+                const colWidths = [40, 25, 25, 20, 40];
+                let xPosition = margin;
+                
+                // Headers
+                headers.forEach((header, index) => {
+                    doc.text(header, xPosition, yPosition);
+                    xPosition += colWidths[index];
+                });
+                yPosition += 8;
+                
+                // Datos
+                medicionesPeriodo.slice(0, 10).forEach(medicion => {
+                    if (yPosition > 250) {
+                        doc.addPage();
+                        yPosition = margin;
+                    }
+                    
+                    xPosition = margin;
+                    const fecha = new Date(medicion.fecha);
+                    const datos = [
+                        fecha.toLocaleDateString(),
+                        medicion.sistolica.toString(),
+                        medicion.diastolica.toString(),
+                        medicion.pulso ? medicion.pulso.toString() : '--',
+                        medicion.categoria.nombre
+                    ];
+                    
+                    datos.forEach((dato, index) => {
+                        doc.text(dato, xPosition, yPosition);
+                        xPosition += colWidths[index];
+                    });
+                    yPosition += 6;
+                });
+                
+                yPosition += 10;
+                
+                // Estadísticas de ejercicio
+                if (exerciseData.stats.totalWorkouts > 0) {
+                    doc.setFontSize(14);
+                    doc.text('Estadísticas de Ejercicio', margin, yPosition);
+                    yPosition += 10;
+                    
+                    doc.setFontSize(10);
+                    doc.text(`Total de entrenamientos: ${exerciseData.stats.totalWorkouts}`, margin, yPosition);
+                    yPosition += 6;
+                    doc.text(`Racha actual: ${exerciseData.stats.streakDays} días`, margin, yPosition);
+                    yPosition += 6;
+                    doc.text(`Calorías quemadas: ${exerciseData.stats.caloriesBurned}`, margin, yPosition);
+                    yPosition += 15;
+                }
+                
+                // Tareas pendientes
+                const tareasPendientes = kanbanTasks.filter(task => task.status !== 'done');
+                if (tareasPendientes.length > 0) {
+                    doc.setFontSize(14);
+                    doc.text('Tareas Pendientes', margin, yPosition);
+                    yPosition += 10;
+                    
+                    doc.setFontSize(10);
+                    tareasPendientes.slice(0, 10).forEach(task => {
+                        if (yPosition > 250) {
+                            doc.addPage();
+                            yPosition = margin;
+                        }
+                        doc.text(`• ${task.title} (${task.category} - ${task.priority})`, margin, yPosition);
+                        yPosition += 6;
+                    });
+                    yPosition += 10;
+                }
+                
+                // Recomendaciones
+                const categoria = categorizarPresion(promedioSistolica, promedioDiastolica);
+                doc.setFontSize(14);
+                doc.text('Recomendaciones', margin, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(10);
+                doc.text(`Estado actual: ${categoria.nombre}`, margin, yPosition);
+                yPosition += 6;
+                
+                let recomendaciones = [];
+                switch (categoria.nombre) {
+                    case 'Normal':
+                        recomendaciones = ['Mantener estilo de vida saludable', 'Ejercicio regular', 'Dieta balanceada'];
+                        break;
+                    case 'Elevada':
+                        recomendaciones = ['Aumentar actividad física', 'Reducir sodio', 'Controlar peso'];
+                        break;
+                    default:
+                        recomendaciones = ['Consultar médico', 'Monitoreo frecuente', 'Cambios en estilo de vida'];
+                }
+                
+                recomendaciones.forEach(rec => {
+                    if (yPosition > 270) {
+                        doc.addPage();
+                        yPosition = margin;
+                    }
+                    doc.text(`• ${rec}`, margin, yPosition);
+                    yPosition += 6;
+                });
+            }
+            
+            // Pie de página
+            const totalPages = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(128, 128, 128);
+                doc.text(`Página ${i} de ${totalPages}`, pageWidth - 40, doc.internal.pageSize.height - 10);
+                doc.text('Monitor de Presión Arterial Pro', margin, doc.internal.pageSize.height - 10);
+            }
+            
+            // Guardar PDF
+            const fechaArchivo = new Date().toISOString().split('T')[0];
+            doc.save(`reporte-presion-arterial-${fechaArchivo}.pdf`);
+            
+            mostrarAlerta('Reporte PDF generado exitosamente', 'success');
+        }
+
+        // ==================== MÓDULO DE NUTRICIÓN ====================
+        function initializeRecipes() {
+            recipes = [
+                {
+                    id: 1,
+                    name: "Ensalada de Nopales con Atún",
+                    category: "lunch",
+                    conditions: ["diabetes", "hypertension"],
+                    image: "🌵",
+                    calories: 180,
+                    carbs: 12,
+                    sodium: 320,
+                    fiber: 8,
+                    protein: 15,
+                    description: "Ensalada fresca y nutritiva con nopales, perfecta para controlar glucosa y presión arterial.",
+                    ingredients: [
+                        "2 nopales medianos limpios y cortados",
+                        "1 lata de atún en agua (escurrido)",
+                        "1 tomate mediano en

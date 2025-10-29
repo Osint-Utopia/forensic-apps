@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Q&A Builder – TXT / DOCX / PDF → Preguntas & Respuestas</title>
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#111733;--muted:#8aa0ff;--text:#e7e9ff;--accent:#7cf;--ok:#34d399;--warn:#f59e0b;--bad:#ef4444;
+      --border:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 800px at 20% -10%, #1a2250 0%, transparent 50%),
+                 radial-gradient(1200px 800px at 120% 10%, #18204a 0%, transparent 50%),var(--bg);
+         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
+         color:var(--text);}
+    .wrap{max-width:1100px;margin:32px auto;padding:0 16px}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+    h1{font-size:20px;margin:0;letter-spacing:.3px}
+    .badge{font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:#bfc7ff;background:rgba(255,255,255,.03)}
+
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+          border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+    .card h2{font-size:14px;font-weight:600;margin:0 0 10px;color:#cdd5ff}
+    .card .body{padding:16px}
+
+    .drop{border:1.5px dashed #6373c2;border-radius:14px;padding:18px;display:flex;align-items:center;justify-content:center;gap:10px;
+          background:rgba(124,136,255,.06); cursor:pointer;}
+    .drop:hover{background:rgba(124,136,255,.1)}
+    .hint{font-size:12px;color:#a9b4ff}
+
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    button,select,input[type="number"],input[type="text"]{background:#141b3a;color:var(--text);
+      border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:13px}
+    button{cursor:pointer}
+    button.primary{background:linear-gradient(180deg,#2940d3,#2035b5);border-color:#1f2c84}
+    button.ghost{background:transparent}
+    button:disabled{opacity:.6;cursor:not-allowed}
+
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+    textarea{width:100%;min-height:160px;resize:vertical;background:#0f1430;color:var(--text);
+      border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;line-height:1.45}
+
+    .list{display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;padding-right:6px}
+    .qa{border:1px solid var(--border);border-radius:12px;padding:12px;background:#0e1433}
+    .qa .q{font-weight:600;margin-bottom:6px}
+    .qa .a{opacity:.95}
+
+    .pill{padding:4px 8px;border-radius:999px;font-size:11px;border:1px solid var(--border);color:#c8d2ff;background:rgba(255,255,255,.04)}
+    .muted{color:#a7b3ff;font-size:12px}
+
+    .footer{margin-top:16px;color:#a7b3ff;font-size:12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#0b1130;border:1px solid var(--border);
+         border-bottom-color:#0a0f2a;padding:2px 6px;border-radius:6px;font-size:12px;color:#d2d8ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Q&A Builder <span class="badge">1 archivo • offline (TXT/DOCX) • opcional PDF</span></h1>
+      <div class="row">
+        <span class="pill" id="status-pill">Listo</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="body">
+          <h2>1) Sube o arrastra un documento (.txt, .docx, .pdf*)</h2>
+          <div id="drop" class="drop">
+            <div>
+              <div><strong>Suelta aquí</strong> o haz clic para seleccionar</div>
+              <div class="hint">Tamaños moderados. PDF y DOC (97-2003) requieren librerías externas *</div>
+            </div>
+            <input id="file" type="file" accept=".txt,.docx,.pdf,.doc" hidden />
+          </div>
+
+          <div class="toolbar">
+            <button id="btn-sample" class="ghost">Cargar texto de ejemplo</button>
+            <label class="row">
+              <span class="muted">Máx. preguntas:</span>
+              <input id="max-q" type="number" min="1" max="200" value="40" />
+            </label>
+            <label class="row">
+              <span class="muted">Modo:</span>
+              <select id="mode">
+                <option value="balanced">Balanceado</option>
+                <option value="definitions">Definiciones / Artículos</option>
+                <option value="bullets">Listas / Incisos</option>
+                <option value="headings">Encabezados</option>
+              </select>
+            </label>
+            <label class="row">
+              <span class="muted">Long. respuesta:</span>
+              <select id="answer-len">
+                <option value="short">Corta</option>
+                <option value="medium" selected>Media</option>
+                <option value="full">Completa</option>
+              </select>
+            </label>
+            <button id="btn-process" class="primary">Procesar a Q&A</button>
+            <button id="btn-clear" class="ghost">Limpiar</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <h2>Texto extraído</h2>
+            <textarea id="raw" placeholder="El texto del documento aparecerá aquí..."></textarea>
+          </div>
+
+          <div class="footer">
+            <div>* 100% offline: pega una sola vez el **código minificado** de `pdf.min.js`, `pdf.worker.min.js` y `mammoth.browser.min.js` dentro de este HTML (ver al final). Si no los pegas, funcionará **solo TXT**.</div>
+            <div>
+              <span class="kbd">Ctrl/Cmd + Enter</span> procesar • <span class="kbd">Ctrl/Cmd + K</span> limpiar
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="body">
+          <h2>2) Preguntas & Respuestas generadas</h2>
+          <div class="toolbar">
+            <input id="filter" type="text" placeholder="Filtrar por texto…" />
+            <button id="btn-copy" class="ghost">Copiar JSON</button>
+            <button id="btn-json" class="ghost">Descargar JSON</button>
+            <button id="btn-csv" class="ghost">Descargar CSV</button>
+          </div>
+          <div id="list" class="list" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Librerías incrustadas (opcional): pega el código minificado aquí para 100% offline. -->
+  <script id="pdfjs-core" type="application/javascript">/* Pega aquí el contenido de pdf.min.js (build oficial) */</script>
+  <script id="pdfjs-worker" type="application/javascript">/* Pega aquí el contenido de pdf.worker.min.js (build oficial) */</script>
+  <script id="mammoth-code" type="application/javascript">/* Pega aquí el contenido de mammoth.browser.min.js */</script>
+
+  <script>
+    // Carga librerías desde <script> incrustados; sin red.
+    const INLINE = { pdf:false, worker:false, mammoth:false };
+
+    function blobURLFromScript(id){
+      const el = document.getElementById(id);
+      if(!el) return null;
+      const code = el.textContent.trim();
+      if(!code || /Pega aquí/i.test(code)) return null;
+      const blob = new Blob([code], { type: 'application/javascript' });
+      return URL.createObjectURL(blob);
+    }
+
+    async function ensurePdfJs(){
+      if(window.pdfjsLib) return true;
+      const url = blobURLFromScript('pdfjs-core');
+      const workerUrl = blobURLFromScript('pdfjs-worker');
+      if(!url || !workerUrl) { return false; }
+      await loadScript(url);
+      if(window.pdfjsLib){
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+        INLINE.pdf = true; INLINE.worker = true; return true;
+      }
+      return false;
+    }
+
+    async function ensureMammoth(){
+      if(window.mammoth) return true;
+      const url = blobURLFromScript('mammoth-code');
+      if(!url) return false;
+      await loadScript(url);
+      INLINE.mammoth = !!window.mammoth;
+      return !!window.mammoth;
+    }
+
+    function loadScript(src){
+      return new Promise((resolve,reject)=>{
+        const s=document.createElement('script'); s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+      });
+    }
+  </script>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const byId = (id) => document.getElementById(id);
+
+    const state = {
+      qa: [],
+      text: "",
+    };
+
+    const status = (msg, tone="info") => {
+      const el = byId('status-pill');
+      el.textContent = msg; el.style.borderColor = "var(--border)";
+      if(tone==="ok") el.style.background = "rgba(16,185,129,.12)";
+      else if(tone==="warn") el.style.background = "rgba(245,158,11,.12)";
+      else if(tone==="bad") el.style.background = "rgba(239,68,68,.12)";
+      else el.style.background = "rgba(255,255,255,.04)";
+    };
+
+    function setupDnD(){
+      const drop = byId('drop');
+      const input = byId('file');
+      drop.addEventListener('click', ()=> input.click());
+      ['dragenter','dragover'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault(); drop.style.background='rgba(124,136,255,.14)';}));
+      ;['dragleave','drop'].forEach(ev=> drop.addEventListener(ev, e=>{e.preventDefault(); drop.style.background='rgba(124,136,255,.06)';}));
+      drop.addEventListener('drop', (e)=>{ e.preventDefault(); if(e.dataTransfer.files?.length){ handleFile(e.dataTransfer.files[0]); }});
+      input.addEventListener('change', (e)=>{ if(input.files?.length){ handleFile(input.files[0]); }});
+    }
+
+    async function handleFile(file){
+      status(`Leyendo: ${file.name}`);
+      const ext = file.name.split('.').pop().toLowerCase();
+      try{
+        if(ext==='txt'){
+          const text = await file.text();
+          loadText(text);
+        }else if(ext==='docx'){
+          // DOCX offline: usar FileReader + mammoth si disponible (desde CDN si hay internet)
+          const ok = await ensureMammoth();
+          if(!ok){
+            alert('Para leer DOCX en el navegador se requiere Mammoth (CDN). Conexión no disponible.');
+            status('Mammoth no disponible', 'warn');
+            return;
+          }
+          const arrayBuffer = await file.arrayBuffer();
+          const { value } = await window.mammoth.extractRawText({arrayBuffer});
+          loadText(value);
+        }else if(ext==='pdf'){
+          const ok = await ensurePdfJs();
+          if(!ok){
+            alert('Para extraer texto de PDF se requiere pdf.js (CDN). Conexión no disponible.');
+            status('PDF.js no disponible', 'warn');
+            return;
+          }
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({data:new Uint8Array(arrayBuffer)}).promise;
+          let text = '';
+          for(let i=1;i<=pdf.numPages;i++){
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(it=> it.str);
+            text += strings.join(' ') + '\n\n';
+          }
+          loadText(text);
+        }else if(ext==='doc'){
+          alert('Archivos .doc (97-2003) no se pueden leer 100% en navegador sin conversión. Convierte a DOCX o usa Word/LibreOffice para exportar.');
+          status('Formato .doc no soportado', 'warn');
+        }else{
+          alert('Formato no soportado. Usa .txt, .docx o .pdf');
+          status('Formato no soportado', 'bad');
+        }
+      }catch(err){
+        console.error(err);
+        alert('Error al leer el archivo: '+ err.message);
+        status('Error leyendo archivo', 'bad');
+      }
+    }
+
+    function loadText(text){
+      state.text = normalizeWhitespace(text);
+      byId('raw').value = state.text;
+      status('Texto cargado', 'ok');
+    }
+
+    function normalizeWhitespace(t){
+      return t.replace(/\r/g,'').replace(/[\t ]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+    }
+
+    function splitIntoBlocks(text){
+      // Divide por secciones: encabezados, artículos, numerales, párrafos
+      const lines = text.split(/\n/).map(l=>l.trim()).filter(Boolean);
+      const blocks = [];
+      let acc = [];
+      const flush = ()=>{ if(acc.length){ blocks.push(acc.join(' ')); acc = []; } };
+      for(const l of lines){
+        if(/^cap[ií]tulo|^t[ií]tulo|^secci[oó]n|^art[ií]culo\b|^[IVXLC]+\.|^\d+\.|^\d+\)/i.test(l)){
+          flush(); acc.push(l);
+        }else if(/^•|- |^[a-z]\)|^\([a-z]\)/i.test(l)){
+          flush(); acc.push(l);
+        }else{
+          acc.push(l);
+        }
+      }
+      flush();
+      return blocks;
+    }
+
+    function sentences(text){
+      return text
+        .replace(/([a-záéíóúñ])(:)(\s)/gi,'$1. ') // dos puntos → punto
+        .split(/(?<=[\.!?])\s+(?=[A-ZÁÉÍÓÚÑ0-9"'“(])/)
+        .map(s=>s.trim())
+        .filter(s=>s.length>0);
+    }
+
+    function makeQuestionFromSentence(s){
+      const trimmed = s.replace(/\s+/g,' ').trim();
+      // Patrones básicos de derecho / técnica / definiciones
+      if(/art[ií]culo\s+\d+/i.test(trimmed)){
+        const art = (trimmed.match(/art[ií]culo\s+\d+/i)||[''])[0];
+        return `¿Qué establece el ${art}?`;
+      }
+      if(/se define|se entiende por|consiste en|es el conjunto de/i.test(trimmed)){
+        return '¿Cuál es la definición clave?' ;
+      }
+      if(/obligaci[oó]n|deber|derecho|prohibici[oó]n/i.test(trimmed)){
+        return '¿Qué obligación/derecho se describe?';
+      }
+      if(/procedimiento|paso|etapa|requisito/i.test(trimmed)){
+        return '¿Cuál es el procedimiento o requisito?';
+      }
+      if(/responsabil/i.test(trimmed)){
+        return '¿Qué responsabilidades se señalan?';
+      }
+      if(/plazo|t[eé]rmino|vigencia/i.test(trimmed)){
+        return '¿Qué plazos o vigencias aplican?';
+      }
+      // fallback
+      return '¿Idea principal del enunciado?';
+    }
+
+    function summarizeAnswer(s, len){
+      const clean = s.replace(/\s+/g,' ').trim();
+      if(len==='short') return clean.split(' ').slice(0,24).join(' ') + (clean.split(' ').length>24? '…':'');
+      if(len==='medium') return clean.split(' ').slice(0,60).join(' ') + (clean.split(' ').length>60? '…':'');
+      return clean; // full
+    }
+
+    function dedupe(arr, key){
+      const seen = new Set();
+      return arr.filter(x=>{ const k=key(x); if(seen.has(k)) return false; seen.add(k); return true; });
+    }
+
+    function buildQA(text, {mode='balanced', max=40, answerLen='medium'}={}){
+      const blocks = splitIntoBlocks(text);
+      let pairs = [];
+
+      for(const block of blocks){
+        const ss = sentences(block);
+        if(mode==='definitions'){
+          const defs = ss.filter(s=>/es\s+|se define|se entiende por|consiste/i.test(s));
+          defs.forEach(s=> pairs.push({q: makeQuestionFromSentence(s), a: summarizeAnswer(s, answerLen)}));
+        }else if(mode==='bullets'){
+          const bullets = block.match(/(^|\s)(•|-\s|\d+\)|[a-z]\)|\([a-z]\))/gi)? sentences(block): ss;
+          bullets.forEach(s=> pairs.push({q: makeQuestionFromSentence(s), a: summarizeAnswer(s, answerLen)}));
+        }else if(mode==='headings'){
+          const heads = ss.filter(s=>/cap[ií]tulo|t[ií]tulo|secci[oó]n|art[ií]culo\s+\d+/i.test(s));
+          heads.forEach(s=> pairs.push({q: makeQuestionFromSentence(s), a: summarizeAnswer(s, answerLen)}));
+        }else{ // balanced
+          ss.forEach(s=>{
+            if(s.length>40) pairs.push({q: makeQuestionFromSentence(s), a: summarizeAnswer(s, answerLen)});
+          });
+        }
+      }
+
+      // Limpieza y priorización
+      pairs = dedupe(pairs, x=> x.q + '|' + x.a)
+        .filter(p=> p.a && p.a.length>10);
+
+      // Prioriza artículos/definiciones
+      pairs.sort((a,b)=>{
+        const aw = /(art[ií]culo|definici[oó]n|deber|derecho)/i.test(a.q) ? 1 : 0;
+        const bw = /(art[ií]culo|definici[oó]n|deber|derecho)/i.test(b.q) ? 1 : 0;
+        return bw - aw;
+      });
+
+      return pairs.slice(0, max);
+    }
+
+    function renderList(items){
+      const list = byId('list');
+      list.innerHTML = '';
+      if(items.length===0){ list.innerHTML = '<div class="muted">Sin resultados todavía.</div>'; return; }
+      for(const it of items){
+        const el = document.createElement('div'); el.className='qa';
+        const q = document.createElement('div'); q.className='q'; q.textContent = 'Pregunta: ' + it.q;
+        const a = document.createElement('div'); a.className='a'; a.textContent = 'Respuesta: ' + it.a;
+        el.appendChild(q); el.appendChild(a); list.appendChild(el);
+      }
+    }
+
+    function exportJSON(data){
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'qa.json'; a.click();
+    }
+    function exportCSV(data){
+      const esc = (s)=> '"'+ String(s).replace(/"/g,'""') +'"';
+      const rows = [['pregunta','respuesta'], ...data.map(x=>[x.q,x.a])].map(r=> r.map(esc).join(','));
+      const blob = new Blob([rows.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'qa.csv'; a.click();
+    }
+
+    function copyJSON(data){
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(()=> status('Copiado al portapapeles','ok'))
+        .catch(()=> alert('No se pudo copiar.'));
+    }
+
+    function applyFilter(){
+      const term = byId('filter').value.toLowerCase();
+      const filtered = !term? state.qa : state.qa.filter(x=> x.q.toLowerCase().includes(term) || x.a.toLowerCase().includes(term));
+      renderList(filtered);
+    }
+
+    function bindUI(){
+      byId('btn-process').addEventListener('click', ()=>{
+        const text = byId('raw').value.trim();
+        if(!text){ alert('Primero carga o pega texto.'); return; }
+        const max = parseInt(byId('max-q').value||40,10);
+        const mode = byId('mode').value; const answerLen = byId('answer-len').value;
+        state.qa = buildQA(text, {mode, max, answerLen});
+        renderList(state.qa); status(`Generadas ${state.qa.length} preguntas`, 'ok');
+      });
+      byId('btn-clear').addEventListener('click', ()=>{ byId('raw').value=''; state.text=''; state.qa=[]; renderList([]); status('Limpio'); });
+      byId('btn-json').addEventListener('click', ()=> exportJSON(state.qa));
+      byId('btn-csv').addEventListener('click', ()=> exportCSV(state.qa));
+      byId('btn-copy').addEventListener('click', ()=> copyJSON(state.qa));
+      byId('filter').addEventListener('input', applyFilter);
+      byId('btn-sample').addEventListener('click', ()=>{
+        const sample = `TÍTULO PRIMERO\nDisposiciones Generales\nArtículo 1. La ley es de orden público y observancia general.\nArtículo 2. Se entiende por autoridad competente aquella designada por la ley.\nCAPÍTULO II\nDe las Obligaciones\n3) Requisitos para el trámite: a) Solicitud; b) Identificación; c) Comprobante.\nProcedimiento: El trámite consiste en tres etapas: registro, evaluación y resolución.\nLa vigencia será de un año contados a partir de su publicación.`;
+        loadText(sample);
+      });
+      document.addEventListener('keydown', (e)=>{
+        if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='enter') byId('btn-process').click();
+        if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); byId('btn-clear').click(); }
+      });
+    }
+
+    // Init
+    setupDnD(); bindUI(); renderList([]);
+  </script>
+  <div class="wrap" style="max-width:1100px;margin:16px auto 40px;padding:0 16px">
+    <div class="card"><div class="body">
+      <h2>3) (Opcional) Incrustar librerías para trabajar PDF y DOCX completamente offline</h2>
+      <p class="muted">Para mantener todo en <strong>un solo archivo</strong>, pega el contenido minificado oficial en los campos siguientes y guarda el HTML. Al recargar, la app usará esas copias locales.</p>
+      <details style="margin:10px 0"><summary class="pill">Pegar <code>pdf.min.js</code> (núcleo)</summary>
+        <textarea id="ta-pdf-core" style="width:100%;min-height:160px;margin-top:8px" placeholder="Pega aquí el contenido de pdf.min.js"></textarea>
+        <div class="toolbar"><button class="ghost" id="btn-apply-pdf-core">Aplicar al HTML</button></div>
+      </details>
+      <details style="margin:10px 0"><summary class="pill">Pegar <code>pdf.worker.min.js</code> (worker)</summary>
+        <textarea id="ta-pdf-worker" style="width:100%;min-height:160px;margin-top:8px" placeholder="Pega aquí el contenido de pdf.worker.min.js"></textarea>
+        <div class="toolbar"><button class="ghost" id="btn-apply-pdf-worker">Aplicar al HTML</button></div>
+      </details>
+      <details style="margin:10px 0"><summary class="pill">Pegar <code>mammoth.browser.min.js</code> (DOCX)</summary>
+        <textarea id="ta-mammoth" style="width:100%;min-height:160px;margin-top:8px" placeholder="Pega aquí el contenido de mammoth.browser.min.js"></textarea>
+        <div class="toolbar"><button class="ghost" id="btn-apply-mammoth">Aplicar al HTML</button></div>
+      </details>
+      <div class="muted">Tip: una vez pegado y guardado, puedes borrar estas cajas para mantener el archivo más limpio; el código queda insertado en los <code>&lt;script id="pdfjs-core"|"pdfjs-worker"|"mammoth-code"&gt;</code> al inicio.</div>
+    </div></div>
+  </div>
+
+  <script>
+    // Utilidad para insertar el código pegado en los <script id="..."> y persistir en el archivo
+    function setInlineCode(id, code){
+      const el = document.getElementById(id);
+      if(!el) return false; el.textContent = code; return true;
+    }
+    function bindInlineEditors(){
+      const btn1 = document.getElementById('btn-apply-pdf-core');
+      const btn2 = document.getElementById('btn-apply-pdf-worker');
+      const btn3 = document.getElementById('btn-apply-mammoth');
+      if(btn1) btn1.addEventListener('click', ()=>{
+        const code = document.getElementById('ta-pdf-core').value; if(!code.trim()) return alert('Pega el código de pdf.min.js');
+        setInlineCode('pdfjs-core', code); status('pdf.min.js incrustado', 'ok');
+      });
+      if(btn2) btn2.addEventListener('click', ()=>{
+        const code = document.getElementById('ta-pdf-worker').value; if(!code.trim()) return alert('Pega el código de pdf.worker.min.js');
+        setInlineCode('pdfjs-worker', code); status('pdf.worker.min.js incrustado', 'ok');
+      });
+      if(btn3) btn3.addEventListener('click', ()=>{
+        const code = document.getElementById('ta-mammoth').value; if(!code.trim()) return alert('Pega el código de mammoth.browser.min.js');
+        setInlineCode('mammoth-code', code); status('mammoth incrustado', 'ok');
+      });
+    }
+    // Espera a que exista status() y luego bindea
+    window.addEventListener('DOMContentLoaded', ()=> setTimeout(bindInlineEditors, 50));
+  </script>
+</body>
+</html>
