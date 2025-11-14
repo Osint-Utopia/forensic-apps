@@ -2,1118 +2,863 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>CyberTools Pro</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Tools Navigator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
-        
-        /* ==================== VARIABLES ==================== */
-        :root {
-            /* Base colors */
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #0f1419;
-            --bg-card: rgba(15, 20, 25, 0.8);
-            
-            /* Cyberpunk accents */
-            --cyan: #00f0ff;
-            --cyan-glow: rgba(0, 240, 255, 0.5);
-            --green: #00ff9d;
-            --green-glow: rgba(0, 255, 157, 0.5);
-            --purple: #b74dff;
-            --purple-glow: rgba(183, 77, 255, 0.5);
-            --red: #ff0050;
-            --red-glow: rgba(255, 0, 80, 0.5);
-            
-            /* Text */
-            --text-primary: #e0e6ed;
-            --text-secondary: #8892a6;
-            --text-muted: #5a6270;
-            
-            /* Theme accent (changes per module) */
-            --accent: var(--cyan);
-            --accent-glow: var(--cyan-glow);
-            
-            /* UI */
-            --border-primary: rgba(0, 240, 255, 0.3);
-            --shadow-glow: 0 0 20px var(--accent-glow);
-            --transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            
-            /* Fonts */
-            --font-display: 'Orbitron', monospace;
-            --font-body: 'Rajdhani', sans-serif;
-        }
-        
-        /* Theme variations */
-        .theme-osint {
-            --accent: var(--cyan);
-            --accent-glow: var(--cyan-glow);
-        }
-        
-        .theme-security {
-            --accent: var(--green);
-            --accent-glow: var(--green-glow);
-        }
-        
-        .theme-legal {
-            --accent: #ffa500;
-            --accent-glow: rgba(255, 165, 0, 0.5);
-        }
-        
-        .theme-tools {
-            --accent: var(--purple);
-            --accent-glow: var(--purple-glow);
-        }
-        
-        /* ==================== RESET & BASE ==================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f5f5;
             min-height: 100vh;
+            color: #333;
         }
-        
-        /* Cyberpunk grid background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 0;
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        
-        /* ==================== HEADER ==================== */
+
         .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--bg-secondary);
-            border-bottom: 2px solid var(--border-primary);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            position: relative;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-        
-        .logo i {
-            font-size: 1.5rem;
-        }
-        
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .header-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            color: var(--accent);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: var(--accent-glow);
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-        
-        .header-btn:active::before {
-            width: 100px;
-            height: 100px;
-        }
-        
-        .header-btn:active {
-            transform: scale(0.95);
-            box-shadow: inset 0 0 10px var(--accent-glow);
-        }
-        
-        /* ==================== SIDEBAR ==================== */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100vh;
-            background: var(--bg-secondary);
-            border-right: 2px solid var(--border-primary);
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            z-index: 200;
-            overflow-y: auto;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-primary);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .sidebar-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .close-sidebar {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 0, 80, 0.1);
-            border: 1px solid var(--red);
-            border-radius: 6px;
-            color: var(--red);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-sidebar:active {
-            background: rgba(255, 0, 80, 0.3);
-        }
-        
-        .nav-section {
-            padding: 20px;
-        }
-        
-        .nav-section-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-        
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            margin-bottom: 8px;
-            background: var(--bg-card);
-            border: 1px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent);
-            transform: scaleY(0);
-            transition: transform 0.3s;
-        }
-        
-        .nav-item:hover::before,
-        .nav-item.active::before {
-            transform: scaleY(1);
-        }
-        
-        .nav-item:hover,
-        .nav-item.active {
-            background: rgba(0, 240, 255, 0.05);
-            border-color: var(--border-primary);
-            box-shadow: var(--shadow-glow);
-        }
-        
-        .nav-item i {
-            font-size: 1.2rem;
-            color: var(--accent);
-            width: 24px;
-        }
-        
-        .nav-item span {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        /* ==================== OVERLAY ==================== */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 150;
-        }
-        
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* ==================== MAIN CONTENT ==================== */
-        .main-content {
-            position: relative;
-            z-index: 1;
-            padding: 20px 16px;
-            min-height: calc(100vh - 64px);
-        }
-        
-        /* ==================== CARDS ==================== */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            transform: translateX(-100%);
-        }
-        
-        .card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-glow);
-        }
-        
-        .card:hover::before {
-            animation: scan 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-        }
-        
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            color: var(--accent);
-            font-size: 1.2rem;
-        }
-        
-        .card-title {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* ==================== BUTTONS ==================== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 8px;
-            font-family: var(--font-body);
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.5s, height 0.5s;
-        }
-        
-        .btn:active::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .btn:active {
-            transform: scale(0.97);
-        }
-        
-        .btn-secondary {
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid var(--border-primary);
-            box-shadow: none;
-        }
-        
-        /* ==================== STATS GRID ==================== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            padding: 16px;
             text-align: center;
-            position: relative;
+            color: #676e8a;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .search-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ea7866;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #00ffff;
+            color: #6c757d;
+        }
+
+        .btn-secondary {
+            background: #EA7876;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 15px 15px 0 0;
             overflow: hidden;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
         }
-        
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.3s ease;
         }
-        
-        .stat-card:hover::after {
-            transform: scaleX(1);
+
+        .tab.active {
+            background: white;
+            color: #495057;
+            box-shadow: inset 0 3px 0 #ea7866;
         }
-        
-        .stat-value {
+
+        .content-area {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            min-height: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
             display: block;
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 4px;
-            text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        .stat-label {
-            display: block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-        }
-        
-        /* ==================== MODULE SWITCHER ==================== */
-        .module-switcher {
+
+        .tools-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
-        
-        .module-btn {
-            padding: 16px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
+
+        .category-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: #ea7866;
+            transform: translateY(-2px);
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-count {
+            background: #ea7866;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .tools-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .tool-item:nth-child(n+5) {
+            display: none;
+        }
+
+        .show-more-btn {
+            background: #ea7866;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .tool-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tool-item:last-child {
+            border-bottom: none;
+        }
+
+        .tool-link {
+            color: #ea7866;
+            text-decoration: none;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .tool-link:hover {
+            text-decoration: underline;
+        }
+
+        .add-tool-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
             display: flex;
             flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .placeholder-help {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .stats-bar {
+            background: radial-gradient(circle,rgba(120, 117, 111, 1) 0%, rgba(66, 126, 212, 1) 54%, rgba(69, 69, 69, 1) 100%);
+            color: white;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .module-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, var(--accent-glow), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .module-btn:hover::before {
-            opacity: 0.2;
-        }
-        
-        .module-btn i {
-            font-size: 2rem;
-            color: var(--accent);
-        }
-        
-        .module-btn span {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        
-        /* ==================== RESPONSIVE ==================== */
-        @media (min-width: 768px) {
-            .sidebar {
-                transform: translateX(0);
-                position: relative;
-            }
-            
-            .close-sidebar {
-                display: none;
-            }
-            
-            .main-content {
-                margin-left: 280px;
-            }
-            
-            .overlay {
-                display: none;
-            }
-            
-            .module-switcher {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        /* ==================== ANIMATIONS ==================== */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px var(--accent-glow); }
-            50% { box-shadow: 0 0 20px var(--accent-glow); }
-        }
-        
-        .glow-pulse {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        /* ==================== SCROLLBAR ==================== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
+
+        .export-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="theme-osint">
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <button class="header-btn" id="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">
-                <i class="fas fa-terminal"></i>
-                <span>CYBER</span>
-            </div>
-            <div class="header-actions">
-                <button class="header-btn" id="notifications-btn">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <button class="header-btn" id="profile-btn">
-                    <i class="fas fa-user-circle"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-title">MENU</div>
-            <button class="close-sidebar" id="close-sidebar">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <nav class="nav-section">
-            <div class="nav-section-title">Módulos</div>
-            <div class="nav-item active" data-module="osint" data-theme="theme-osint">
-                <i class="fas fa-search"></i>
-                <span>OSINT Pro</span>
-            </div>
-            <div class="nav-item" data-module="security" data-theme="theme-security">
-                <i class="fas fa-shield-alt"></i>
-                <span>Seguridad</span>
-            </div>
-            <div class="nav-item" data-module="legal" data-theme="theme-legal">
-                <i class="fas fa-balance-scale"></i>
-                <span>Legal</span>
-            </div>
-            <div class="nav-item" data-module="tools" data-theme="theme-tools">
-                <i class="fas fa-tools"></i>
-                <span>Herramientas</span>
-            </div>
-        </nav>
-        
-        <nav class="nav-section">
-            <div class="nav-section-title">Sistema</div>
-            <div class="nav-item" data-module="settings">
-                <i class="fas fa-cog"></i>
-                <span>Configuración</span>
-            </div>
-            <div class="nav-item" data-module="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Ayuda</span>
-            </div>
-        </nav>
-    </aside>
-
-    <!-- Overlay -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Main Content -->
-    <main class="main-content" id="main-content">
-        <!-- Dashboard Home -->
-        <div class="module-switcher">
-            <div class="module-btn" data-module="osint" data-theme="theme-osint">
-                <i class="fas fa-search"></i>
-                <span>OSINT</span>
-            </div>
-            <div class="module-btn" data-module="security" data-theme="theme-security">
-                <i class="fas fa-shield-alt"></i>
-                <span>Security</span>
-            </div>
-            <div class="module-btn" data-module="legal" data-theme="theme-legal">
-                <i class="fas fa-balance-scale"></i>
-                <span>Legal</span>
-            </div>
-            <div class="module-btn" data-module="tools" data-theme="theme-tools">
-                <i class="fas fa-tools"></i>
-                <span>Tools</span>
-            </div>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 OSINT Tools Navigator</h1>
+            <h2>Tu colección personal de herramientas OSINT</h2>
         </div>
 
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-value">24</span>
-                <span class="stat-label">Búsquedas</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-value">156</span>
-                <span class="stat-label">Fuentes</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-value">98%</span>
-                <span class="stat-label">Éxito</span>
-            </div>
+        <div class="search-bar">
+            <input type="text" class="search-input" id="searchQuery" placeholder="Ingresa el término de búsqueda (nombre, email, teléfono, etc.)">
+            <button class="btn btn-primary" onclick="openAllTools()">🚀 Abrir Todas</button>
+            <button class="btn btn-secondary" onclick="clearSearch()">🗑️ Limpiar</button>
         </div>
 
-        <!-- Welcome Card -->
-        <div class="card glow-pulse">
-            <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-rocket"></i>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('search')">🔍 Búsqueda</button>
+            <button class="tab" onclick="switchTab('manage')">⚙️ Gestionar Herramientas</button>
+            <button class="tab" onclick="switchTab('export')">📊 Exportar/Importar</button>
+        </div>
+
+        <div class="content-area">
+            <div id="search-tab" class="tab-content active">
+                <div class="stats-bar">
+                    <span>📈 Estadísticas</span>
+                    <span id="stats-text">0 herramientas en 0 categorías</span>
                 </div>
-                <h2 class="card-title">Sistema Operativo</h2>
-            </div>
-            <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                Framework unificado para investigación OSINT, análisis de seguridad, gestión legal y herramientas tácticas.
-            </p>
-            <button class="btn">
-                <i class="fas fa-play"></i>
-                Iniciar Misión
-            </button>
-        </div>
 
-        <!-- Status Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-server"></i>
+                <div class="alert alert-info">
+                    <strong>💡 Tip:</strong> Escribe tu término de búsqueda arriba y las URLs se actualizarán automáticamente. Usa <code>{query}</code> como placeholder en tus URLs.
                 </div>
-                <h2 class="card-title">Estado del Sistema</h2>
+
+                <div id="tools-container" class="tools-grid">
+                    <!-- Las herramientas se generan aquí -->
+                </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="color: var(--text-secondary);">API Connection</span>
-                    <span style="color: var(--green); display: flex; align-items: center; gap: 6px;">
-                        <i class="fas fa-circle" style="font-size: 0.6rem;"></i>
-                        ONLINE
-                    </span>
+
+            <div id="manage-tab" class="tab-content">
+                <h2>Agregar Nueva Herramienta</h2>
+                
+                <div class="add-tool-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="toolName">Nombre</label>
+                            <input type="text" id="toolName" placeholder="Google">
+                        </div>
+                        <div class="form-group">
+                            <label for="toolUrl">URL</label>
+                            <input type="text" id="toolUrl" placeholder="https://www.google.com/search?q={query}">
+                            <div class="placeholder-help">Usa {query} donde va el término de búsqueda</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="toolCategory">Categoría</label>
+                            <select id="toolCategory">
+                                <option value="Motores de Búsqueda">Motores de Búsqueda</option>
+                                <option value="Redes Sociales">Redes Sociales</option>
+                                <option value="Emails">Emails</option>
+                                <option value="Teléfonos">Teléfonos</option>
+                                <option value="Imágenes">Imágenes</option>
+                                <option value="APIs">APIs</option>
+                                <option value="Dominios">Dominios</option>
+                                <option value="Personas">Personas</option>
+                                <option value="Empresas">Empresas</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success" onclick="addTool()">➕ Agregar</button>
+                        </div>
+                    </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="color: var(--text-secondary);">Database</span>
-                    <span style="color: var(--green); display: flex; align-items: center; gap: 6px;">
-                        <i class="fas fa-circle" style="font-size: 0.6rem;"></i>
-                        SYNC
-                    </span>
+
+                <h3>Herramientas Existentes</h3>
+                <div id="manage-tools-list">
+                    <!-- Lista de herramientas para gestionar -->
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="color: var(--text-secondary);">Security Level</span>
-                    <span style="color: var(--cyan); display: flex; align-items: center; gap: 6px;">
-                        <i class="fas fa-shield-alt"></i>
-                        MAXIMUM
-                    </span>
+            </div>
+
+            <div id="export-tab" class="tab-content">
+                <div class="export-section">
+                    <h2>Exportar Herramientas</h2>
+                    <p>Guarda tu colección de herramientas para compartir o respaldar.</p>
+                    <button class="btn btn-primary" onclick="exportTools()">📁 Exportar JSON</button>
+                </div>
+
+                <div class="export-section">
+                    <h2>Importar Herramientas</h2>
+                    <p>Carga herramientas desde un archivo JSON.</p>
+                    <input type="file" id="importFile" accept=".json" style="margin-bottom: 10px;">
+                    <button class="btn btn-secondary" onclick="importTools()">📂 Importar JSON</button>
+                </div>
+
+                <div class="export-section">
+                    <h2>Herramientas Predefinidas</h2>
+                    <p>Carga un set básico de herramientas OSINT populares.</p>
+                    <button class="btn btn-success" onclick="loadDefaultTools()">🔄 Cargar Herramientas Básicas</button>
                 </div>
             </div>
         </div>
-    </main>
+        <div class="footer">
+                <div style="margin-bottom: 10px;">
+                    <i class="fas fa-shield-alt"></i> FORENSIC TOOLS
+                    <span style="background: rgba(0,255,255,0.2); color: var(--color-accent); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 10px;">v1.0</span>
+                </div>
+                <div>&copy; 2025 Desarrollado por <strong style="color: var(--color-accent);">Lic. Al Azua</strong></div>
+                <div style="margin-top: 10px; color: var(--color-success);"><i class="fas fa-microchip"></i> Análisis Automático Inteligente</div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <script>
-        // ==================== STATE MANAGEMENT ====================
-        const AppState = {
-            currentModule: 'osint',
-            currentTheme: 'theme-osint',
-            sidebarOpen: false
-        };
+        // Estado de la aplicación
+        let osintTools = {};
+        let currentQuery = '';
 
-        // ==================== DOM ELEMENTS ====================
-        const elements = {
-            menuToggle: document.getElementById('menu-toggle'),
-            closeSidebar: document.getElementById('close-sidebar'),
-            sidebar: document.getElementById('sidebar'),
-            overlay: document.getElementById('overlay'),
-            body: document.body,
-            navItems: document.querySelectorAll('.nav-item[data-module]'),
-            moduleBtns: document.querySelectorAll('.module-btn[data-module]')
-        };
-
-        // ==================== SIDEBAR CONTROL ====================
-        function toggleSidebar() {
-            AppState.sidebarOpen = !AppState.sidebarOpen;
-            elements.sidebar.classList.toggle('open', AppState.sidebarOpen);
-            elements.overlay.classList.toggle('active', AppState.sidebarOpen);
-        }
-
-        function closeSidebar() {
-            AppState.sidebarOpen = false;
-            elements.sidebar.classList.remove('open');
-            elements.overlay.classList.remove('active');
-        }
-
-        // ==================== THEME SWITCHING ====================
-        function switchTheme(themeName) {
-            // Remove all theme classes
-            elements.body.className = elements.body.className
-                .split(' ')
-                .filter(c => !c.startsWith('theme-'))
-                .join(' ');
+        // Cambiar pestañas
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            // Add new theme
-            elements.body.classList.add(themeName);
-            AppState.currentTheme = themeName;
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            if (tabName === 'manage') {
+                renderManageTools();
+            }
         }
 
-        // ==================== MODULE SWITCHING ====================
-        function switchModule(moduleName) {
-            AppState.currentModule = moduleName;
+        // Agregar nueva herramienta
+        function addTool() {
+            const name = document.getElementById('toolName').value.trim();
+            const url = document.getElementById('toolUrl').value.trim();
+            const category = document.getElementById('toolCategory').value;
+
+            if (!name || !url) {
+                alert('Por favor completa el nombre y la URL');
+                return;
+            }
+
+            if (!osintTools[category]) {
+                osintTools[category] = [];
+            }
+
+            osintTools[category].push({ name, url });
+
+            // Limpiar formulario
+            document.getElementById('toolName').value = '';
+            document.getElementById('toolUrl').value = '';
+
+            // Actualizar vista
+            renderTools();
+            renderManageTools();
+            updateStats();
+
+            // Mostrar confirmación
+            showAlert('success', `Herramienta "${name}" agregada correctamente`);
+        }
+
+        // Eliminar herramienta
+        function deleteTool(category, index) {
+            if (confirm('¿Estás seguro de eliminar esta herramienta?')) {
+                osintTools[category].splice(index, 1);
+                if (osintTools[category].length === 0) {
+                    delete osintTools[category];
+                }
+                renderTools();
+                renderManageTools();
+                updateStats();
+            }
+        }
+
+        // Renderizar herramientas
+        function renderTools() {
+            const container = document.getElementById('tools-container');
+            const query = document.getElementById('searchQuery').value.trim();
             
-            // Update nav items
-            elements.navItems.forEach(item => {
-                item.classList.toggle('active', item.dataset.module === moduleName);
+            if (Object.keys(osintTools).length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <h3>No hay herramientas configuradas</h3>
+                        <p>Ve a "Gestionar Herramientas" para agregar tus primeras herramientas OSINT</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            
+            Object.entries(osintTools).forEach(([category, tools]) => {
+                html += `
+                    <div class="category-card">
+                        <div class="category-title">
+                            ${category}
+                            <span class="tool-count">${tools.length}</span>
+                        </div>
+                        <div class="tools-list">
+                `;
+                
+                tools.forEach((tool, index) => {
+                    const finalUrl = tool.url.replace('{query}', encodeURIComponent(query));
+                    const isHidden = index >= 4 ? 'style="display:none"' : '';
+                    html += `
+                        <div class="tool-item" ${isHidden}>
+                            <a href="${finalUrl}" target="_blank" class="tool-link">${tool.name}</a>
+                        </div>
+                    `;
+                });
+                
+                if (tools.length > 4) {
+                    html += `
+                        <button class="show-more-btn" onclick="toggleShowMore(this, '${category}')">
+                            Ver ${tools.length - 4} más
+                        </button>
+                    `;
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
             });
             
-            // Close sidebar on mobile
-            if (window.innerWidth < 768) {
-                closeSidebar();
-            }
-            
-            // Here you would load the module content
-            console.log('Loading module:', moduleName);
-            
-            // Add haptic feedback for mobile
-            if ('vibrate' in navigator) {
-                navigator.vibrate(10);
-            }
+            container.innerHTML = html;
         }
 
-        // ==================== TOUCH GESTURES ====================
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let touchStartY = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
+        // Renderizar herramientas en gestión
+        function renderManageTools() {
+            const container = document.getElementById('manage-tools-list');
+            let html = '';
             
-            // Check if it's a horizontal swipe (not vertical scroll)
-            const horizontalDiff = Math.abs(touchEndX - touchStartX);
-            const verticalDiff = Math.abs(touchEndY - touchStartY);
-            
-            if (horizontalDiff > verticalDiff && horizontalDiff > 50) {
-                handleSwipe();
-            }
-        }, { passive: true });
-
-        function handleSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            
-            // Swipe right from left edge - open sidebar
-            if (swipeDistance > 50 && touchStartX < 50 && !AppState.sidebarOpen) {
-                toggleSidebar();
-                if ('vibrate' in navigator) navigator.vibrate(10);
-            }
-            
-            // Swipe left - close sidebar
-            if (swipeDistance < -50 && AppState.sidebarOpen) {
-                closeSidebar();
-                if ('vibrate' in navigator) navigator.vibrate(10);
-            }
-        }
-
-        // ==================== EVENT LISTENERS ====================
-        elements.menuToggle.addEventListener('click', toggleSidebar);
-        elements.closeSidebar.addEventListener('click', closeSidebar);
-        elements.overlay.addEventListener('click', closeSidebar);
-
-        // Nav items click
-        elements.navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const module = item.dataset.module;
-                const theme = item.dataset.theme;
+            Object.entries(osintTools).forEach(([category, tools]) => {
+                html += `
+                    <div class="category-card">
+                        <div class="category-title">${category}</div>
+                        <div class="tools-list">
+                `;
                 
-                if (module) {
-                    switchModule(module);
-                }
+                tools.forEach((tool, index) => {
+                    html += `
+                        <div class="tool-item">
+                            <span><strong>${tool.name}</strong><br><small>${tool.url}</small></span>
+                            <button class="delete-btn" onclick="deleteTool('${category}', ${index})">🗑️</button>
+                        </div>
+                    `;
+                });
                 
-                if (theme) {
-                    switchTheme(theme);
-                }
+                html += `
+                        </div>
+                    </div>
+                `;
             });
-        });
+            
+            container.innerHTML = html || '<p>No hay herramientas configuradas</p>';
+        }
 
-        // Module buttons click
-        elements.moduleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const module = btn.dataset.module;
-                const theme = btn.dataset.theme;
-                
-                if (module) {
-                    switchModule(module);
+        // Actualizar estadísticas
+        function updateStats() {
+            const totalTools = Object.values(osintTools).reduce((sum, tools) => sum + tools.length, 0);
+            const totalCategories = Object.keys(osintTools).length;
+            document.getElementById('stats-text').textContent = `${totalTools} herramientas en ${totalCategories} categorías`;
+        }
+
+        // Toggle mostrar más herramientas
+        function toggleShowMore(button, category) {
+            const card = button.closest('.category-card');
+            const hiddenItems = card.querySelectorAll('.tool-item[style*="display:none"], .tool-item[style*="display: none"]');
+            const isShowing = button.textContent.includes('menos');
+            
+            if (isShowing) {
+                // Ocultar
+                hiddenItems.forEach(item => item.style.display = 'none');
+                const visibleItems = card.querySelectorAll('.tool-item:not([style*="display:none"]):not([style*="display: none"])');
+                for (let i = 4; i < visibleItems.length; i++) {
+                    visibleItems[i].style.display = 'none';
                 }
-                
-                if (theme) {
-                    switchTheme(theme);
+                button.textContent = `Ver ${hiddenItems.length + (visibleItems.length - 4)} más`;
+            } else {
+                // Mostrar
+                hiddenItems.forEach(item => item.style.display = 'flex');
+                const allItems = card.querySelectorAll('.tool-item');
+                for (let i = 4; i < allItems.length; i++) {
+                    allItems[i].style.display = 'flex';
                 }
+                button.textContent = 'Ver menos';
+            }
+        }
+
+        // Abrir todas las herramientas
+        function openAllTools() {
+            const query = document.getElementById('searchQuery').value.trim();
+            if (!query) {
+                alert('Por favor ingresa un término de búsqueda');
+                return;
+            }
+
+            let count = 0;
+            Object.values(osintTools).forEach(tools => {
+                tools.forEach(tool => {
+                    const finalUrl = tool.url.replace('{query}', encodeURIComponent(query));
+                    setTimeout(() => {
+                        window.open(finalUrl, '_blank');
+                    }, count * 500); // Delay para evitar bloqueo de popup
+                    count++;
+                });
             });
-        });
 
-        // ==================== RESPONSIVE SIDEBAR ====================
-        function handleResize() {
-            if (window.innerWidth >= 768) {
-                // Desktop - sidebar always visible
-                AppState.sidebarOpen = false;
-                elements.sidebar.classList.remove('open');
-                elements.overlay.classList.remove('active');
+            if (count > 0) {
+                alert(`Abriendo ${count} herramientas. Asegúrate de permitir pop-ups en tu navegador.`);
             }
         }
 
-        window.addEventListener('resize', handleResize);
-
-        // ==================== INITIALIZE ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 CyberTools Framework Initialized');
-            console.log('📱 Mobile-First Mode Active');
-            console.log('🎨 Current Theme:', AppState.currentTheme);
-            
-            // Prevent pull-to-refresh on mobile
-            document.body.style.overscrollBehavior = 'none';
-            
-            // Add entrance animation
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s';
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // ==================== KEYBOARD SHORTCUTS ====================
-        document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + B - Toggle sidebar
-            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
-                e.preventDefault();
-                toggleSidebar();
-            }
-            
-            // Escape - Close sidebar
-            if (e.key === 'Escape' && AppState.sidebarOpen) {
-                closeSidebar();
-            }
-            
-            // Number keys 1-4 - Switch modules
-            if (e.key >= '1' && e.key <= '4') {
-                const modules = ['osint', 'security', 'legal', 'tools'];
-                const themes = ['theme-osint', 'theme-security', 'theme-legal', 'theme-tools'];
-                const index = parseInt(e.key) - 1;
-                
-                switchModule(modules[index]);
-                switchTheme(themes[index]);
-            }
-        });
-
-        // ==================== HAPTIC FEEDBACK UTILITY ====================
-        function haptic(pattern = 10) {
-            if ('vibrate' in navigator) {
-                navigator.vibrate(pattern);
-            }
+        // Limpiar búsqueda
+        function clearSearch() {
+            document.getElementById('searchQuery').value = '';
+            renderTools();
         }
 
-        // Add haptic to all buttons
-        document.querySelectorAll('button, .btn, .nav-item, .module-btn').forEach(el => {
-            el.addEventListener('click', () => haptic(10));
-        });
-
-        // ==================== NOTIFICATION SYSTEM ====================
-        function showNotification(message, type = 'info') {
-            const colors = {
-                info: 'var(--cyan)',
-                success: 'var(--green)',
-                warning: 'var(--purple)',
-                error: 'var(--red)'
+        // Exportar herramientas
+        function exportTools() {
+            const data = {
+                version: '1.0',
+                exported_at: new Date().toISOString(),
+                tools: osintTools
             };
             
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 80px;
-                right: 16px;
-                background: var(--bg-secondary);
-                border: 1px solid ${colors[type]};
-                border-radius: 8px;
-                padding: 16px;
-                color: var(--text-primary);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-                z-index: 1000;
-                max-width: 300px;
-                animation: slideIn 0.3s ease;
-            `;
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'osint-tools.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Importar herramientas
+        function importTools() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
             
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="fas fa-info-circle" style="color: ${colors[type]}; font-size: 1.2rem;"></i>
-                    <span>${message}</span>
-                </div>
-            `;
+            if (!file) {
+                alert('Por favor selecciona un archivo');
+                return;
+            }
             
-            document.body.appendChild(notification);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    osintTools = data.tools || data; // Compatibilidad con diferentes formatos
+                    renderTools();
+                    updateStats();
+                    showAlert('success', 'Herramientas importadas correctamente');
+                } catch (error) {
+                    alert('Error al leer el archivo: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Cargar herramientas predefinidas
+        function loadDefaultTools() {
+            const defaultTools = {
+                "Facebook": [
+                    { name: "Facebook Search", url: "https://www.facebook.com/search/top/?q={query}" },
+                    { name: "Facebook Directory", url: "https://www.facebook.com/directory/people/" },
+                    { name: "Stalkface", url: "https://stalkface.com/en/" },
+                    { name: "IntelX Facebook", url: "https://intelx.io/tools?tab=facebook" },
+                    { name: "Plessas Facebook Matrix", url: "https://plessas.net/facebookmatrix" },
+                    { name: "Khalil Facebook Tools", url: "https://khalil-shreateh.com/khalil.shtml/social_applications/facebook-applications/" }
+                ],
+                "Instagram": [
+                    { name: "Instagram Explore", url: "https://www.instagram.com/explore/tags/{query}/" },
+                    { name: "Imginn", url: "https://imginn.io/" },
+                    { name: "Instafreeview", url: "https://instafreeview.com/" },
+                    { name: "InstaHunt", url: "https://instahunt.huntintel.io/" },
+                    { name: "InstaNavigation", url: "https://instanavigation.com/" },
+                    { name: "Picuki", url: "https://www.picuki.com/" },
+                    { name: "Instagram User ID", url: "https://www.codeofaninja.com/tools/find-instagram-user-id/" },
+                    { name: "Inflact Analyzer", url: "https://inflact.com/tools/profile-analyzer/" }
+                ],
+                "Twitter": [
+                    { name: "Twitter Search", url: "https://twitter.com/search?q={query}" },
+                    { name: "Twitter Advanced", url: "https://twitter.com/search-advanced" },
+                    { name: "TweetDeck", url: "https://tweetdeck.twitter.com/" },
+                    { name: "Tweeter ID", url: "https://tweeterid.com/" },
+                    { name: "Social Bearing", url: "https://socialbearing.com/" },
+                    { name: "Twitonomy", url: "https://www.twitonomy.com/" },
+                    { name: "Twitter Aware", url: "https://www.aware-online.com/en/osint-tools/twitter-search-tool/" },
+                    { name: "Wayback Tweets", url: "https://waybacktweets.streamlit.app/" },
+                    { name: "Twitter Video DL", url: "https://twittervideodownloader.com/" },
+                    { name: "Who Posted What", url: "https://whopostedwhat.com/" },
+                    { name: "TwtData", url: "https://www.twtdata.com/" }
+                ],
+                "LinkedIn": [
+                    { name: "LinkedIn Search", url: "https://www.linkedin.com/search/results/people/?keywords={query}" },
+                    { name: "IntelTechniques LinkedIn", url: "https://inteltechniques.com/tools/Linkedin.html" },
+                    { name: "IntelX LinkedIn", url: "https://intelx.io/tools?tab=linkedin" },
+                    { name: "LinkedIn Boolean", url: "https://linkedprospect.com/linkedin-boolean-search-tool/#tool" },
+                    { name: "Recruitin", url: "https://recruitin.net/" },
+                    { name: "RocketReach", url: "https://rocketreach.co/person" }
+                ],
+                "Telegram": [
+                    { name: "TDirectory", url: "https://tdirectory.me/" },
+                    { name: "Telegram Channels", url: "https://telegramchannels.me/" },
+                    { name: "TGram", url: "https://tgram.io/" },
+                    { name: "TGStat", url: "https://tgstat.com/" },
+                    { name: "TGStat RU", url: "https://tgstat.ru/" },
+                    { name: "TLGRM", url: "https://tlgrm.eu/channels" },
+                    { name: "Telegram Group", url: "https://www.telegram-group.com/" },
+                    { name: "IntelX Telegram", url: "https://intelx.io/tools?tab=telegram" },
+                    { name: "Chat Bottle", url: "https://chatbottle.co/bots/telegram" }
+                ],
+                "Reddit": [
+                    { name: "Reddit Search", url: "https://www.redditsearch.io/" },
+                    { name: "Reddit Comment Search", url: "https://redditcommentsearch.com/" },
+                    { name: "Reddit Shell", url: "https://redditshell.com/" },
+                    { name: "Reddit Archive", url: "http://www.redditarchive.com/" },
+                    { name: "Reddit List", url: "http://redditlist.com/" },
+                    { name: "Subreddits", url: "http://subreddits.org/" },
+                    { name: "Reddit Stream", url: "http://reddit-stream.com/" },
+                    { name: "Reddit Videos", url: "https://redditvids.com/" },
+                    { name: "Redective", url: "http://redective.com/" },
+                    { name: "OSINT Combine Reddit", url: "https://www.osintcombine.com/reddit-post-analyser" },
+                    { name: "Karma Decay", url: "http://karmadecay.com/" },
+                    { name: "Reddit User Analyser", url: "https://atomiks.github.io/reddit-user-analyser" }
+                ],
+                "TikTok": [
+                    { name: "SSSTIK", url: "https://ssstik.io/en-1" },
+                    { name: "Exolyt", url: "https://exolyt.com/" },
+                    { name: "SMAT Timeline", url: "https://www.smat-app.com/timeline" }
+                ],
+                "GitHub": [
+                    { name: "GitHub", url: "https://github.com/" },
+                    { name: "GitHub Search", url: "https://github.com/search?q={query}" },
+                    { name: "Git Awards", url: "http://git-awards.com/" },
+                    { name: "GitHub Stars", url: "http://githubstars.com/" },
+                    { name: "GitHub Trending", url: "https://github.com/trending" },
+                    { name: "CodeStats", url: "https://coderstats.net/" },
+                    { name: "GitHub Username Search", url: "https://jonnygovish.github.io/Github-username-search-engine" },
+                    { name: "GitHub ID", url: "http://caius.github.io/github_id" }
+                ],
+                "Snapchat": [
+                    { name: "Snapchat Map", url: "https://map.snapchat.com/" },
+                    { name: "Add Me Snaps", url: "https://www.addmesnaps.com/" },
+                    { name: "Ghost Codes", url: "https://www.ghostcodes.com/" },
+                    { name: "Snapchat Usernames", url: "https://gebruikersnamen.nl/snapchat" },
+                    { name: "OSINT Combine Snapchat", url: "https://www.osintcombine.com/snapchat-multi-viewer" }
+                ],
+                "WhatsApp": [
+                    { name: "CheckWA", url: "https://checkwa.online/" },
+                    { name: "Fake WhatsApp", url: "http://www.fakewhats.com/generator" },
+                    { name: "Chat Today", url: "https://chattoday.com/" }
+                ],
+                "OnlyFans": [
+                    { name: "OnlyFans Finder", url: "https://onlyfansfinder.co/" },
+                    { name: "OnlyFinder", url: "https://onlyfinder.com/" },
+                    { name: "OnlySearch", url: "https://onlysearch.co/" },
+                    { name: "Hubite", url: "https://hubite.com/en/onlyfans-search/" },
+                    { name: "Similar Fans", url: "https://similarfans.com/" },
+                    { name: "Full DP", url: "https://fulldp.co/onlyfans-full-size-profile-picture/" },
+                    { name: "Fan Search", url: "https://www.fansearch.com/" },
+                    { name: "Fans Metrics", url: "https://fansmetrics.com/" },
+                    { name: "FindR Fans", url: "https://findr.fans/" }
+                ],
+                "Discord": [
+                    { name: "Discord ID", url: "https://discord.id/" },
+                    { name: "Discord Name", url: "https://discord.name/" },
+                    { name: "Disboard", url: "https://disboard.org/" },
+                    { name: "Top.gg", url: "https://top.gg/" }
+                ],
+                "Personas": [
+                    { name: "Lookup ID", url: "https://lookup-id.com/" },
+                    { name: "Lookup Guru", url: "https://lookup.guru/" },
+                    { name: "Analyze ID", url: "https://analyzeid.com/" },
+                    { name: "Free People Search", url: "https://freepeoplesearchtool.com/#gsc.tab=0" },
+                    { name: "Reverse Contact", url: "https://www.reversecontact.com/" },
+                    { name: "Social Finder", url: "https://socialfinder.app/" }
+                ],
+                "Pinterest": [
+                    { name: "Pinterest Search", url: "https://www.pinterest.com/search/pins/?q={query}" },
+                    { name: "Sourcing Lab Pinterest", url: "https://sourcinglab.io/search/pinterest" },
+                    { name: "Pinterest Photo DL", url: "https://www.expertsphp.com/pinterest-photo-downloader.html" }
+                ],
+                "Herramientas Generales": [
+                    { name: "Social Searcher", url: "https://www.social-searcher.com/" },
+                    { name: "Social Data Tools", url: "https://socialdata.tools/" },
+                    { name: "Follower Wonk", url: "https://followerwonk.com/bio" },
+                    { name: "Foller", url: "https://foller.me/" },
+                    { name: "TinfoLeak", url: "https://tinfoleak.com/" },
+                    { name: "F5Bot", url: "https://f5bot.com/" },
+                    { name: "OSINT Tools", url: "https://osinttools.io/" },
+                    { name: "OSINT Updates", url: "https://osintupdates.com/" },
+                    { name: "OSINT Resources", url: "https://www.osintresources.com/" },
+                    { name: "Digital Digging Cache", url: "https://cache.digitaldigging.org/" },
+                    { name: "IntelX", url: "https://intelx.io/" },
+                    { name: "Search is Back", url: "https://searchisback.com/" },
+                    { name: "SowSearch", url: "https://www.sowsearch.info/" }
+                ]
+            };
+            
+            // Combinar con herramientas existentes
+            Object.entries(defaultTools).forEach(([category, tools]) => {
+                if (!osintTools[category]) {
+                    osintTools[category] = [];
+                }
+                tools.forEach(tool => {
+                    // Solo agregar si no existe ya
+                    const exists = osintTools[category].some(existing => existing.name === tool.name);
+                    if (!exists) {
+                        osintTools[category].push(tool);
+                    }
+                });
+            });
+            
+            renderTools();
+            updateStats();
+            showAlert('success', 'Herramientas básicas cargadas correctamente');
+        }
+
+        // Mostrar alertas
+        function showAlert(type, message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            const activeTab = document.querySelector('.tab-content.active');
+            activeTab.insertBefore(alertDiv, activeTab.firstChild);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
+                alertDiv.remove();
+            }, 5000);
         }
 
-        // Add notification animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Test notification on load
-        setTimeout(() => {
-            showNotification('Sistema inicializado correctamente', 'success');
-        }, 1000);
-
-        // ==================== MODULE LOADER SYSTEM ====================
-        const ModuleLoader = {
-            modules: {},
-            
-            register(name, loadFunction) {
-                this.modules[name] = loadFunction;
-            },
-            
-            async load(name) {
-                if (!this.modules[name]) {
-                    console.error(`Module ${name} not found`);
-                    showNotification(`Módulo ${name} no disponible`, 'error');
-                    return;
-                }
-                
-                try {
-                    showNotification(`Cargando módulo ${name}...`, 'info');
-                    await this.modules[name]();
-                    showNotification(`Módulo ${name} cargado`, 'success');
-                } catch (error) {
-                    console.error(`Error loading module ${name}:`, error);
-                    showNotification(`Error al cargar ${name}`, 'error');
-                }
-            }
-        };
-
-        // ==================== REGISTER MODULES ====================
-        ModuleLoader.register('osint', async () => {
-            console.log('Loading OSINT Pro module...');
-            // Aquí cargarías tu OSINT_Pro.js
-            // Ejemplo:
-            // const module = await import('./apps/osint-pro.js');
-            // module.init(document.getElementById('main-content'));
+        // Event listeners
+        document.getElementById('searchQuery').addEventListener('input', function() {
+            currentQuery = this.value;
+            renderTools();
         });
 
-        ModuleLoader.register('security', async () => {
-            console.log('Loading Security module...');
-            // Tu módulo de seguridad
+        // Inicializar aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDefaultTools(); // Cargar herramientas básicas al inicio
         });
-
-        ModuleLoader.register('legal', async () => {
-            console.log('Loading Legal module...');
-            // Tu módulo legal
-        });
-
-        ModuleLoader.register('tools', async () => {
-            console.log('Loading Tools module...');
-            // Tu módulo de herramientas
-        });
-
-        // ==================== PERFORMANCE MONITORING ====================
-        if ('performance' in window) {
-            window.addEventListener('load', () => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('⚡ Load Time:', Math.round(perfData.loadEventEnd), 'ms');
-            });
-        }
-
-        // ==================== SERVICE WORKER (for PWA) ====================
-        if ('serviceWorker' in navigator) {
-            // Uncomment when you have a service worker file
-            // navigator.serviceWorker.register('/sw.js')
-            //     .then(reg => console.log('✅ Service Worker registered'))
-            //     .catch(err => console.error('❌ SW registration failed:', err));
-        }
-
-        // ==================== EXPORT FOR EXTERNAL USE ====================
-        window.CyberTools = {
-            state: AppState,
-            toggleSidebar,
-            closeSidebar,
-            switchTheme,
-            switchModule,
-            showNotification,
-            ModuleLoader,
-            haptic
-        };
-
-        console.log('🎯 CyberTools API available at window.CyberTools');
     </script>
 </body>
 </html>
